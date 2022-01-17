@@ -1,3 +1,3 @@
-# The R Markdown Book
+# Data Science per psicologi
 
-The comprehensive documentation of R Markdown, published by [Chapman & Hall/CRC](https://www.crcpress.com/p/book/9781138359338).
+Dispensa per l'insegnamento di Psicometria, Scienze e Tecniche Psicologiche (L-24), Università degli Studi di Firenze, AA 2021/2022.
