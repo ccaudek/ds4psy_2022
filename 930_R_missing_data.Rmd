@@ -47,6 +47,7 @@ d
 is.na(d$w)
 is.na(d$x)
 ```
+
 Per creare un nuovo Dataframe senza valori mancanti:
 
 ```{r}

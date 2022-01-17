@@ -1,6 +1,6 @@
 # Valutare e confrontare i modelli {#loo-stan}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c092, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_common.R")
 source("_stan_options.R")
 library("brms")
@@ -936,11 +936,6 @@ Il seguente modello di regressione utilizza `kid_score` quale variabile dipenden
 m1 <- brm(
   kid_score ~ (mom_iq + mom_hs + mom_work + mom_age)^2,
   data = kidiq_scaled,
-  prior = c(
-    prior(normal(0, 1), class = "Intercept"),
-    prior(normal(0, 1), class = "b"),
-    prior(student_t(4, 0, 1), class = "sigma")
-  ),
   seed = 2302,
   chains = 4L,
   cores = 4L,
@@ -1019,11 +1014,6 @@ Per fare un confronto, stimiamo i coefficienti del modello di regressione che in
 ```{r}
 m2 <- brm(kid_score ~ mom_iq,
   data = kidiq_scaled,
-  prior = c(
-    prior(normal(0, 1), class = "Intercept"),
-    prior(normal(0, 1), class = "b"),
-    prior(student_t(4, 0, 1), class = "sigma")
-  ),
   seed = 2302,
   chains = 4L,
   cores = 4L,

@@ -202,9 +202,14 @@ specificato. Per tali osservazioni, dunque, la classe di appartenenza è
 È spesso utile eseguire la stessa operazione su più colonne, ma copiare e incollare è sia noioso che soggetto a errori:
 
 ```{r, eval=FALSE}
-df %>% 
-  group_by(g1, g2) %>% 
-  summarise(a = mean(a), b = mean(b), c = mean(c), d = mean(d))
+df %>%
+  group_by(g1, g2) %>%
+  summarise(
+    a = mean(a),
+    b = mean(b),
+    c = mean(c),
+    d = mean(d)
+  )
 ```
 
 \noindent
@@ -224,7 +229,6 @@ msleep %>%
   group_by(vore) %>%
   summarise(across(starts_with("sleep"), ~ mean(.x, na.rm = TRUE)))
 ```
-
 
 ### Dati categoriali in `R`
 

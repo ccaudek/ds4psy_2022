@@ -1,6 +1,6 @@
 # Introduzione al modello lineare {#regr-models-intro}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c051, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_common.R")
 source("_stan_options.R")
 ```

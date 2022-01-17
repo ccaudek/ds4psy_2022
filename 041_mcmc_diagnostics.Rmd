@@ -1,6 +1,6 @@
 # Diagnostica delle catene markoviane {#diagn-markov-chains}
 
-```{r setup, include = FALSE}
+```{r c041, include = FALSE}
 source("_common.R")
 source("_stan_options.R")
 suppressPackageStartupMessages(library("rethinking")) 
@@ -10,9 +10,7 @@ suppressPackageStartupMessages(library("brms"))
 Come discusso nel Paragrafo \@ref(cmdstanr-gautret), le catene di Markov forniscono un'approssimazione che tende a convergere alla distribuzione a posteriori. "Approssimazione" e "convergenza" sono le parole chiave qui: il punto è che il campionamento MCMC non è perfetto. Questo solleva le seguenti domande:
 
 - A cosa corrisponde, dal punto di vista grafico, una "buona" catena di Markov?
-
 - Come possiamo sapere se il campione prodotto dalla catena di Markov costituisce un'approssimazione adeguata della distribuzione a posteriori?
-
 - Quanto deve essere grande la dimensione del campione casuale prodotto dalla  catena Markov?
 
 Rispondere a queste ed altre domande di questo tipo fa parte di quell'insieme di pratiche che vano sotto il nome di _diagnostica delle catene Markoviane_. 
@@ -91,9 +89,7 @@ In pratica, al di là dei presenti esempi "scolastici" (in cui disponiamo di una
 In tali circostanze possiamo ricorrere ad alcuni rimedi.
 
 1. Controllare il modello. Siamo sicuri che le distribuzioni a priori e la verosimiglianza siano appropriate per i dati osservati?
-
 2. Utilizzare un numero maggiore di iterazioni. Alcune tendenze indesiderate a breve termine della catena possono appianarsi nel lungo termine.
-
 
 ## Confronto delle catene parallele
 
@@ -120,7 +116,6 @@ bb_short <- mod$sample(
 stanfit_bb_short <- rstan::read_stan_csv(bb_short$output_files())
 ```
 
-\noindent
 Di seguito sono riportati i _trace-plot_ e i corrispondenti istogrammi lisciati. 
 
 ```{r}
@@ -132,7 +127,6 @@ mcmc_dens_overlay(stanfit_bb_short, pars = "theta")
 ```
 
 Anche se i _trace plot_ sembrano tutti mostrare un andamento casuale, gli istogrammi lisciati sono piuttosto diversi tra loro e producono approssimazioni diverse della distribuzione a posteriori. Di fronte a tale instabilità è chiaro che sarebbe un errore interrompere la simulazione dopo solo 100 iterazioni.
-
 
 ## Numerosità campionaria effettiva
 
@@ -147,11 +141,12 @@ bayesplot::neff_ratio(stanfit1, pars = c("theta"))
 Ciò indica che l'accuratezza dell'approssimazione della distribuzione a posteriori di $\theta$ ottenuta mediante 16000 campioni dipendenti è approssimativamente simile a quella che si potrebbe ottenere con 
 
 ```{r}
-bayesplot::neff_ratio(stanfit1, pars = c("theta")) * 16000
+bayesplot::neff_ratio(
+  stanfit1, pars = c("theta")
+) * 16000
 ```
-\noindent
-campioni _indipendenti_. In questo esempio, il rapporto campionario effettivo è maggiore di 0.1; dunque non ci sono problemi.
 
+campioni _indipendenti_. In questo esempio, il rapporto campionario effettivo è maggiore di 0.1; dunque non ci sono problemi.
 
 ## Autocorrelazione
 
@@ -185,7 +180,6 @@ S <- ggmcmc::ggs(stanfit1)
 head(S)
 ```
 
-\noindent
 La prima catena può essere isolata nel modo seguente:
 
 ```{r}
@@ -195,14 +189,13 @@ S1 <- S %>%
     Parameter == "theta"
   )
 ```
-\noindent
+
 Una serie temporale della catena si ottiene con la funzione `ggmcmc::ggs_running`:
 
 ```{r}
 ggmcmc::ggs_running(S1)
 ```
 
-\noindent
 Il grafico precedente mostra che, per il modello bayesiano che stiamo discutendo, una condizione di equilibrio della catena di Markov richiederebbe un numero maggiore di iterazioni di quelle che sono state effettivamente simulate.
 
 L'autocorrelazione di ordine 1 si ottiene nel modo seguente (si veda il Paragrafo \@ref(approx-post-autocor)):
@@ -211,9 +204,7 @@ L'autocorrelazione di ordine 1 si ottiene nel modo seguente (si veda il Paragraf
 cor(S1$value[-length(S1$value)], S1$value[-1])
 ```
 
-\noindent
 Questo valore corrisponde a ciò che è riportato nel correlogramma mostrato sopra.
-
 
 ## Statistica $\hat{R}$
 
@@ -224,7 +215,7 @@ In precedenza abbiamo detto che non solo è necessario che ogni singola catena s
 ```{r}
 bayesplot::rhat(stanfit1, pars = "theta")
 ```
-\noindent
+
 il che indica che il valore $\hat{R}$ ottenuto è molto simile al valore ottimale. 
 
 In maniera euristica, si può affermare che se $\hat{R}$ supera la soglia di 1.05 questo viene interpretato come evidenza che le diverse catene parallele non producono approssimazioni coerenti della distribuzione a posteriori, quindi la simulazione è instabile.
@@ -234,7 +225,6 @@ Una rappresentazione grafica dei valori $\hat{R}$ per tutti i parametri del mode
 ```{r}
 ggmcmc::ggs_Rhat(S) + xlab("R_hat") + xlim(0.95, 1.05)
 ```
-
 
 ## Diagnostica di convergenza di Geweke
 
@@ -249,7 +239,7 @@ fit_mcmc <- As.mcmc.list(
 )
 coda::geweke.diag(fit_mcmc, frac1 = .1, frac2 = .5) 
 ```
-\noindent
+
 Per interpretare questi valori ricordiamo che la statistica di Geweke è uguale a zero quando le medie delle due porzioni della  catena di Markov sono uguali. Valori maggiori di $\mid 2 \mid$ suggeriscono che la catena non ha ancora raggiunto una distribuzione stazionaria.
 
 

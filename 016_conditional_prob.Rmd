@@ -1,6 +1,6 @@
 # Probabilità condizionata {#chapter-prob-cond}
 
-```{r, include = FALSE}
+```{r c016, include = FALSE}
 source("_common.R")
 ```
 

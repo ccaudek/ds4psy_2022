@@ -1,6 +1,6 @@
 # Distribuzioni di v.c. continue {#distr-rv-cont}
 
-```{r include = FALSE}
+```{r c023, include = FALSE}
 source("_common.R")
 library("scales")
 library("gghighlight")

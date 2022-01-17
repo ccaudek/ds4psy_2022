@@ -72,10 +72,13 @@ Mediante il menu a tendina di RStudio, scegliendo il percorso
 ````
 File > New File > R Notebook
 ````
+
 oppure
+
 ````
 File > New File > R Script
 ````
+
 l'utente può aprire nella finestra del codice (in alto a destra) un $\R$ Notebook o un $\R$ script dove inserire le istruzioni da eseguire.
 
 In un $\R$ script, un blocco di codice viene eseguito selezionando un

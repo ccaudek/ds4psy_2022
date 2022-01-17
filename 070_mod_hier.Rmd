@@ -1,9 +1,8 @@
 # Modello gerarchico {#mod-hier-stan}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c070, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_common.R")
 source("_stan_options.R")
-suppressPackageStartupMessages(library("brms")) 
 suppressPackageStartupMessages(library("rstan")) 
 ```
 
@@ -18,6 +17,7 @@ rdat <- read.table(here::here("data", "gibsonwu2012data.txt"))
 rdat$so <- ifelse(rdat$type == "subj-ext", -0.5, 0.5)
 head(rdat)
 ```
+
 La variabile di interesse che corrisponde alla manipolazione sperimentale è chiamata `so` ed è stata codificata con -0.5 se il sostantivo era riferito al soggetto e con +0.5 se il sostantivo era riferito all'oggetto della frase.
 
 Calcoliamo la media dei tempi di reazione su scala logaritmica e per poi ritrasformare il risultato sulla scala originale:
@@ -32,22 +32,26 @@ rdat %>%
 
 Quando il sostantivo si riferisce al soggetto, i tempi di reazione sono più lenti di circa 30 ms. Questa descrizione dei dati, però non tiene conto né delle differenze tra i soggetti né delle differenze tra gli item. Per tenere in considerazioni queste diverse fonti della variabilità dei dati è necessario utilizzare un modello detto gerarchico. 
 
-
 ## Modello ad effetti fissi
 
 Iniziamo con il modello "ad effetti fissi" che non tiene conto della struttura gerarchica dei dati, ovvero del fatto che c'è una covariazione all'interno dei cluster di dati definiti dalle variabili "soggetto" e "item".
 
 Assumiamo che la variabile dipendente `rt` (del tempo di lettura) sia approssimativamente distribuita in modo logaritmico [@rouder2005unshifted]. Ciò presuppone che il logaritmo di `rt` sia distribuito approssimativamente in maniera normale. Il modello per il logaritmo dei tempi di lettura, $\log$ `rt`, diventa
+
 \begin{equation}
 \log rt_i = \beta_0 + \beta_1 so_i + \varepsilon_i,
 \end{equation}
+
 ovvero
+
 \begin{equation}
 rt \sim LogNormal(\beta_0 + \beta_1 so,\sigma)
 \end{equation}
+
 dove $\beta_0$ è la media generale di $\log$ `rt` e $\beta_1 so$ codifica la differenza $\E(\log rt_{o}) - \E(\log rt_{s})$ quando si passa dalla condizione nella quale il sostantivo è riferito all'oggetto alla condizione nella quale il sostantivo è riferito all'soggetto -- valori negativi significano che i tempi di reazioni sono maggiori nella condizione `s` che nella condizione `o`.
 
 Nel modello useremo le seguenti distribuzioni a priori:
+
 \begin{equation}
 \begin{aligned}
 \beta[1] &\sim Normal(6, 1.5) \\
@@ -92,6 +96,7 @@ mod <- cmdstan_model(file)
 ```
 
 I dati sono contenuti nella lista `stan_dat`:
+
 ```{r}
 stan_dat <- list(
   rt = rdat$rt,
@@ -116,11 +121,13 @@ fit3 <- mod$sample(
 ```
 
 Otteniamo un oggetto di classe `stanfit`:
+
 ```{r}
 stanfit <- rstan::read_stan_csv(fit3$output_files())
 ```
 
 Calcoliamo gli intervalli di credibilità al 95%:
+
 ```{r}
 ci95 <- rstanarm::posterior_interval(
   as.matrix(stanfit),
@@ -129,13 +136,13 @@ ci95 <- rstanarm::posterior_interval(
 round(ci95, 3)
 ```
 
-L'effetto medio, sulla scala in millisecondi, si trova nel modo seguente:x
+L'effetto medio, sulla scala in millisecondi, si trova nel modo seguente:
+
 ```{r}
 posterior <- extract(stanfit, permuted = TRUE)
 exp(mean(posterior$beta[, 1] + posterior$beta[, 2])) - 
   exp(mean(posterior$beta[, 1]))
 ```
-
 
 ## Modello gerarchico
 
@@ -144,6 +151,7 @@ Il modello a effetti fissi è inappropriato per i dati di @gibson2013processing 
 Nei modelli lineari misti, teniamo in considerazione la variabilità dovuta alle differenze tra soggetti e tra item aggiungendo al modello i termini $u_{0j}$ e $w_{0k}$ che aggiustano $\beta_0$ stimando una componente specifica al soggetto $j$ e all'item $k$. Questa formulazione del modello scompone parzialmente $\varepsilon_i$ in una somma di termini $u_{0j}$ e $w_{0k}$ che, geometricamente, corrispondono a degli aggiustamenti dell'intercetta $\beta_0$ specifici per il soggetto $j$ e per l'item $k$. Se il soggetto $j$ è più lento della media di tutti i soggetti, $u_j$ sarà un numero positivo; se l'item $k$ viene letto più velocemente del tempo di lettura medio di tutti gli item, allora $w_k$ sarà un numero negativo. Viene stimato un aggiustamento $u_{0j}$ per ogni soggetto $j$ e un aggiustamento $w_{0k}$ per ogni item. Gli aggiustamenti $u_{0j}$ e $w_{0k}$ sono chiamati _random intercepts_ o _varying intercepts_ [@gelman2020regression]. La modifica di $\beta_0$ mediante  $u_{0j}$ e $w_{0k}$ consente dunque di tenere in considerazione la variabilità dovuta ai soggetti e agli item.
 
 Il random intercept model assume che gli aggiustamenti $u_{0j}$ e $w_{0k}$ siano  distribuiti normalmente attorno allo zero con una deviazione standard sconosciuta: $u_0 ∼ \mathcal{N}(0, \sigma_u)$ e $w_0 ∼ \mathcal{N}(0, \sigma_w)$. Il modello include dunque tre fonti di varianza: la deviazione standard degli errori $\sigma_e$, la deviazione standard delle _random intercepts_ per i soggetti, $\sigma_u$, e la deviazione standard delle _random intercepts_ per gli item, $\sigma_w$. Queste tre fonti di variabilità sono dette _componenti della varianza_. Possiamo dunque scrivere:
+
 \begin{equation}
 \log rt_{ijk} = \beta_0 + \beta_1 so_i + u_{0j} + w_{0k} + \varepsilon_{ijk}.
 \end{equation}
@@ -240,24 +248,24 @@ ci95 <- rstanarm::posterior_interval(
 round(ci95, 3)
 ```
 
-Questi risultati replicano i risultati che si ottengono con la funzione `brms::brm`:
+<!-- Questi risultati replicano i risultati che si ottengono con la funzione `brms::brm`: -->
 
-```{r, warning=FALSE, message=FALSE, error=FALSE, results='hide'}
-M1 <- brm(
-  rt ~ so + (1 | subj) + (1 | item),
-  family = lognormal(),
-  prior = c(
-    prior(normal(6, 1.5), class = Intercept),
-    prior(normal(0, 1), class = sigma),
-    prior(normal(0, 1), class = b)
-    ),
-  data = rdat
-)
-```
+<!-- ```{r, warning=FALSE, message=FALSE, error=FALSE, results='hide'} -->
+<!-- M1 <- brm( -->
+<!--   rt ~ so + (1 | subj) + (1 | item), -->
+<!--   family = lognormal(), -->
+<!--   prior = c( -->
+<!--     prior(normal(6, 1.5), class = Intercept), -->
+<!--     prior(normal(0, 1), class = sigma), -->
+<!--     prior(normal(0, 1), class = b) -->
+<!--     ), -->
+<!--   data = rdat -->
+<!-- ) -->
+<!-- ``` -->
 
-```{r}
-summary(M1)
-```
+<!-- ```{r} -->
+<!-- summary(M1) -->
+<!-- ``` -->
 
 
 

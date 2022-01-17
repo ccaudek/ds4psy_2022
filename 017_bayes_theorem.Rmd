@@ -1,6 +1,6 @@
 # Il teorema di Bayes {#chapter-teo-bayes}
 
-```{r, include = FALSE}
+```{r c017, include = FALSE}
 source("_common.R")
 ```
 

@@ -1,6 +1,6 @@
 # Probabilità congiunta {#chapter-prob-congiunta}
 
-```{r, include = FALSE}
+```{r c018, include = FALSE}
 source("_common.R")
 ```
 

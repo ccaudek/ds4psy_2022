@@ -1,12 +1,11 @@
 # Confronto di $k$ gruppi
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c060, echo=FALSE}
 source("_common.R")
 source("_stan_options.R")
 ```
 
 L'Analisi della Varianza (ANOVA) consente ai ricercatori di valutare gli effetti di predittori categoriali su una variabile di esito continua. L'ANOVA è un'analisi di regressione nella quale tutte le variabili indipendenti sono qualitative. 
-
 
 ## Le abilità sociali di un robot
 
@@ -22,7 +21,9 @@ Pertanto, il disegno di questo studio è un'ANOVA tra i soggetti 2 (_Interaction
 Iniziamo a leggere i dati
 
 ```{r}
-d <- rio::import(here("data", "pone.0201581.s001.sav"))
+d <- rio::import(
+  here("data", "pone.0201581.s001.sav")
+)
 ```
 
 Per comodità creiamo la variabile `cond` con quattro modalità (`SO`, `FO`, `SN`, `FN`), dove `S` significa _social interaction_, `F` sta per _funcitonal interaction_, `O` sta per _objection_ e `N` sta per _no objection_.
@@ -40,7 +41,7 @@ Ci sono alcuni dati mancanti, quindi verranno omesse le righe con `NA`. Selezion
 
 ```{r}
 dd <- d %>% 
-  select(cond, SwitchOff_Time) %>% 
+  dplyr::select(cond, SwitchOff_Time) %>% 
   na.omit()
 ```
 
@@ -54,7 +55,7 @@ dd %>%
     sd_sot = sd(SwitchOff_Time, na.rm = TRUE)
   )
 ```
-\noindent
+
 Visualizziamo i dati:
 
 ```{r}
@@ -64,19 +65,24 @@ dd_summary <- dd %>%
     sot_mean = mean(SwitchOff_Time),
     sot_sd = sd(SwitchOff_Time),
     sot_median = median(SwitchOff_Time)
-  ) %>% 
+  ) %>%
   ungroup()
 
 dd %>%
   ggplot(
     aes(x = cond, y = SwitchOff_Time, color = cond)
   ) +
-  ggforce::geom_sina(aes(color = cond, size = 3, alpha = .5)) +
+  ggforce::geom_sina(
+    aes(color = cond, size = 3, alpha = .5)
+  ) +
   geom_errorbar(
-    aes(y = sot_median, ymin = sot_median, ymax = sot_median),
+    aes(
+      y = sot_median, ymin = sot_median,
+      ymax = sot_median
+    ),
     data = dd_summary, width = 0.5, size = 3
   ) +
-  scale_color_okabe_ito(name = "cond", alpha = .9) +
+  scale_colour_grey(name = "cond") +
   labs(
     x = "",
     y = "SwitchOff Time",
@@ -84,7 +90,7 @@ dd %>%
   ) +
   theme(legend.position = "none")
 ```
-\noindent
+
 Su scala logaritmica, l'asimmetria positiva della variabile `dd$SwitchOff_Time` viene ridotta.
 
 ```{r, echo=FALSE}
@@ -94,19 +100,28 @@ dd_summary <- dd %>%
     sot_mean = mean(log(SwitchOff_Time)),
     sot_sd = sd(log(SwitchOff_Time)),
     sot_median = median(log(SwitchOff_Time))
-  ) %>% 
+  ) %>%
   ungroup()
 
 dd %>%
   ggplot(
-    aes(x = cond, y = log(SwitchOff_Time), color = cond)
+    aes(
+      x = cond, y = log(SwitchOff_Time),
+      color = cond
+    )
   ) +
-  ggforce::geom_sina(aes(color = cond, size = 3, alpha = .5)) +
+  ggforce::geom_sina(aes(
+    color = cond,
+    size = 3, alpha = .5
+  )) +
   geom_errorbar(
-    aes(y = sot_median, ymin = sot_median, ymax = sot_median),
+    aes(
+      y = sot_median, ymin = sot_median,
+      ymax = sot_median
+    ),
     data = dd_summary, width = 0.5, size = 3
   ) +
-  scale_color_okabe_ito(name = "cond", alpha = .9) +
+  scale_colour_grey(name = "cond") +
   labs(
     x = "",
     y = "SwitchOff Time (log)",
@@ -115,7 +130,6 @@ dd %>%
   theme(legend.position = "none")
 ```
 
-\noindent
 Per i dati trasformati, la mediana in ciascuna condizione è:
 
 ```{r}
@@ -126,7 +140,7 @@ dd %>%
     avg_y = median(y)
   )
 ```
-\noindent
+
 Creiamo ora la variabile `x` che indicizza le quattro condizioni (la variabile `x` verrà usata nel modello Stan):
 
 ```{r}
@@ -206,10 +220,8 @@ Esaminando i risultati
 ```{r}
 fit$summary()
 ```
-\noindent
-ci rendiamo conto che cìè una buona corrispondenza tra le medie a posteriori e le medie campionarie.
 
-Trasformiamo l'oggetto `fit` in un oggetto di classe `stanfit`:
+ci rendiamo conto che cìè una buona corrispondenza tra le medie a posteriori e le medie campionarie. Trasformiamo l'oggetto `fit` in un oggetto di classe `stanfit`:
 
 ```{r}
 stanfit <- rstan::read_stan_csv(fit$output_files())
@@ -243,7 +255,6 @@ ci95 <- rstanarm::posterior_interval(
 round(ci95, 2)
 ```
 
-
 ## I test statistici dell'Analisi della Varianza {#anova-stan}
 
 L'ANOVA include test statistici di due tipi: i test sull'interazione tra i fattori e i test sugli effetti principali. Per chiarire il significato di "interazione" e di "effetto principale" è necessario prima definire il significato di "effetto statistico".
@@ -272,7 +283,6 @@ knitr::include_graphics("images/anova3.pdf")
 
 Dagli esempi precedenti si evince che c'è un'interazione ogni qualvolta i profili delle medie non sono paralleli. Anche se, nella popolazione, non c'è interazione, a causa della variabilità campionaria i profili delle medie non sono mai perfettamente paralleli nel campione. Il problema è quello di stabilire se l'assenza di parallelismo nel campione fornisce sufficiente evidenza di presenza di interazione nella popolazione. 
 
-
 ### Test sull'interazione
 
 Ritorniamo ora ai dati di @horstmann2018robot. Nel caso di un disegno 2 $\times$ 2, con i fattori _Interaction type_ (social, functional) e _Robot's objection_ (objection, no objection), è possibile verificare la presenza dell'interazione _Interaction type_ $\times$ _Robot's objection_. 
@@ -299,7 +309,6 @@ sum(
 ```
 
 La stima di questa probabilità in un test direzionale è molto simile alla probabilità frequentista riportata da @horstmann2018robot, ovvero $p = 0.016$. @horstmann2018robot riportano la presenza di un'interazione tra _Interaction type_ e _Robot's objection_ (com'è stato anche trovato con la presente ANOVA bayesiana). Per interpretare l'interazione è necessario esaminare le mediane dei quattro gruppi.^[In presenza di outlier la mediana fornisce una misura di tenenza centrale più robusta della media.] L'esame delle mediane indica che l'effetto del fattore _Robot's objection_ è più grande quando il fattore _Interaction type_ assume la modalità _Functional_ piuttosto che _Social_. Ma possiamo anche leggere l'interazione nella direzione opposta: l'effetto del fattore _Interaction type_ è più grande quando il fattore _Robot's objection_ assume la modalità _Objection_ anziché _No objection_. 
-
 
 ### Test sugli effetti principali
 
@@ -333,6 +342,7 @@ mean(
   (exp(posterior$mu[, 3]) + exp(posterior$mu[, 4])) / 2
 )
 ```
+
 In base al modello bayesiano, la probabilità direzionale per l'evento complementare è
 
 ```{r}
@@ -342,6 +352,7 @@ sum(
   ) / 
   length(posterior$mu[, 1])
 ```
+
 e corrisponde, in ordine di grandezza, alla probabilità frequentista riportata da @horstmann2018robot, ovvero $p$ = 0.004.
 
 

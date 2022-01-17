@@ -4,7 +4,7 @@
 
 # Statistica descrittiva {#descriptive-stats}
 
-```{r, include = FALSE}
+```{r c013, include = FALSE}
 source("_common.R")
 ```
 

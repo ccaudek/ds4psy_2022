@@ -4,7 +4,7 @@
 
 # Il calcolo delle probabilità {#intro-prob-1}
 
-```{r, include = FALSE}
+```{r c015, include = FALSE}
 source("_common.R")
 ```
 

@@ -12,7 +12,6 @@ alfanumerico. Di conseguenza, `R`distingue tra oggetti aventi _modi_
 diversi. Inoltre, i dati possono essere organizzati in righe e colonne
 in base a diversi tipi di strutture che `R` chiama _classi_.
 
-
 ### Classi e modi degli oggetti
 
 Gli oggetti `R` si distinguono a seconda della loro classe (*class*) e

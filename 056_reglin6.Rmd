@@ -1,6 +1,6 @@
 # Adattare il modello lineare ai dati {#regr-ml}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c056, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_common.R")
 source("_stan_options.R")
 library("rstan")
@@ -20,7 +20,6 @@ library("rio")
 df <- rio::import(here("data", "kidiq.dta"))
 ```
 
-
 ```{r}
 data_list <- list(
   N = length(df$kid_score),
@@ -28,7 +27,6 @@ data_list <- list(
   y = scale(df$kid_score)[, 1]
 )
 ```
-
 
 ```{r}
 stancode <- '

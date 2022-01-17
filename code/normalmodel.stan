@@ -9,7 +9,7 @@ parameters {
 }
 model {
   mu ~ normal(25, 2);
-  sigma ~ cauchy(0, 3);
+  sigma ~ normal(0, 5);
   y ~ normal(mu, sigma);
 }
 

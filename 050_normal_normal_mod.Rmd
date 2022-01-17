@@ -1,10 +1,8 @@
 # Modello Normale-Normale {#normal-normal-mod-stan}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c050, echo=FALSE}
 source("_common.R")
 source("_stan_options.R")
-suppressPackageStartupMessages(library("rethinking")) 
-suppressPackageStartupMessages(library("brms")) 
 ```
 
 ## Distribuzione Normale-Normale con varianza nota
@@ -128,8 +126,11 @@ Dato che il modello è Normale-Normale, è possibile una soluzione analitica, co
 
 ```{r}
 bayesrules:::summarize_normal_normal(
-  mean = 25, sd = 2, sigma = sd(df$y),
-  y_bar = mean(df$y), n = 30
+  mean = 25, 
+  sd = 2, 
+  sigma = sd(df$y),
+  y_bar = mean(df$y), 
+  n = 30
 )
 ```
 
@@ -137,8 +138,11 @@ La rappresentazione grafica della funzione a priori, della verosimiglianza e del
 
 ```{r}
 bayesrules:::plot_normal_normal(
-  mean = 25, sd = 2, sigma = sd(df$y), 
-  y_bar = mean(df$y), n = 30
+  mean = 25, 
+  sd = 2, 
+  sigma = sd(df$y), 
+  y_bar = mean(df$y), 
+  n = 30
 )
 ```
 
@@ -158,7 +162,7 @@ parameters {
 }
 model {
   mu ~ normal(25, 2);
-  sigma ~ cauchy(0, 3);
+  sigma ~ normal(0, 5);
   y ~ normal(mu, sigma);
 }
 "
@@ -217,81 +221,84 @@ stanfit <- rstan::read_stan_csv(fit$output_files())
 con 
 
 ```{r}
-out <- rstantools::posterior_interval(as.matrix(stanfit), prob = 0.95)
+out <- rstantools::posterior_interval(
+  as.matrix(stanfit), 
+  prob = 0.95
+)
 out
 ```
 
 Possiamo dunque concludere, con un grado di certezza soggettiva del 95%, che siamo sicuri che la media della popolazione da cui abbiamo tratto i dati è compresa nell'intervallo [`r round(out[1, 1], 2)`, `r round(out[1, 2], 2)`]. 
 
-## Il modello normale con `quap()`
+<!-- ## Il modello normale con `quap()` -->
 
-Ripetiamo l'analisi precedente usando le funzioni del pacchetto `rethinking` per trovare le distribuzioni a posteriori dei parametri $\mu$ e $\sigma$. Definiamo il modello statistico mediante la funzione `alist()`:
+<!-- Ripetiamo l'analisi precedente usando le funzioni del pacchetto `rethinking` per trovare le distribuzioni a posteriori dei parametri $\mu$ e $\sigma$. Definiamo il modello statistico mediante la funzione `alist()`: -->
 
-```{r}
-flist <- alist(
-  y ~ dnorm(mu, sigma), 
-  mu ~ dnorm(25, 2),
-  sigma ~ dcauchy(0, 3)
-)
-```
+<!-- ```{r} -->
+<!-- flist <- alist( -->
+<!--   y ~ dnorm(mu, sigma),  -->
+<!--   mu ~ dnorm(25, 2), -->
+<!--   sigma ~ dcauchy(0, 3) -->
+<!-- ) -->
+<!-- ``` -->
 
-Le precedenti istruzioni `R` specificano una variabile casuale $Y$ che si distribuisce come una Normale di parametri $\mu$ e $\sigma$; questa è la verosimiglianza. La distribuzione a priori del parametro $\mu$ è una Normale di media 25 e deviazione standard 2. La distribuzione a priori del parametro $\sigma$ è una half-Cauchy di parametri `location` = 0 e `scale` = 3. 
+<!-- Le precedenti istruzioni `R` specificano una variabile casuale $Y$ che si distribuisce come una Normale di parametri $\mu$ e $\sigma$; questa è la verosimiglianza. La distribuzione a priori del parametro $\mu$ è una Normale di media 25 e deviazione standard 2. La distribuzione a priori del parametro $\sigma$ è una half-Cauchy di parametri `location` = 0 e `scale` = 3.  -->
 
-Usiamo la funzione `quap()` per ottenere l'approssimazione quadratica delle distribuzioni a posteriori di $\mu$ e $\sigma$:
+<!-- Usiamo la funzione `quap()` per ottenere l'approssimazione quadratica delle distribuzioni a posteriori di $\mu$ e $\sigma$: -->
 
-```{r}
-set.seed(123)
-m <- quap( 
-  flist,
-  data = df 
-)
-```
+<!-- ```{r} -->
+<!-- set.seed(123) -->
+<!-- m <- quap(  -->
+<!--   flist, -->
+<!--   data = df  -->
+<!-- ) -->
+<!-- ``` -->
 
-L'intervallo di credibilità al 95% è dato dalla funzione `precis()`:
-  
-```{r}
-out <- precis(m, prob = 0.95)
-out
-```
+<!-- L'intervallo di credibilità al 95% è dato dalla funzione `precis()`: -->
 
-I risultati sono simili a quelli trovati in precedenza.
+<!-- ```{r} -->
+<!-- out <- precis(m, prob = 0.95) -->
+<!-- out -->
+<!-- ``` -->
 
-## Il modello normale con `brms::brm()`
+<!-- I risultati sono simili a quelli trovati in precedenza. -->
 
-Stimiamo ora la distribuzione a posteriori di $\mu$ usando la funzione `brms::brm()`. In questo caso non è necessario scrivere il modello in forma esplicita, come abbiamo fatto usando linguaggio Stan. La sintassi specifiata di seguito viene trasformata in maniera automatica nel linguaggio Stan prima di adattare il modello ai dati:
+<!-- ## Il modello normale con `brms::brm()` -->
 
-```{r}
-fit3 <- brm(
-  data = df, 
-  family = gaussian(),
-  y ~ 1,
-  prior = c(
-    prior(normal(25, 2), class = Intercept),
-    prior(cauchy(0, 3), class = sigma)
-  ),
-  iter = 4000, 
-  refresh = 0, 
-  chains = 4,
-  backend = "cmdstanr"
-)
-```
+<!-- Stimiamo ora la distribuzione a posteriori di $\mu$ usando la funzione `brms::brm()`. In questo caso non è necessario scrivere il modello in forma esplicita, come abbiamo fatto usando linguaggio Stan. La sintassi specifiata di seguito viene trasformata in maniera automatica nel linguaggio Stan prima di adattare il modello ai dati: -->
 
-I trace-plot si ottengono con l'istruzione seguente:
+<!-- ```{r} -->
+<!-- fit3 <- brm( -->
+<!--   data = df,  -->
+<!--   family = gaussian(), -->
+<!--   y ~ 1, -->
+<!--   prior = c( -->
+<!--     prior(normal(25, 2), class = Intercept), -->
+<!--     prior(normal(0, 5), class = sigma) -->
+<!--   ), -->
+<!--   iter = 4000,  -->
+<!--   refresh = 0,  -->
+<!--   chains = 4, -->
+<!--   backend = "cmdstanr" -->
+<!-- ) -->
+<!-- ``` -->
 
-```{r}
-plot(fit3)
-```
+<!-- I trace-plot si ottengono con l'istruzione seguente: -->
 
-Le stime della distribuzione a posteriori si ottengono con la funzione `summary()`:
+<!-- ```{r} -->
+<!-- plot(fit3) -->
+<!-- ``` -->
 
-```{r}
-summary(fit3)
-```
+<!-- Le stime della distribuzione a posteriori si ottengono con la funzione `summary()`: -->
 
-Nuovamente, i risultati sono molto simili a quelli ottenuti in precedenza.
+<!-- ```{r} -->
+<!-- summary(fit3) -->
+<!-- ``` -->
+
+<!-- Nuovamente, i risultati sono molto simili a quelli ottenuti in precedenza. -->
 
 ## Considerazioni conclusive {-}
 
-Questo esempio ci mostra come calcolare l'intervallo di credibilità per la media di una v.c. Normale. La domanda più ovvia di analisi dei dati, dopo  avere visto come creare l'intervallo di credibilità per la media di un gruppo, riguarda il confronto tra le medie di due gruppi. Questo però è un caso speciale di una tecnica di analisi dei dati più generale, chiamate analisi di regressione lineare. Prima di discutere il problema del confronto tra le medie di due gruppi è dunque necessario esaminare il modello statistico di regressione lineare.
+Questo esempio ci mostra come calcolare l'intervallo di credibilità per la media di una v.c. gaussiana. La domanda più ovvia di analisi dei dati, dopo  avere visto come creare l'intervallo di credibilità per la media di un gruppo, riguarda il confronto tra le medie di due gruppi. Questo però è un caso speciale di una tecnica di analisi dei dati più generale, chiamate analisi di regressione lineare. Prima di discutere il problema del confronto tra le medie di due gruppi è dunque necessario esaminare il modello statistico di regressione lineare.
 
 

@@ -1,6 +1,6 @@
 # Funzione di densità di probabilità {#chapter-intro-density-function}
 
-```{r, include = FALSE}
+```{r c019, include = FALSE}
 source("_common.R")
 ```
 

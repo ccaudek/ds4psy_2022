@@ -9,6 +9,7 @@ library("bayesrules")
 Il Capitolo \@ref(chapter-ppc) discute il codice Stan necessario per calcolare $p(y^{rep} \mid y)$ nel caso dell'inferenza su una proporzione. Questa Appendice approfondisce alcuni aspetti di tale analisi statistica.
 
 Assumiamo che il codice Stan descritto nel Capitolo \@ref(chapter-ppc) abbia prodotto l'oggetto `fit`.
+
 ```{r, echo=FALSE, message=FALSE, comment=FALSE, error=FALSE, results='hide'}
 modelString = "
 data {
@@ -59,7 +60,6 @@ Trasformiamo `fit` in un oggetto di classe `stanfit`:
 stanfit <- rstan::read_stan_csv(fit$output_files())
 ```
 
-\noindent
 e esaminiamo il risultato ottenuto. Per i dati dell'esempio, l'esatta distribuzione a posteriori è una Beta(25, 17):
 
 ```{r}
@@ -71,7 +71,6 @@ plot_beta(alpha = 25, beta = 17) +
   lims(x = c(0, 1))
 ```
 
-\noindent
 L'approssimazione della distribuzione a posteriori per $\theta$ ottenuta mediante la simulazione MCMC è
 
 ```{r}
@@ -90,7 +89,6 @@ broom.mixed::tidy(
 )
 ```
 
-\noindent
 laddove, per esempio, la media esatta della corretta distribuzione a posteriori  è
 
 ```{r}
@@ -104,14 +102,12 @@ list_of_draws <- extract(stanfit)
 print(names(list_of_draws))
 ```
 
-\noindent
 Possiamo estrarre i campioni della distribuzione a posteriori nel modo seguente:
 
 ```{r}
 head(list_of_draws$theta)
 ```
 
-\noindent
 Creiamo un data.frame con le stime a posteriori $\hat{\theta}$:
 
 ```{r}
@@ -120,7 +116,6 @@ df <- data.frame(
 )
 ```
 
-\noindent
 Le statistiche descrittive della distribuzione a posteriori possono ora essere ottenute usando direttamente i valori $\hat{\theta}$:
 
 ```{r}
@@ -134,7 +129,6 @@ df %>%
   )
 ```
 
-\noindent
 È anche possibile calcolare, ad esempio, la probabilità di $\hat{\theta} > 0.5$:
 
 ```{r}

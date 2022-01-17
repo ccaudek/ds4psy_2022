@@ -1,26 +1,20 @@
 # Inferenza sul modello lineare {#inference-reg-lin-stan}
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c054, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_common.R")
 source("_stan_options.R")
 library("tidybayes")
 ```
-
-<!-- I minimi quadrati o la massima verosimiglianza trovano i parametri che meglio si adattano ai dati (secondo un criterio prestabilito), ma senza altrimenti vincolare la stima. Ma di solito il ricercatore dispone di informazioni preliminari sui parametri del modello. L'inferenza bayesiana produce invece un compromesso tra tali informazioni pregresse e i dati.  -->
-
-<!-- moltiplicando la funzione di verosimiglianza con una distribuzione a priori che codifica probabilisticamente le informazioni sui parametri possedute dal ricercatore prima di avere osservato i dati. Il prodotto della verosimiglianza \@ref(eq:ml-reg) e della distribuzione a priori è chiamata distribuzione a posteriori e riassume la nostra conoscenza del parametro _dopo_ aver visto i dati.  -->
-
-<!-- La soluzione dei minimi quadrati è una stima puntuale che rappresenta il vettore dei coefficienti che fornisce il miglior adattamento complessivo ai dati. Per un modello bayesiano, la stima puntuale corrispondente è la _moda a posteriori_, che fornisce il miglior adattamento complessivo ai dati e alla distribuzione a priori. Si noti inoltre che la stima dei minimi quadrati (o di massima verosimiglianza) corrisponde alla moda a posteriori di un modello bayesiano con una distribuzione a priori uniforme. -->
 
 ## Rappresentazione grafica dell'incertezza della stima
 
 Un primo modo per rappresentare l'incertezza dell'inferenza in un ottica bayesiana è quella di rappresentare graficamente la retta specificata dal modello lineare. Continuando con l'esempio descritto nel Capitolo precedente (ovvero, i dati `kid_score` e `mom_iq` centrati), usando la funzione `rstan::read_stan_csv`, leggiamo i file CSV  generati da `cmdstan` e trasformiamo le stime a posteriori dei parametri in formato `stanfit`:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, results='hide'}
-library("foreign")
-df <- read.dta(here("data", "kidiq.dta"))
+library("rio")
+df <- rio::import(here("data", "kidiq.dta"))
 
-modelString = "
+modelString <- "
 data {
   int<lower=0> N;
   vector[N] y;
@@ -82,59 +76,72 @@ posterior <- extract(stanfit)
 ```
 
 Creiamo ora un diagramma a dispersione dei dati con sovrapposto il valore atteso della $y$:
+
 ```{r}
 tibble(
   kid_score = df$kid_score,
   mom_iq = df$mom_iq - mean(df$mom_iq)
-) %>% 
-  ggplot(aes(mom_iq, kid_score)) + 
-  geom_point() + 
-  geom_abline(intercept = mean(posterior$alpha), slope = mean(posterior$beta)) 
+) %>%
+  ggplot(aes(mom_iq, kid_score)) +
+  geom_point() +
+  geom_abline(
+    intercept = mean(posterior$alpha),
+    slope = mean(posterior$beta)
+  )
 ```
 
 Un modo per visualizzare l'incertezza della stima della retta specifiata dal modello lineare è quello di tracciare molteplici rette, ciascuna delle quali definita da una diversa stima dei parametri $\alpha$ e $\beta$; le diverse stime dei parametri $\alpha$ e $\beta$ vengono estratta a caso dalle rispettive distribuzioni a posteriori.
 
 Per ottenere questo risultato dobbiamo estrarre le informazioni richieste dall'oggetto `stanfit` che abbiamo creato. Per fare questo usiamo le funzionalità di `tidybayes`. Per esempio
+
 ```{r}
 tidybayes::get_variables(stanfit)
 ```
-\noindent
+
 Creiamo un Dataframe in formato tidy che contiene le stime a posteriori di $\alpha$ e $\beta$ nel modo seguente:
+
 ```{r}
 draws <- stanfit %>%
-  spread_draws(beta, alpha) 
+  spread_draws(beta, alpha)
 ```
 
 ```{r}
 draws %>%
   head(10)
 ```
-\noindent
+
 Possiamo ora generare il diagramma a dispersione con `ggplot()`:
 
 ```{r}
 tibble(
   kid_score = df$kid_score,
   mom_iq = df$mom_iq - mean(df$mom_iq)
-) %>% 
-  ggplot(aes(mom_iq, kid_score)) + 
-  geom_point() + 
-  geom_abline(data = draws, aes(intercept = alpha, slope = beta),
-    size = 0.2, alpha = 0.01, color = "skyblue") +
-  geom_abline(intercept = mean(posterior$alpha), slope = mean(posterior$beta)) +
+) %>%
+  ggplot(aes(mom_iq, kid_score)) +
+  geom_point() +
+  geom_abline(
+    data = draws, aes(intercept = alpha, slope = beta),
+    size = 0.2, alpha = 0.01, color = "skyblue"
+  ) +
+  geom_abline(
+    intercept = mean(posterior$alpha),
+    slope = mean(posterior$beta)
+  ) +
   labs(
     x = "Quoziente di intelligenza della madre",
     y = "Quoziente di intelligenza del bambino"
   )
 ```
 
-
 ## Intervalli di credibilità
 
 L'incertezza inferenziale sui parametri può anche essere rappresentata mediante gli _intervalli di credibilità_, ovvero gli intervalli che contengono la quota desiderata (es., il 95%) della distribuzione a posteriori. Per l'esempio che stiamo discutendo, gli intervalli di credibilità al 95% si ottengono nel modo seguente:
 
 ```{r}
-rstantools::posterior_interval(as.matrix(stanfit), prob = 0.95)
+rstantools::posterior_interval(
+  as.matrix(stanfit), 
+  prob = 0.95
+)
 ```
 
 Un grafico che riporta l'intervallo di credibilità ai livelli di probabilità desiderati per i parametri $\alpha$, $\beta$ e $\sigma$ (nel caso dei dati standardizzati) si ottiene con la seguente istruzione:
@@ -144,19 +151,19 @@ mcmc_areas(
   fit2$draws(c("alpha_std", "beta_std", "sigma_std")),
   prob = 0.8,
   prob_outer = 0.95
-  )
+)
 ```
-\noindent
+
 Oppure
+
 ```{r}
 stanfit %>%
   mcmc_intervals(
-    pars = c("alpha_std", "beta_std", "sigma_std"), 
+    pars = c("alpha_std", "beta_std", "sigma_std"),
     prob = 0.8,
     prob_outer = 0.95
   )
 ```
-
 
 ## Rappresentazione grafica della distribuzione a posteriori
 
@@ -164,12 +171,10 @@ Non c'è niente di "magico" o necessario relativamente al livello di 0.95: il va
 
 ```{r}
 stan_dens(
-  stanfit, 
-  pars = c("alpha", "beta", "sigma"),
-  fill = "#4ca5ff"
+  stanfit,
+  pars = c("alpha", "beta", "sigma")
 )
 ```
-
 
 ## Test di ipotesi
 
@@ -179,13 +184,11 @@ stan_dens(
 sum(posterior$beta > 0) / length(posterior$beta)
 ```
 
-\noindent
 ovvero, la probabilità $Pr(\hat{\beta} \leq 0)$ è
 
 ```{r}
 sum(posterior$beta < 0) / length(posterior$beta)
 ```
-
 
 ## Modello lineare robusto
 
@@ -200,12 +203,14 @@ df2 <- df
 df2$kid_score[434] <- -500
 df2$mom_iq[434] <- 140
 ```
+
 Per comodità, calcoliamo le stime di $\alpha$ e $\beta$ con il metodo dei minimi quadrati (le stime dei parametri sono simili a quelle di un modello bayesiano Normale con distribuzioni a priori vagamente informative). Sappiamo che, nel campione originari di dati, $\hat{\beta} \approx 0.6$. In presenza di un solo outlier troviamo 
 che
+
 ```{r}
 coef(lm(kid_score ~ mom_iq, data = df2))
 ```
-\noindent
+
 la stima di $\beta$ viene drammaticamente ridotta (di quasi la metà!). 
 
 Non è però necessario assumere $\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})$. È altrettanto valido un modello che ipotizza una diversa distribuzione di densità per i residui come, ad esempio, la distribuzione $t$ di Student con un piccolo numero di gradi di libertà. Una caratteristica della $t$ di Student è che le code della distribuzione contengono una massa di probabilità maggiore della Normale. Ciò fornisce alla $t$ di Student la possibilità di "rendere conto" della presenza di osservazioni lontane dalla media della distribuzione. In altri termini, se in modello lineare usiamo la $t$ di Student quale distribuzione dei residui, la presenza di outlier avrà una minore influenza sulle stime dei parametri di quanto avvenga nel modello Normale.
@@ -213,7 +218,7 @@ Non è però necessario assumere $\varepsilon \sim \mathcal{N}(0, \sigma_{\varep
 Per verificare questa affermazione, modifichiamo il codice Stan in modo tale da ipotizzare che la distribuzione della $y$ segua una $t$ di Student con un numero $\nu$ gradi di libertà stimato dal modello: `student_t(nu, mu, sigma)`.^[È equivalente scrivere $y_i = \mu_i + \varepsilon_i$, dove $\mu_i = \alpha + \beta x_i, \varepsilon_i \sim \mathcal{N}(0, \sigma_\varepsilon),$ oppure $y_i \sim \mathcal{N}(\mu_i, \sigma_\varepsilon).$]
 
 ```{r}
-modelString = "
+modelString <- "
 data {
   int<lower=0> N;
   vector[N] y;
@@ -251,7 +256,6 @@ generated quantities {
 writeLines(modelString, con = "code/simpleregstdrobust.stan")
 ```
 
-\noindent
 Costruiamo la lista dei dati usando il data.frame `df2` che include l'outlier:
 
 ```{r}
@@ -262,7 +266,6 @@ data3_list <- list(
 )
 ```
 
-\noindent
 Adattiamo il modello lineare robusto ai dati:
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, results='hide'}
@@ -281,13 +284,10 @@ fit4 <- mod$sample(
 )
 ```
 
-\noindent
 Esaminando le stime dei parametri
 
 ```{r}
 fit4$summary(c("alpha", "beta", "sigma", "nu"))
 ```
 
-\noindent
 notiamo che la stima di $\beta$ è rimasta praticamente immutata. Il modello lineare robustao non risente dunque della presenza degli outlier.
-

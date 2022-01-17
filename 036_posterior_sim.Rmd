@@ -1,6 +1,6 @@
 # Approssimazione della distribuzione a posteriori {#metropolis}
 
-```{r, include = FALSE}
+```{r c036, include = FALSE}
 source("_common.R")
 ```
 

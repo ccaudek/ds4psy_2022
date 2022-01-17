@@ -6,6 +6,7 @@ Nella trattazione classica del modello di regressione, $y_i = \alpha + \beta x_i
 e_i = y_i - \hat{\alpha} - \hat{\beta} x_i.
 (\#eq:residuals)
 \end{equation}
+
 In altri termini, il residuo $i$-esimo è la differenza fra l'ordinata del punto ($x_i$, $y_i$) e quella del punto di ascissa $x_i$ sulla retta di regressione campionaria. 
 
 Per determinare i coefficienti $a$ e $b$ della retta $y_i = a + b x_i + e_i$ non è sufficiente minimizzare la somma dei residui $\sum_{i=1}^{n}e_i$, in quanto i residui possono essere sia positivi che negativi e la loro somma può essere molto prossima allo zero anche per differenze molto grandi tra i valori osservati e la retta di  regressione. Infatti, ciascuna retta passante per il punto ($\bar{x}, \bar{y}$) ha $\sum_{i=1}^{n}e_i=0$. 
@@ -13,10 +14,13 @@ Per determinare i coefficienti $a$ e $b$ della retta $y_i = a + b x_i + e_i$ non
 ::: {.rmdnote}
 Una retta passante per il punto ($\bar{x}, \bar{y}$) soddisfa l'equazione $\bar{y} = a + b \bar{x}$. 
 Sottraendo tale equazione dall'equazione $y_i = a + b x_i + e_i$ otteniamo
+
 \[
 y_i - \bar{y} =  b (x_i - \bar{x}) + e_i. 
 \]
+
 Sommando su tutte le osservazioni, si ha che
+
 \begin{equation}
 \sum_{i=1}^n e_i = \sum_{i=1}^n (y_i - \bar{y} ) -  b \sum_{i=1}^n (x_i - \bar{x}) = 0 - b(0) = 0. 
 (\#eq:res-sum-zero)
@@ -51,7 +55,6 @@ a &= \bar{y} - b \bar{x},\\
 b &= \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})^2}.
 (\#eq:minsq-ab)
 \end{align}
-
 
 ### Massima verosimiglianza
 

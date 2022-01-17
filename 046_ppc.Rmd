@@ -1,6 +1,6 @@
 # Distribuzione predittiva a posteriori {#chapter-ppc}
 
-```{r, include = FALSE}
+```{r c046, include = FALSE}
 source("_common.R")
 source("_stan_options.R")
 register_knitr_engine()

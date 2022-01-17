@@ -1,6 +1,6 @@
 # Aspettative degli individui depressi {#es-pratico-zetsche}
 
-```{r setup, include = FALSE}
+```{r, include = FALSE}
 source("_common.R")
 ```
 
@@ -9,7 +9,6 @@ Per fare pratica, applichiamo il metodo basato su griglia ad un campione di dati
 Sulla base dei dati forniti dagli autori, abbiamo calcolato la media dei giudizi relativi al livello di tristezza raccolti da ciascun partecipante tramite la app. Tale media è stata poi sottratta dall'aspettativa del livello di tristezza fornita all'inizio della settimana. La discrepanza tra aspettative e realtà è stata considerata come un evento dicotomico: valori positivi di tale differenza indicano che le aspettative circa il livello di tristezza erano maggiori del livello di tristezza effettivamente esperito --- ciò significa che le aspettative future risultano negativamente distorte (evento codificato con "1"). Viceversa, si ha che le aspettative risultano positivamente distorte se la differenza descritta in precedenza assume un valore negativo (evento codificato con "0"). 
 
 Nel campione dei 30 partecipanti clinici di @zetschefuture2019, le aspettative future di 23 partecipanti risultano distorte negativamente e quelle di 7 partecipanti risultano distorte positivamente. Chiameremo $\theta$ la probabilità dell'evento "le aspettative del partecipante sono distorte negativamente". Ci poniamo il problema di ottenere una stima a posteriori di $\theta$ usando il metodo basato su griglia.
-
 
 ## La griglia
 
@@ -21,7 +20,6 @@ p_grid <- seq(from = 0, to = 1, length.out = n_points)
 p_grid
 ```
 
-
 ## Distribuzione a priori
 
 Supponiamo di avere scarse credenze a priori sulla tendenza di un individuo clinicamente depresso a manifestare delle aspettative distorte negativamente circa il suo umore futuro. Imponiamo quindi una distribuzione non informativa sulla distribuzione a priori di $\theta$ --- ovvero, una distribuzione uniforme nell'intervallo [0, 1]. Dato che consideriamo soltanto $n = 50$ valori possibili per il parametro $\theta$, creiamo un vettore di 50 elementi che conterrà i valori della distribuzione a priori scalando ciascun valore del vettore per $n$ in modo tale che la somma di tutti i valori sia uguale a 1.0:
@@ -31,7 +29,6 @@ prior1 <- dbeta(p_grid, 1, 1) / sum(dbeta(p_grid, 1, 1))
 prior1
 ```
 
-\noindent
 Verifichiamo:
 
 ```{r}
@@ -55,7 +52,6 @@ p1 <- data.frame(p_grid, prior1) %>%
 p1
 ```
 
-
 ## Funzione di verosimiglianza
 
 Calcoliamo ora la funzione di verosimiglianza utilizzando i 50 valori $\theta$   definiti in precedenza. A ciascuno dei valori della griglia applichiamo la formula binomiale, tendendo costanti i dati (ovvero 23 "successi" in 30 prove). Ad esempio, in corrispondenza del valore $\theta = 0.816$, l'ordinata della funzione di verosimiglianza diventa
@@ -64,14 +60,12 @@ Calcoliamo ora la funzione di verosimiglianza utilizzando i 50 valori $\theta$  
 \binom{30}{23} \cdot 0.816^{23} \cdot (1 - 0.816)^{7} = 0.135.\notag
 \end{equation}
 
-\noindent
 Per $\theta = 0.837$, l'ordinata della funzione di verosimiglianza sarà
 
 \begin{equation}
 \binom{30}{23} \cdot 0.837^{23} \cdot (1 - 0.837)^{7} = 0.104.\notag
 \end{equation}
 
-\noindent
 Dobbiamo svolgere questo calcolo per tutti gli elementi della griglia. Usando $\R$, tale risultato si trova nel modo seguente:
 
 ```{r}
@@ -79,7 +73,6 @@ likelihood <- dbinom(x = 23, size = 30, prob = p_grid)
 likelihood
 ```
 
-\noindent
 La funzione `dbinom(x, size, prob)` richiede che vengano specificati tre parametri: il numero di "successi", il numero di prove e la probabilità di successo. Nella chiamata precedente, `x` (numero di successi) e `size` (numero di prove bernoulliane) sono degli scalari e `prob` è il vettore `p_grid`. In tali circostanze, l'output di `dbinom()` è il vettore che abbiamo chiamato `likelihood`. Gli elementi di tale vettore sono stati calcolati applicando la formula della distribuzione binomiale a ciascuno dei 50 elementi della griglia, tenendo sempre costanti i dati [ovvero, `x` (il numero di successi) e `size` (numero di prove bernoulliane)]; ciò che varia è il valore `prob`, che assume valori diversi (`p_grid`) in ciascuna cella della griglia.
 
 La chiamata a `dbinom()` produce dunque un vettore i cui valori corrispondono all'ordinata della funzione di verosimiglianza per per ciascun valore $\theta$ specificato in `p_grid`. La verosimiglianza discretizzata così ottenuta è riportata nella figura \@ref(fig:gridappr2).
@@ -95,7 +88,6 @@ p2 <- data.frame(p_grid, likelihood) %>%
   )
 p2
 ```
-
 
 ## Distribuzione a posteriori
 
@@ -121,7 +113,6 @@ posterior <- unstd_posterior / sum(unstd_posterior)
 posterior
 ```
 
-\noindent 
 Verifichiamo:
 
 ```{r}
@@ -144,7 +135,6 @@ p3
 
 I grafici delle figure \@ref(fig:gridappr1), \@ref(fig:gridappr2) e \@ref(fig:gridappr3) sono state calcolati utilizzando una griglia di 50 valori equi-spaziati per il parametro $\theta$. I segmenti verticali rappresentano l'intensità della funzione in corrispondenza di ciascuna modalità parametro $\theta$. Nella figura \@ref(fig:gridappr1) e nella figura \@ref(fig:gridappr3) la somma delle lunghezze dei segmenti verticali è uguale a 1.0; ciò non si verifica, invece, nel caso della figura \@ref(fig:gridappr3) (la funzione di verosimiglianza non è mai una funzione di probabilità, né nel caso discreto né in quello continuo).
 
-
 ## La stima della distribuzione a posteriori (versione 2) {#es-depression-beta-2-10}
 
 Continuiamo l'analisi di questi dati esaminiamo l'impatto di una distribuzione a priori informativa sulla distribuzione a posteriori. Una distribuzione a priori informativa riflette un alto grado di certezza a priori sui valori dei parametri del modello. Un ricercatore utilizza una distribuzione a priori informativa per introdurre nel processo di stima informazioni pre-esistenti alla raccolta dei dati, introducendo così delle restrizioni sulla possibile gamma di valori del parametro.
@@ -158,7 +148,6 @@ n_points <- 100
 p_grid <- seq(from = 0, to = 1, length.out = n_points)
 ```
 
-\noindent
 Per la distribuzione a priori scegliamo una Beta(2, 10):
 
 ```{r}
@@ -168,7 +157,6 @@ prior2 <- dbeta(p_grid, alpha, beta) / sum(dbeta(p_grid, alpha, beta))
 sum(prior2)
 ```
 
-\noindent
 Tale distribuzione a priori è rappresentata nella figura \@ref(fig:gridappr4):
 
 ```{r gridappr4, fig.cap="Rappresentazione di una funzione a priori informativa per il parametro $\\theta$."}
@@ -184,7 +172,6 @@ p4 <- plot_df %>%
 p4
 ```
 
-\noindent
 Calcoliamo il valore di verosimiglianza per ciascun punto della griglia:
 
 ```{r}
@@ -273,7 +260,7 @@ La stima della moda a posteriori si ottiene con
 df$p_grid[which.max(df$posterior2)]
 ```
 
-\noindent e corrisponde a
+e corrisponde a
 
 $$
 \Mo = \frac{\alpha -1}{\alpha + \beta - 2} = \frac{25 - 1}{25 + 17 - 2} = 0.6.
@@ -285,7 +272,7 @@ La stima della media a posteriori si ottiene con
 mean(post_samples$p_grid)
 ```
 
-\noindent e corrisponde a
+e corrisponde a
 
 $$
 \bar{\theta} = \frac{\alpha}{\alpha + \beta} = \frac{25}{25 + 17} \approx 0.5952.
@@ -297,7 +284,7 @@ La stima della mediana a posteriori si ottiene con
 median(post_samples$p_grid)
 ```
 
-\noindent e corrisponde a
+e corrisponde a
 
 $$
 \Me = \frac{\alpha - \frac{1}{3}}{\alpha + \beta - \frac{2}{3}} \approx 0.5968.
@@ -331,7 +318,6 @@ tibble(
   )
 ```
 
-\noindent
 La funzione `likelihood()` ritorna l'ordinata della verosimiglianza binomiale per ciascun valore del vettore `param` in input.
 
 Quale distribuzione a priori utilizzeremo una $\mbox{Beta}(2, 10)$ che è implementata nella funzione `prior()`:
@@ -373,7 +359,6 @@ tibble(
   )
 ```
 
-\noindent
 La distribuzione a posteriori non normalizzata mostrata nella figura replica il risultato ottenuto con il codice utilizzato nella prima parte di questo Capitolo. Per l'implementazione dell'algoritmo di Metropolis non è necessaria la normalizzazione della distribuzione a posteriori.
 
 

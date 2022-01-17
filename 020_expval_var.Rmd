@@ -1,6 +1,6 @@
 # Valore atteso e varianza {#exp-val-and-variance-rv}
 
-```{r, include = FALSE}
+```{r c020, include = FALSE}
 source("_common.R")
 ```
 
