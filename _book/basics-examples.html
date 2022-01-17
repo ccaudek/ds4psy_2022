@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.1 Example applications | R Markdown: The Definitive Guide</title>
+  <meta name="description" content="The first official book authored by the core R Markdown developers that provides a comprehensive and accurate reference to the R Markdown ecosystem. With R Markdown, you can easily create reproducible data analysis reports, presentations, dashboards, interactive applications, books, dissertations, websites, and journal articles, while enjoying the simplicity of Markdown and the great power of R and other languages." />
+  <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.1 Example applications | R Markdown: The Definitive Guide" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://bookdown.org/yihui/rmarkdown/" />
+  <meta property="og:image" content="https://bookdown.org/yihui/rmarkdown//images/cover.png" />
+  <meta property="og:description" content="The first official book authored by the core R Markdown developers that provides a comprehensive and accurate reference to the R Markdown ecosystem. With R Markdown, you can easily create reproducible data analysis reports, presentations, dashboards, interactive applications, books, dissertations, websites, and journal articles, while enjoying the simplicity of Markdown and the great power of R and other languages." />
+  <meta name="github-repo" content="rstudio/rmarkdown-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.1 Example applications | R Markdown: The Definitive Guide" />
+  
+  <meta name="twitter:description" content="The first official book authored by the core R Markdown developers that provides a comprehensive and accurate reference to the R Markdown ecosystem. With R Markdown, you can easily create reproducible data analysis reports, presentations, dashboards, interactive applications, books, dissertations, websites, and journal articles, while enjoying the simplicity of Markdown and the great power of R and other languages." />
+  <meta name="twitter:image" content="https://bookdown.org/yihui/rmarkdown//images/cover.png" />
+
+<meta name="author" content="Yihui Xie, J. J. Allaire, Garrett Grolemund" />
+
+
+<meta name="date" content="2022-01-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basics.html"/>
+<link rel="next" href="compile.html"/>
+<script src="libs/header-attrs/header-attrs.js"></script>
+<script src="libs/jquery/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">R Markdown: The Definitive Guide</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="how-to-read-this-book.html"><a href="how-to-read-this-book.html"><i class="fa fa-check"></i>How to read this book</a></li>
+<li class="chapter" data-level="" data-path="structure-of-the-book.html"><a href="structure-of-the-book.html"><i class="fa fa-check"></i>Structure of the book</a></li>
+<li class="chapter" data-level="" data-path="software-info.html"><a href="software-info.html"><i class="fa fa-check"></i>Software information and conventions</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="author.html"><a href="author.html"><i class="fa fa-check"></i>About the Authors</a>
+<ul>
+<li class="chapter" data-level="" data-path="yihui-xie.html"><a href="yihui-xie.html"><i class="fa fa-check"></i>Yihui Xie</a></li>
+<li class="chapter" data-level="" data-path="j.j.-allaire.html"><a href="j.j.-allaire.html"><i class="fa fa-check"></i>J.J. Allaire</a></li>
+<li class="chapter" data-level="" data-path="garrett-grolemund.html"><a href="garrett-grolemund.html"><i class="fa fa-check"></i>Garrett Grolemund</a></li>
+</ul></li>
+<li class="part"><span><b>I Get Started</b></span></li>
+<li class="chapter" data-level="1" data-path="installation.html"><a href="installation.html"><i class="fa fa-check"></i><b>1</b> Installation</a></li>
+<li class="chapter" data-level="2" data-path="basics.html"><a href="basics.html"><i class="fa fa-check"></i><b>2</b> Basics</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="basics-examples.html"><a href="basics-examples.html"><i class="fa fa-check"></i><b>2.1</b> Example applications</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="basics-examples.html"><a href="basics-examples.html#airbnbs-knowledge-repository"><i class="fa fa-check"></i><b>2.1.1</b> Airbnb’s knowledge repository</a></li>
+<li class="chapter" data-level="2.1.2" data-path="basics-examples.html"><a href="basics-examples.html#homework-assignments-on-rpubs"><i class="fa fa-check"></i><b>2.1.2</b> Homework assignments on RPubs</a></li>
+<li class="chapter" data-level="2.1.3" data-path="basics-examples.html"><a href="basics-examples.html#personalized-mail"><i class="fa fa-check"></i><b>2.1.3</b> Personalized mail</a></li>
+<li class="chapter" data-level="2.1.4" data-path="basics-examples.html"><a href="basics-examples.html#employer-health-benefits-survey"><i class="fa fa-check"></i><b>2.1.4</b> 2017 Employer Health Benefits Survey</a></li>
+<li class="chapter" data-level="2.1.5" data-path="basics-examples.html"><a href="basics-examples.html#examples-journal"><i class="fa fa-check"></i><b>2.1.5</b> Journal articles</a></li>
+<li class="chapter" data-level="2.1.6" data-path="basics-examples.html"><a href="basics-examples.html#dashboards-at-eelloo"><i class="fa fa-check"></i><b>2.1.6</b> Dashboards at eelloo</a></li>
+<li class="chapter" data-level="2.1.7" data-path="basics-examples.html"><a href="basics-examples.html#examples-books"><i class="fa fa-check"></i><b>2.1.7</b> Books</a></li>
+<li class="chapter" data-level="2.1.8" data-path="basics-examples.html"><a href="basics-examples.html#examples-websites"><i class="fa fa-check"></i><b>2.1.8</b> Websites</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="compile.html"><a href="compile.html"><i class="fa fa-check"></i><b>2.2</b> Compile an R Markdown document</a></li>
+<li class="chapter" data-level="2.3" data-path="cheat-sheets.html"><a href="cheat-sheets.html"><i class="fa fa-check"></i><b>2.3</b> Cheat sheets</a></li>
+<li class="chapter" data-level="2.4" data-path="output-formats.html"><a href="output-formats.html"><i class="fa fa-check"></i><b>2.4</b> Output formats</a></li>
+<li class="chapter" data-level="2.5" data-path="markdown-syntax.html"><a href="markdown-syntax.html"><i class="fa fa-check"></i><b>2.5</b> Markdown syntax</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="markdown-syntax.html"><a href="markdown-syntax.html#inline-formatting"><i class="fa fa-check"></i><b>2.5.1</b> Inline formatting</a></li>
+<li class="chapter" data-level="2.5.2" data-path="markdown-syntax.html"><a href="markdown-syntax.html#block-level-elements"><i class="fa fa-check"></i><b>2.5.2</b> Block-level elements</a></li>
+<li class="chapter" data-level="2.5.3" data-path="markdown-syntax.html"><a href="markdown-syntax.html#math-expressions"><i class="fa fa-check"></i><b>2.5.3</b> Math expressions</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="r-code.html"><a href="r-code.html"><i class="fa fa-check"></i><b>2.6</b> R code chunks and inline R code</a>
+<ul>
+<li class="chapter" data-level="2.6.1" data-path="r-code.html"><a href="r-code.html#figures"><i class="fa fa-check"></i><b>2.6.1</b> Figures</a></li>
+<li class="chapter" data-level="2.6.2" data-path="r-code.html"><a href="r-code.html#tables"><i class="fa fa-check"></i><b>2.6.2</b> Tables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="language-engines.html"><a href="language-engines.html"><i class="fa fa-check"></i><b>2.7</b> Other language engines</a>
+<ul>
+<li class="chapter" data-level="2.7.1" data-path="language-engines.html"><a href="language-engines.html#python"><i class="fa fa-check"></i><b>2.7.1</b> Python</a></li>
+<li class="chapter" data-level="2.7.2" data-path="language-engines.html"><a href="language-engines.html#shell-scripts"><i class="fa fa-check"></i><b>2.7.2</b> Shell scripts</a></li>
+<li class="chapter" data-level="2.7.3" data-path="language-engines.html"><a href="language-engines.html#sql"><i class="fa fa-check"></i><b>2.7.3</b> SQL</a></li>
+<li class="chapter" data-level="2.7.4" data-path="language-engines.html"><a href="language-engines.html#rcpp"><i class="fa fa-check"></i><b>2.7.4</b> Rcpp</a></li>
+<li class="chapter" data-level="2.7.5" data-path="language-engines.html"><a href="language-engines.html#stan"><i class="fa fa-check"></i><b>2.7.5</b> Stan</a></li>
+<li class="chapter" data-level="2.7.6" data-path="language-engines.html"><a href="language-engines.html#javascript-and-css"><i class="fa fa-check"></i><b>2.7.6</b> JavaScript and CSS</a></li>
+<li class="chapter" data-level="2.7.7" data-path="language-engines.html"><a href="language-engines.html#julia"><i class="fa fa-check"></i><b>2.7.7</b> Julia</a></li>
+<li class="chapter" data-level="2.7.8" data-path="language-engines.html"><a href="language-engines.html#c-and-fortran"><i class="fa fa-check"></i><b>2.7.8</b> C and Fortran</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="interactive-documents.html"><a href="interactive-documents.html"><i class="fa fa-check"></i><b>2.8</b> Interactive documents</a>
+<ul>
+<li class="chapter" data-level="2.8.1" data-path="interactive-documents.html"><a href="interactive-documents.html#intro-widgets"><i class="fa fa-check"></i><b>2.8.1</b> HTML widgets</a></li>
+<li class="chapter" data-level="2.8.2" data-path="interactive-documents.html"><a href="interactive-documents.html#intro-shiny"><i class="fa fa-check"></i><b>2.8.2</b> Shiny documents</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Markdown: The Definitive Guide</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="basics-examples" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Example applications</h2>
+<p>Now you have learned the very basic concepts of R Markdown. The idea should be simple enough: interweave narratives with code in a document, knit the document to dynamically generate results from the code, and you will get a report. This idea was not invented by R Markdown, but came from an early programming paradigm called “Literate Programming” <span class="citation">(<a href="#ref-knuth1984" role="doc-biblioref">Knuth 1984</a>)</span>.</p>
+<p>Due to the simplicity of Markdown and the powerful R language for data analysis, R Markdown has been widely used in many areas. Before we dive into the technical details, we want to show some examples to give you an idea of its possible applications.</p>
+<div id="airbnbs-knowledge-repository" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Airbnb’s knowledge repository</h3>
+<p>Airbnb uses R Markdown to document all their analyses in R, so they can combine code and data visualizations in a single report <span class="citation">(<a href="#ref-bion2018" role="doc-biblioref">Bion, Chang, and Goodman 2018</a>)</span>. Eventually all reports are carefully peer-reviewed and published to a company knowledge repository, so that anyone in the company can easily find analyses relevant to their team. Data scientists are also able to learn as much as they want from previous work or reuse the code written by previous authors, because the full R Markdown source is available in the repository.</p>
+</div>
+<div id="homework-assignments-on-rpubs" class="section level3" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Homework assignments on RPubs</h3>
+<p>A huge number of homework assignments have been published to the website <a href="https://RPubs.com" class="uri">https://RPubs.com</a> (a free publishing platform provided by RStudio), which shows that R Markdown is easy and convenient enough for students to do their homework assignments (see Figure <a href="basics-examples.html#fig:rpubs">2.3</a>). When I was still a student, I did most of my homework assignments using Sweave, which was a much earlier implementation of literate programming based on the S language (later R) and LaTeX. I was aware of the importance of reproducible research but did not enjoy LaTeX, and few of my classmates wanted to use Sweave. Right after I graduated, R Markdown was born, and it has been great to see so many students do their homework in the reproducible manner.</p>
+<div class="figure"><span style="display:block;" id="fig:rpubs"></span>
+<img src="images/rpubs.png" alt="A screenshot of RPubs.com that contains some homework assginments submitted by students." width="100%" />
+<p class="caption">
+FIGURE 2.3: A screenshot of RPubs.com that contains some homework assginments submitted by students.
+</p>
+</div>
+<p>In a 2016 JSM (Joint Statistical Meetings) talk, I proposed that course instructors could sometimes intentionally insert some wrong values in the source data before providing it to the students for them to analyze the data in the homework, then correct these values the next time, and ask them to do the analysis again. This way, students should be able to realize the problems with the traditional cut-and-paste approach for data analysis (i.e., run the analysis separately and copy the results manually), and the advantage of using R Markdown to automatically generate the report.</p>
+</div>
+<div id="personalized-mail" class="section level3" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Personalized mail</h3>
+<p>One thing you should remember about R Markdown is that you can programmatically generate reports, although most of the time you may be just clicking the <code>Knit</code> button in RStudio to generate a single report from a single source document. Being able to program reports is a super power of R Markdown.</p>
+<p>Mine Çetinkaya-Rundel once wanted to create personalized handouts for her workshop participants. She used a template R Markdown file, and knitted it in a for-loop to generate 20 PDF files for the 20 participants. Each PDF contained both personalized information and common information. You may read the article <a href="https://rmarkdown.rstudio.com/articles_mail_merge.html" class="uri">https://rmarkdown.rstudio.com/articles_mail_merge.html</a> for the technical details.</p>
+</div>
+<div id="employer-health-benefits-survey" class="section level3" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> 2017 Employer Health Benefits Survey</h3>
+<p>The <a href="https://www.kff.org/health-costs/report/2017-employer-health-benefits-survey/">2017 Employer Health Benefits Survey</a> was designed and analyzed by the Kaiser Family Foundation, NORC at the University of Chicago, and Health Research &amp; Educational Trust. The full PDF report was written in R Markdown (with the <strong>bookdown</strong> package). It has a unique appearance, which was made possible by heavy customizations in the LaTeX template. This example shows you that if you really care about typesetting, you are free to apply your knowledge about LaTeX to create highly sophisticated reports from R Markdown.</p>
+</div>
+<div id="examples-journal" class="section level3" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Journal articles</h3>
+<p>Chris Hartgerink explained how and why he used R Markdown to write dynamic research documents in the post at <a href="https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown" class="uri">https://elifesciences.org/labs/cad57bcf/composing-reproducible-manuscripts-using-r-markdown</a>. He published a paper titled “Too Good to be False: Nonsignificant Results Revisited” with two co-authors <span class="citation">(<a href="#ref-hartgerink2017" role="doc-biblioref">Hartgerink, Wicherts, and Assen 2017</a>)</span>. The manuscript was written in R Markdown, and results were dynamically generated from the code in R Markdown.</p>
+<p>When checking the accuracy of P-values in the psychology literature, his colleagues and he found that P-values could be mistyped or miscalculated, which could lead to inaccurate or even wrong conclusions. If the P-values were dynamically generated and inserted instead of being manually copied from statistical programs, the chance for those problems to exist would be much lower.</p>
+<p><span class="citation">Lowndes et al. (<a href="#ref-lowndes2017" role="doc-biblioref">2017</a>)</span> also shows that using R Markdown (and version control) not only enhances reproducibility, but also produces better scientific research in less time.</p>
+</div>
+<div id="dashboards-at-eelloo" class="section level3" number="2.1.6">
+<h3><span class="header-section-number">2.1.6</span> Dashboards at eelloo</h3>
+<p>R Markdown is used at eelloo (<a href="https://eelloo.nl" class="uri">https://eelloo.nl</a>) to design and generate research reports. Here is one of their examples (in Dutch): <a href="https://eelloo.nl/groepsrapportages-met-infographics/" class="uri">https://eelloo.nl/groepsrapportages-met-infographics/</a>, where you can find gauges, bar charts, pie charts, wordclouds, and other types of graphs dynamically generated and embedded in dashboards.</p>
+</div>
+<div id="examples-books" class="section level3" number="2.1.7">
+<h3><span class="header-section-number">2.1.7</span> Books</h3>
+<p>We will introduce the R Markdown extension <strong>bookdown</strong> in Chapter <a href="#books"><strong>??</strong></a>. It is an R package that allows you to write books and long-form reports with multiple Rmd files. After this package was published, a large number of books have emerged. You can find a subset of them at <a href="https://bookdown.org" class="uri">https://bookdown.org</a>. Some of these books have been printed, and some only have free online versions.</p>
+<p>There have also been students who wrote their dissertations/theses with <strong>bookdown</strong>, such as Ed Berry: <a href="https://eddjberry.netlify.com/post/writing-your-thesis-with-bookdown/" class="uri">https://eddjberry.netlify.com/post/writing-your-thesis-with-bookdown/</a>. Chester Ismay has even provided an R package <strong>thesisdown</strong> (<a href="https://github.com/ismayc/thesisdown" class="uri">https://github.com/ismayc/thesisdown</a>) that can render a thesis in various formats. Several other people have customized this package for their own institutions, such as Zhian N. Kamvar’s <strong>beaverdown</strong> (<a href="https://github.com/zkamvar/beaverdown" class="uri">https://github.com/zkamvar/beaverdown</a>) and Ben Marwick’s <strong>huskydown</strong> (<a href="https://github.com/benmarwick/huskydown" class="uri">https://github.com/benmarwick/huskydown</a>).</p>
+</div>
+<div id="examples-websites" class="section level3" number="2.1.8">
+<h3><span class="header-section-number">2.1.8</span> Websites</h3>
+<p>The <strong>blogdown</strong> package to be introduced in Chapter <a href="#websites"><strong>??</strong></a> can be used to build general-purpose websites (including blogs and personal websites) based on R Markdown. You may find tons of examples at <a href="https://github.com/rbind" class="uri">https://github.com/rbind</a> or by searching on Twitter: <a href="https://twitter.com/search?q=blogdown" class="uri">https://twitter.com/search?q=blogdown</a>. Here are a few impressive websites that I can quickly think of off the top of my head:</p>
+<ul>
+<li><p>Rob J Hyndman’s personal website: <a href="https://robjhyndman.com" class="uri">https://robjhyndman.com</a> (a very comprehensive academic website).</p></li>
+<li><p>Amber Thomas’s personal website: <a href="https://amber.rbind.io" class="uri">https://amber.rbind.io</a> (a rich project portfolio).</p></li>
+<li><p>Emi Tanaka’s personal website: <a href="https://emitanaka.github.io" class="uri">https://emitanaka.github.io</a> (in particular, check out the beautiful showcase page).</p></li>
+<li><p>“Live Free or Dichotomize” by Nick Strayer and Lucy D’Agostino McGowan: <a href="http://livefreeordichotomize.com" class="uri">http://livefreeordichotomize.com</a> (the layout is elegant, and the posts are useful and practical).</p></li>
+</ul>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-bion2018" class="csl-entry">
+Bion, Ricardo, Robert Chang, and Jason Goodman. 2018. <span>“How r Helps Airbnb Make the Most of Its Data.”</span> <em>The American Statistician</em> 72 (1): 46–52. <a href="https://doi.org/10.1080/00031305.2017.1392362">https://doi.org/10.1080/00031305.2017.1392362</a>.
+</div>
+<div id="ref-hartgerink2017" class="csl-entry">
+Hartgerink, Chris HJ, Jelte M Wicherts, and Marcel ALM van Assen. 2017. <span>“Too Good to Be False: Nonsignificant Results Revisited.”</span> <em>Collabra: Psychology</em> 3 (1).
+</div>
+<div id="ref-knuth1984" class="csl-entry">
+Knuth, Donald E. 1984. <span>“Literate Programming.”</span> <em>The Computer Journal</em> 27 (2): 97–111.
+</div>
+<div id="ref-lowndes2017" class="csl-entry">
+Lowndes, Julia S Stewart, Benjamin D Best, Courtney Scarborough, Jamie C Afflerbach, Melanie R Frazier, Casey C O’Hara, Ning Jiang, and Benjamin S Halpern. 2017. <span>“Our Path to Better Science in Less Time Using Open Data Science Tools.”</span> <em>Nature Ecology &amp; Evolution</em> 1 (6).
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basics.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="compile.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook/js/app.min.js"></script>
+<script src="libs/gitbook/js/clipboard.min.js"></script>
+<script src="libs/gitbook/js/plugin-search.js"></script>
+<script src="libs/gitbook/js/plugin-sharing.js"></script>
+<script src="libs/gitbook/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook/js/jquery.highlight.js"></script>
+<script src="libs/gitbook/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/rmarkdown-book/edit/master/02-basics.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["rmarkdown.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "none"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
