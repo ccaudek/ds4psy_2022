@@ -29,6 +29,9 @@ options(
 ```
 
 
+<!-- https://github.com/rstudio/rmarkdown-book -->
+
+
 # Prefazione {-}
 
 _Data Science per psicologi_ contiene il materiale delle lezioni dell'insegnamento di _Psicometria B000286_ (A.A. 2021/2022) rivolto agli studenti del primo anno del Corso di Laurea in Scienze e Tecniche Psicologiche dell'Università degli Studi di Firenze. _Psicometria_ si propone di fornire agli studenti un'introduzione all'analisi dei dati in psicologia. Le conoscenze/competenze che verranno sviluppate in questo insegnamento sono quelle della Data science, ovvero un insieme di  conoscenze/competenze che si pongono all'intersezione tra statistica (ovvero, richiedono la capacità di comprendere teoremi statistici) e informatica (ovvero, richiedono la capacità di sapere utilizzare un software).
