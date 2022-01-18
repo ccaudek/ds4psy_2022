@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.1.13)  18 JAN 2022 09:37
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.1.13)  18 JAN 2022 22:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1918,8 +1918,6 @@ Overfull \hbox (336.25pt too wide) detected at line 845
  []
 
 Capitolo 2.
-File: ds4psy_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-18-1.pdf>
 
 Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
@@ -1928,22 +1926,7 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [21
 
 
-] [22]
-File: ds4psy_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-22-1.pdf>
-[23]
-Overfull \vbox (0.27695pt too high) detected at line 970
- []
-
-[24]
-File: ds4psy_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-24-1.pdf>
-[25]
-File: ds4psy_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-25-1.pdf>
-File: ds4psy_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-26-1.pdf>
-[26] [27] [28] [29] [30] (./ds4psy.bbl [31]
+]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1980,7 +1963,112 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[32
+[22
+
+]
+Underfull \vbox (badness 10000) detected at line 848
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 848
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 848
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 848
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 848
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 848
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 848
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 848
+[]
+ []
+
+Capitolo 3.
+
+LaTeX Warning: Reference `chapter-ppc' on page 23 undefined on input line 850.
+
+
+Underfull \hbox (badness 1990) in paragraph at lines 853--853
+[]\TU/lmr/bx/n/12 Campionamento dalla distribuzione predittiva a
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[23
+
+]
+File: ds4psy_files/figure-latex/unnamed-chunk-17-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-17-1.pdf>
+[24] [25]
+File: ds4psy_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-23-1.pdf>
+
+Underfull \hbox (badness 1990) in paragraph at lines 961--961
+[]\TU/lmr/bx/n/12 Campionamento dalla distribuzione predittiva a
+ []
+
+[26] [27]
+File: ds4psy_files/figure-latex/unnamed-chunk-29-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-29-1.pdf>
+[28] (./ds4psy.bbl [29]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[30
 
 ]
 Underfull \vbox (badness 10000) detected at line 1
@@ -2063,7 +2151,7 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[33
+[31
 
 ] (./ds4psy.aux
 LaTeX Info: Redefining \rmfamily on input line 21.
@@ -2074,15 +2162,15 @@ LaTeX Info: Redefining \ttfamily on input line 21.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `ds4psy.out' has not changed.
-(rerunfilecheck)             Checksum: D4021B222575048AEC50221A48B23215;4173.
+(rerunfilecheck)             Checksum: 2B8689AC20E4060ED3814A7B246A7B8F;4040.
  ) 
 Here is how much of TeX's memory you used:
- 23730 strings out of 478174
- 450140 string characters out of 5852947
- 951799 words of memory out of 5000000
- 43918 multiletter control sequences out of 15000+600000
+ 23711 strings out of 478174
+ 449193 string characters out of 5852947
+ 950630 words of memory out of 5000000
+ 43901 multiletter control sequences out of 15000+600000
  477866 words of font info for 120 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,8n,123p,2164b,476s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ds4psy.pdf (49 pages).
+Output written on ds4psy.pdf (47 pages).

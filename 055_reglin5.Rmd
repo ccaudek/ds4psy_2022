@@ -6,22 +6,26 @@ source("_stan_options.R")
 library("scales")
 ```
 
-Il problema del confronto tra due gruppi indipendenti può essere formulato nei termini di un modello lineare nel quale la variabile $x$ è dicotomica, ovvero assume solo due valori. 
+Il problema del confronto tra due gruppi indipendenti può essere formulato nei termini di un modello lineare nel quale la variabile $X$ è dicotomica, ovvero assume solo due valori. 
 
 ## Modello lineare con una variabile dicotomica
 
-Se $x$ è una variabile dicotomica con valori 0 e 1, allora per il modello lineare $\mu_i = \alpha + \beta x_i$ abbiamo quanto segue. Quando $x=0$, il modello diventa 
+Se $X$ è una variabile dicotomica con valori 0 e 1, allora per il modello lineare $\mu_i = \alpha + \beta x_i$ abbiamo quanto segue. Quando $x=0$, il modello diventa 
 
 $$
 \mu_i = \alpha
 $$
-mentre, quando $X=1$, il modello diventa
+mentre, quando $x=1$, il modello diventa
 
 $$
 \mu_i = \alpha + \beta.
 $$
 
-Ciò significa che il parametro $\alpha$ è uguale al valore atteso del gruppo codificato con $X=0$ e il parametro $\beta$ è uguale alla differenza tra le medie dei due gruppi (essendo la media del secondo gruppo uguale a $\alpha + \beta$). Il parametro $\beta$, dunque, codifica l'effetto di una manipolazione sperimentale o di un trattamento, e l'inferenza su $\beta$ corrisponde direttamente all'inferenza sull'efficacia di un trattamento o di un effetto sperimentale.^[Per "effetto di un trattamento" si intende la differenza tra le medie di due gruppi (per esempio, il gruppo "sperimentale" e il gruppo "di controllo").] L'inferenza su $\beta$, dunque, viene utilizzata per capire quanto "credibile" può essere considerato l'effetto di un trattamento o di una manipolazione sperimentale.
+Ciò significa che il parametro $\alpha$ è uguale al valore atteso del gruppo codificato con $X=0$ e il parametro $\beta$ è uguale alla differenza tra le medie dei due gruppi (essendo la media del secondo gruppo uguale a $\alpha + \beta$). Il parametro $\beta$, dunque, codifica l'effetto di una manipolazione sperimentale o di un trattamento, e l'inferenza su $\beta$ corrisponde direttamente all'inferenza sull'efficacia di un trattamento o di un effetto sperimentale. L'inferenza su $\beta$, dunque, viene utilizzata per capire quanto "credibile" può essere considerato l'effetto di un trattamento o di una manipolazione sperimentale.
+
+### Confronti, non effetti
+
+Per "effetto di un trattamento" si intende la differenza tra le medie di due gruppi (per esempio, il gruppo "sperimentale" e il gruppo "di controllo"). @gelman2020regression fanno notare come l'uso della terminologia "effetto" implica un modello causale: una variazione di $X$ _produce_ una variazione di $Y$. In generale, il modello lineare descrive una regolarità osservabile nel campione di dati. Ma questa regolarità (ovvero, la presenza di una relazione approssimativamente lineare tra $X$ e $Y$) non ci dice nulla della presenza (o dell'assenza) di una relazione di causa/effetto tra queste variabili. L'associazione osservata tra le variabili $X$ e $Y$ potrebbe dipendere dall'effetto di una o più altre variabili non misurate, senza che tra $X$ e $Y$ ci sia alcuna relazione causale. In tali circostanze, l'interpretazione più appropriata dei coefficienti del modello lineare è quella che ci porta a pensare ai coefficienti del modello come ai risultati di un confronto. Nel caso presente, il confronto è quello tra il valore atteso del quoziente di intelligenza dei bambini, quando la madre ha oppure non ha completato il ciclo di istruzione secondaria superiore. Dato che l'affermazione precedente è formulata nei termini del valore atteso, questo significa che facciamo riferimento ad un campione di osservazioni. Niente viene detto della relazione _causale_ tra il quoziente di intelligenza del bambino e l'ottenimento del diploma di scuola superiore da parte della madre _all'interno del singolo soggetto_. Quindi, quando usiamo il termine "effetto" dobbiamo sempre pensare a tale termine come come se fosse contenuto tra virgolette.
 
 ### Un esempio concreto
 
@@ -194,3 +198,9 @@ library("effectsize")
 Il fatto che l'output abbia un segno negativo dipende dal fatto che è stata sottratta la media maggiore dalla media minore (in altri termini, dobbiamo guardare il risultato in valore assoluto). 
 
 In conclusione, il valore $d$ di Cohen di entità "media" [$d$ > 0.5; @sawilowsky2009new] può essere interpretato dicendo che la scolarità delle madri ha un'influenza non trascurabile sul QI dei bambini. 
+
+## Commenti e considerazioni finali {-}
+
+La dimensione dell'effetto formulata nei termini dell'indice $d$ di Cohen fornisce un indice che non dipende dall'unità di misura delle variabili, ovvero è una differenza media standardizzata. L'intrepretazione di $d$ è semplice: la scala di $d$ è la deviazione standard. Se, per esempio, $d = 0.5$, allora la media di un primo gruppo è mezza deviazione standard più grande della media del secondo gruppo. In questo Capitolo abbiamo visto come $d$ possa essere calcolato mediante un modello lineare bayesiano implementato in linguaggio Stan.
+
+

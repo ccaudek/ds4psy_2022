@@ -11,14 +11,30 @@ library("rstan")
 
 # Predictive checks
 
+Nel Capitolo \@ref(chapter-ppc) abbiamo visto come si genera la distribuzione predittiva a posteriori nel caso del modello più semplice: quello di un'unica variabile con una data distribuzione di probabilità. In questo capitolo estenderemo questa discussione al modello lineare. Esamineremo un esempio di _posterior predictive check_ in cui simuleremo da  $p(y^{rep} \mid \theta, y)$, usando le stime a posteriori dei parametri $\theta$ del modello, e un esempio di _prior predictive check_ in cui simuleremo da $p(y^{rep} \mid \mathcal{M})$, ovvero usando il meccanismo generatore dei dati del modello $\mathcal{M}$ in esame, senza però includere i dati. 
+
+
 ## Campionamento dalla distribuzione predittiva a posteriori
 
-Continuiamo ad usare i dati `kidiq` [@gelman2020regression]:
+La distribuzione predittiva a priori equivale alla distribuzione predittiva a posteriori, senza però i dati osservati. Quindi la distribuzione predittiva a priori non è altro che il caso limite della distribuzione predittiva a posteriori, calcolata però senza utilizzare i dati del campione. Il manuale Stan afferma che, se il codice per il il controllo predittivo a posteriori è già stato scritto, ed è possibile impostare il codice in modo che non sia necessario specificare i dati, allora non è necessario fare nient'altro.
+
+Consideriamo qui un esempio nel quale vengono usati i dati `kidiq` [@gelman2020regression].
 
 ```{r}
 library("rio")
 df <- rio::import(here("data", "kidiq.dta"))
 ```
+
+Iniziamo a generare un istogramma dei valori $y$ stanardizzati:
+
+```{r}
+df %>% 
+  ggplot(aes(scale(kid_score)[, 1])) +
+  geom_histogram()
+```
+
+
+Per svolgere l'analisi bayesiana sistemiamo i dati (standardizzati) nel formato appropriato per Stan:
 
 ```{r}
 data_list <- list(
@@ -27,6 +43,8 @@ data_list <- list(
   y = scale(df$kid_score)[, 1]
 )
 ```
+
+Il seguente listato specifica il codice Stan necessario per simulare dati dalla distribuzione predittiva a posteriori.  
 
 ```{r}
 stancode <- '
@@ -81,10 +99,7 @@ fit <- mod$sample(
 stanfit1 <- rstan::read_stan_csv(fit$output_files())
 ```
 
-
-```{r}
-summary(stanfit1, pars = c("alpha", "beta", "sigma"))
-```
+Un istogramme dei valori $y^{rep}$ può essere generato nel modo seguente:
 
 ```{r}
 hist(as.matrix(stanfit1, pars = "y_rep"), breaks = 100)
@@ -93,7 +108,9 @@ hist(as.matrix(stanfit1, pars = "y_rep"), breaks = 100)
 
 ## Campionamento dalla distribuzione predittiva a priori
 
-Per svolgere l'analisi bayesiana sistemiamo i dati nel formato appropriato per Stan:
+Per comprendere le assunzioni che abbiamo introdotto nel modello, possiamo generare dati mediante il modello; tali dati, che sono generati interamente dalle distribuzioni a priori, sono chiamati distribuzione predittiva a priori. La generazione della distribuzione predittiva a priori ci aiuta a verificare se le distribuzioni a priori per i parametri del modello hanno senso. Quello che vogliamo sapere qui è: le distribuzioni a priori che abbiamo scelto generano dati che hanno caratteristiche realistiche?
+
+Dal punto di vista della programmazione, l'unico cambiamento necessario rispetto al codice utilizzato per la distribuzione predittiva a posteriori è quello di eliminare la porzione di codice che fa riferimento ai dati $y$ -- nel caso di un modello lineare, i valori $x$ devono invece essere mantenuti per potere generare $y^{sim}$ (nel codice questa variabile è ancora chiamata `y_rep`).
 
 ```{r}
 data_list <- list(
@@ -148,27 +165,24 @@ fit <- mod$sample(
 )
 ```
 
-
 ```{r}
 stanfit2 <- rstan::read_stan_csv(fit$output_files())
 ```
 
-
-```{r}
-summary(stanfit2, pars = c("alpha", "beta", "sigma"))
-```
-
-
-
-```{r}
-stanfit2 <- rstan::read_stan_csv(fit$output_files())
-```
-
-
+Questo è un istogramma della distribuzione preditiva a priori.  Tale distribuzione viene usata per valutare se le distribuzioni a priori dei parametri sono sensate. Concludiamo che sono sensate se la distribuzione preditiva a priori include tutti i valori possibili della distribuzione della $y$, senza scostarsti troppo da essa. 
 
 ```{r}
 hist(as.matrix(stanfit2, pars = "y_rep"), breaks = 100)
 ```
+
+## Commenti e considerazioni finali {-}
+
+I due _predictive checks_ che abbiamo esaminato in questo capitolo servono due scopi diversi.
+
+La distribuzione predittiva a priori viene utilizzata per comprendere le assunzioni introdotte nel modello. Per fare questo possiamo generare dei dati dal modello. Tali dati, che vengono prodotti interamente dalle distribuzioni a priori, sono chiamati distribuzione predittiva a priori. La distribuzione predittiva a priori ci aiuta a capire se le distribuzioni a priori per i parametri del modello hanno un senso. Quello che ci chiedimo è: le distribuzioni a priori generano dei dati che hanno caratteristiche realistiche? Una risposta affermativa a tale domanda corrisponde ad una distribuzione predittiva a priori che è più ampia della distribuzione dei dati osservati, in linea con il principio dei prior debolmente informativi. Tale distribuzione dovrebbe avere almeno una qualche massa nell'intorno ai valori estremi, ma plausibili dei dati; non dovrebbe, invece, esserci massa in corrispondenza di valori di dati completamente implausibili. 
+
+La distribuzione predittiva a posteriori viene invece utilizzata per esplorare le caratteristiche che potrebbero avere i possibili dati futuri. L'idea alla base del controllo predittivo a posteriori è semplice: se un modello è appropriato, dovremmo essere in grado di usarlo per generare dati che assomigliano ai dati che abbiamo osservato nel campione. La motivazione è simile a quella che ci ha condotto alla distribuzione predittiva a priori, tranne per il fatto che ora abbiamo un modello  generativo dei dati basato sui dati osservati. 
+
 
 
 
