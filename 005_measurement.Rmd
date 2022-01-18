@@ -314,7 +314,7 @@ all'attributo che il test intende misurare.
     in casi particolari.
 
 
-## Conclusioni {-}
+## Commenti e considerazioni finali {-}
 
 Una domanda che uno psicologo spesso si pone è: "sulla base delle
 evidenze osservate, possiamo concludere dicendo che l'intervento

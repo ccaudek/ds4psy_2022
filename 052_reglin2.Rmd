@@ -299,7 +299,7 @@ Nelle precedenti istruzioni $\R$ abbiamo utilizzato la funzione `purrr::map_dbl(
 <!-- ``` -->
 
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 Se gli errori del modello lineare sono indipendenti e distribuiti normalmente, in modo che $y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2)$ per ogni $i$, allora la stima ai minimi quadrati di ($\hat{\beta}_0$, $\hat{\beta}_1$) coincide con la stima di massima verosimiglianza di questi parametri. In un modello lineare, la funzione di verosimiglianza è definita come la densità di probabilità delle osservazioni, dati i parametri e i predittori, ovvero,
 

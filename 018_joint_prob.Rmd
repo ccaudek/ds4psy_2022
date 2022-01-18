@@ -175,8 +175,7 @@ Per la situazione rappresentata nella tabella \@ref(tab:ditr-cong-biv) le variab
 Nella tabella le variabili casuali $X$ e $Y$ non sono indipendenti: le probabilità congiunte non sono ricavabili dal prodotto delle marginali. Per esempio, nessuna delle probabilità marginali è uguale a $0$ per cui nessuno dei valori dentro la tabella (probabilità congiunte) che risulta essere uguale a $0$ può essere il prodotto delle probabilità marginali.
 :::
 
-
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 La funzione di probabilità congiunta tiene simultaneamente conto del
 comportamento di due variabili casuali $X$ e $Y$ e di come esse si

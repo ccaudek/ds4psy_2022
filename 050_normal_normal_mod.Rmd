@@ -297,7 +297,7 @@ Possiamo dunque concludere, con un grado di certezza soggettiva del 95%, che sia
 
 <!-- Nuovamente, i risultati sono molto simili a quelli ottenuti in precedenza. -->
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 Questo esempio ci mostra come calcolare l'intervallo di credibilità per la media di una v.c. gaussiana. La domanda più ovvia di analisi dei dati, dopo  avere visto come creare l'intervallo di credibilità per la media di un gruppo, riguarda il confronto tra le medie di due gruppi. Questo però è un caso speciale di una tecnica di analisi dei dati più generale, chiamate analisi di regressione lineare. Prima di discutere il problema del confronto tra le medie di due gruppi è dunque necessario esaminare il modello statistico di regressione lineare.
 

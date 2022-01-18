@@ -178,7 +178,7 @@ si modifica nella relazione seguente:
 P(A \cup B) = P(A) + P(B) - P(A)P(B).
 \end{equation}
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 La probabilità condizionata è importante perché ci fornisce uno strumento per precisare il concetto di indipendenza statistica. Una delle domande più importanti delle analisi statistiche è infatti quella che si chiede se due variabili sono associate tra loro oppure no. In questo Capitolo abbiamo discusso il concetto di indipendenza (come contrapposto al concetto di associazione -- si veda il Capitolo \@ref(chapter-descript)). In seguito vedremo come sia possibile fare inferenza sull'associazione tra variabili.
 

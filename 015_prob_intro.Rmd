@@ -558,7 +558,7 @@ $$
 <!--     $P(X=x) = p(x)$. -->
 
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 In questo capitolo abbiamo visto come si costruisce lo spazio
 campionario di un esperimento casuale, quali sono le proprietà di base

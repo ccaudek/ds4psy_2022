@@ -314,7 +314,7 @@ Non ci sono delle soglie universalmente riconosciute per interpretare il BF. Per
 
 Tuttavia, è importante notare che l'opinione maggiormente diffusa nella comunità scientifica sia quella che incoraggia a non trarre conclusioni rigide  dai dati utilizzando dei criteri fissati una volta per tutte. Pertanto, non esiste una soglia univoca per il BF che consente di classificare le ipotesi dei ricercatori nelle due categorie "vero" o "falso". Invece, è più utile adottare una pratica più flessibile capace di tenere in considerazione il contesto e le potenziali implicazioni di ogni singolo test di ipotesi. Inoltre, è stato molte volte ripetuto che la distribuzione a posteriori è molto più informativa di una decisione binaria: la rappresentazione di tutta la distribuzione a posteriori fornisce una misura olistica del nostro livello di incertezza riguardo all'affermazione (il parametro, ovvero l'ipotesi) che viene valutata. 
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 Questo capitolo introduce le procedure di base per la manipolazione
 della distribuzione a posteriori. Lo strumento fondamentale che è stato

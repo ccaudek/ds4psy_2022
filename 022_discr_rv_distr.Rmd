@@ -366,7 +366,7 @@ dpois(x = 2, lambda = 3)
 
 - La differenze di due variabili di Poisson non è una variabile di Poisson. Basti infatti pensare che può assumere valori negativi.
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 La distribuzione binomiale è una distribuzione di probabilità discreta che descrive il numero di successi in un processo di Bernoulli, ovvero la variabile aleatoria  $Y = Y_1 + \dots + Y_n$ che somma $n$ variabili casuali indipendenti di uguale distribuzione di Bernoulli $\mathcal{B}(\theta)$, ognuna delle quali può fornire due soli risultati: il successo con probabilità $\theta$ e il fallimento con probabilità $1 - \theta$.
 

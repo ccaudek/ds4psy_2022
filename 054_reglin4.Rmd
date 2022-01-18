@@ -8,7 +8,7 @@ library("tidybayes")
 
 ## Rappresentazione grafica dell'incertezza della stima
 
-Un primo modo per rappresentare l'incertezza dell'inferenza in un ottica bayesiana è quella di rappresentare graficamente la retta specificata dal modello lineare. Continuando con l'esempio descritto nel Capitolo precedente (ovvero, i dati `kid_score` e `mom_iq` centrati), usando la funzione `rstan::read_stan_csv`, leggiamo i file CSV  generati da `cmdstan` e trasformiamo le stime a posteriori dei parametri in formato `stanfit`:
+Un primo modo per rappresentare l'incertezza dell'inferenza in un ottica bayesiana è quella di rappresentare graficamente la retta specificata dal modello lineare. Continuando con l'esempio descritto nel Capitolo precedente (ovvero, i dati `kid_score` e `mom_iq` centrati), usando la funzione `rstan::read_stan_csv` leggiamo i file CSV generati da `cmdstan` e trasformiamo le stime a posteriori dei parametri in formato `stanfit`:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, results='hide'}
 library("rio")
@@ -121,7 +121,7 @@ tibble(
   geom_point() +
   geom_abline(
     data = draws, aes(intercept = alpha, slope = beta),
-    size = 0.2, alpha = 0.01, color = "skyblue"
+    size = 0.2, alpha = 0.01, color = "darkgray"
   ) +
   geom_abline(
     intercept = mean(posterior$alpha),
@@ -132,6 +132,8 @@ tibble(
     y = "Quoziente di intelligenza del bambino"
   )
 ```
+
+Il grafico indica che le rette di regressione costruite estraendo a caso valori dalla distribuzione a posteriori dei parametri $\beta_0$ e $\beta_1$ tendono ad essere molto simili tra loro. Ciò significa che, relativamente alla dipendenza (lineare) del quoziente di intelligenza del bambino da quello della madra, l'incertezza è piccola (ovvero, la certezza è alta).
 
 ## Intervalli di credibilità
 
@@ -144,7 +146,7 @@ rstantools::posterior_interval(
 )
 ```
 
-Un grafico che riporta l'intervallo di credibilità ai livelli di probabilità desiderati per i parametri $\alpha$, $\beta$ e $\sigma$ (nel caso dei dati standardizzati) si ottiene con la seguente istruzione:
+Un grafico che, nel caso dei dati standardizzati, riporta l'intervallo di credibilità ai livelli di probabilità desiderati per i parametri $\alpha$, $\beta$ e $\sigma$ si ottiene con l'istruzione
 
 ```{r}
 mcmc_areas(
@@ -154,7 +156,7 @@ mcmc_areas(
 )
 ```
 
-Oppure
+oppure nel modo nel modo seguente
 
 ```{r}
 stanfit %>%
@@ -165,26 +167,27 @@ stanfit %>%
   )
 ```
 
-## Rappresentazione grafica della distribuzione a posteriori
+### Quale soglia usare?
 
 Non c'è niente di "magico" o necessario relativamente al livello di 0.95: il valore  0.95 è arbitrario. Sono possibili tantissime altre soglie per quantificare la nostra incertezza: alcuni ricercatori usano il livello di 0.89, altri quello di 0.5. Se l'obiettivo è quello di descrivere il livello della nostra incertezza relativamente alla stima del parametro, allora dobbiamo riconoscere che la nostra incertezza è descritta dall'*intera* distribuzione a posteriori. Per cui il metodo più semplice, più diretto e più completo per descrivere la nostra incertezza rispetto alla stima dei parametri è semplicemente quello di riportare graficamente _tutta_ la distribuzione a posteriori. Una rappresentazione della distribuzione a posteriori dei parametri del modello dell'esempio si ottiene nel modo seguente:
 
 ```{r}
-stan_dens(
+rstan::stan_dens(
   stanfit,
-  pars = c("alpha", "beta", "sigma")
+  pars = c("alpha", "beta", "sigma"),
+  fill = "lightgray"
 )
 ```
 
 ## Test di ipotesi
 
-È facile valutare ipotesi direzionali usando Stan. Per esempio, la probabilità  $Pr(\hat{\beta} > 0)$ è
+È facile valutare ipotesi direzionali usando Stan. Per esempio, la probabilità  $Pr(\hat{\beta}_1 > 0)$ è
 
 ```{r}
 sum(posterior$beta > 0) / length(posterior$beta)
 ```
 
-ovvero, la probabilità $Pr(\hat{\beta} \leq 0)$ è
+ovvero, la probabilità $Pr(\hat{\beta}_1 < 0)$ è
 
 ```{r}
 sum(posterior$beta < 0) / length(posterior$beta)
@@ -192,11 +195,11 @@ sum(posterior$beta < 0) / length(posterior$beta)
 
 ## Modello lineare robusto
 
-Spesso i ricercatori devono affrontare il problema degli outlier: in presenza di outlier, un modello statistico basato sulla distribuzione Normale produrrà delle stime dei parametri che non si generalizzano ad altri campioni di dati. Il metodo tradizoinale per affrontare questo problema è quello di eliminare gli outlier prima di eseguire l'analisi statistica. Il problema di questo approccio, però, è che il criterio utilizzato per eliminare gli outlier, quale esso sia, è arbitrario; dunque, usando criteri diversi per eliminare gli outlier, i ricercatori finiscono per trovare risultati diversi.
+Spesso i ricercatori devono affrontare il problema degli outlier: in presenza di outlier, un modello statistico basato sulla distribuzione gaussiana produrrà delle stime distorte dei parametri, ovvero stime che non si generalizzano ad altri campioni di dati. Il metodo tradizionale per affrontare questo problema è quello di eliminare gli outlier prima di eseguire l'analisi statistica. Il problema di questo approccio, però, è che il criterio utilizzato per eliminare gli outlier, quale esso sia, è arbitrario; dunque, usando criteri diversi per la rimozione di outlier, i ricercatori finiscono per trovare risultati diversi.
 
-Questo problema trova una semplice soluzione nell'approccio bayesiano. Nel modello lineare che abbiamo dicusso finora è stato ipotizzato che $\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})$. Per un modello formulato in questi termini, la presenza di solo un valore anomalo e influente può avere un effetto drammatico sulle stime dei parametri. 
+Questo problema trova una semplice soluzione nell'approccio bayesiano. Il modello lineare che abbiamo dicusso finora ipotizza una specifica distribuzione degli errori, ovvero $\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})$. In un modello formulato in questi termini, la presenza di solo un valore anomalo e influente ha un effetto drammatico sulle stime dei parametri. 
 
-Per fare un esempio, introduciamo un singlo valore anomalo nel set dei dati dell'esempio che stiamo discutendo:
+Per fare un esempio, introduciamo un singlo valore anomalo e influente nel set dei dati dell'esempio che stiamo discutendo:
 
 ```{r}
 df2 <- df
@@ -204,18 +207,16 @@ df2$kid_score[434] <- -500
 df2$mom_iq[434] <- 140
 ```
 
-Per comodità, calcoliamo le stime di $\alpha$ e $\beta$ con il metodo dei minimi quadrati (le stime dei parametri sono simili a quelle di un modello bayesiano Normale con distribuzioni a priori vagamente informative). Sappiamo che, nel campione originari di dati, $\hat{\beta} \approx 0.6$. In presenza di un solo outlier troviamo 
-che
+Per comodità, calcoliamo le stime di $\alpha$ e $\beta$ con il metodo dei minimi quadrati (tali stime sono simili a quelle che si otterrebbero con un modello bayesiano gaussiano che impiega distribuzioni a priori debolmente informative). Sappiamo che, nel campione originale di dati, $\hat{\beta} \approx 0.6$. In presenza di un solo outlier troviamo la stima di $\beta$ viene drammaticamente ridotta:
 
 ```{r}
-coef(lm(kid_score ~ mom_iq, data = df2))
+lm(kid_score ~ mom_iq, data = df2) %>% 
+  coef() 
 ```
 
-la stima di $\beta$ viene drammaticamente ridotta (di quasi la metà!). 
+In generale, però, non è necessario assumere $\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})$. È altrettanto valido un modello che ipotizza una diversa distribuzione di densità per gli errori come, ad esempio, la distribuzione $t$ di Student con un piccolo numero di gradi di libertà. Una caratteristica della $t$ di Student è che le code della distribuzione contengono una massa di probabilità maggiore della distribuzione gaussiana. Ciò fornisce alla $t$ di Student la possibilità di "rendere conto" della presenza di osservazioni lontane dalla media della distribuzione. In altri termini, se in modello lineare usiamo la $t$ di Student quale distribuzione degli errori, la presenza di outlier avrà una minore influenza sulle stime dei parametri di quanto avvenga nel tradizionale modello lineare gaussiano.
 
-Non è però necessario assumere $\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})$. È altrettanto valido un modello che ipotizza una diversa distribuzione di densità per i residui come, ad esempio, la distribuzione $t$ di Student con un piccolo numero di gradi di libertà. Una caratteristica della $t$ di Student è che le code della distribuzione contengono una massa di probabilità maggiore della Normale. Ciò fornisce alla $t$ di Student la possibilità di "rendere conto" della presenza di osservazioni lontane dalla media della distribuzione. In altri termini, se in modello lineare usiamo la $t$ di Student quale distribuzione dei residui, la presenza di outlier avrà una minore influenza sulle stime dei parametri di quanto avvenga nel modello Normale.
-
-Per verificare questa affermazione, modifichiamo il codice Stan in modo tale da ipotizzare che la distribuzione della $y$ segua una $t$ di Student con un numero $\nu$ gradi di libertà stimato dal modello: `student_t(nu, mu, sigma)`.^[È equivalente scrivere $y_i = \mu_i + \varepsilon_i$, dove $\mu_i = \alpha + \beta x_i, \varepsilon_i \sim \mathcal{N}(0, \sigma_\varepsilon),$ oppure $y_i \sim \mathcal{N}(\mu_i, \sigma_\varepsilon).$]
+Per verificare questa affermazione, modifichiamo il codice Stan usato in precedenza in modo tale da ipotizzare che $y$ segua una distribuzione $t$ di Student con un numero $\nu$ gradi di libertà stimato dal modello: `student_t(nu, mu, sigma)`.^[È equivalente scrivere $y_i = \mu_i + \varepsilon_i$, dove $\mu_i = \alpha + \beta x_i, \varepsilon_i \sim \mathcal{N}(0, \sigma_\varepsilon),$ oppure $y_i \sim \mathcal{N}(\mu_i, \sigma_\varepsilon).$]
 
 ```{r}
 modelString <- "
@@ -284,10 +285,14 @@ fit4 <- mod$sample(
 )
 ```
 
-Esaminando le stime dei parametri
+Se esaminiamo le stime dei parametri notiamo che la stima di $\beta$ non è stata influenzata dalla presenza di un'osservazione anomala e influente:
 
 ```{r}
 fit4$summary(c("alpha", "beta", "sigma", "nu"))
 ```
 
-notiamo che la stima di $\beta$ è rimasta praticamente immutata. Il modello lineare robustao non risente dunque della presenza degli outlier.
+Il modello lineare robusto non risente dunque della presenza di outlier.
+
+## Commenti e considerazioni finali {-}
+
+Nell'approccio bayesiano possiamo rappresentare l'incertezza delle nostre credenze a posteriori in due modi: mediante la rappresentazione grafica dell'intera distribuzione a posteriori dei parametri o mediante l'uso degli intervalli di credibilità. Un bonus della discussione del presente Capitolo è quello di mostrare come il modello lineare tradizionale (che assume $\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})$) possa essere facilmente esteso nei termini di un modello robusto che offre una semplice soluzione al problema di ridurre l'effetto della presenza di osservazioni outlier.

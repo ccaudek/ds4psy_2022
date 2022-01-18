@@ -450,7 +450,7 @@ ppc_stat_2d(data_list$y, y_rep, stat = c("mean", "min"))
 In conclusione, per le misurazioni della velocità della luce di Newcomb l'accuratezza predittiva del modello basato sulla distribuzione $t$ di Student è chiaramente migliore di quella del modello normale.
 :::
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 Questo capitolo presenta i controlli predittivi a posteriori. A questo proposito è necessario notare un punto importante: i controlli predittivi a posteriori, quando suggeriscono un buon adattamento del modello alle caratterische dei dati previsti futuri $y^{rep}$, non forniscono necessariamente una forte evidenza della capacità del modello di generalizzarsi a nuovi campioni di dati. Una tale evidenza sulla generalizzabilità del modello può solo essere fornita da studi di _holdout validation_, ovvero da studi nei quali viene utilizzato un _nuovo_ campione di dati. Se i PPC mostrano un cattivo adattamento del modello ai dati previsti futuri, però, questo controllo fornisce una forte evidenza di una errata specificazione del modello.
 

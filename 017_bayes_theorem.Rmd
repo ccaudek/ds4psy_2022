@@ -383,7 +383,7 @@ Se prima di lanciare la moneta ritenevamo che l'ipotesi $H_1$ fosse tre volte pi
 Il processo di aggiornamento bayesiano, dunque, ci fornisce un metodo per modificare il livello di fiducia in una data ipotesi, alla luce di nuove informazioni.
 :::
 
-## Considerazioni conclusive {-}
+## Commenti e considerazioni finali {-}
 
 Il teorema di Bayes costituisce il fondamento dell'approccio più moderno
 della statistica, quello appunto detto bayesiano. Chi usa il teorema di
