@@ -46,35 +46,35 @@ knitr::include_graphics("images/linear_function.png")
 
 ## L'errore di misurazione
 
-Per descrivere l'associazione tra due variabili, tuttavia, la funzione lineare non è sufficiente. Nel mondo empirico, infatti, la relazione tra variabili non è mai perfettamente lineare. È dunque necessario includere nel modello lineare anche una componente d'errore, ovvero una componente della $y$ che non può essere spiegata dal modello lineare. Nel caso di due sole variabili, questo ci conduce alla seguente formulazione del modello lineare:
+Per descrivere l'associazione tra due variabili, tuttavia, la funzione lineare non è sufficiente. Nel mondo empirico, infatti, la relazione tra variabili non è mai perfettamente lineare. È dunque necessario includere nel modello lineare anche una componente d'errore, ovvero una componente della $Y$ che non può essere spiegata dal modello lineare. Nel caso di due sole variabili, questo ci conduce alla seguente formulazione del modello lineare:
 
 \begin{equation}
-y = \alpha + \beta x + \varepsilon,
+y = \beta_0 + \beta_1 x + \varepsilon,
 (\#eq:regbivpop)
 \end{equation}
 
-laddove i parametri $\alpha$ e $\beta$ descrivono l'associazione tra le variabili casuali $y$ e $x$, e il termine d'errore $\varepsilon$ specifica quant'è grande la porzione della variabile $y$ che non può essere predetta nei termini di una relazione lineare con la $x$.
+laddove i parametri $\beta_0$ e $\beta_1$ descrivono l'associazione tra le variabili casuali $Y$ e $X$, e il termine d'errore $\varepsilon$ specifica quant'è grande la porzione della variabile $y$ che non può essere predetta nei termini di una relazione lineare con la $X$.
 
-Si noti che la \@ref(eq:regbivpop) consente di formulare una predizione, nei termini di un modello lineare, del valore atteso della $y$ conoscendo $x$, ovvero
+Si noti che la \@ref(eq:regbivpop) consente di formulare una predizione, nei termini di un modello lineare, del valore atteso della $Y$ conoscendo $X$, ovvero
 
 \begin{equation}
-\hat{y} = \mathbb{E}(y \mid x) = \alpha + \beta x.
+\hat{Y} = \mathbb{E}(Y \mid X = x) = \beta_0 + \beta_1 x.
 (\#eq:regbivpop2)
 \end{equation}
 
-In altri termini, se i parametri del modello ($\alpha$ e $\beta$) sono noti, allora è possibile predire la $y$ sulla base della nostra conoscenza della $x$. 
+In altri termini, se i parametri del modello ($\beta_0$ e $\beta_1$) sono noti, allora è possibile predire la $Y$ sulla base della nostra conoscenza della $X$. 
 Per esempio, se conosciamo la relazione lineare tra quoziente di intelligenza ed aspettativa di vita, allora possiamo prevedere quanto a lungo vivrà una persona sulla base del suo QI. Sì, c'è una relazione lineare tra intelligenza e aspettativa di vita [@hambrick2015research]! Ma quando è accurata la previsione? Ciò dipende dal termine d'errore della \@ref(eq:regbivpop). Il modello lineare fornisce un metodo per rispondere a domande di questo tipo^[Per una discussione sugli aspetti di base del modello lineare, si veda il [capitolo 7](https://openintro-ims.netlify.app/model-slr.html) di _Introduction to Modern Statistics_.].
 
 ## Una media per ciascuna osservazione
 
-In precedenza abbiamo visto come sia possibile stimare i parametri di un modello bayesiano Normale nel quale le osservazioni sono indipendenti e identicamente distribuite secondo una densità Normale, 
+In precedenza abbiamo visto come sia possibile stimare i parametri di un modello bayesiano nel quale le osservazioni sono indipendenti e identicamente distribuite secondo una densità gaussiana, 
 
 \begin{equation}
 Y_i \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma), \quad i = 1, \dots, n.
 (\#eq:normalsamplingmodel)
 \end{equation}
 
-Il modello \@ref(eq:normalsamplingmodel) assume che ogni $Y_i$ sia una realizzazione della stessa $\mathcal{N}(\mu, \sigma^2)$. Da un punto di vista bayesiano^[Per un'introduzione alla trattazione frequentista del modello lineare, si veda l'Appendice \@ref(least-squares).], si assegnano distribuzioni a priori ai parametri $\mu$ e $\sigma$, si genera la verosimiglianza in base ai dati osservati e, con queste informazioni, si generano le distribuzione a posteriori dei parametri [@gelman2020regression]:
+Il modello \@ref(eq:normalsamplingmodel) assume che ogni $Y_i$ sia una realizzazione di una v.c. descritta da una $\mathcal{N}(\mu, \sigma^2)$. Da un punto di vista bayesiano^[Per un'introduzione alla trattazione frequentista del modello lineare, si veda l'Appendice \@ref(least-squares).], si assegnano distribuzioni a priori ai parametri $\mu$ e $\sigma$, si genera la verosimiglianza in base ai dati osservati e, con queste informazioni, si generano le distribuzione a posteriori dei parametri [@gelman2020regression]:
 
 \begin{align}
 Y_i \mid \mu, \sigma & \stackrel{iid}{\sim} \mathcal{N}(\mu, \sigma^2)\notag\\
@@ -82,16 +82,16 @@ Y_i \mid \mu, \sigma & \stackrel{iid}{\sim} \mathcal{N}(\mu, \sigma^2)\notag\\
 \sigma    & \sim \Cauchy(x_0, \gamma) \notag
 \end{align}
 
-È comune però che vengano però registrate altre variabili $x_i$ che possono essere associate alla risposta di interesse $y_i$.  La variabile $x_i$ viene chiamata _predittore_ (o variabile indipendente) in quanto il ricercatore è tipicamente interessato a predire il valore $y_i$ a partire da $x_i$. Come si può estende il modello Normale della \@ref(eq:normalsamplingmodel) per lo studio della possibile relazione tra $y_i$ e $x_i$?
+È comune però che vengano registrate altre variabili $x_i$ che possono essere associate alla risposta di interesse $y_i$.  La variabile $x_i$ viene chiamata _predittore_ (o variabile indipendente) in quanto il ricercatore è tipicamente interessato a predire il valore $y_i$ a partire da $x_i$. Come si può estende il modello \@ref(eq:normalsamplingmodel) per lo studio della possibile relazione tra $y_i$ e $x_i$?
 
-Il modello \@ref(eq:normalsamplingmodel) assume una media $\mu$ comune per ciascuna osservazione $Y_i$. Dal momento che desideriamo introdurre una nuova variabile $x_i$ che assume un valore specifico per ciascuna osservazione $y_i$, il modello \@ref(eq:normalsamplingmodel) può essere modificato in modo che la media comune $\mu$ venga sostituita da una media $\mu_i$ specifica a ciascuna $i$-esima osservazione:
+Il modello \@ref(eq:normalsamplingmodel) assume una media $\mu$ comune per ciascuna osservazione $Y_i$. Dal momento che desideriamo introdurre una nuova variabile $x_i$ che assume un diverso valore per ciascuna osservazione $y_i$, il modello \@ref(eq:normalsamplingmodel) può essere modificato in modo che la media comune $\mu$ venga sostituita da una media $\mu_i$ specifica a ciascuna osservazione $i$-esima:
 
 \begin{equation}
 Y_i \mid \mu_i, \sigma \stackrel{ind}{\sim} \mathcal{N}(\mu_i, \sigma), \quad i = 1, \dots, n.
 (\#eq:normalsamplinglinearmodel)
 \end{equation}
 
-Si noti che le osservazioni $Y_1, \dots, Y_n$ non sono più identicamente distribuite poiché hanno medie diverse, ma sono ancora indipendenti come indicato dalla notazione `ind` posta sopra il simbolo $\sim$ nella \@ref(eq:normalsamplinglinearmodel)
+Si noti che le osservazioni $Y_1, \dots, Y_n$ non sono più identicamente distribuite poiché hanno medie diverse, ma sono ancora indipendenti come indicato dalla notazione `ind` posta sopra il simbolo $\sim$ nella \@ref(eq:normalsamplinglinearmodel).
 
 ### Relazione lineare tra la media $y \mid x$ e il predittore
 
@@ -102,9 +102,9 @@ L'approccio che consente di mettere in relazione un predittore $x_i$ con la risp
 (\#eq:regmodel)
 \end{equation}
 
-Nella \@ref(eq:regmodel), ciascuna $x_i$ è una costante nota (ecco perché viene usata una lettera minuscola per la $x$) e $\beta_0$ e  $\beta_ 1$ sono parametri incogniti. Questi parametri che rappresentano l'intercetta e la pendenza della retta di regressione sono variabili casuali. Si assegna una distribuzione a priori a $\beta_0$ e a $\beta_ 1$ e si esegue l'inferenza riassumendo la distribuzione a posteriori di questi parametri.
+Nella \@ref(eq:regmodel), ciascuna $x_i$ è una costante nota (ecco perché viene usata una lettera minuscola per la $x$) e $\beta_0$ e $\beta_ 1$ sono parametri incogniti. Questi parametri rappresentano l'intercetta e la pendenza della retta di regressione e sono delle variabili casuali.^[Una notazione alternativa per tali parametri è $\alpha$, $\beta$, anziché $\beta_0$, $\beta_ 1$.] Si assegna una distribuzione a priori a $\beta_0$ e a $\beta_ 1$ e si esegue l'inferenza riassumendo la distribuzione a posteriori di questi parametri.
 
-In questo modello, la funzione lineare $\beta_0 + \beta_ 1 x_i$ è interpretata come il valore atteso della $Y_i$ per ciascun valore $x_i$, mentre l'intercetta $\beta_0$ rappresenta il valore atteso della $Y_i$ quando $x_i = 0$. Il parametro $\beta_ 1$ (pendenza) rappresenta invece l'aumento medio della $Y_i$ quando $x_i$ aumenta di un'unità. È importante notare che la relazione lineare  \@ref(eq:normalsamplinglinearmodel) di parametri $\beta_0$ e  $\beta_ 1$ descrive l'associazione tra _la media_ $\mu_i$ e il predittore $x_i$. In altri termini, tale relazione lineare ci fornisce una predizione sul valore medio $\mu_i$, non sul valore _effettivo_ $Y_i$.
+Nel modello \@ref(eq:regmodel), la funzione lineare $\beta_0 + \beta_ 1 x_i$ è interpretata come il valore atteso della $Y_i$ per ciascun valore $x_i$, mentre l'intercetta $\beta_0$ rappresenta il valore atteso della $Y_i$ quando $x_i = 0$. Il parametro $\beta_ 1$ (pendenza) rappresenta invece l'aumento medio della $Y_i$ quando $x_i$ aumenta di un'unità. È importante notare che la relazione lineare  \@ref(eq:normalsamplinglinearmodel) di parametri $\beta_0$ e  $\beta_ 1$ descrive l'associazione tra _la media_ $\mu_i$ e il predittore $x_i$. In altri termini, tale relazione lineare ci fornisce una predizione sul valore medio $\mu_i$, non sul valore _effettivo_ $Y_i$.
 
 ### Il modello lineare
 

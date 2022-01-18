@@ -811,12 +811,9 @@ diagramma a dispersione.
 
 Il diagramma di dispersione è la rappresentazione grafica delle coppie di punti individuati da due variabili $X$ e $Y$.
 
-::: {.exercise}
-Si costruisca il diagramma di dispersione per le variabili BDI-II e CES-D di  @zetschefuture2019.
+Per fare un esempio concreto, consideriamo le variabili BDI-II e CES-D di  @zetschefuture2019. Il diagramma di dispersione per tali variabili si ottiene ponendo, ad esempio, i valori BDI-II sull'asse delle ascisse e quelli del CES-D sull'asse delle ordinate. In tale grafico, fornito dalla figura \@ref(fig:zetsche-scatter), cascun punto corrisponde ad un individuo del quale, nel caso presente, conosciamo il livello di depressione misurato dalle due scale psicometriche.
 
-Il diagramma di dispersione per le variabili BDI-II e CES-D si ottiene ponendo, ad esempio, i valori BDI-II sull'asse delle ascisse e quelli del CES-D sull'asse delle ordinate. In tale grafico, fornito dalla figura \@ref(fig:zetsche-scatter), cascun punto corrisponde ad un individuo del quale, nel caso presente, conosciamo il livello di depressione misurato dalle due scale psicometriche.
-
-Dalla figura \@ref(fig:zetsche-scatter) possiamo vedere che i dati mostrano una tendenza a disporsi attorno ad una retta -- nel gergo statistico, questo fatto viene espresso dicendo che i punteggi CES-Dtendono ad essere linearmente associati ai punteggi BDI-II. È ovvio, tuttavia, che tale relazione lineare è lungi dall'essere perfetta -- se fosse perfetta, tutti i punti del diagramma a dispersione si disporrebbero esattamente lungo una retta.
+Dalla figura \@ref(fig:zetsche-scatter) possiamo vedere che i dati mostrano una tendenza a disporsi attorno ad una retta -- nel gergo statistico, questo fatto viene espresso dicendo che i punteggi CES-D tendono ad essere linearmente associati ai punteggi BDI-II. È ovvio, tuttavia, che tale relazione lineare è lungi dall'essere perfetta -- se fosse perfetta, tutti i punti del diagramma a dispersione si disporrebbero esattamente lungo una retta. 
 
 ```{r, zetsche-scatter, fig.cap = "Associazione tra le variabili BDI-II e CES-D nello studio di Zetsche et al. (2019). In grigio sono rappresentate le osservazioni del gruppo di controllo; in nero quelle dei pazienti."}
 bysubj <- df %>%
@@ -858,16 +855,14 @@ bysubj %>%
   theme(legend.position = "none") +
   scale_colour_grey(start = 0.7, end = 0)
 ```
-:::
 
 ### Covarianza
 
-Il problema che ci poniamo è quello di trovare un indice numerico che
-descriva di quanto la nube di punti si discosta da una perfetta
-relazione lineare tra le due variabili. Per risolvere tale problema
-dobbiamo specificare un indice statistico che descriva la direzione e la
+Il problema che ci poniamo ora è quello di trovare un indice numerico che
+descrive di quanto la nube di punti si discosta da una perfetta
+relazione lineare tra le due variabili, ovvero che descrive la direzione e la
 forza della relazione lineare tra le due variabili. Ci sono vari indici
-statistici che possiamo utilizzare a questo scopo.
+statistici che possono essere utilizzati a questo scopo.
 
 Iniziamo a considerare il più importante di tali indici, chiamato
 *covarianza*. In realtà la definizione di questo indice non ci
