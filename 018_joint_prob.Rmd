@@ -175,6 +175,53 @@ Per la situazione rappresentata nella tabella \@ref(tab:ditr-cong-biv) le variab
 Nella tabella le variabili casuali $X$ e $Y$ non sono indipendenti: le probabilità congiunte non sono ricavabili dal prodotto delle marginali. Per esempio, nessuna delle probabilità marginali è uguale a $0$ per cui nessuno dei valori dentro la tabella (probabilità congiunte) che risulta essere uguale a $0$ può essere il prodotto delle probabilità marginali.
 :::
 
+## Anticipazione
+
+Nella trattazione della statistca bayesiana useremo spesso il concetto di "marginalizzazione" e vedremo spesso equazioni come la seguente:
+
+\begin{equation}
+p(y) = \int_{\theta} p(y, \theta) = \int_{\theta} p(y \mid \theta) p(\theta),
+\end{equation}
+
+laddove $y$ e $\theta$ sono due variabili casuali continue -- nello specifico, con $y$ denoteremo i dati e con $\theta$ i parametri di un modello statistico. Per ora, possiamo pensare a $y$ e $\theta$ come a due variabili casuali qualsiasi.
+
+La \@ref(eq:ex-marginalization) descrive la distribuzione marginale di $y$. In questa forma, l'equazione potrebbe essere difficile da capire. Per una maggiore comprensione, consideriamo il caso discreto. Nell'equazione corrispondente al caso discreto semplicemente sostituiamo l'integrale con una somma:
+
+\begin{equation}
+p(y) = \sum_{\theta} p(y, \theta) = \sum_{\theta} p(y \mid \theta) p(\theta).
+(\#eq:ex-marginalization)
+\end{equation}
+
+Esaminiamo ora un esempio numerico. Siano $y$ e $\theta$ due variabili discrete aventi la distribuzione di massa di probabilità congiunta riportata nella tabella \@ref(tab:ex-marg).
+
+Table: (\#tab:ex-marg) Distribuzione di probabilità congiunta $p(y, \theta)$ per due variabili casuali discrete.
+
+         $y / \theta$    0     1    $p(y)$
+  --------------------- ----- ----- --------
+            0            0.1  0.2    0.3
+            1            0.3  0.4    0.7
+    $p(\theta)$          0.4   0.6    1.0
+  --------------------- ----- ----- --------
+
+Sappiamo che $p(y) = \{0.3, 0.7\}$. Applicando la \@ref(eq:ex-marginalization),  questo risultato si trova nel modo seguente:
+
+$$
+\begin{pmatrix}
+    0.1 / 0.4 \\
+    0.3 / 0.4
+\end{pmatrix} \cdot 0.4 +
+\begin{pmatrix}
+    0.2 / 0.6 \\
+    0.4 / 0.6
+\end{pmatrix} \cdot 0.6 =
+\begin{pmatrix}
+    0.3 \\
+   0.7
+\end{pmatrix}.
+$$
+
+Possiamo pensare al caso continuo indicato nella \@ref(eq:ex-marginalization) come all'estensione dell'esempio presente ad un numero infinito di valori $\theta$.
+
 ## Commenti e considerazioni finali {-}
 
 La funzione di probabilità congiunta tiene simultaneamente conto del

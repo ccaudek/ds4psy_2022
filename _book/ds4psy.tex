@@ -1573,47 +1573,7 @@ La prima fase dell'analisi dei dati riassume i dati mediante gli strumenti della
 \hypertarget{intro-prob-1}{%
 \chapter{Nozioni di base}\label{intro-prob-1}}
 
-Una possibile definizione della teoria delle probabilità è la seguente: la teoria delle probabilità ci fornisce gli strumenti per prendere decisioni razionali in condizioni di incertezza, ovvero per formulare le migliori congetture possibili.
-
-\hypertarget{inf-stat-probl-inv}{%
-\section{La probabilità come la logica della scienza}\label{inf-stat-probl-inv}}
-
-La figura \ref{fig:cycle-of-science} fornisce una rappresentazione schematica del processo dell'indagine scientifica. Possiamo pensare al progresso scientifico come alla ripetizione di questo ciclo, laddove i fenomeni naturali (e, ovviamente psicologici) vengono esplorati e i ricercatori imparano sempre di più sul loro funzionamento. Le caselle della figura descrivono le varie fasi del processo di ingagine scientifica, mentre lungo le frecce sono riportati i compiti che conducono i ricercatori da una fase alla successiva.
-
-\begin{figure}[h]
-
-{\centering \includegraphics{images/cycle_of_science} 
-
-}
-
-\caption{Rappresentazione schematica del processo scientifico (figura adattata dalla Fig. 1.1 di P. Gregory, Bayesian Logical Data Analysis for the Physical Sciences, Cambridge, 2005).}\label{fig:cycle-of-science}
-\end{figure}
-
-Consideriamo i compiti e le fasi dell'indagine scientifica. Iniziamo in basso a sinistra.
-
-\begin{itemize}
-\item
-  \emph{Invenzione e perfezionamento delle ipotesi.} In questa fase del processo scientifico, i ricercatori pensano ai fenomeni naturali, a ciò che è presente nella letteratura scientifica, ai risultati dei loro esperimenti, e formulano ipotesi o teorie che possono essere valutare mediante esperimenti empirici. Questo passaggio richiede innovazione e creatività.
-\item
-  L'\emph{inferenza deduttiva} procede in maniera deterministica dai fatti alle conclusioni. Ad esempio, se dico che tutti gli uomini sono mortali e che Socrate è un uomo, allora posso concludere deduttivamente che Socrate è mortale. Quando i ricercatori progettano gli esperimenti in base alle teorie, usano la logica deduttiva per dire: ``Se A è vero, allora B deve essere vero'', dove \(A\) è l'ipotesi teorica e \(B\) è l'osservazione sperimentale.
-\item
-  \emph{Esecuzione degli esperimenti.} Questa fase richiede molte risorse (tempo e denaro). Richiede anche innovazione e creatività. Nello specifico, i ricercatori devono pensare attentamente a come costruire l'esperimento necessario per verificare la teoria di interesse. Quale risultato dell'esperimento si ottengono i dati.
-\item
-  L'\emph{inferenza induttiva} procede dalle osservazioni ai fatti. Se pensiamo ai fatti come a ciò che governa o genera le osservazioni, allora l'induzione è una sorta di inferenza inversa. Supponiamo di avere osservato \(B\). Questo rende \(A\) vero? Non necessariamente. Ma può rendere \(A\) più plausibile. Questo è un sillogismo debole. Ad esempio, si consideri la seguente coppia ipotesi/osservazioni.
-
-  \begin{itemize}
-  \item
-    \(A\) = L'iniezione di acque reflue dopo la fratturazione idraulica, nota come fracking, può portare a una maggiore frequenza di terremoti.
-  \item
-    \(B\) = La frequenza dei terremoti in Oklahoma è aumentata di 100 volte dal 2010, quando il fracking è diventato una pratica comune.
-  \item
-    Poiché \(B\) è stato osservato, \(A\) è più plausibile. \(A\) non è necessariamente vero, ma è più plausibile.
-  \end{itemize}
-\item
-  L'\emph{inferenza statistica} è un tipo di inferenza induttiva che è specificamente formulata come un problema inverso. L'inferenza statistica è quell'insieme di procedure che hanno lo scopo di quantificare quanto più plausibile sia \(A\) dopo aver osservato \(B\). Per svolgere l'inferenza statistica è dunque necessario quantificare tale plausibilità. Lo strumento che ci consente di fare questo è la teoria delle probabilità.
-\end{itemize}
-
-L'inferenza statistica è l'aspetto del processo dell'indagine scientifica che costituisce il tema centrale di questo insegnamento. Il risultato dell'inferenza statistica è la conoscenza di quanto siano plausibili le ipotesi e le stime dei parametri sotto le ipotesi considerate. Ma l'inferenza statistica richiede una teoria delle probabilità, laddove la teoria delle probabilità può essere vista come una generalizzazione della logica. A causa di questa connessione con la logica, e del suo ruolo cruciale nella scienza, E. T. Jaynes ha dichiarato che ``la probabilità è la logica della scienza''. Per potere trattare i temi di base dell'inferenza statistica è dunque necessario esaminare preliminarmente alcune nozioni della teoria delle probabilità.
+L'\emph{inferenza statistica} è un tipo di inferenza induttiva. L'inferenza statistica è un insieme di procedure che hanno lo scopo di quantificare quanto più plausibile sia la proposizione \(A\) dopo aver osservato l'evento \(B\). Per svolgere l'inferenza statistica è necessario quantificare tale plausibilità e lo strumento che consente di fare ciò è la teoria delle probabilità. Una discussione dell'inferenza statistica richiede dunque la conoscenze delle nozioni di base della teoria delle probabilità.
 
 \hypertarget{che-cosuxe8-la-probabilituxe0}{%
 \section{Che cos'è la probabilità?}\label{che-cosuxe8-la-probabilituxe0}}
@@ -2722,6 +2682,61 @@ Per la situazione rappresentata nella tabella \ref{tab:ditr-cong-biv} le variabi
 Nella tabella le variabili casuali \(X\) e \(Y\) non sono indipendenti: le probabilità congiunte non sono ricavabili dal prodotto delle marginali. Per esempio, nessuna delle probabilità marginali è uguale a \(0\) per cui nessuno dei valori dentro la tabella (probabilità congiunte) che risulta essere uguale a \(0\) può essere il prodotto delle probabilità marginali.
 \end{exercise}
 
+\hypertarget{anticipazione}{%
+\section{Anticipazione}\label{anticipazione}}
+
+Nella trattazione della statistca bayesiana useremo spesso il concetto di ``marginalizzazione'' e vedremo spesso equazioni come la seguente:
+
+\begin{equation}
+p(y) = \int_{\theta} p(y, \theta) = \int_{\theta} p(y \mid \theta) p(\theta),
+\end{equation}
+
+laddove \(y\) e \(\theta\) sono due variabili casuali continue -- nello specifico, con \(y\) denoteremo i dati e con \(\theta\) i parametri di un modello statistico. Per ora, possiamo pensare a \(y\) e \(\theta\) come a due variabili casuali qualsiasi.
+
+La \eqref{eq:ex-marginalization} descrive la distribuzione marginale di \(y\). In questa forma, l'equazione potrebbe essere difficile da capire. Per una maggiore comprensione, consideriamo il caso discreto. Nell'equazione corrispondente al caso discreto semplicemente sostituiamo l'integrale con una somma:
+
+\begin{equation}
+p(y) = \sum_{\theta} p(y, \theta) = \sum_{\theta} p(y \mid \theta) p(\theta).
+\label{eq:ex-marginalization}
+\end{equation}
+
+Esaminiamo ora un esempio numerico. Siano \(y\) e \(\theta\) due variabili discrete aventi la distribuzione di massa di probabilità congiunta riportata nella tabella \ref{tab:ex-marg}.
+
+\begin{longtable}[]{@{}cccl@{}}
+\caption{\label{tab:ex-marg} Distribuzione di probabilità congiunta \(p(y, \theta)\) per due variabili casuali discrete.}\tabularnewline
+\toprule
+\(y / \theta\) & 0 & 1 & \(p(y)\) \\
+\midrule
+\endfirsthead
+\toprule
+\(y / \theta\) & 0 & 1 & \(p(y)\) \\
+\midrule
+\endhead
+0 & 0.1 & 0.2 & 0.3 \\
+1 & 0.3 & 0.4 & 0.7 \\
+\(p(\theta)\) & 0.4 & 0.6 & 1.0 \\
+\bottomrule
+\end{longtable}
+
+Sappiamo che \(p(y) = \{0.3, 0.7\}\). Applicando la \eqref{eq:ex-marginalization}, questo risultato si trova nel modo seguente:
+
+\[
+\begin{pmatrix}
+    0.1 / 0.4 \\
+    0.3 / 0.4
+\end{pmatrix} \cdot 0.4 +
+\begin{pmatrix}
+    0.2 / 0.6 \\
+    0.4 / 0.6
+\end{pmatrix} \cdot 0.6 =
+\begin{pmatrix}
+    0.3 \\
+   0.7
+\end{pmatrix}.
+\]
+
+Possiamo pensare al caso continuo indicato nella \eqref{eq:ex-marginalization} come all'estensione dell'esempio presente ad un numero infinito di valori \(\theta\).
+
 \hypertarget{commenti-e-considerazioni-finali-7}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-7}}
 
@@ -2749,21 +2764,7 @@ Consideriamo il seguente esperimento casuale. Facciamo ruotare ad alta velocita�
 \caption{Uno spinner che riposa a 36 gradi, o il dieci percento del percorso intorno al cerchio. La pendenza dello spinner può assumere qualunque valore tra 0 e 360 gradi.}\label{fig:unnamed-chunk-31}
 \end{figure}
 
-Cosa implica per \(\Theta\) dire che lo spinner è simmetrico? Possiamo dire che, in ciascuna prova, la rotazione dello spinner produce un angolo qualunque da 0 a 360 gradi. In altri termini, un valore \(\Theta\) compreso tra 0 e 36 gradi ha la stessa probabilità di essere osservato di un valore \(\Theta\) compreso tra 200 e 236 gradi. Inoltre, poiché 36 gradi è un decimo del percorso intorno al cerchio, la probabilità di ottenere un qualsiasi intervallo di 36 gradi sarà sempre uguale al 10\%. Ovvero
-
-\[
-\mbox{P}[0 \leq \Theta \leq 36]
-\ = \
-\frac{1}{10}
-\]
-
-e
-
-\[
-\mbox{P}[200 \leq \Theta \leq 236]
-\ = \
-\frac{1}{10}.
-\]
+Cosa implica per \(\Theta\) dire che lo spinner è simmetrico? Possiamo dire che, in ciascuna prova, la rotazione dello spinner produce un angolo qualunque da 0 a 360 gradi. In altri termini, un valore \(\Theta\) compreso tra 0 e 36 gradi ha la stessa probabilità di essere osservato di un valore \(\Theta\) compreso tra 200 e 236 gradi. Inoltre, poiché 36 gradi è un decimo del percorso intorno al cerchio, la probabilità di ottenere un qualsiasi intervallo di 36 gradi sarà sempre uguale al 10\%. Ovvero \(\mbox{P}[0 \leq \Theta \leq 36] \ = \ \frac{1}{10}\) e \(\mbox{P}[200 \leq \Theta \leq 236] \ = \ \frac{1}{10}\).
 
 È importante notare che le considerazioni precedenti non si riferiscono al fatto che \(\Theta\) può assumere uno specifico valore, ma piuttosto alla probabilità di osservare \(\Theta\) in un particolare intervallo di valori. In generale, la probabilità che la pendenza \(\Theta\) dello spinner cada in intervallo è la frazione del cerchio rappresentata dall'intervallo, cioè,
 
@@ -2985,151 +2986,6 @@ Si consideri una variabile casuale uniforme \(X\) definita sull'intervallo {[}0,
 Per trovare la soluzione è sufficiente calcolare l'area di un rettangolo di base \(60 - 20 = 40\) e di altezza 1/100. La probabilità cercata è dunque \(P(20 < X < 60) = 40 \cdot 0.01 = 0.4\).
 \end{exercise}
 
-\hypertarget{la-trasformazione-logit}{%
-\section{La trasformazione logit}\label{la-trasformazione-logit}}
-
-Supponiamo che \(\Theta\) sia una variabile casuale con una distribuzione continua uniforme sull'intervallo {[}0, 1{]}, cioè \(\Theta \sim Uniform(0, 1)\). Vedremo ora come, partendo dalla distribuzione uniforme, sia possibile generare una nuova variable casuale la cui funzione di densità si chiama distribuzione logistica.
-
-Data una variabile casuale uniforme continua \(\Theta \in (0, 1)\), possiamo definire i suoi log odds come
-
-\begin{equation}
-\mbox{logit}(\theta) = \log \frac{\theta}{1 - \theta},
-\label{eq:def-logit}
-\end{equation}
-
-ovvero come il logaritmo naturale degli odds, \(\frac{\theta}{1 -\theta}\).
-
-Chiameremo
-
-\[
-\Phi = \mbox{logit}(\Theta)
-\]
-
-la variabile casuale le cui realizzazoni sono i logit (log odds) di \(\Theta\).
-
-Per comprendere la distribuzione di \(\Phi\) facciamo nuovamente ricorso alla simulazione. Iniziamo con il generare un certo numero di realizzazioni \(\Theta\) dalle quali otteniamo \(\Phi = \mathrm{logit}(\Theta)\). Mediante un istogramma esaminiamo la distribuzione dei valori \(\Phi\) che abbiamo trovato. Notiamo che, anche se \(\Theta \sim \mbox{Uniform}(0, 1)\), la variabile casuale \(\Phi = \mbox{logit}(\Theta)\) non è distribuita in maniera uniforme. Un'altra caratteristica di \(\Phi\) è che la distribuzione dei suoi valori è simmetrica intorno allo zero. Infine, dall'istogramma vediamo che la distribuzione di \(\Phi\) è quasi completamente contenuta nell'intervallo \(\pm 6\) dall'origine.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{df\_log\_odds }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ alpha)}
-\NormalTok{log\_odds\_plot }\OtherTok{\textless{}{-}}
-  \FunctionTok{ggplot}\NormalTok{(df\_log\_odds, }\FunctionTok{aes}\NormalTok{(alpha)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}
-    \AttributeTok{binwidth =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.25}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
-    \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{6}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{)}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_continuous}\NormalTok{(}
-    \AttributeTok{lim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1300}\NormalTok{), }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{500}\NormalTok{, }\DecValTok{1000}\NormalTok{)}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}
-    \FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(Phi, }\StringTok{" = "}\NormalTok{, }\FunctionTok{logit}\NormalTok{(Theta)))}
-\NormalTok{  ) }
-\NormalTok{log\_odds\_plot}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[h]
-
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-36-1} 
-
-}
-
-\caption{Istogramma di $10\,000$ realizzazioni $\Theta \sim \mbox{Uniform}(0, 1)$ trasformate mediante la funzione logit $\Phi = \mbox{logit}(\Theta).$}\label{fig:unnamed-chunk-36}
-\end{figure}
-
-Lo zero sulla scala dei logit corrisponde a 0.5 sulla scala delle probabilità, cioè
-
-\[
-0 = \mbox{logit}(0.5),
-\]
-
-o equivalenteente,
-
-\[
-\mbox{logit}^{-1}(0) = 0.5.
-\]
-
-L'inverso della funzione logit è dato dalla \emph{funzione logistica}
-
-\begin{equation}
-\mbox{logit}^{-1}(u) = \frac{1}{1 + \exp(-u)}.
-\label{eq:def-logistic-fun}
-\end{equation}
-
-Questo non è sorprendente dato che
-
-\[
-\mbox{logit}^{-1}(-6) = 0.0025
-\]
-
-e
-
-\[
-\mbox{logit}^{-1}(6) = 0.9975
-\]
-
-sulla scala delle probabilità.
-
-Possiamo anche fare quello che abbiamo fatto per le distribuzioni uniformi e, mediante simulazione, generare la funzione di ripartizione di \(\Phi\) (figura \ref{fig:logistic-cdf}).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{logit }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(u) }\FunctionTok{log}\NormalTok{(u }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ u))}
-\NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{1000}
-\NormalTok{phi }\OtherTok{\textless{}{-}} \FunctionTok{logit}\NormalTok{(}\FunctionTok{runif}\NormalTok{(M))}
-\NormalTok{phi\_asc }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(phi)}
-\NormalTok{prob }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{:}\NormalTok{M) }\SpecialCharTok{/}\NormalTok{ M}
-\NormalTok{logistic\_cdf\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{phi =}\NormalTok{ phi\_asc, }\AttributeTok{prob =}\NormalTok{ prob)}
-\NormalTok{logistic\_cdf\_plot }\OtherTok{\textless{}{-}}
-  \FunctionTok{ggplot}\NormalTok{(logistic\_cdf\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ phi, }\AttributeTok{y =}\NormalTok{ prob)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}
-    \AttributeTok{yintercept =} \DecValTok{1}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"\#333333"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}
-    \AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dashed"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"\#333333"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_vline}\NormalTok{(}
-    \AttributeTok{xintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dotted"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"\#333333"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}
-    \AttributeTok{yintercept =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.3}\NormalTok{, }\AttributeTok{linetype =} \StringTok{"dotted"}\NormalTok{,}
-    \AttributeTok{color =} \StringTok{"\#333333"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
-    \AttributeTok{lim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{, }\DecValTok{7}\NormalTok{),}
-    \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{6}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{)}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\FloatTok{1.0}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(phi)) }\SpecialCharTok{+}
-  \FunctionTok{ylab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(F[Phi](phi)))}
-\NormalTok{logistic\_cdf\_plot}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}[h]
-
-{\centering \includegraphics{ds4psy_files/figure-latex/logistic-cdf-1} 
-
-}
-
-\caption{Grafico della funzione di distribuzione cumulativa di una variabile casuale $\Phi = \mbox{logit}(\Theta)$ che rappresenta la trasformazione logaritmica di una variabile casuale distribuita uniformemente $\Theta \sim \mbox{uniform }(0, 1)$. La curva ha una forma sigmoidale. Gli asintoti a 0 e 1 sono indicati con linee tratteggiate; la curva è simmetrica intorno allo 0 sull'asse $x$ e a 0.5 sull'asse $y$, come evidenziato dalle linee punteggiate.}\label{fig:logistic-cdf}
-\end{figure}
-
-Il risultato è una funzione a forma sigmoidale i cui valori sono compresi tra 0 e 1, con asintoti a uno quando \(\theta\) tende a \(+\infty\) e a zero quando \(\theta\) tende a \(-\infty\). In corrispondenza di \(\Phi\) = 0 troviamo il valore 0.5. La curva prodotta dalla simulazione è una curva molto nota chiamata \emph{funzione logistica}. In termini analitici, la funzione logistica viene espressa come segue:
-
-\begin{equation}
-F_{\Theta}(\theta) = \mathrm{logit}^{-1}(\theta) = \frac{1}{1 + \exp(-\theta)},
-\label{eq:def-logistic-analitic}
-\end{equation}
-
-con \(\theta \in [0, 1].\)
-
 \hypertarget{dagli-istogrammi-alle-densituxe0}{%
 \section{Dagli istogrammi alle densità}\label{dagli-istogrammi-alle-densituxe0}}
 
@@ -3173,11 +3029,11 @@ Come si trasformano gli istogrammi all'aumentare del numero di osservazioni? Nei
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-37-1} 
+{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-36-1} 
 
 }
 
-\caption{Istogramma di $M$ campioni casuali $\Theta \sim \mbox{Uniform}(0, 1)$ trasformati in valori $\Phi = \mbox{logit}(\Theta).$ Il profilo limite dell'istogramma è evidenziato nella figura in basso a destra che è stata costruita usando $1\,000\,000$ di osservazioni.}\label{fig:unnamed-chunk-37}
+\caption{Istogramma di $M$ campioni casuali $\Theta \sim \mbox{Uniform}(0, 1)$ trasformati in valori $\Phi = \mbox{logit}(\Theta).$ Il profilo limite dell'istogramma è evidenziato nella figura in basso a destra che è stata costruita usando $1\,000\,000$ di osservazioni.}\label{fig:unnamed-chunk-36}
 \end{figure}
 
 In un istogramma, l'area di ciascuna barra è proporzionale alla frequenza relativa delle osservazioni in quel'intervallo. Perché tutti gli intervalli hanno la stessa ampiezza, anche l'altezza di ciascuna barra sarà proporzionale alla frequenza relativa delle osservazioni in quel'intervallo.
@@ -3302,7 +3158,7 @@ Supponiamo ora che \emph{Y} sia il risultato del lancio di un dado equilibrato. 
 \hypertarget{interpretazione}{%
 \subsection{Interpretazione}\label{interpretazione}}
 
-Che interpretazione può essere assegnata alla nozione di valore atteso? Bruno de Finetti adottò lo stesso termine di \emph{previsione} (e lo stesso simbolo) tanto per la probabilità che per la speranza matematica. Si può pertanto dire che, dal punto di vista bayesiano, la speranza matematica è l'estensione naturale della nozione di probabilità soggettiva.\footnote{Per completezza -- che potrebbe anche essere evitata -- aggiungo qui l'interpretazione frequentista. I frequentisti pensano al valore atteso della variabile casuale \(Y\) come alla media di un enorme numero di realizzazioni della \(Y\). Se si potesse esaminare un numero infinito di realizzazioni \(Y\), allora la media di tali infiniti valori sarebbe esattamente uguale al valore atteso. Allora perché abbiamo bisogno di introdurre un concetto diverso da quello di ``media''? La risposta è che la media aritmetica è una somma divisa per \(n\): \(\bar{Y} = \frac{\sum_{i=1}^n y_i}{n}.\) Le variabili casuali possono generare un numero infinito di valori possibili. Dato che dividere per infinito non è possibile, è necessario procedere in un altro modo. Possiamo dire, in termini frequentisti, che il valore atteso di una variabile casuale è una \emph{media ponderata} in cui il valore assegnato a ciacun evento elementare dello spazio campionario viene ``pesato'' per la sua probabilità di verificarsi, nel caso di variabili casuali discrete, o per la sua densità di probabilità, nel caso di variabili casuali continue. Il termine valore atteso è però un po' fuorviante. Infatti, esso potrebbe non corrispondere a nessuno dei valori che possono essere generati dalla variabile casuale. Quindi il valore atteso non è ``atteso'' nel senso che ci aspettiamo di vederlo comparire spesso. Ci aspettiamo invece che sia simile alla media di qualsiasi campione sufficientemente grande di realizzazioni della variabile casuale: \(\E(Y) = \lim_{n \rightarrow \infty} \frac{1}{n} \sum_{i = 1}^n y_i.\).}
+Che interpretazione può essere assegnata alla nozione di valore atteso? Bruno de Finetti adottò lo stesso termine di \emph{previsione} (e lo stesso simbolo) tanto per la probabilità che per la speranza matematica. Si può pertanto dire che, dal punto di vista bayesiano, la speranza matematica è l'estensione naturale della nozione di probabilità soggettiva.
 
 \hypertarget{proprietuxe0-del-valore-atteso}{%
 \subsection{Proprietà del valore atteso}\label{proprietuxe0-del-valore-atteso}}
@@ -3621,6 +3477,11 @@ Il valore della funzione di ripartizione in corrispondenza di \(x = 1.5\), ad es
 F(1.5) = P(X \leq 1.5) = P(X=0) + P(X=1) = \frac{1}{4} + \frac{2}{4} = \frac{3}{4}.
 \]
 \end{exercise}
+
+\mainmatter
+
+\hypertarget{part-distribuzioni-teoriche-di-probabilituxe0}{%
+\part{Distribuzioni teoriche di probabilità}\label{part-distribuzioni-teoriche-di-probabilituxe0}}
 
 \hypertarget{distr-rv-discr}{%
 \chapter{Distribuzioni di v.c. discrete}\label{distr-rv-discr}}
@@ -3965,11 +3826,11 @@ Iniziamo con un un breve excursus storico. Nel 1733, Abraham de Moivre notò che
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-46-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-45-1} 
 
 }
 
-\caption{Probabilità del numero di successi in $N = 10$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 10, 0.9)$. Con solo dieci prove, la distribuzione è fortemente asimmetrica negativa.}\label{fig:unnamed-chunk-46}
+\caption{Probabilità del numero di successi in $N = 10$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 10, 0.9)$. Con solo dieci prove, la distribuzione è fortemente asimmetrica negativa.}\label{fig:unnamed-chunk-45}
 \end{figure}
 
 Ma se aumentiamo il numero di prove di un fattore di 100 a \emph{N} = 1000, senza modificare la probabilità di successo di 0.9, la distribuzione assume una forma campanulare quasi simmetrica. Dunque, de Moivre scoprì che, quando \emph{N} è grande, la funzione Normale (che introdurremo qui sotto), nonostante sia la densità di v.a. continue, fornisce una buona approssimazione alla funzione di massa di probabilità binomiale.
@@ -3992,11 +3853,11 @@ Ma se aumentiamo il numero di prove di un fattore di 100 a \emph{N} = 1000, senz
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-47-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-46-1} 
 
 }
 
-\caption{Probabilità del numero di successi in $N = 1000$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 1000, 0.9)$. Con mille prove, la distribuzione è quasi simmetrica a forma campanulare.}\label{fig:unnamed-chunk-47}
+\caption{Probabilità del numero di successi in $N = 1000$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 1000, 0.9)$. Con mille prove, la distribuzione è quasi simmetrica a forma campanulare.}\label{fig:unnamed-chunk-46}
 \end{figure}
 
 La distribuzione Normale fu scoperta da Gauss nel 1809 e, storicamente, è intimamente legata al metodo dei minimi quadrati -- si veda l'Appendice \ref{gauss-normale}. Il Paragrafo successivo illustra come si possa giungere alla Normale mediante una simulazione.
@@ -4223,7 +4084,7 @@ Il problema ci chiede di trovare l'area sottesa alla distribuzione \(\mathcal{N}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 \noindent La risposta si trova utilizzando la funzione di ripartizione \(F(X)\) della legge \(\mathcal{N}(1.7, 0.1)\) in corrispondenza dei due valori forniti dal problema: \(F(X = 1.8) - F(X = 1.7)\). Utilizzando la seguente istruzione
 
@@ -4271,7 +4132,7 @@ Si noti che la funzione logistica (in blu), pur essendo del tutto diversa dalla 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-54-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 \hypertarget{teorema-del-limite-centrale}{%
 \section{Teorema del limite centrale}\label{teorema-del-limite-centrale}}
@@ -4359,7 +4220,7 @@ Usiamo \(\R\) per disegnare la densità chi-quadrato con 3 gradi di libertà div
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-55-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 \end{exercise}
 
@@ -4493,7 +4354,7 @@ Si può ottenere una rappresentazione grafica della distribuzione \(\mbox{Beta}(
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-56-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 La funzione \texttt{bayesrules::summarize\_beta()} ci restituisce la media, moda e varianza della distribuzione Beta. Per esempio:
 
@@ -4523,7 +4384,7 @@ Nel disturbo depressivo la recidiva è definita come la comparsa di un nuovo epi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 La media della distribuzione a priori diventa:
 
@@ -4616,7 +4477,7 @@ f(x)=(x_m/x)^\alpha,
 
 dove \(x_m\) (parametro di scala) è il minimo (necessariamente positivo) valore possibile di \(X\) e \(\alpha\) è un parametro di forma.
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-63-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-62-1} \end{center}
 
 \noindent La distribuzione di Pareto ha una asimmetria positiva. Il supporto della distribuzione di Pareto è la retta reale positiva. Tutti i valori devono essere maggiori del parametro di scala \(x_m\), che è in realtà un parametro di soglia.
 
@@ -4729,19 +4590,10 @@ Possiamo dire che la regola di Bayes viene usata per aggiornare le credenze a pr
 
 La \eqref{eq:bayesmodel} rende evidente che, in ottica bayesiana, la quantità di interesse \(\theta\) non è fissata (come nell'impostazione frequentista), ma è una variabile casuale la cui distribuzione di probabilità è influenzata sia dalle informazioni a priori sia dai dati a disposizione. In altre parole, nell'approccio bayesiano non esiste un valore vero di \(\theta\), ma invece lo scopo è quello di fornire invece un giudizio di probabilità (o di formulare una ``previsione'', nel linguaggio di de Finetti). Prima delle osservazioni, sulla base delle nostre conoscenze assegnamo a \(\theta\) una distribuzione a priori di probabilità. Dopo le osservazioni, correggiamo il nostro giudizio e assegniamo a \(\theta\) una distribuzione a posteriori di probabilità.
 
-\hypertarget{un-esempio-di-aggiornamento-bayesiano}{%
-\subsection{Un esempio di aggiornamento bayesiano}\label{un-esempio-di-aggiornamento-bayesiano}}
-
-Per descrivere l'aggiornamento bayesiano, in questo Capitolo (così come nei successivi) considereremo i dati di \citet{zetschefuture2019}. Questi ricercatori si sono chiesti se gli individui depressi manifestino delle aspettative accurate circa il loro umore futuro, oppure se tali aspettative siano distorte negativamente. Esamineremo qui i 30 partecipanti dello studio di \citet{zetschefuture2019} che hanno riportato la presenza di un episodio di depressione maggiore in atto. All'inizio della settimana di test, a questi pazienti è stato chiesto di valutare l'umore che si aspettavano di esperire nei giorni seguenti della settimana. Mediante una app, i partecipanti dovevano poi valutare il proprio umore in cinque momenti diversi di ciascuno dei cinque giorni successivi. Lo studio considera diverse emozioni, ma qui ci concentriamo solo sulla tristezza.
-
-Sulla base dei dati forniti dagli autori, abbiamo calcolato la media dei giudizi relativi al livello di tristezza raccolti da ciascun partecipante tramite la app. Tale media è stata poi sottratta dall'aspettativa del livello di tristezza fornita all'inizio della settimana. La discrepanza tra aspettative e realtà è stata considerata come un evento dicotomico: valori positivi di tale differenza indicano che le aspettative circa il livello di tristezza erano maggiori del livello di tristezza effettivamente esperito --- ciò significa che le aspettative future risultano negativamente distorte (evento codificato con ``1''). Viceversa, si ha che le aspettative risultano positivamente distorte se la differenza descritta in precedenza assume un valore negativo (evento codificato con ``0'').
-
-Nel campione dei 30 partecipanti clinici di \citet{zetschefuture2019}, le aspettative future di 23 partecipanti risultano distorte negativamente e quelle di 7 partecipanti risultano distorte positivamente. Chiameremo \(\theta\) la probabilità dell'evento ``le aspettative del partecipante sono distorte negativamente''. Ci poniamo il problema di ottenere una stima a posteriori di \(\theta\) avendo osservato 23 ``successi'' in 30 prove.\footnote{Si noti un punto importante: dire semplicemente che la stima di \(\theta\) è uguale a 23/30 = 0.77 ci porta ad ignorare il livello di incertezza associato a tale stima. Infatti, lo stesso valore (0.77) si può ottenere come 23/30, o 230/300, o 2300/3000, o 23000/30000, ma l'incertezza di una stima pari a 0.77 è molto diversa nei quattro casi. Quando si traggono conclusioni dai dati è invece necessario quantificare il livello della nostra incertezza relativamente alla stima del parametro di interesse (nel caso presente, \(\theta\)). Lo strumento ci consente di quantificare tale incertezza è la distribizione a posteriori \(p(\theta \mid y)\). Ovviamente, \(p(\theta \mid y)\) assume forme molto diverse nei quattro casi descritti sopra.}
-
 \hypertarget{modello-probabilistico}{%
 \section{Modello probabilistico}\label{modello-probabilistico}}
 
-Nel caso dello studio di \citet{zetschefuture2019}, i dati qui considerati possono essere considerati la manifestazione di una variabile casuale Bernoulliana -- 23 ``successi'' in 30 prove. Se i dati rappresentano una proporzione, allora possiamo adottare un modello probabilistico binomiale quale meccanismo generatore dei dati:
+Poniamoci il problema di analizzare i dati riportati da \citet{zetschefuture2019} (si veda l'appendice \ref{appendix:future-exp}). Tali dati possono essere considerati la manifestazione di una variabile casuale Bernoulliana e corrispondono a 23 ``successi'' in 30 prove. Se i dati rappresentano una proporzione allora, quale meccanismo generatore dei dati, possiamo adottare un modello probabilistico binomiale:
 
 \begin{equation}
 y  \sim \mbox{Bin}(n, \theta),
@@ -4827,7 +4679,7 @@ p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-64-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-63-1} \end{center}
 
 \noindent La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta\) assume valori \(< 0.5\), con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile, nel caso dell'esempio in discussione. Adotteremo una tale distribuzione a priori solo per scopi didattici, per esplorare le conseguenze di tale scelta (molto più sensato sarebbe stato usare \(\mbox{Beta}(2, 2)\)).
 
@@ -5124,7 +4976,7 @@ I dati osservati (\(y = 23\)) possono essere considerati la manifestazione di un
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-68-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-67-1} \end{center}
 
 Possiamo quantificare la nostra incertezza calcolando, con un grado di fiducia del 95\%, la regione nella quale, in base a tale credenza a priori, si trova il valore del parametro. Per ottenere tale intervallo di credibilità a priori, usiamo la funzione \texttt{qbeta()} di \(\R\). In \texttt{qbeta()} i parametri \(\alpha\) e \(\beta\) sono chiamati \texttt{shape1} e \texttt{shape2}:
 
@@ -5143,7 +4995,7 @@ Se poniamo \(\alpha=10\) e \(\beta=10\), questo corrisponde ad una credenza a pr
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-70-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-69-1} \end{center}
 
 ma ora la nostra certezza a priori sul valore del parametro è maggiore, come indicato dall'intervallo al 95\%:
 
@@ -5168,7 +5020,7 @@ p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-72-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-71-1} \end{center}
 
 La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta < 0.5\), con il valore più plausibile pari a cicrca 0.1.
 
@@ -5245,11 +5097,21 @@ Per i dati in discussione, abbiamo:
 \begin{Highlighting}[]
 \NormalTok{bayesrules}\SpecialCharTok{::}\FunctionTok{plot\_beta\_binomial}\NormalTok{(}
   \AttributeTok{alpha =} \DecValTok{2}\NormalTok{, }\AttributeTok{beta =} \DecValTok{10}\NormalTok{, }\AttributeTok{y =} \DecValTok{23}\NormalTok{, }\AttributeTok{n =} \DecValTok{30}
-\NormalTok{)}
+\NormalTok{  ) }
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-73-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-72-1} \end{center}
+
+È facile replicare il grafico precedente scrivendo noi stessi una funzione, come descritto in Appendice \ref{appendix:beta-binom}. Con la funzione \texttt{plot\_beta\_binom()} e i dati usati in precedenza otteniamo
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_beta\_bin}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-74-1} \end{center}
 
 Un sommario delle distribuzioni a priori e a posteriori si ottiene usando la funzione \texttt{summarize\_beta\_binomial()}:
 
@@ -5340,13 +5202,11 @@ Il processo di aggiornamento bayesiano è descritto dalla figura seguente:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{bayesrules}\SpecialCharTok{:::}\FunctionTok{plot\_beta\_binomial}\NormalTok{(}
-  \AttributeTok{alpha =} \DecValTok{1}\NormalTok{, }\AttributeTok{beta =} \DecValTok{10}\NormalTok{, }\AttributeTok{y =} \DecValTok{26}\NormalTok{, }\AttributeTok{n =} \DecValTok{40}
-\NormalTok{) }
+\FunctionTok{plot\_beta\_bin}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{26}\NormalTok{, }\DecValTok{40}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-80-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-81-1} \end{center}
 
 \end{exercise}
 
@@ -5465,7 +5325,7 @@ Esaminiamo ora le tre distribuzioni a posteriori. Per la femminista abbiamo:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-83-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-84-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5488,7 +5348,7 @@ Per l'ottimista abbiamo:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-85-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-86-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5511,7 +5371,7 @@ Infine, per l'ignara troviamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-87-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-88-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5565,11 +5425,11 @@ Supponiamo che Maria, Anna e Sara condividano la stessa credenza a priori su \(\
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=0.95\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-89-1} 
+{\centering \includegraphics[width=0.95\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-90-1} 
 
 }
 
-\caption{Aggiornamento bayesiano per Maria, Anna e Sara.}\label{fig:unnamed-chunk-89}
+\caption{Aggiornamento bayesiano per Maria, Anna e Sara.}\label{fig:unnamed-chunk-90}
 \end{figure}
 
 Notiamo due cose. All'aumentare delle informazioni disponibili (ovvero, all'aumentare dell'ampiezza del campione), la distribuzione a posteriori si allontana sempre di più dalla distribuzione a priori, e si avvicina sempre di più alla verosimiglianza. In secondo luogo, all'aumentare dell'ampiezza del campione la varianza della distribuzione a posteriori diminuisce sempre di più --- ovvero, diminuisce l'incertezza su quelli che sono i valori \(\pi\) più plausibili.
@@ -5623,11 +5483,11 @@ Nella figura successiva esaminiamo le distribuzioni a posteriori che si ottengon
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=0.95\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-90-1} 
+{\centering \includegraphics[width=0.95\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-91-1} 
 
 }
 
-\caption{Sulle colonne (a partire da sinistra) i dati utilizzati sono, rispettivamente, (y = 6, n = 13), (y = 29, n = 63) e (y = 66, n = 99). Sulle righe (a partire dall'alto), le distribuzioni a priori usate sono: Beta(14, 1), Beta(5, 11) e Beta(1, 1).}\label{fig:unnamed-chunk-90}
+\caption{Sulle colonne (a partire da sinistra) i dati utilizzati sono, rispettivamente, (y = 6, n = 13), (y = 29, n = 63) e (y = 66, n = 99). Sulle righe (a partire dall'alto), le distribuzioni a priori usate sono: Beta(14, 1), Beta(5, 11) e Beta(1, 1).}\label{fig:unnamed-chunk-91}
 \end{figure}
 
 La figura indica che, se il campione è grande, una distribuzione a priori debolmente informativa ha uno scarso effetto sulla distribuzione a posteriori. Invece, se il campione è piccolo, anche una distribuzione a priori debolmente informativa ha un grande effetto sulla distribuzione a posteriori.
@@ -6000,7 +5860,7 @@ Qui sotto è fornito un confronto tra la corretta distribuzione a posteriori (li
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-100-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-101-1} \end{center}
 
 Il grafico precedente mostra che l'approssimazione quadratica fornisce risultati soddisfacenti. Tali risultati sono simili (o identici) a quelli ottenuti con il metodo \emph{grid-based}, con il vantaggio aggiuntivo di disporre di una serie di funzioni \(\R\) in grado di svolgere i calcoli per noi. In realtà, però, l'approssimazione quadratica è poco usata perché, per problemi complessi, è più conveniente fare ricorso ai metodi Monte Carlo basati su Catena di Markov (MCMC) che verranno descritti nel Paragrafo successivo.
 
@@ -6513,7 +6373,7 @@ Il Correlogramma è uno strumento grafico usato per la valutazione della tendenz
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-118-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-119-1} \end{center}
 
 Il correlogramma precedente mostra come l'autocorrelazione di ordine 1 sia circa pari a 0.4 e diminuisce per lag maggiori; per lag di 4, l'autocorrelazione diventa negativa e aumenta progressivamente fino ad un lag di 8; eccetera.
 
@@ -7013,7 +6873,7 @@ Nell'implementazione di questo modello, la quantità di interesse è dunque l'od
   \AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta1"}\NormalTok{, }\StringTok{"theta2"}\NormalTok{, }\StringTok{"oddsratio"}\NormalTok{),}
   \AttributeTok{digits\_summary =}\NormalTok{ 3L}
 \NormalTok{)}
-\CommentTok{\#\textgreater{} Inference for Stan model: twoprop1{-}202201190903{-}1{-}5d7a38.}
+\CommentTok{\#\textgreater{} Inference for Stan model: twoprop1{-}202201192006{-}1{-}5c31b8.}
 \CommentTok{\#\textgreater{} 4 chains, each with iter=6000; warmup=2000; thin=1; }
 \CommentTok{\#\textgreater{} post{-}warmup draws per chain=4000, total post{-}warmup draws=16000.}
 \CommentTok{\#\textgreater{} }
@@ -7026,7 +6886,7 @@ Nell'implementazione di questo modello, la quantità di interesse è dunque l'od
 \CommentTok{\#\textgreater{} theta2     0.937 14193    1}
 \CommentTok{\#\textgreater{} oddsratio 15.558 10400    1}
 \CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Samples were drawn using NUTS(diag\_e) at Mer Gen 19 09:03:56 2022.}
+\CommentTok{\#\textgreater{} Samples were drawn using NUTS(diag\_e) at Mer Gen 19 20:06:44 2022.}
 \CommentTok{\#\textgreater{} For each parameter, n\_eff is a crude measure of effective sample size,}
 \CommentTok{\#\textgreater{} and Rhat is the potential scale reduction factor on split chains (at }
 \CommentTok{\#\textgreater{} convergence, Rhat=1).}
@@ -7114,7 +6974,7 @@ Nella simulazione \texttt{cmdstanr()} per il modello Beta-Binomiale dei dati di 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-141-1} \end{center}
 
 Per fare un confronto, consideriamo la simulazione di una catena di Markov più corta per lo stesso modello. La chiamata seguente richiede quattro catene parallele per sole 100 iterazioni ciascuna:
 
@@ -7152,7 +7012,7 @@ Di seguito sono riportati i \emph{trace-plot} e i corrispondenti istogrammi lisc
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-143-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7160,7 +7020,7 @@ Di seguito sono riportati i \emph{trace-plot} e i corrispondenti istogrammi lisc
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-143-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-144-1} \end{center}
 
 Anche se i \emph{trace plot} sembrano tutti mostrare un andamento casuale, gli istogrammi lisciati sono piuttosto diversi tra loro e producono approssimazioni diverse della distribuzione a posteriori. Di fronte a tale instabilità è chiaro che sarebbe un errore interrompere la simulazione dopo solo 100 iterazioni.
 
@@ -7204,7 +7064,7 @@ Il correlogramma per ciascuna delle quattro catene dell'esempio si produce con l
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-146-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-147-1} \end{center}
 
 Il correlogramma mostra l'autocorrelazione in funzione di ritardi da 0 a 20. L'autocorrelazione di lag 0 è naturalmente 1 -- misura la correlazione tra un valore della catena di Markov e se stesso. L'autocorrelazione di lag 1 è di circa 0.5, indicando una correlazione moderata tra i valori della catena che distano di solo 1 passo l'uno dall'altro. Successivamente, l'autocorrelazione diminuisce rapidamente ed è effettivamente pari a 0 per un lag di 5. Questo risultato fornisce una conferma del fatto che la catena di Markov costituisce una buona approssimazione di un campione casuale di \(p(\theta \mid y)\).
 
@@ -7270,7 +7130,7 @@ Una serie temporale della catena si ottiene con la funzione \texttt{ggmcmc::ggs\
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-149-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-150-1} \end{center}
 
 Il grafico precedente mostra che, per il modello bayesiano che stiamo discutendo, una condizione di equilibrio della catena di Markov richiederebbe un numero maggiore di iterazioni di quelle che sono state effettivamente simulate.
 
@@ -7311,7 +7171,7 @@ Una rappresentazione grafica dei valori \(\hat{R}\) per tutti i parametri del mo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-152-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-153-1} \end{center}
 
 \hypertarget{diagnostica-di-convergenza-di-geweke}{%
 \section{Diagnostica di convergenza di Geweke}\label{diagnostica-di-convergenza-di-geweke}}
@@ -7477,7 +7337,7 @@ f(\theta | y = 17) = \frac{\Gamma(25 + 15)}{\Gamma(25)\Gamma(15)}\theta^{25-1} (
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-156-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-157-1} \end{center}
 
 \hypertarget{stime-puntuali-della-distribuzione-a-posteriori}{%
 \subsection{Stime puntuali della distribuzione a posteriori}\label{stime-puntuali-della-distribuzione-a-posteriori}}
@@ -7525,7 +7385,7 @@ La mediana si ottiene con
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-159-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-160-1} \end{center}
 
 è dato dalla chiamata
 
@@ -7876,7 +7736,7 @@ Svolgendo i calcoli in \(\R\), per i dati dell'esempio otteniamo:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-173-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-174-1} \end{center}
 
 \noindent È facile vedere come, in questo esempio, la distribuzione predittiva a posteriori \(p(\tilde{y} \mid y)\) sia diversa dalla binomiale di parametro \(\theta = 23/30\):
 
@@ -7896,7 +7756,7 @@ Svolgendo i calcoli in \(\R\), per i dati dell'esempio otteniamo:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-174-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-175-1} \end{center}
 
 \noindent In particolare, la \(p(\tilde{y} \mid y)\) ha una varianza maggiore di \(\Bin(y \mid \theta = 0.77, n = 30)\). Questa maggiore varianza riflette le due fonti di incertezza che sono presenti nella \eqref{eq:dist-pred-post}: l'incertezza sul valore del parametro (descritta dalla distribuzione a posteriori) e l'incertezza dovuta alla variabilità campionaria (descritta dalla funzione di verosimiglianza). Possiamo concludere la discussione di questo esempio dicendo che, nel caso di 30 nuovi pazienti clinici, alla luce delle nostre credenze precedenti e dei dati osservati nel campione, ci aspettiamo di osservare 18 pazienti con una depressione severa, anche se è ragionevole aspettarci un numero compreso, diciamo, tra 10 e 25.
 
@@ -8068,7 +7928,7 @@ Dato che il codice Stan definisce un modello per i dati grezzi (ovvero, per cias
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-182-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-183-1} \end{center}
 
 \end{exercise}
 
@@ -8101,7 +7961,7 @@ Visualizziamo la distribuzione dei dati con un istogramma:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-184-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-185-1} \end{center}
 
 Creiamo un oggetto di tipo \texttt{list} dove inserire i dati:
 
@@ -8194,7 +8054,7 @@ La distribuzione a posteriori di \(\mu\) è
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-190-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-191-1} \end{center}
 
 Confrontiamo \(\mu\) con la media di \(y\):
 
@@ -8223,7 +8083,7 @@ I valori \texttt{y\_rep} sono i dati della distribuzione predittiva a posteriori
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-193-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-194-1} \end{center}
 
 Alla stessa conclusione si giunge tramite un confronto tra la funzione di densità empirica della \(y\) e quella di diversi campioni \(y^{rep}\):
 
@@ -8233,7 +8093,7 @@ Alla stessa conclusione si giunge tramite un confronto tra la funzione di densit
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-194-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-195-1} \end{center}
 
 Generiamo ora i PPC per la media e il minimo della distribuzione:
 
@@ -8243,7 +8103,7 @@ Generiamo ora i PPC per la media e il minimo della distribuzione:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-195-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-196-1} \end{center}
 
 Mentre la media viene riprodotta accuratamente dal modello (come abbiamo visto sopra), ciò non è vero per il minimo dela distribuzione. L'origine di questa mancanza di adattamento è il fatto che la distribuzione delle misurazioni della velocità della luce è asimmetrica negativa. Dato che ci sono poche osservazioni nella coda negativa della distribuzione, solo per fare un esempio, utilizzeremo ora un secondo modello che ipotizza una distribuzione \(t\) di Student:
 
@@ -8295,7 +8155,7 @@ Adattiamo questo secondo modello ai dati.
 \NormalTok{)}
 \CommentTok{\#\textgreater{} Running MCMC with 4 parallel chains...}
 \CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Chain 1 finished in 0.3 seconds.}
+\CommentTok{\#\textgreater{} Chain 1 finished in 0.4 seconds.}
 \CommentTok{\#\textgreater{} Chain 2 finished in 0.3 seconds.}
 \CommentTok{\#\textgreater{} Chain 3 finished in 0.3 seconds.}
 \CommentTok{\#\textgreater{} Chain 4 finished in 0.3 seconds.}
@@ -8316,7 +8176,7 @@ Per questo secondo modello il confronto tra la funzione di densità empirica del
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-198-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-199-1} \end{center}
 
 Inoltre, anche la statistica ``minimo della distribuzione'' viene ben predetta dal modello.
 
@@ -8326,7 +8186,7 @@ Inoltre, anche la statistica ``minimo della distribuzione'' viene ben predetta d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-199-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-200-1} \end{center}
 
 In conclusione, per le misurazioni della velocità della luce di Newcomb l'accuratezza predittiva del modello basato sulla distribuzione \(t\) di Student è chiaramente migliore di quella del modello normale.
 \end{exercise}
@@ -8472,7 +8332,7 @@ In base al modello definito, la variabile casuale \(Y\) segue la distribuzione N
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-202-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-203-1} \end{center}
 
 Dato che il modello è Normale-Normale, è possibile una soluzione analitica, come descritto in precedenza per il caso in cui \(\sigma\) è noto. In tali condizioni, la distribuzione a posteriori per \(\mu\) può essere trovata con la funzione \texttt{bayesrules:::summarize\_normal\_normal()}:
 
@@ -8505,7 +8365,7 @@ La rappresentazione grafica della funzione a priori, della verosimiglianza e del
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-204-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-205-1} \end{center}
 
 La procedura MCMC utilizzata da Stan è basata su un campionamento Monte Carlo Hamiltoniano che non richiede l'uso di distribuzioni a priori coniugate. Pertanto per i parametri è possibile scegliere una qualunque distribuzione a priori arbitraria.
 
@@ -8762,7 +8622,7 @@ Y_i = \mu_i + \varepsilon_i, \quad i = 1, \dots, n,
 
 dove la risposta media è \(\mu_i = \beta_0 + \beta_ 1 x_i\) e i residui \(\varepsilon_1, \dots, \varepsilon_n\) sono i.i.d. da una Normale con media 0 e deviazione standard \(\sigma\).
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-213-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-214-1} \end{center}
 
 Nel modello lineare, l'osservazione \(Y_i\) è una variabile casuale, il predittore \(x_i\) è una costante fissa, e \(\beta_0\), \(\beta_1\) e \(\sigma\) sono parametri incogniti. Utilizzando il paradigma bayesiano, viene assegnata una distribuzione a priori congiunta a \((\beta_0, \beta_1, \sigma)\). Dopo avere osservato le risposte \(Y_i, i = 1, \dots, n\), l'inferenza procede stimando la distribuzione a posteriori dei parametri.
 
@@ -8945,7 +8805,7 @@ Per sviluppare una comprensione intuitiva del metodo dei minimi quadrati, esplor
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-219-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-220-1} \end{center}
 
 Il minimo della funzione che qui abbiamo discretizzato costituisce la stima dei minimi quadrati del parametro \(\beta_0\).
 
@@ -8968,7 +8828,7 @@ Lo stesso può essere fatto per \(b\):
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-220-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-221-1} \end{center}
 
 Il minimo della funzione rappresentata qui sopra costituisce la stima dei minimi quadrati del parametro \(\beta_1\).
 
@@ -9297,7 +9157,7 @@ Le statistiche diagnostiche sono fornite dal metodo \texttt{\$cmdstan\_diagnose(
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fit}\SpecialCharTok{$}\FunctionTok{cmdstan\_diagnose}\NormalTok{()}
-\CommentTok{\#\textgreater{} Processing csv files: /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpHxbjn7/simpleregstd{-}202201190904{-}1{-}609106.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpHxbjn7/simpleregstd{-}202201190904{-}2{-}609106.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpHxbjn7/simpleregstd{-}202201190904{-}3{-}609106.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpHxbjn7/simpleregstd{-}202201190904{-}4{-}609106.csv}
+\CommentTok{\#\textgreater{} Processing csv files: /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}1{-}5f4886.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}2{-}5f4886.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}3{-}5f4886.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}4{-}5f4886.csv}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} Checking sampler transitions treedepth.}
 \CommentTok{\#\textgreater{} Treedepth satisfactory for all transitions.}
@@ -9333,7 +9193,7 @@ per poi utilizzare le funzioni del pacchetto \texttt{bayesplot}. Ad esempio:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-235-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-236-1} \end{center}
 
 Infine, eseguendo la funzione \texttt{launch\_shinystan(fit)}, è possibile analizzare oggetti di classe \texttt{stanfit} mediante le funzionalità del pacchetto \texttt{ShinyStan}.
 
@@ -9447,7 +9307,7 @@ Creiamo ora un diagramma a dispersione dei dati con sovrapposto il valore atteso
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-242-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-243-1} \end{center}
 
 Un modo per visualizzare l'incertezza della stima della retta specifiata dal modello lineare è quello di tracciare molteplici rette, ciascuna delle quali definita da una diversa stima dei parametri \(\alpha\) e \(\beta\); le diverse stime dei parametri \(\alpha\) e \(\beta\) vengono estratta a caso dalle rispettive distribuzioni a posteriori.
 
@@ -9517,7 +9377,7 @@ Possiamo ora generare il diagramma a dispersione con \texttt{ggplot()}:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-246-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-247-1} \end{center}
 
 Il grafico indica che le rette di regressione costruite estraendo a caso valori dalla distribuzione a posteriori dei parametri \(\beta_0\) e \(\beta_1\) tendono ad essere molto simili tra loro. Ciò significa che, relativamente alla dipendenza (lineare) del quoziente di intelligenza del bambino da quello della madra, l'incertezza è piccola (ovvero, la certezza è alta).
 
@@ -9555,7 +9415,7 @@ Un grafico che, nel caso dei dati standardizzati, riporta l'intervallo di credib
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-248-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-249-1} \end{center}
 
 oppure nel modo nel modo seguente
 
@@ -9570,7 +9430,7 @@ oppure nel modo nel modo seguente
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-249-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-250-1} \end{center}
 
 \hypertarget{quale-soglia-usare}{%
 \subsection{Quale soglia usare?}\label{quale-soglia-usare}}
@@ -9587,7 +9447,7 @@ Non c'è niente di ``magico'' o necessario relativamente al livello di 0.95: il 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-250-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-251-1} \end{center}
 
 \hypertarget{test-di-ipotesi}{%
 \section{Test di ipotesi}\label{test-di-ipotesi}}
@@ -9915,7 +9775,7 @@ Creiamo un grafico con i valori predetti dal modello lineare:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-266-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-267-1} \end{center}
 
 Le stime a posteriori dei parametri si ottengono con:
 
@@ -10049,7 +9909,7 @@ Iniziamo a generare un istogramma dei valori \(y\) stanardizzati:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-272-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-273-1} \end{center}
 
 Per svolgere l'analisi bayesiana sistemiamo i dati (standardizzati) nel formato appropriato per Stan:
 
@@ -10131,7 +9991,7 @@ Un istogramme dei valori \(y^{rep}\) può essere generato nel modo seguente:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-278-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-279-1} \end{center}
 
 \hypertarget{campionamento-dalla-distribuzione-predittiva-a-priori}{%
 \section{Campionamento dalla distribuzione predittiva a priori}\label{campionamento-dalla-distribuzione-predittiva-a-priori}}
@@ -10213,7 +10073,7 @@ Questo è un istogramma della distribuzione preditiva a priori. Tale distribuzio
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-284-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-285-1} \end{center}
 
 \hypertarget{commenti-e-considerazioni-finali-21}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-21}}
@@ -10337,11 +10197,11 @@ Visualizziamo i dati:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-289-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-290-1} \end{center}
 
 Su scala logaritmica, l'asimmetria positiva della variabile \texttt{dd\$SwitchOff\_Time} viene ridotta.
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-290-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-291-1} \end{center}
 
 Per i dati trasformati, la mediana in ciascuna condizione è:
 
@@ -10512,7 +10372,7 @@ Una rappresentazione grafica della distribuzione a posteriori delle quattro medi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-301-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-302-1} \end{center}
 
 I quattro intervalli di credibilità al 95\% sono:
 
@@ -11280,7 +11140,7 @@ Nella figura successiva viene esaminata la relazione tra probabilità e informaz
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-329-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-330-1} \end{center}
 
 La figura mostra che questa relazione non è lineare, è infatti leggermente sublineare. Questo ha senso dato che abbiamo usato una funzione logaritmica.
 \end{example}
@@ -11469,7 +11329,7 @@ Le istruzioni \(\R\) sono le seguenti:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-335-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-336-1} \end{center}
 
 Tanto meglio la distribuzione \(q\) approssima la distribuzione target tanto più piccolo è il valore di divergenza KL.
 \end{example}
@@ -12310,7 +12170,7 @@ Un grafico che riporta le stime dei parametri di forma della distribuzione di Pa
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-376-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-377-1} \end{center}
 
 Il valore \texttt{k} stimato da PSIS-LOO-CV mette chiaramente in luce il fatto che il valore introdotto nel campione è un outlier. L'indice dell'osservazione outlier è identificato con:
 
@@ -12395,7 +12255,7 @@ Un grafico che riporta un \emph{posterior predictive check} si ottiene con l'ist
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-381-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-382-1} \end{center}
 
 Identifichiamo ora l'importanza relativa delle variabili indipendenti nei termini della loro importanza per la previsione:
 
@@ -12415,7 +12275,7 @@ Un grafico dell'importanza relativa di ciascuna variable per la previsione di \t
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-382-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-383-1} \end{center}
 
 Troviamo ora il numero di variabili da mantenere, in base al modello completo:
 
@@ -12452,7 +12312,7 @@ Generiamo il grafico dei risultati della convalida incrociata, questa volta rela
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-385-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-386-1} \end{center}
 
 Stampiamo l'elenco delle variabili ordinate in base alla loro importanza relativa, secondo il metodo della convalida incrociata:
 
@@ -12507,8 +12367,8 @@ Per fare un confronto, stimiamo i coefficienti del modello di regressione che in
 \NormalTok{)}
 \CommentTok{\#\textgreater{} Running MCMC with 4 parallel chains...}
 \CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Chain 1 finished in 0.0 seconds.}
-\CommentTok{\#\textgreater{} Chain 2 finished in 0.0 seconds.}
+\CommentTok{\#\textgreater{} Chain 1 finished in 0.1 seconds.}
+\CommentTok{\#\textgreater{} Chain 2 finished in 0.1 seconds.}
 \CommentTok{\#\textgreater{} Chain 3 finished in 0.0 seconds.}
 \CommentTok{\#\textgreater{} Chain 4 finished in 0.0 seconds.}
 \CommentTok{\#\textgreater{} }
@@ -12632,7 +12492,7 @@ Una rappresentazione grafica della distribuzione a posteriori dei due coefficien
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-393-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-394-1} \end{center}
 
 Considerato l'intervallo a posteriori del 95\%, anche in questo caso non abbiamo evidenze convincenti che l'uso di un solo predittore faccia diminuire la capacità predittiva del modello.
 
@@ -13230,7 +13090,7 @@ Per esempio, un grafico della funzione esponenziale di base 2 si trova con
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-402-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-403-1} \end{center}
 
 Se usiamo la base 4 troviamo
 
@@ -13243,7 +13103,7 @@ Se usiamo la base 4 troviamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-403-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-404-1} \end{center}
 
 Oppure
 
@@ -13256,7 +13116,7 @@ Oppure
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-404-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-405-1} \end{center}
 
 In molte applicazioni la scelta più conveniente per la base è il numero irrazionale \(e = 2.718281828\dots\). Questo numero è chiamato la \emph{base naturale}. La funzione \(f(x) = e^x\) è chiamata \emph{funzione esponenziale naturale}.
 
@@ -13271,7 +13131,7 @@ Per esempio, abbiamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-405-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-406-1} \end{center}
 
 \hypertarget{logaritmi}{%
 \section*{Logaritmi}\label{logaritmi}}
@@ -13377,7 +13237,7 @@ Per esempio, abbiamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-406-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-407-1} \end{center}
 
 \hypertarget{gauss-normale}{%
 \chapter{La Normale motivata dal metodo dei minimi quadrati}\label{gauss-normale}}
@@ -13488,7 +13348,7 @@ Si noti che, nell'istruzione precedente, abbiamo passato alla funzione \texttt{d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-410-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-411-1} \end{center}
 
 Nella simulazione, il valore \(\theta\) che massimizza la funzione di verosimiglianza può essere trovato nel modo seguente:
 
@@ -13666,7 +13526,7 @@ I vettori \texttt{mu} e \texttt{ll} possono dunque essere usati per disegnare il
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-416-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-417-1} \end{center}
 
 Dalla figura notiamo che, per i dati osservati, il massimo della funzione di log-verosimiglianza calcolata per via numerica, ovvero 30.93, è identico alla media dei dati campionari e corrisponde al risultato teorico della \eqref{eq:maxlikemu}.
 
@@ -13681,6 +13541,69 @@ Nella funzione di verosimiglianza i dati (osservati) vengono trattati come fissi
 Nella statistica frequentista l'inferenza si basa solo sui dati a disposizione e qualunque informazione fornita dalle conoscenze precedenti non viene presa in considerazione. Nello specifico, nella statistica frequentista l'inferenza viene condotta massimizzando la funzione di (log) verosimiglianza, condizionatamente ai valori assunti dalle variabili casuali campionarie. Nella statistica bayesiana, invece, l'inferenza statistica viene condotta combinando la funzione di verosimiglianza con le distribuzioni a priori dei parametri incogniti \(\theta\).
 
 La differenza fondamentale tra inferenza bayesiana e frequentista è dunque che i frequentisti non ritengono utile descrivere in termini probabilistici i parametri: i parametri dei modelli statistici vengono concepiti come fissi ma sconosciuti. Nell'inferenza bayesiana, invece, i parametri sconosciuti sono intesi come delle variabili casuali e ciò consente di quantificare in termini probabilistici il nostro grado di intertezza relativamente al loro valore.
+
+\hypertarget{appendix:future-exp}{%
+\chapter{Le aspettative future dei pazienti depressi}\label{appendix:future-exp}}
+
+\hypertarget{app:zet}{%
+\section{\texorpdfstring{La ricerca di \citet{zetschefuture2019}}{La ricerca di @zetschefuture2019}}\label{app:zet}}
+
+Per descrivere vari aspetti dell'analisi bayesiana utilizzeremo dei dati reali, nello specifico quelli raccolti da \citet{zetschefuture2019}. Questi ricercatori si sono chiesti se gli individui depressi manifestino delle aspettative accurate circa il loro umore futuro, oppure se tali aspettative siano distorte negativamente. Esamineremo qui i 30 partecipanti dello studio di \citet{zetschefuture2019} che hanno riportato la presenza di un episodio di depressione maggiore in atto. All'inizio della settimana di test, a questi pazienti è stato chiesto di valutare l'umore che si aspettavano di esperire nei giorni seguenti della settimana. Mediante una app, i partecipanti dovevano poi valutare il proprio umore in cinque momenti diversi di ciascuno dei cinque giorni successivi. Lo studio considera diverse emozioni, ma qui ci concentriamo solo sulla tristezza.
+
+Sulla base dei dati forniti dagli autori, abbiamo calcolato la media dei giudizi relativi al livello di tristezza raccolti da ciascun partecipante tramite la app. Tale media è stata poi sottratta dall'aspettativa del livello di tristezza fornita all'inizio della settimana. La discrepanza tra aspettative e realtà è stata considerata come un evento dicotomico: valori positivi di tale differenza indicano che le aspettative circa il livello di tristezza erano maggiori del livello di tristezza effettivamente esperito --- ciò significa che le aspettative future risultano negativamente distorte (evento codificato con ``1''). Viceversa, si ha che le aspettative risultano positivamente distorte se la differenza descritta in precedenza assume un valore negativo (evento codificato con ``0'').
+
+Nel campione dei 30 partecipanti clinici di \citet{zetschefuture2019}, le aspettative future di 23 partecipanti risultano distorte negativamente e quelle di 7 partecipanti risultano distorte positivamente. Chiameremo \(\theta\) la probabilità dell'evento ``le aspettative del partecipante sono distorte negativamente''. Ci poniamo il problema di ottenere una stima a posteriori di \(\theta\) avendo osservato 23 ``successi'' in 30 prove.
+
+Si noti un punto importante: dire semplicemente che la stima di \(\theta\) è uguale a 23/30 = 0.77 ci porta ad ignorare il livello di incertezza associato a tale stima. Infatti, lo stesso valore (0.77) si può ottenere come 23/30, o 230/300, o 2300/3000, o 23000/30000, ma l'incertezza di una stima pari a 0.77 è molto diversa nei quattro casi. Quando si traggono conclusioni dai dati è invece necessario quantificare il livello della nostra incertezza relativamente alla stima del parametro di interesse (nel caso presente, \(\theta\)). Lo strumento ci consente di quantificare tale incertezza è la distribizione a posteriori \(p(\theta \mid y)\). Ovviamente, \(p(\theta \mid y)\) assume forme molto diverse nei quattro casi descritti sopra.
+
+\hypertarget{appendix:beta-binom}{%
+\chapter{Modello Beta-binomiale}\label{appendix:beta-binom}}
+
+\hypertarget{funzione-per-il-modello-beta-binomiale}{%
+\section{Funzione per il modello Beta-binomiale}\label{funzione-per-il-modello-beta-binomiale}}
+
+La seguente funzione può essere usata per rappresentare la distribuzione a priori, la distribuzione a posteriori e la versosimiglianza (normalizzata) nel caso del modello Beta-binomiale. I parametri in input sono, nell'ordine, i parametri \(\alpha\) e \(\beta\) della distribuzione a priori Beta, \(y\) (numero di successi) e \(n\) (numero di prove).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{plot\_beta\_bin }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(a, b, y, n) \{}
+  \FunctionTok{library}\NormalTok{(}\StringTok{"tidyverse"}\NormalTok{)}
+  
+\NormalTok{  df1 }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{theta =} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.001}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{))}
+\NormalTok{  prior\_un }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(df1}\SpecialCharTok{$}\NormalTok{theta, a, b)}
+\NormalTok{  df1}\SpecialCharTok{$}\NormalTok{prior }\OtherTok{\textless{}{-}}\NormalTok{ prior\_un }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(prior\_un)}
+
+  \CommentTok{\# Likelihood}
+\NormalTok{  like\_un }\OtherTok{\textless{}{-}} \FunctionTok{dbinom}\NormalTok{(y, n, }\AttributeTok{prob =} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.001}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.001}\NormalTok{))}
+\NormalTok{  df1}\SpecialCharTok{$}\NormalTok{like }\OtherTok{\textless{}{-}}\NormalTok{ like\_un }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(like\_un)}
+
+  \CommentTok{\# Posterior}
+\NormalTok{  post\_un }\OtherTok{\textless{}{-}}\NormalTok{ df1}\SpecialCharTok{$}\NormalTok{prior }\SpecialCharTok{*}\NormalTok{ df1}\SpecialCharTok{$}\NormalTok{like}
+\NormalTok{  df1}\SpecialCharTok{$}\NormalTok{post }\OtherTok{\textless{}{-}}\NormalTok{ post\_un }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(post\_un)}
+
+\NormalTok{  df2 }\OtherTok{\textless{}{-}}\NormalTok{ df1 }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{pivot\_longer}\NormalTok{(}\SpecialCharTok{!}\NormalTok{theta, }\AttributeTok{names\_to =} \StringTok{"grp"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"val"}\NormalTok{)}
+
+\NormalTok{  df2}\SpecialCharTok{$}\NormalTok{grp }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df2}\SpecialCharTok{$}\NormalTok{grp)}
+  \CommentTok{\# levels(df2$grp)}
+\NormalTok{  df2}\SpecialCharTok{$}\NormalTok{grp }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df2}\SpecialCharTok{$}\NormalTok{grp, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"prior"}\NormalTok{, }\StringTok{"like"}\NormalTok{, }\StringTok{"post"}\NormalTok{))}
+  \FunctionTok{levels}\NormalTok{(df2}\SpecialCharTok{$}\NormalTok{grp) }\OtherTok{\textless{}{-}}
+    \FunctionTok{c}\NormalTok{(}
+      \StringTok{"Distribuzione a priori"}\NormalTok{, }\StringTok{"Verosimiglianza"}\NormalTok{,}
+      \StringTok{"Distribuzione a posteriori"}
+\NormalTok{    )}
+
+\NormalTok{  p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ df2) }\SpecialCharTok{+}
+    \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(theta, val)) }\SpecialCharTok{+}
+    \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{grp, }\AttributeTok{ncol =} \DecValTok{1}\NormalTok{, }\AttributeTok{scales =} \StringTok{"free\_y"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{coord\_cartesian}\NormalTok{(}\AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{""}\NormalTok{, }\AttributeTok{y =} \StringTok{""}\NormalTok{)}
+
+\NormalTok{  p}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{appendix:const-norm-bino23}{%
 \chapter{Verosimiglianza marginale}\label{appendix:const-norm-bino23}}
@@ -14137,7 +14060,7 @@ Campioniamo ora 10,000 punti dall'approssimazione discretizzata della distribuzi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-436-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-440-1} \end{center}
 
 \noindent All'istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero una Beta di parametri 25 (\(y + \alpha\) = 23 + 2) e 17 (\(n - y + \beta\) = 30 - 23 + 10).
 
@@ -14216,7 +14139,7 @@ Per calcolare la funzione di verosimiglianza per i 30 valori di \citet{zetschefu
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-440-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-444-1} \end{center}
 
 La funzione \texttt{likelihood()} ritorna l'ordinata della verosimiglianza binomiale per ciascun valore del vettore \texttt{param} in input.
 
@@ -14242,7 +14165,7 @@ Quale distribuzione a priori utilizzeremo una \(\mbox{Beta}(2, 10)\) che è impl
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-441-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-445-1} \end{center}
 
 La funzione \texttt{posterior()} ritorna il prodotto della densità a priori e della verosimiglianza:
 
@@ -14265,7 +14188,7 @@ La funzione \texttt{posterior()} ritorna il prodotto della densità a priori e d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-442-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-446-1} \end{center}
 
 La distribuzione a posteriori non normalizzata mostrata nella figura replica il risultato ottenuto con il codice utilizzato nella prima parte di questo Capitolo. Per l'implementazione dell'algoritmo di Metropolis non è necessaria la normalizzazione della distribuzione a posteriori.
 
@@ -14769,7 +14692,7 @@ Verifichiamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-463-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-467-1} \end{center}
 
 \hypertarget{least-squares}{%
 \chapter{Minimi quadrati}\label{least-squares}}
@@ -16790,7 +16713,7 @@ Consideriamo nuovamenti i dati contenuti nel \texttt{tibble} \texttt{msleep} e p
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-576-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-580-1} \end{center}
 
 Coloriamo ora in maniera diversa i punti che rappresentano animali carnivori, erbivori, ecc.
 
@@ -16805,7 +16728,7 @@ Coloriamo ora in maniera diversa i punti che rappresentano animali carnivori, er
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-577-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-581-1} \end{center}
 
 È chiaro, senza fare alcuna analisi statistica, che la relazione tra le due variabili non è lineare. Trasformando in maniera logaritmica i valori dell'asse \(x\) la relazione si linearizza.
 
@@ -16820,7 +16743,7 @@ Coloriamo ora in maniera diversa i punti che rappresentano animali carnivori, er
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-578-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-582-1} \end{center}
 
 Infine, aggiustiamo il ``tema'' del grafico (si noti l'utilizzo di una tavolozza di colori adatta ai daltonici mediante il pacchetto \texttt{viridis}), aggiungiamo le etichette sugli assi e il titolo.
 
@@ -16845,7 +16768,7 @@ Infine, aggiustiamo il ``tema'' del grafico (si noti l'utilizzo di una tavolozza
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-579-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-583-1} \end{center}
 
 La visualizzazione può essere migliorata cambiando le etichette della legenda del grafico. Per fare questo è necessario intervenire sui dati prima di usare \texttt{ggplot()} -- per esempio, come abbiamo fatto in precedenza con la funzione \texttt{forcats::fct\_recode()}.
 
@@ -16869,7 +16792,7 @@ Creiamo ora un istogramma che rappresenta la distribuzione del (logaritmo del) p
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-580-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-584-1} \end{center}
 
 \hypertarget{scrivere-il-codice-r-con-stile}{%
 \subsection{\texorpdfstring{Scrivere il codice \texttt{R} con stile}{Scrivere il codice R con stile}}\label{scrivere-il-codice-r-con-stile}}

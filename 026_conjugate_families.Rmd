@@ -158,7 +158,50 @@ Per i dati in discussione, abbiamo:
 ```{r}
 bayesrules::plot_beta_binomial(
   alpha = 2, beta = 10, y = 23, n = 30
-)
+  ) 
+```
+
+```{r, echo=FALSE}
+plot_beta_bin <- function(a, b, y, n) {
+  df1 <- data.frame(theta = seq(0.001, 1, 0.001))
+  prior_un <- dbeta(df1$theta, a, b)
+  df1$prior <- prior_un / sum(prior_un)
+
+  # Likelihood
+  like_un <- dbinom(y, n, prob = seq(0.001, 1, 0.001))
+  df1$like <- like_un / sum(like_un)
+
+  # Posterior
+  post_un <- df1$prior * df1$like
+  df1$post <- post_un / sum(post_un)
+
+  df2 <- df1 %>%
+    pivot_longer(!theta, names_to = "grp", values_to = "val")
+
+  df2$grp <- factor(df2$grp)
+  # levels(df2$grp)
+  df2$grp <- factor(df2$grp, levels = c("prior", "like", "post"))
+  levels(df2$grp) <-
+    c(
+      "Distribuzione a priori", "Verosimiglianza",
+      "Distribuzione a posteriori"
+    )
+
+  p <- ggplot(data = df2) +
+    geom_line(aes(theta, val)) +
+    facet_wrap(~grp, ncol = 1, scales = "free_y") +
+    coord_cartesian(xlim = c(0, 1)) +
+    scale_y_continuous(breaks = NULL) +
+    labs(x = "", y = "")
+
+  p
+}
+```
+
+È facile replicare il grafico precedente scrivendo noi stessi una funzione, come descritto in Appendice \@ref(appendix:beta-binom). Con la funzione `plot_beta_binom()` e i dati usati in precedenza otteniamo
+
+```{r}
+plot_beta_bin(2, 10, 23, 30)
 ```
 
 Un sommario delle distribuzioni a priori e a posteriori si ottiene usando la funzione `summarize_beta_binomial()`:
@@ -223,10 +266,9 @@ bayesrules:::summarize_beta_binomial(
 Il processo di aggiornamento bayesiano è descritto dalla figura seguente:
 
 ```{r}
-bayesrules:::plot_beta_binomial(
-  alpha = 1, beta = 10, y = 26, n = 40
-) 
+plot_beta_bin(1, 10, 26, 40)
 ```
+
 :::
 
 ## Principali distribuzioni coniugate
