@@ -1,4 +1,4 @@
-# Confronto di $k$ gruppi
+# Confronto di $k$ gruppi {#ch-anova}
 
 ```{r c060, echo=FALSE}
 source("_common.R")

@@ -56,7 +56,7 @@ b &= \frac{\sum (x_i - \bar{x}) (y_i - \bar{y})}{\sum (x_i - \bar{x})^2}.
 (\#eq:minsq-ab)
 \end{align}
 
-### Massima verosimiglianza
+## Massima verosimiglianza
 
 Se gli errori del modello lineare sono indipendenti e distribuiti secondo una Normale, così che $y_i \sim \mathcal{N}(\alpha + \beta x, \sigma^2)$ per ciascun $i$, allora le stime dei minimi quadrati di $\alpha$ e $\beta$ corrispondono alla stima di massima verosimiglianza. La funzione di verosimiglianza del modello di regressione è definita come la funzione di densità di probabilità dei dati, dati i parametri e i predittori: 
 

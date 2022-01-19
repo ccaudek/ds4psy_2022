@@ -1,3 +1,7 @@
+\mainmatter
+
+# (PART) Distribuzioni teoriche di probabilità {-}
+
 # Distribuzioni di v.c. discrete {#distr-rv-discr}
 
 ```{r c022, include = FALSE}

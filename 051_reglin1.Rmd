@@ -1,4 +1,8 @@
-# Introduzione al modello lineare {#regr-models-intro}
+\mainmatter
+
+# (PART) Il modello lineare {-}
+
+# Introduzione {#regr-models-intro}
 
 ```{r c051, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
 source("_common.R")

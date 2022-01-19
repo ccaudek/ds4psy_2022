@@ -1,6 +1,10 @@
+\mainmatter
+
+# (PART) Il confronto bayesiano di modelli {-}
+
 # Valutare e confrontare i modelli {#loo-stan}
 
-```{r c092, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE}
+```{r c092, echo=FALSE}
 source("_common.R")
 source("_stan_options.R")
 library("brms")
@@ -916,7 +920,7 @@ kidiq <- kidiq %>%
   )
 ```
 
-Per potere usare delle distribuzione a priori sensate per i parametri, standardizzo le variabili numeriche.
+Per semplificare  l'analisi, standardizzo le variabili numeriche.
 
 ```{r}
 scale_this <- function(x) as.vector(scale(x))
@@ -944,7 +948,7 @@ m1 <- brm(
 )
 ```
 
-Un grafico che riporta un posterior predictive check si ottiene con l'istruzione seguente:
+Un grafico che riporta un _posterior predictive check_ si ottiene con l'istruzione seguente:
 
 ```{r}
 pp_check(m1, ndraws = 50, alpha = 0.5) +
@@ -953,6 +957,7 @@ pp_check(m1, ndraws = 50, alpha = 0.5) +
 ```
 
 Identifichiamo ora l'importanza relativa delle variabili indipendenti nei termini della loro importanza per la previsione:
+
 ```{r varsel, cache=FALSE}
 # Variable selection
 vs <- projpred::varsel(m1)
@@ -1030,7 +1035,7 @@ Nel caso presente, le differenze sono minime, ma questo non è sempre vero.
 
 ## Confronto di modelli tramite $\elpd$
 
-Confrontiamo ora la capacità predittiva a posteriori dei due modelli rispetto alla loro $\elpd$. Ricordiamo che tanto maggiore è $\elpd$ rispetto ad un nuovo insieme di dati futuri $\tilde{y}$, $\log p(\tilde{y} \mid y)$, tanto maggiore è l'accuratezza predittiva del modello. Iniziamo a calcolare $\elpd$ per i due modelli:
+Confrontiamo ora la capacità predittiva a posteriori dei due modelli discussi sopra rispetto alla loro $\elpd$. Ricordiamo che tanto maggiore è $\elpd$ rispetto ad un nuovo insieme di dati futuri $\tilde{y}$, $\log p(\tilde{y} \mid y)$, tanto maggiore è l'accuratezza predittiva del modello. Iniziamo a calcolare $\elpd$ per i due modelli:
 
 ```{r}
 loo1 <- loo::loo(m1)

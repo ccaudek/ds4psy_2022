@@ -10,6 +10,6 @@ for (fmt in formats) {
   if (res != 0) stop('Failed to compile the book to ', fmt)
 }
 
-if (length(formats) > 1 && Sys.getenv('USER') == 'yihui') {
-  bookdown::publish_book(account = 'yihui', server = 'bookdown.org')
-}
+# if (length(formats) > 1 && Sys.getenv('USER') == 'yihui') {
+#   bookdown::publish_book(account = 'yihui', server = 'bookdown.org')
+# }

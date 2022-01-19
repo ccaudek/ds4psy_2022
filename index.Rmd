@@ -24,7 +24,8 @@ github-repo: ccaudek/ds4psy
 ```{r setup, include=FALSE}
 options(
   htmltools.dir.version = FALSE, formatR.indent = 2,
-  width = 55, digits = 4, warnPartialMatchAttr = FALSE, warnPartialMatchDollar = FALSE
+  width = 55, digits = 4, warnPartialMatchAttr = FALSE, 
+  warnPartialMatchDollar = FALSE
 )
 ```
 
@@ -70,3 +71,6 @@ Avendo insegnato molte volte in passato un corso introduttivo di analisi dei dat
 Corrado Caudek  
 Marzo 2022
 ```
+
+
+

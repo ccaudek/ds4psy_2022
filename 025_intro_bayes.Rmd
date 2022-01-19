@@ -1,6 +1,6 @@
 \mainmatter
 
-# (PART\*) Inferenza statistica bayesiana {-}
+# (PART) Inferenza statistica bayesiana {-}
 
 # Inferenza bayesiana {#ch:intro-bayes-inference}
 

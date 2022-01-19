@@ -1,8 +1,8 @@
 \mainmatter
 
-# (PART\*) Nozioni di base {-}
+# (PART) Il calcolo delle probabilità  {-}
 
-# Il calcolo delle probabilità {#intro-prob-1}
+# Nozioni di base {#intro-prob-1}
 
 ```{r c015, include = FALSE}
 source("_common.R")
