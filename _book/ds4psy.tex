@@ -246,7 +246,7 @@
 
 \title{Data Science per psicologi}
 \author{Corrado Caudek}
-\date{2022-01-19}
+\date{2022-01-20}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -6873,7 +6873,7 @@ Nell'implementazione di questo modello, la quantità di interesse è dunque l'od
   \AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta1"}\NormalTok{, }\StringTok{"theta2"}\NormalTok{, }\StringTok{"oddsratio"}\NormalTok{),}
   \AttributeTok{digits\_summary =}\NormalTok{ 3L}
 \NormalTok{)}
-\CommentTok{\#\textgreater{} Inference for Stan model: twoprop1{-}202201192006{-}1{-}5c31b8.}
+\CommentTok{\#\textgreater{} Inference for Stan model: twoprop1{-}202201200848{-}1{-}5c9a32.}
 \CommentTok{\#\textgreater{} 4 chains, each with iter=6000; warmup=2000; thin=1; }
 \CommentTok{\#\textgreater{} post{-}warmup draws per chain=4000, total post{-}warmup draws=16000.}
 \CommentTok{\#\textgreater{} }
@@ -6886,7 +6886,7 @@ Nell'implementazione di questo modello, la quantità di interesse è dunque l'od
 \CommentTok{\#\textgreater{} theta2     0.937 14193    1}
 \CommentTok{\#\textgreater{} oddsratio 15.558 10400    1}
 \CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Samples were drawn using NUTS(diag\_e) at Mer Gen 19 20:06:44 2022.}
+\CommentTok{\#\textgreater{} Samples were drawn using NUTS(diag\_e) at Gio Gen 20 08:48:10 2022.}
 \CommentTok{\#\textgreater{} For each parameter, n\_eff is a crude measure of effective sample size,}
 \CommentTok{\#\textgreater{} and Rhat is the potential scale reduction factor on split chains (at }
 \CommentTok{\#\textgreater{} convergence, Rhat=1).}
@@ -8156,13 +8156,13 @@ Adattiamo questo secondo modello ai dati.
 \CommentTok{\#\textgreater{} Running MCMC with 4 parallel chains...}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} Chain 1 finished in 0.4 seconds.}
-\CommentTok{\#\textgreater{} Chain 2 finished in 0.3 seconds.}
-\CommentTok{\#\textgreater{} Chain 3 finished in 0.3 seconds.}
-\CommentTok{\#\textgreater{} Chain 4 finished in 0.3 seconds.}
+\CommentTok{\#\textgreater{} Chain 2 finished in 0.4 seconds.}
+\CommentTok{\#\textgreater{} Chain 3 finished in 0.4 seconds.}
+\CommentTok{\#\textgreater{} Chain 4 finished in 0.4 seconds.}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} All 4 chains finished successfully.}
-\CommentTok{\#\textgreater{} Mean chain execution time: 0.3 seconds.}
-\CommentTok{\#\textgreater{} Total execution time: 0.5 seconds.}
+\CommentTok{\#\textgreater{} Mean chain execution time: 0.4 seconds.}
+\CommentTok{\#\textgreater{} Total execution time: 0.6 seconds.}
 \end{Highlighting}
 \end{Shaded}
 
@@ -9157,7 +9157,7 @@ Le statistiche diagnostiche sono fornite dal metodo \texttt{\$cmdstan\_diagnose(
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fit}\SpecialCharTok{$}\FunctionTok{cmdstan\_diagnose}\NormalTok{()}
-\CommentTok{\#\textgreater{} Processing csv files: /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}1{-}5f4886.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}2{-}5f4886.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}3{-}5f4886.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/RtmpNpBw4w/simpleregstd{-}202201192007{-}4{-}5f4886.csv}
+\CommentTok{\#\textgreater{} Processing csv files: /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/Rtmperbyvp/simpleregstd{-}202201200849{-}1{-}5fb100.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/Rtmperbyvp/simpleregstd{-}202201200849{-}2{-}5fb100.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/Rtmperbyvp/simpleregstd{-}202201200849{-}3{-}5fb100.csv, /var/folders/hl/dt523djx7\_q7xjrthzjpdvc40000gn/T/Rtmperbyvp/simpleregstd{-}202201200849{-}4{-}5fb100.csv}
 \CommentTok{\#\textgreater{} }
 \CommentTok{\#\textgreater{} Checking sampler transitions treedepth.}
 \CommentTok{\#\textgreater{} Treedepth satisfactory for all transitions.}
@@ -10993,10 +10993,13 @@ Gli intervalli di credibilità sono:
 \hypertarget{part-il-confronto-bayesiano-di-modelli}{%
 \part{Il confronto bayesiano di modelli}\label{part-il-confronto-bayesiano-di-modelli}}
 
-\hypertarget{loo-stan}{%
-\chapter{Valutare e confrontare i modelli}\label{loo-stan}}
+\hypertarget{ch:entropy}{%
+\chapter{Entropia}\label{ch:entropy}}
 
-Il principio base del metodo scientifico è la \emph{replicabilità} delle osservazioni: le osservazioni che non possono essere replicate sono poco interessanti. Parallelamente, una caratteristica fondamentale di un modello scientifico è la \emph{generalizzabilità}: se un modello è capace di descrivere soltanto le proprietà di uno specifico campione di osservazioni, allora è poco utile. Ma come è possibile valutare la generalizzabilità di un modello statistico? Questa è la domanda a cui cercheremo di rispondere in questo Capitolo.
+Il principio base del metodo scientifico è la \emph{replicabilità} delle osservazioni: le osservazioni che non possono essere replicate sono poco interessanti. Parallelamente, una caratteristica fondamentale di un modello scientifico è la \emph{generalizzabilità}: se un modello è capace di descrivere soltanto le proprietà di uno specifico campione di osservazioni, allora è poco utile. Ma come è possibile valutare la generalizzabilità di un modello statistico? Questa è la domanda a cui cercheremo di rispondere in questa parte della dispensa. In questo Capitolo inizieremo questa discussione introducendo il concetto di entropia.
+
+\hypertarget{la-generalizzabilituxe0-dei-modelli}{%
+\section{La generalizzabilità dei modelli}\label{la-generalizzabilituxe0-dei-modelli}}
 
 Secondo \citet{Johnson2022bayesrules}, nel valutare un modello, il ricercatore deve porsi tre domande critiche.
 
@@ -11017,7 +11020,7 @@ In generale, i modelli statistici tendono a non generalizzarsi bene a un nuovo c
 
 Sebbene i modelli statistici producono comunemente un sovra-adattamento, è anche possibile che essi producano un \emph{sotto-adattamento} (\emph{underfitting}) dei dati. Tale mancanza di adattamento è dovuta dalla variabilità campionaria e dalla complessità del modello. Il sotto-adattamento porta ad un \(R^2\) basso e ad un \emph{MSE} alto, sia nei campioni di calibrazione che in quelli di convalida. Per questo motivo, la scarsa generalizzabilità del modello può essere dovuta sia al sovra-adattamento che al sotto-adattamento del modello.
 
-Per aumentarne la capacità di generalizzazione del modello devono essere soddisfatte tre condizioni: (a) campioni di calibrazione grandi, (b) dimensioni dell'effetto non piccole nella popolazione, e (c) modelli che non siano inutilmente complessi. Tuttavia, nella ricerca psicologica queste tre condizioni sono difficili da soddisfare: l'aumento della dimensione del campione spesso richiede l'utilizzo di maggiori risorse, la dimensione di un dato effetto nella popolazione non è soggetta alla discrezione dei ricercatori e la complessità del modello è spesso guidata da motivazioni teoriche. Pertanto, negli studi psicologici la generalizzabilità dei modelli è spesso problematica. Ciò rende necessario che il ricercatore fornisca informazioni aggiuntive relative alla capacità del modello di generalizzarsi a nuovi campioni. L'obiettivo di questo capitolo è di descrivere come questo possa essere fatto utilizzando l'approccio bayesiano.
+Per aumentarne la capacità di generalizzazione del modello devono essere soddisfatte tre condizioni: (a) campioni di calibrazione grandi, (b) dimensioni dell'effetto non piccole nella popolazione, e (c) modelli che non siano inutilmente complessi. Tuttavia, nella ricerca psicologica queste tre condizioni sono difficili da soddisfare: l'aumento della dimensione del campione spesso richiede l'utilizzo di maggiori risorse, la dimensione di un dato effetto nella popolazione non è soggetta alla discrezione dei ricercatori e la complessità del modello è spesso guidata da motivazioni teoriche. Pertanto, negli studi psicologici la generalizzabilità dei modelli è spesso problematica. Ciò rende necessario che il ricercatore fornisca informazioni aggiuntive relative alla capacità del modello di generalizzarsi a nuovi campioni. L'obiettivo di questa parte della dispensa è di descrivere come questo possa essere fatto utilizzando l'approccio bayesiano.
 
 \hypertarget{capacituxe0-predittiva}{%
 \section{Capacità predittiva}\label{capacituxe0-predittiva}}
@@ -11057,8 +11060,8 @@ Nella pratica concreta della ricerca, il metodo più comune per la selezione tra
 
 Quando ci chiediamo quale, tra modelli alternativi, è il modello che meglio rappresenta il ``vero'' processo di generazione dei dati, ci troviamo di fronte al problema di quantificare il grado di ``vicinanza'' di un modello al ``vero'' processo di generazione dei dati. Si noti che, in tale confronto, facciamo riferimento sia alla famiglia distributiva così come ai valori dei parametri. Ad esempio, il modello \(y_i \sim \mathcal{N}(5, 3)\) è diverso dal modello \(y_i \sim \mathcal{N}(5, 6)\), ed è anche diverso dal modello \(y_i \sim \Gamma(2, 2)\). I primi due modelli appartengono alla stessa famiglia distributiva ma differiscono nei termini dei valori dei parametri; gli ultimi due modelli appartengono a famiglie distributive diverse (gaussiano vs.~Gamma). Per misurare il grado di ``vicinanza'' tra due modelli, \(\mathcal{M}_1\) e \(\mathcal{M}_2\), la metrica di gran lunga più popolare è la \emph{divergenza di Kullback-Leibler}. Per chiarire questo concetto è però prima necessario introdurre la nozione di entropia.
 
-\hypertarget{entropia}{%
-\section{Entropia}\label{entropia}}
+\hypertarget{la-misura-del-disordine}{%
+\section{La misura del disordine}\label{la-misura-del-disordine}}
 
 Se vogliamo ottenere una comprensione intuitiva del concetto di entropia\footnote{La nozione di entropia fu introdotta agli inizi del XIX secolo nel campo della termodinamica classica; il secondo principio della termodinamica è infatti basato sul concetto di entropia che, in generale, è assunto come una misura del disordine di un sistema fisico. Successivamente Boltzmann fornì una definizione statistica di entropia. Nel 1948 Shannon impiegò la nozione di entropia nell'ambito della teoria delle comunicazioni.} possiamo pensare a quant'è informativa una distribuzione. Maggiore è l'entropia di una distribuzione, meno informativa sarà quella distribuzione e più uniformemente verranno assegnate le probabilità agli eventi. In altri termini, ottenere la risposta di ``42'' è più informativo della risposta ``42 \(\pm\) 5'', che a sua volta è più informativo della risposta ``un numero qualsiasi''. L'entropia quantifica questa osservazione qualitativa.
 
@@ -11140,7 +11143,7 @@ Nella figura successiva viene esaminata la relazione tra probabilità e informaz
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-330-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-331-1} \end{center}
 
 La figura mostra che questa relazione non è lineare, è infatti leggermente sublineare. Questo ha senso dato che abbiamo usato una funzione logaritmica.
 \end{example}
@@ -11243,10 +11246,21 @@ Se gli esiti possibili sono pioggia, neve o sole con \(p(y_1) = 0.7\), \(p(y_2) 
 
 \end{example}
 
-\hypertarget{la-divergenza-di-kullback-leibler}{%
-\section{La divergenza di Kullback-Leibler}\label{la-divergenza-di-kullback-leibler}}
+\hypertarget{commenti-e-considerazioni-finali-22}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-22}}
 
-È comune in statistica utilizzare una distribuzione di probabilità \(q\) per approssimare un'altra distribuzione \(p\) -- generalmente, questo viene fatto se \(p\) non è conosciuta o è troppo complessa. In questi casi possiamo chiederci quanta informazione viene perduta usando \(q\) al posto di \(p\), o equivalentemente quanta ulteriore incertezza stiamo introducendo nell'analisi statistica. Intuitivamente, una risposta alla nostra domanda viene fornita da una quantità che ha valore zero quando \(q\) è uguale a \(p\), e un valore positivo altrimenti. Seguendo la definizione \eqref{eq:entropy} di entropia, possiamo quantificare una tale perdita di informazione calcolando il valore atteso della differenza tra \(\log(p)\) e \(\log(q)\). Questa quantità è chiamata \emph{entropia relativa} o \emph{divergenza di Kullback-Leibler}:
+
+In questo Capitolo abbiamo visto come sia possibile quantificare l'incertezza tramite l'entropia. Ma come è possibile usare l'entropia dell'informazione per specificare quanto differisce un modello dal vero meccanismo generatore dei dati? La risposta a questa domanda è fornita dalla divergenza di Kullback-Leibler (Capitolo \ref{ch:kl-div}).
+
+\hypertarget{ch:kl-div}{%
+\chapter{La divergenza di Kullback-Leibler}\label{ch:kl-div}}
+
+È comune in statistica utilizzare una distribuzione di probabilità \(q\) per approssimare un'altra distribuzione \(p\) -- generalmente, questo viene fatto se \(p\) non è conosciuta o è troppo complessa. In questi casi possiamo chiederci quanta informazione viene perduta usando \(q\) al posto di \(p\), o equivalentemente quanta ulteriore incertezza stiamo introducendo nell'analisi statistica. La quantificazione di questo incremento di incertezza viene fornita dalla divergenza di Kullback-Leibler.
+
+\hypertarget{la-perdita-di-informazione}{%
+\section{La perdita di informazione}\label{la-perdita-di-informazione}}
+
+Intuitivamente, per quantificare la perdita di informazione quando una distribuzione approssimata \(q\) viene usata per rappresentare la vera distribuzione \(p\) è necessaria una quantità che ha valore zero quando \(q\) è uguale a \(p\), e un valore positivo altrimenti. Seguendo la definizione \eqref{eq:entropy} di entropia, possiamo quantificare una tale perdita di informazione calcolando il valore atteso della differenza tra \(\log(p)\) e \(\log(q)\). Questa quantità è chiamata \emph{entropia relativa} o \emph{divergenza di Kullback-Leibler}:
 
 \begin{equation}
 \mathbb{KL} (p \mid\mid q) = \E (\log p - \log q)
@@ -11329,7 +11343,7 @@ Le istruzioni \(\R\) sono le seguenti:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-336-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-338-1} \end{center}
 
 Tanto meglio la distribuzione \(q\) approssima la distribuzione target tanto più piccolo è il valore di divergenza KL.
 \end{example}
@@ -11389,7 +11403,7 @@ La divergenza KL di \(q_2\) da \(p\) è:
 \end{example}
 
 \hypertarget{la-divergenza-dipende-dalla-direzione}{%
-\subsection{La divergenza dipende dalla direzione}\label{la-divergenza-dipende-dalla-direzione}}
+\section{La divergenza dipende dalla direzione}\label{la-divergenza-dipende-dalla-direzione}}
 
 La divergenza KL non è una vera e propria metrica: per esempio, non è simmetrica. In generale, \(\mathbb{KL}(p \mid\mid q) \neq \mathbb{KL}(q \mid\mid p)\), ovvero la \(\mathbb{KL}\) da \(p\) a \(q\) è diversa dalla \(\mathbb{KL}\) da \(q\) a \(p\).
 
@@ -11416,7 +11430,7 @@ Usando le seguenti istruzioni \(\R\) otteniamo:
 \end{example}
 
 \hypertarget{confronto-tra-modelli}{%
-\subsection{Confronto tra modelli}\label{confronto-tra-modelli}}
+\section{Confronto tra modelli}\label{confronto-tra-modelli}}
 
 La divergenza KL viene utilizzata nel confronto tra modelli, ovvero ci consente di quantificare l'informazione che viene perduta quando utilizziamo la distribuzione di probabilità ipotizzata da un modello, chiamiamola \(p_{\mathcal{M}}\), per approssimare la distribuzione di probabilità del vero modello generatore dei dati, \(p_t\).
 
@@ -11554,10 +11568,16 @@ Così facendo, e svolgendo i calcoli in \(\R\), otteniamo un valore diverso da q
 
 \end{example}
 
-\hypertarget{criterio-di-informazione-e-convalida-incrociata-k-fold}{%
-\section{Criterio di informazione e convalida incrociata K-fold}\label{criterio-di-informazione-e-convalida-incrociata-k-fold}}
+\hypertarget{commenti-e-considerazioni-finali-23}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-23}}
 
-Nel Paragrafo precedente abbiamo visto che la \eqref{eq:lppd} fornisce una sovrastima della \(\elpd\). Il modo migliore per stimare \(\elpd\) è raccogliere un nuovo campione indipendente di dati, che si ritiene condivida lo stesso processo di generazione dei dati del campione corrente, e stimare \(\elpd\) sul nuovo campione. Questa procedura è chiamata \emph{out-of-sample validation}. Il problema, però, è che solitamente non abbiamo le risorse per raccogliere un nuovo campione di osservazioni. Di conseguenza, gli statistici hanno messo a punto vari metodi per evitare la sovrastima della \(\elpd\) che deriva dal solo utizzo del campione corrente. Ci sono due approcci generali:
+
+Dato che non conosciamo il vero meccanismo generatore dei dati \(p\), possiamo usare la distribuzione dei dati osservata come proxy per la vera distribuzione \(p\). Quindi, invece di ponderare la distribuzione predittiva in base alla densità reale di tutti i possibili dati futuri, utilizziamo semplicemente le \(n\) osservazioni che abbiamo. Possiamo farlo perché assumiamo che le nostre osservazioni costituiscano un campione dalla vera distribuzione dei dati: in base a questa ipotesi, nel campione ci aspettiamo di osservare più frequentemente quelle osservazioni che hanno una maggiore verosimiglianza nella vera distribuzione \(p\). È così possibile giungere ad una stima numerica della \(\elpd\) chiamata \emph{log pointwise predictive density} (\(\lppd\)).
+
+\hypertarget{ch:info-criterion}{%
+\chapter{Criterio di informazione e convalida incrociata}\label{ch:info-criterion}}
+
+Nel Capitolo precedente abbiamo visto che la \eqref{eq:lppd} fornisce una sovrastima della \(\elpd\). Il modo migliore per stimare \(\elpd\) è raccogliere un nuovo campione indipendente di dati, che si ritiene condivida lo stesso processo di generazione dei dati del campione corrente, e stimare \(\elpd\) sul nuovo campione. Questa procedura è chiamata \emph{out-of-sample validation}. Il problema, però, è che solitamente non abbiamo le risorse per raccogliere un nuovo campione di osservazioni. Di conseguenza, gli statistici hanno messo a punto vari metodi per evitare la sovrastima della \(\elpd\) che deriva dal solo utizzo del campione corrente. Ci sono due approcci generali:
 
 \begin{itemize}
 \tightlist
@@ -11567,13 +11587,15 @@ Nel Paragrafo precedente abbiamo visto che la \eqref{eq:lppd} fornisce una sovra
   la convalida incrociata cosiddetta K-fold.
 \end{itemize}
 
+Lo scopo del presente Capitolo è di fornire una breve introduzione ai criteri dell'informazione e alla procedura della convalida incrociata.
+
 \hypertarget{aic-dic-e-waic}{%
-\subsection{AIC, DIC e WAIC}\label{aic-dic-e-waic}}
+\section{AIC, DIC e WAIC}\label{aic-dic-e-waic}}
 
 Allo scopo di evitare la sovrastima della \eqref{eq:lppd}, le statistiche \emph{Akaike Information Criterion} (AIC), \emph{Deviance Information Criterion} (DIC) e \emph{Widely Applicable Information Criterion} (WAIC) introducono un fattore di correzione. Le statistiche DIC e WAIC sono più complesse di AIC, ma producono un'approssimazione migliore. Tuttavia, i valori AIC, DIC e WAIC sono spesso molto simili tra loro. Per convenienza, dunque, qui ci accontenteremo di esaminare in dettaglio la statistica più semplice, ovvero AIC.
 
 \hypertarget{criterio-dinformazione-di-akaike}{%
-\subsubsection{Criterio d'informazione di Akaike}\label{criterio-dinformazione-di-akaike}}
+\subsection{Criterio d'informazione di Akaike}\label{criterio-dinformazione-di-akaike}}
 
 Il criterio d'informazione di Akaike (in inglese \emph{Akaike information criterion}, indicato come AIC) fornisce un metodo molto semplice per approssimare \(\elpd\).
 
@@ -11648,12 +11670,12 @@ Nel caso di un modello gaussiano con con varianza nota e una distribuzione a pri
 \end{example}
 
 \hypertarget{convalida-incrociata-k-fold}{%
-\subsection{Convalida incrociata K-fold}\label{convalida-incrociata-k-fold}}
+\section{Convalida incrociata K-fold}\label{convalida-incrociata-k-fold}}
 
 La sovrastima della \eqref{eq:lppd} può anche essere evitata usando una tecnica chiamata \emph{K-fold cross-validation}. Mediante questo metodo vengono stimati i parametri del modello tralasciando una porzione di osservazioni (chiamata \emph{fold}) dal campione per poi valutare il modello sulle osservazioni che sono state escluse. Una stima complessiva dell'accuratezza si ottiene poi calcolando la media del punteggio di accuratezza ottenuto in ogni fold. Il numero minimo di fold è 2; all'altro estremo, è possibile impiegare una singola osservazione in ciascun fold e adattare il modello tante volte (\(n\)) quante sono le singole osservazioni. Questa strategia è chiamata \emph{leave-one-out cross-validation} (LOO-CV).
 
 \hypertarget{importance-sampling}{%
-\subsubsection{Importance sampling}\label{importance-sampling}}
+\subsection{Importance sampling}\label{importance-sampling}}
 
 La strategia LOO-CV è computazionalmente onerosa (ovvero, richiede un tempo di esecuzione molto lungo). È però possibile approssimare LOO-CV mediante un metodo chiamato \emph{Pareto-smoothed importance sampling cross-validation} {[}PSIS; \citet{vehtari2017practical}{]}. Tralasciando qui i dettagli matematici, l'intuizione di base è che PSIS fa leva sul punteggio di ``importanza'' posseduto da ciascuna osservazione all'interno della distribuzione a posteriori. Per ``importanza'' si intende il fatto che alcune osservazioni hanno un impatto maggiore sulle proprietà della distribuzione a posteriori di altre: se viene rimossa un'osservazione importante, le proprietà della distribuzione a posteriori cambiano molto; se viene rimossa un'osservazione poco importante, la distribuzione a posteriori cambia poco. L'``importanza'' così intesa viene chiamata ``peso'' (\emph{weight}) e tali pesi vengono utilizzati per stimare l'accuratezza \emph{out-of-sample} del modello. PSIS-LOO-CV richiede che il modello venga adattato una volta soltanto ai dati e fornisce una stima della devianza \emph{out-of-sample} che evita la sovrastima della \eqref{eq:lppd}. Inoltre, PSIS-LOO-CV fornisce un feedback sulla propria affidabilità identificando le osservazioni i cui pesi molto elevati potrebbero rendere imprecisa la predizione.
 
@@ -11662,7 +11684,7 @@ Valori \(\widehat{\elpd}_{\LOO}\) più grandi indicano una maggiore accuratezza 
 La quantità \(\widehat{\elpd}_{\LOO}\) viene calcolata dai pacchetti \texttt{loo} e \texttt{brms} ed è chiamata \texttt{elpd\_loo} o \texttt{elpd\_kfold}. È anche possibile calcolare la differenza della quantità \texttt{elpd\_loo} per modelli alternativi, insieme alla deviazione standard della distribuzione campionaria di tale differenza.
 
 \hypertarget{confronto-tra-aic-e-loo-cv}{%
-\subsubsection{Confronto tra AIC e LOO-CV}\label{confronto-tra-aic-e-loo-cv}}
+\section{Confronto tra AIC e LOO-CV}\label{confronto-tra-aic-e-loo-cv}}
 
 Per fare un esempio, faremo qui un confronto tra \(\widehat{\elpd}_{AIC}\) e \(\widehat{\elpd}_{LOO-CV}\). Esaminiamo nuovamente l'associazione tra il QI dei figli e il QI delle madri nel campione di dati discusso da \citet{gelman2020regression}. Una tale relazione può essere descritta da un modello di regressione nel quale la \(y\) corrisponde al QI dei figli e la \(x\) al QI delle madri.
 
@@ -11806,7 +11828,7 @@ Calcoliamo infine la quantità \(\widehat{\elpd}_{LOO-CV}\):
 Si noti la somiglianza tra \(\widehat{\elpd}_{LOO-CV}\) e \(\widehat{\elpd}_{AIC}\). In conclusione, possiamo dunque dire che \(\widehat{\elpd}_{LOO-CV}\) è la risposta bayesiana allo stesso problema che trova una soluzione frequentista nella statistica \(\widehat{\elpd}_{AIC}\).
 
 \hypertarget{confronto-tra-modelli-mediante-loo-cv}{%
-\subsection{Confronto tra modelli mediante LOO-CV}\label{confronto-tra-modelli-mediante-loo-cv}}
+\section{Confronto tra modelli mediante LOO-CV}\label{confronto-tra-modelli-mediante-loo-cv}}
 
 Come menzionato in precedenza, l'obiettivo centrale della misurazione dell'accuratezza predittiva è il confronto di modelli. Una volta capito come calcolare LOO-CV con un condice scritto in linguaggio Stan, svolgeremo ora un confronto di modelli.\footnote{A questo proposito, è necessario aggiungere una nota di cautela. Come fa notare \citet{McElreath_rethinking}, fare previsioni e inferire i rapporti causali sono due cose molto diverse. Statistiche quali AIC, WAIC e LOO-CV consentono di individuare modelli con buone capacità predittive. Tali modelli, tuttavia, non riflettono necessariamente la struttura causale del fenomeno considerato: la selezione di modelli basata unicamente sull'accuratezza predittiva non garantisce che venga selezionato il modello che riflette la struttura causale del fenomeno \citep[si veda anche][]{navarro2019between}.}
 
@@ -12083,7 +12105,7 @@ Per interpretare l'output, usiamo il criterio suggerito da \citet{gelman1995baye
 \end{Shaded}
 
 \hypertarget{outlier}{%
-\subsection{Outlier}\label{outlier}}
+\section{Outlier}\label{outlier}}
 
 Si è soliti pensare che la maggior parte delle osservazioni del campione sia prodotta da un unico meccanismo generatore dei dati, mentre le rimanenti osservazioni sono la realizzazione di un diverso processo stocastico. Le osservazioni che appartengono a questo secondo gruppo si chiamano \emph{outlier}. È dunque necessario identificare gli outlier e limitare la loro influenza sull'inferenza.\footnote{\citet{McElreath_rethinking} nota che, spesso, i ricercatori eliminano i valori anomali prima di adattare un modello ai dati, basandosi solo sulla distanza dal valore medio della variabile dipendente misurata in termini di unità di deviazione standard. Secondo \citet{McElreath_rethinking} questo non dovrebbe mai essere fatto: un'osservazione può essere considerata come un valore anomalo o un valore influente solo alla luce delle predizioni di un modello (mai prima di avere adattato il modello ai dati). Se ci sono solo pochi valori anomali una strategia possibile è quella di riportare i risultati delle analisi statistiche svolte su tutto il campione dei dati oppure dopo avere eliminato le osservazioni anomale e influenti.}
 
@@ -12170,7 +12192,7 @@ Un grafico che riporta le stime dei parametri di forma della distribuzione di Pa
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-377-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-380-1} \end{center}
 
 Il valore \texttt{k} stimato da PSIS-LOO-CV mette chiaramente in luce il fatto che il valore introdotto nel campione è un outlier. L'indice dell'osservazione outlier è identificato con:
 
@@ -12181,10 +12203,21 @@ Il valore \texttt{k} stimato da PSIS-LOO-CV mette chiaramente in luce il fatto c
 \end{Highlighting}
 \end{Shaded}
 
-\hypertarget{selezione-di-variabili}{%
-\section{Selezione di variabili}\label{selezione-di-variabili}}
+\hypertarget{commenti-e-considerazioni-finali-24}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-24}}
 
-I concetti che sono stati introdotti in questo Capitolo, tra le altre cose, risultano utili per affrontare un problema importante in psicologia, ovvero quello della semplificazione di un modello di regressione che contiene molti predittori. Il problema è quello di selezionare un insieme di variabili indipendenti così che tale selezione non comporti una apprezzabile perdita nella capacità predittiva del modello ristretto rispetto al modello completo. Un modo per identificare le variabili rilevanti per prevedere una determinata variabile risposta è quello di utilizzare il metodo basato sulla proiezione, come discusso nel seguente \href{https://cran.r-project.org/web/packages/projpred/vignettes/quickstart.html}{link} e in \citet{piironen2017comparison}. Per descrivere questa procedura, adatto qui un esempio discusso da Mark Lai in \href{https://bookdown.org/marklhc/notes_bookdown/model-comparison-and-regularization.html}{Course Handouts for Bayesian Data Analysis Class}. Iniziamo a leggere i dati.
+
+In questo Capitolo, abbiamo imparato come usare la convalida incrociata K-fold e la convalida incrociata leave-one-out, utilizzando Stan insieme al pacchetto \texttt{loo}. Abbiamo esaminato alcuni esempi di confronto di modelli in cui la convalida incrociata ci consente di distinguere tra due modelli. In generale, la convalida incrociata sarà utile quando si confrontano modelli piuttosto diversi; quando i modelli sono molto simili, invece, sarà difficile distinguerli. In particolare, per i dati tipici della psicologia, sarà difficile ottenere risultati conclusivi dai confronti di modelli tramite la convalida incrociata se l'effetto è molto piccolo e/o il campione di dati è piccolo. In questi casi, se l'obiettivo è trovare prove a sostengo di un'affermazione teorica, alcuni ricercatori ritengono che altri metodi di confronto dei modelli siano più utili, come ad esempio i fattori di Bayes. L'uso dei fattori di Bayes, tuttavia, è controverso, dato che essi dipendono fortemente dalla scelta delle distribuzioni a priori. Se possibile sarebbe preferibile utilizzare le procedure descritte in questa parte della dispensa, con campioni di ampiezza adeguata.
+
+\hypertarget{ch:varsel}{%
+\chapter{Selezione di variabili}\label{ch:varsel}}
+
+I concetti che sono stati introdotti in questa parte della dispensa, tra le altre cose, risultano utili per affrontare un problema importante in psicologia, ovvero quello della semplificazione di un modello di regressione che contiene molti predittori. Il problema è quello di selezionare un insieme di variabili indipendenti così che tale selezione non comporti una apprezzabile perdita nella capacità predittiva del modello ristretto rispetto al modello completo.
+
+\hypertarget{limportanza-delle-variabili}{%
+\section{L'importanza delle variabili}\label{limportanza-delle-variabili}}
+
+Un modo per identificare le variabili rilevanti per prevedere una determinata variabile risposta è quello di utilizzare il metodo basato sulla proiezione, come discusso nel seguente \href{https://cran.r-project.org/web/packages/projpred/vignettes/quickstart.html}{link} e in \citet{piironen2017comparison}. Per descrivere questa procedura, adatto qui un esempio discusso da Mark Lai in \href{https://bookdown.org/marklhc/notes_bookdown/model-comparison-and-regularization.html}{Course Handouts for Bayesian Data Analysis Class}. Iniziamo a leggere i dati.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -12234,7 +12267,7 @@ Il seguente modello di regressione utilizza \texttt{kid\_score} quale variabile 
 \NormalTok{)}
 \CommentTok{\#\textgreater{} Running MCMC with 4 parallel chains...}
 \CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Chain 1 finished in 0.2 seconds.}
+\CommentTok{\#\textgreater{} Chain 1 finished in 0.3 seconds.}
 \CommentTok{\#\textgreater{} Chain 2 finished in 0.2 seconds.}
 \CommentTok{\#\textgreater{} Chain 3 finished in 0.2 seconds.}
 \CommentTok{\#\textgreater{} Chain 4 finished in 0.2 seconds.}
@@ -12255,7 +12288,7 @@ Un grafico che riporta un \emph{posterior predictive check} si ottiene con l'ist
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-382-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-386-1} \end{center}
 
 Identifichiamo ora l'importanza relativa delle variabili indipendenti nei termini della loro importanza per la previsione:
 
@@ -12275,7 +12308,10 @@ Un grafico dell'importanza relativa di ciascuna variable per la previsione di \t
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-383-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-387-1} \end{center}
+
+\hypertarget{il-pacchetto-projpred}{%
+\section{\texorpdfstring{Il pacchetto \texttt{projpred}}{Il pacchetto projpred}}\label{il-pacchetto-projpred}}
 
 Troviamo ora il numero di variabili da mantenere, in base al modello completo:
 
@@ -12312,7 +12348,7 @@ Generiamo il grafico dei risultati della convalida incrociata, questa volta rela
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-386-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-390-1} \end{center}
 
 Stampiamo l'elenco delle variabili ordinate in base alla loro importanza relativa, secondo il metodo della convalida incrociata:
 
@@ -12367,8 +12403,8 @@ Per fare un confronto, stimiamo i coefficienti del modello di regressione che in
 \NormalTok{)}
 \CommentTok{\#\textgreater{} Running MCMC with 4 parallel chains...}
 \CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Chain 1 finished in 0.1 seconds.}
-\CommentTok{\#\textgreater{} Chain 2 finished in 0.1 seconds.}
+\CommentTok{\#\textgreater{} Chain 1 finished in 0.0 seconds.}
+\CommentTok{\#\textgreater{} Chain 2 finished in 0.0 seconds.}
 \CommentTok{\#\textgreater{} Chain 3 finished in 0.0 seconds.}
 \CommentTok{\#\textgreater{} Chain 4 finished in 0.0 seconds.}
 \CommentTok{\#\textgreater{} }
@@ -12455,11 +12491,11 @@ Di seguito vengono calcolati i coefficienti di determinazione bayesiani dei due 
 \FunctionTok{loo\_R2}\NormalTok{(m1, }\AttributeTok{robust =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{round}\NormalTok{(}\DecValTok{3}\NormalTok{)}
 \CommentTok{\#\textgreater{}    Estimate Est.Error  Q2.5 Q97.5}
-\CommentTok{\#\textgreater{} R2    0.201     0.036 0.124  0.27}
+\CommentTok{\#\textgreater{} R2      0.2     0.037 0.125 0.268}
 \FunctionTok{loo\_R2}\NormalTok{(m2, }\AttributeTok{robust =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{round}\NormalTok{(}\DecValTok{3}\NormalTok{)}
 \CommentTok{\#\textgreater{}    Estimate Est.Error  Q2.5 Q97.5}
-\CommentTok{\#\textgreater{} R2    0.196     0.033 0.128 0.255}
+\CommentTok{\#\textgreater{} R2    0.197     0.033 0.125 0.259}
 \end{Highlighting}
 \end{Shaded}
 
@@ -12492,15 +12528,15 @@ Una rappresentazione grafica della distribuzione a posteriori dei due coefficien
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-394-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-398-1} \end{center}
 
 Considerato l'intervallo a posteriori del 95\%, anche in questo caso non abbiamo evidenze convincenti che l'uso di un solo predittore faccia diminuire la capacità predittiva del modello.
 
-\hypertarget{considerazioni-conclusive}{%
-\section*{Considerazioni conclusive}\label{considerazioni-conclusive}}
+\hypertarget{commenti-e-considerazioni-finali-25}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-25}}
 
 
-Dati due modelli computazionali che forniscono resoconti diversi di un set di dati, come possiamo decidere quale modello è maggiormente supportato dai dati? Nel presente Capitolo abbiamo visto come il problema del confronto di modelli possa essere formulato nei termini di un problema di inferenza statistica.
+Dati due modelli computazionali che forniscono resoconti diversi di un set di dati, come possiamo decidere quale modello è maggiormente supportato dai dati? In questa parte della dispensa abbiamo visto come il problema del confronto di modelli possa essere formulato nei termini di un problema di inferenza statistica.
 
 Abbiamo visto come la divergenza KL possa essere usata per confrontare una ``vera'' distribuzione di probabilità con una sua approssimazione. Abbiamo anche visto come che, da un punto di vista bayesiano, il problema del confronto tra modelli viene presentato nei termini della capacità predittiva di un modello per nuove osservazioni future: ``\emph{The central question is then how one should decide among a set of competing models. A short answer is that a model should be selected based on its generalizability, which is defined as a model's ability to fit current data but also to predict future data}'' \citep{myung2003tutorial}.
 
@@ -13090,7 +13126,7 @@ Per esempio, un grafico della funzione esponenziale di base 2 si trova con
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-403-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-407-1} \end{center}
 
 Se usiamo la base 4 troviamo
 
@@ -13103,7 +13139,7 @@ Se usiamo la base 4 troviamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-404-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-408-1} \end{center}
 
 Oppure
 
@@ -13116,7 +13152,7 @@ Oppure
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-405-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-409-1} \end{center}
 
 In molte applicazioni la scelta più conveniente per la base è il numero irrazionale \(e = 2.718281828\dots\). Questo numero è chiamato la \emph{base naturale}. La funzione \(f(x) = e^x\) è chiamata \emph{funzione esponenziale naturale}.
 
@@ -13131,7 +13167,7 @@ Per esempio, abbiamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-406-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-410-1} \end{center}
 
 \hypertarget{logaritmi}{%
 \section*{Logaritmi}\label{logaritmi}}
@@ -13237,7 +13273,7 @@ Per esempio, abbiamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-407-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-411-1} \end{center}
 
 \hypertarget{gauss-normale}{%
 \chapter{La Normale motivata dal metodo dei minimi quadrati}\label{gauss-normale}}
@@ -13348,7 +13384,7 @@ Si noti che, nell'istruzione precedente, abbiamo passato alla funzione \texttt{d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-411-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-415-1} \end{center}
 
 Nella simulazione, il valore \(\theta\) che massimizza la funzione di verosimiglianza può essere trovato nel modo seguente:
 
@@ -13526,12 +13562,12 @@ I vettori \texttt{mu} e \texttt{ll} possono dunque essere usati per disegnare il
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-417-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-421-1} \end{center}
 
 Dalla figura notiamo che, per i dati osservati, il massimo della funzione di log-verosimiglianza calcolata per via numerica, ovvero 30.93, è identico alla media dei dati campionari e corrisponde al risultato teorico della \eqref{eq:maxlikemu}.
 
-\hypertarget{considerazioni-conclusive-1}{%
-\section*{Considerazioni conclusive}\label{considerazioni-conclusive-1}}
+\hypertarget{considerazioni-conclusive}{%
+\section*{Considerazioni conclusive}\label{considerazioni-conclusive}}
 
 
 La verosimiglianza viene utilizzata sia nell'inferenza bayesiana che in quella frequentista. In entrambi i paradigmi di inferenza, il suo ruolo è quantificare la forza con la quale i dati osservati supportano i possibili valori dei parametri sconosciuti.
@@ -14060,7 +14096,7 @@ Campioniamo ora 10,000 punti dall'approssimazione discretizzata della distribuzi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-440-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-444-1} \end{center}
 
 \noindent All'istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero una Beta di parametri 25 (\(y + \alpha\) = 23 + 2) e 17 (\(n - y + \beta\) = 30 - 23 + 10).
 
@@ -14139,7 +14175,7 @@ Per calcolare la funzione di verosimiglianza per i 30 valori di \citet{zetschefu
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-444-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-448-1} \end{center}
 
 La funzione \texttt{likelihood()} ritorna l'ordinata della verosimiglianza binomiale per ciascun valore del vettore \texttt{param} in input.
 
@@ -14165,7 +14201,7 @@ Quale distribuzione a priori utilizzeremo una \(\mbox{Beta}(2, 10)\) che è impl
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-445-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-449-1} \end{center}
 
 La funzione \texttt{posterior()} ritorna il prodotto della densità a priori e della verosimiglianza:
 
@@ -14188,7 +14224,7 @@ La funzione \texttt{posterior()} ritorna il prodotto della densità a priori e d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-446-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-450-1} \end{center}
 
 La distribuzione a posteriori non normalizzata mostrata nella figura replica il risultato ottenuto con il codice utilizzato nella prima parte di questo Capitolo. Per l'implementazione dell'algoritmo di Metropolis non è necessaria la normalizzazione della distribuzione a posteriori.
 
@@ -14692,7 +14728,7 @@ Verifichiamo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-467-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-471-1} \end{center}
 
 \hypertarget{least-squares}{%
 \chapter{Minimi quadrati}\label{least-squares}}
@@ -16713,7 +16749,7 @@ Consideriamo nuovamenti i dati contenuti nel \texttt{tibble} \texttt{msleep} e p
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-580-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-584-1} \end{center}
 
 Coloriamo ora in maniera diversa i punti che rappresentano animali carnivori, erbivori, ecc.
 
@@ -16728,7 +16764,7 @@ Coloriamo ora in maniera diversa i punti che rappresentano animali carnivori, er
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-581-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-585-1} \end{center}
 
 È chiaro, senza fare alcuna analisi statistica, che la relazione tra le due variabili non è lineare. Trasformando in maniera logaritmica i valori dell'asse \(x\) la relazione si linearizza.
 
@@ -16743,7 +16779,7 @@ Coloriamo ora in maniera diversa i punti che rappresentano animali carnivori, er
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-582-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-586-1} \end{center}
 
 Infine, aggiustiamo il ``tema'' del grafico (si noti l'utilizzo di una tavolozza di colori adatta ai daltonici mediante il pacchetto \texttt{viridis}), aggiungiamo le etichette sugli assi e il titolo.
 
@@ -16768,7 +16804,7 @@ Infine, aggiustiamo il ``tema'' del grafico (si noti l'utilizzo di una tavolozza
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-583-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-587-1} \end{center}
 
 La visualizzazione può essere migliorata cambiando le etichette della legenda del grafico. Per fare questo è necessario intervenire sui dati prima di usare \texttt{ggplot()} -- per esempio, come abbiamo fatto in precedenza con la funzione \texttt{forcats::fct\_recode()}.
 
@@ -16792,7 +16828,7 @@ Creiamo ora un istogramma che rappresenta la distribuzione del (logaritmo del) p
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-584-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-588-1} \end{center}
 
 \hypertarget{scrivere-il-codice-r-con-stile}{%
 \subsection{\texorpdfstring{Scrivere il codice \texttt{R} con stile}{Scrivere il codice R con stile}}\label{scrivere-il-codice-r-con-stile}}
