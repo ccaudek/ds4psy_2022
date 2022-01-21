@@ -193,7 +193,18 @@ Alternativamente, possiamo dire che gli eventi $A$ e $B$ sono condizionatamente 
 P(A \mid B \cap C) = P(A \mid C) P(B \mid C).
 \end{equation}
 
-Solitamente, l'indipendenza condizionata viene indicata utilizzando la seguente notazione: $(A \indep B \mid C)$.
+In maniera equivalente:
+
+$$
+P(A \mid B, C)= P(A \mid C).
+$$
+
+Poiché la probabilità di $A$ dato $C$ è uguale alla probabilità di
+$A$ dati sia $B$ che $C$, questa uguaglianza esprime il fatto che $B$ non aggiunge  nulla alla nostra conoscenza della probabilità di $A$.
+
+Solitamente, l'indipendenza condizionata viene indicata utilizzando la notazione $(A \indep B \mid C)$. Di seguito è riportato il modello grafico per una tale situazione.
+
+![](images/AperpBmidC.png){width=50%}
 
 ## Indipendenza di variabili casuali
 
@@ -209,6 +220,25 @@ P(X, Y \mid Z) = (X \mid Z)P(Y \mid Z).
 $$
 :::
 
+## Reti bayesiane
+
+La figura che abbiamo esaminato in precedenza, per rappresentare l'indipendenza condizionale di $A$ e $B$ dato $C$ è un esempio di rete bayesiana (BN, Bayesian network). Le reti bayesiane rappresentano mediante un grafico un insieme di variabili casuali con le loro dipendenze condizionali. Ogni nodo disponibile nelle reti bayesiane rappresenta una variabile. I collegamenti tra i nodi rappresentano l'influenza diretta di un nodo su un altro. Nello specifico, una rete bayesiana rappresenta la distribuzione congiunta facendo una serie di assunzioni relativamente all'indipendenza condizionale tra le variabili (un nome migliore per questi modelli sarebbe infatti "diagrammi di indipendenza", ma il termine "modelli grafici" è ormai radicato).  
+
+Quando si inferiscono i parametri dai dati, spesso assumiamo che le osservazioni siano iid. Possiamo rappresentare questa ipotesi in modo esplicito utilizzando un modello grafico, come mostrato nella figura seguente. 
+
+![](images/plates_example_1.png){width=30%}
+
+La figura illustra l'ipotesi che ogni osservazione sia stata generata indipendentemente dalla stessa distribuzione. Si noti che i dati sono condizionalmente indipendenti dal parametro $\theta$; marginalmente, le osservazioni sono dipendenti. 
+
+Per evitare una rappresentazione grafica disordinata è comune utilizzare una forma di zucchero sintattico (_syntactic sugar_) chiamato _"plates"_ (piastre): si disegna  un piccolo riquadro attorno alle variabili ripetute, con la convenzione che i nodi all'interno del riquadro vengano ripetuti il numero indicato di volte. 
+
+![](images/plates_example_2.png){width=30%}
+
+La distribuzione congiunta corrispondente alla figura precedente ha la forma
+
+$$
+p(\theta, \mathcal{D}) = p(\theta) \left[ \prod_{i=1}^n p(y_i \mid \theta) \right].
+$$
 
 
 
