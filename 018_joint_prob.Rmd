@@ -240,6 +240,15 @@ $$
 p(\theta, \mathcal{D}) = p(\theta) \left[ \prod_{i=1}^n p(y_i \mid \theta) \right].
 $$
 
+Gli autori del linguaggio OpenBugs raccomandano vivamente che il primo passo di qualsiasi analisi sia la costruzione di un _directed graphical model_. 
+
+I nodi nel grafico sono di tre tipi.
+
+1. Le costanti sono fissate per disegno: sono sempre nodi fondatori (cioè non hanno genitori) e sono indicate come rettangoli nel grafico.
+2. I nodi stocastici sono variabili a cui viene data una distribuzione e sono indicate come ellissi nel grafico; possono essere genitori o figli (o entrambi). I nodi stocastici possono essere osservati, nel qual caso sono dei dati, o possono essere non osservati, e quindi sono dei parametri.
+3. I nodi deterministici sono funzioni logiche di altri nodi.
+
+
 
 
 ## Anticipazione
