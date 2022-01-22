@@ -763,7 +763,7 @@ Questo Capitolo ha brevemente passato in rassegna alcuni concetti di base dell'i
 \hypertarget{metropolis}{%
 \chapter{Approssimazione della distribuzione a posteriori}\label{metropolis}}
 
-È possibile distinguere cinque metodi per il calcolo delle proprietà di una distribuzione.
+\citet{lunn2013bugs} distinguono cinque metodi per calcolare le proprietà di una distribuzione.
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -780,7 +780,7 @@ Questo Capitolo ha brevemente passato in rassegna alcuni concetti di base dell'i
   \textbf{Simulazione al computer:} utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto. Questa tecnica è conosciuta come metodo di Monte Carlo ed è il metodo che verrà utilizzato nella seconda parte di questa dispensa.
 \end{enumerate}
 
-In questo Capitolo verranno esaminate tre diverse tecniche che possono essere utilizzate per calcolare per via numerica la distribuzione a posteriori:
+In questo Capitolo esamineremo tre tecniche numeriche per il calcolo della distribuzione a posteriori:
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -1118,7 +1118,7 @@ Il grafico precedente mostra che l'approssimazione quadratica fornisce risultati
 \hypertarget{chapter-simulazioneMC}{%
 \section{Metodo Monte Carlo}\label{chapter-simulazioneMC}}
 
-I metodi più ampiamente adottati nell'analisi bayesiana per la costruzione della distribuzione a posteriori per modelli complessi sono i metodi di campionamento Monte Carlo basati su catena di Markov (\emph{Markov Chain Monte Carlo}, MCMC). Tali metodi consentono al ricercatore di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza dovere preoccuparsi di altri vincoli. Dato che è basata su metodi computazionalmente intensivi, la stima numerica MCMC della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è ora alla portata di tutti. Questo non era vero solo pochi decenni fa.
+I metodi più ampiamente adottati nell'analisi bayesiana per la costruzione della distribuzione a posteriori per modelli complessi sono i metodi di campionamento Monte Carlo basati su catena di Markov (\emph{Markov Chain Monte Carlo}, MCMC). Tali metodi consentono al ricercatore di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza doversi preoccupare di altri vincoli. Dato che è basata su metodi computazionalmente intensivi, la stima numerica MCMC della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è alla portata di tutti. Questo non era vero solo pochi decenni fa.
 
 \hypertarget{integration-mc}{%
 \subsection{Integrazione di Monte Carlo}\label{integration-mc}}
@@ -1137,7 +1137,7 @@ Un'altra importante funzione di \(Y\) è la funzione indicatore, \(I(l < Y < u)\
 Pr(l < Y < u) \approx \frac{\text{numero di realizzazioni } y^{(t)} \in (l, u)}{T}.
 \]
 
-L'integrazione di Monte Carlo può essere usata per approssimare la distribuzione a posteriori richiesta da un'analisi Bayesiana: una stima di \(p(\theta \mid y)\) viene ottenuta mediante un grande numero di campioni casuali dalla distribuzionea a posteriori.
+L'integrazione di Monte Carlo può essere usata per approssimare la distribuzione a posteriori richiesta da un'analisi Bayesiana: una stima di \(p(\theta \mid y)\) viene ottenuta mediante un grande numero di campioni casuali estratti dalla distribuzionea a posteriori.
 
 \hypertarget{un-esempio-concreto}{%
 \subsection{Un esempio concreto}\label{un-esempio-concreto}}
@@ -1663,7 +1663,7 @@ Ci sono inoltre alcuni test che permettono di verificare la stazionarietà del c
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-1}}
 
 
-In generale, la distribuzione a posteriori dei parametri di un modello statistico non può essere determinata per via analitica. Tale problema, invece, viene affrontato facendo ricorso ad una classe di algoritmi per il campionamento da distribuzioni di probabilità che sono estremamente onerosi dal punto di vista computazionale e che possono essere utilizzati nelle applicazioni pratiche solo grazie alla potenza di calcolo dei moderni computer. Lo sviluppo di software che rendono sempre più semplice l'uso dei metodi MCMC, insieme all'incremento della potenza di calcolo dei computer, ha contribuito a rendere sempre più popolare il metodo dell'inferenza bayesiana che, in questo modo, può essere estesa a problemi di qualunque grado di complessità.
+In generale, la distribuzione a posteriori dei parametri di un modello statistico non può essere determinata per via analitica. Tale problema viene invece affrontato facendo ricorso ad una classe di algoritmi per il campionamento da distribuzioni di probabilità che sono estremamente onerosi dal punto di vista computazionale e che possono essere utilizzati nelle applicazioni pratiche solo grazie alla potenza di calcolo dei moderni computer. Lo sviluppo di software che rendono sempre più semplice l'uso dei metodi MCMC, insieme all'incremento della potenza di calcolo dei computer, ha contribuito a rendere sempre più popolare il metodo dell'inferenza bayesiana che, in questo modo, può essere estesa a problemi di qualunque grado di complessità.
 
 Nel 1989 un gruppo di statistici nel Regno Unito si pose il problema di simulare le catene di Markov su un personal computer. Nel 1997 ci riuscirono con il primo rilascio pubblico di un'implementazione Windows dell'inferenza bayesiana basata su Gibbs sampling, detta BUGS. Il materiale presentato in questo capitolo descrive gli sviluppi contemporanei del percorso che è iniziato in quel periodo.
 
