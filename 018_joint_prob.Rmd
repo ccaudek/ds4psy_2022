@@ -148,22 +148,17 @@ Table: (\#tab:ditr-cong-biv) Distribuzione di probabilità congiunta $p(x,y)$ pe
 
 ## Indipendenza stocastica
 
-Ora abbiamo tutti gli strumenti per dare una precisa definizione
-statistica al concetto di indipendenza. La definizione proposta
-sarà necessariamente coerente con la definizione di indipendenza che abbiamo usato fino ad ora. Ma, espressa in questi nuovi termini, potrà essere utilizzata in indagini probabilistiche e statistiche più complesse. Ricordiamo che gli eventi $A$ e $B$ si dicono indipendenti se $P (A \cap B)\, = P(A) P(B)$. Diciamo quindi che $X$ e $Y$ sono indipendenti se qualsiasi evento definito da $X$ è indipendente da qualsiasi evento definito da $Y$. La definizione formale che garantisce che ciò accada è la seguente.
+Ora abbiamo tutti gli strumenti per dare una precisa definizione statistica al concetto di indipendenza. La definizione proposta sarà necessariamente coerente con la definizione di indipendenza che abbiamo usato fino ad ora. Ma, espressa in questi nuovi termini, potrà essere utilizzata in indagini probabilistiche e statistiche più complesse. Ricordiamo che gli eventi $A$ e $B$ si dicono indipendenti se $P (A \cap B)\, = P(A) P(B)$. Diciamo quindi che $X$ e $Y$ sono indipendenti se qualsiasi evento definito da $X$ è indipendente da qualsiasi evento definito da $Y$. La definizione formale che garantisce che ciò accada è la seguente.
 
 ::: {.definition}
-Le variabili aleatorie $X$ e $Y$ sono indipendenti se la loro distribuzione congiunta è il prodotto delle rispettive distribuzioni marginali:
+Le variabili aleatorie $X$ e $Y$ sono (incondizionatamente) indipendenti se la loro distribuzione congiunta è il prodotto delle rispettive distribuzioni marginali:
 
 \begin{equation}
 P(X, Y)\, = P_X(x)P_Y(y).
 \end{equation}
 ::: 
 
-Nel caso discreto, dunque, l'indipendenza implica che la probabilità
-riportata in ciascuna cella della tabella di probabilità congiunta deve
-essere uguale al prodotto delle probabilità marginali di riga e di
-colonna:
+Nel caso discreto, dunque, l'indipendenza implica che la probabilità riportata in ciascuna cella della tabella di probabilità congiunta deve essere uguale al prodotto delle probabilità marginali di riga e di colonna:
 
 $$
 P(x_i, y_i)\, = P_X(x_i) P_Y(y_i).
@@ -177,9 +172,9 @@ Nella tabella le variabili casuali $X$ e $Y$ non sono indipendenti: le probabili
 
 ## Indipendenza condizionata tra eventi
 
-Sebbene l'indipendenza sia una proprietà utile, non capita spesso di incontrare due eventi indipendenti. Una situazione più comune è quando due eventi sono indipendenti dato un terzo evento. Ad esempio, supponiamo di voler ragionare sulla possibilità che uno studente venga accettato al Corso di Laurea Magistrale (CdL) $A$ o al CdL Magistrale $B$. Nella maggior parte dei casi, questi due eventi non sono indipendenti. Se apprendiamo che lo studente è stato accettato al CdL Magistrale $A$, la nostra stima della sua probabilità che venga accettato al CdL Magistrale $B$ è ora più alta, poiché è aumentata la nostra credenza che lo studente in questione sia uno studente "promettente".
+Sebbene l'indipendenza incondizionata sia una proprietà utile, non capita spesso di incontrare due eventi indipendenti. Una situazione più comune è quando due eventi sono indipendenti dato un terzo evento. Ad esempio, supponiamo di voler ragionare sulla possibilità che uno studente venga accettato al Corso di Laurea Magistrale (CdL) $A$ o al CdL Magistrale $B$. Nella maggior parte dei casi, questi due eventi non sono indipendenti. Se apprendiamo che lo studente è stato accettato al CdL $A$, la nostra stima della sua probabilità che venga accettato al CdL $B$ è ora più alta, poiché è aumentata la nostra credenza che lo studente in questione sia uno studente "promettente".
 
-Ora, supponiamo che entrambi i CdL basino le loro decisioni unicamente sul voto di laurea triennale (chiamiamolo $C$) dello studente e supponiamo di sapere che, per lo  studente in questione, $C = 105/110$. In questo caso, apprendere che lo studente è stato ammesso al CdL $A$ non cambia la probabilità che venga ammesso al CdL $B$: il suo voto di laurea $V$ ci fornisce tutte le informazioni rilevanti per la possibilità di essere ammisso al CdL $A$; scoprire che è stato ammesso al CdL $B$ non aggiunge niente a tutto ciò. Formalmente, possiamo scrivere
+Ora, supponiamo che entrambi i CdL basino le loro decisioni unicamente sul voto di laurea triennale (chiamiamolo $C$) dello studente e supponiamo di sapere che, per lo  studente in questione, $C = 105/110$. In questo caso, apprendere che lo studente è stato ammesso al CdL $A$ non cambia la probabilità che venga ammesso al CdL $B$: il suo voto di laurea $V$ fornisce tutte le informazioni rilevanti per la possibilità dello studente di essere ammesso al CdL $A$; sapere che è stato ammesso al CdL $B$ non aggiunge niente a tutto ciò. Formalmente, possiamo scrivere
 
 \begin{equation}
 P(A \mid B \cap C) = P(A \mid B)
@@ -190,17 +185,16 @@ Se la condizione precedente si verifica, gli eventi $A$ e $B$ si dicono condizio
 Alternativamente, possiamo dire che gli eventi $A$ e $B$ sono condizionatamente indipendenti dall'evento $C$ se e solo se
 
 \begin{equation}
-P(A \mid B \cap C) = P(A \mid C) P(B \mid C).
+P(A \mid B \cap C) = P(A \mid C) P(B \mid C),
 \end{equation}
 
-In maniera equivalente:
+oppure, maniera equivalente se
 
 $$
 P(A \mid B, C)= P(A \mid C).
 $$
 
-Poiché la probabilità di $A$ dato $C$ è uguale alla probabilità di
-$A$ dati sia $B$ che $C$, questa uguaglianza esprime il fatto che $B$ non aggiunge  nulla alla nostra conoscenza della probabilità di $A$.
+Poiché la probabilità di $A$ dato $C$ è uguale alla probabilità di $A$ dati sia $B$ che $C$, questa uguaglianza esprime il fatto che $B$ non aggiunge  nulla alla nostra conoscenza della probabilità di $A$.
 
 Solitamente, l'indipendenza condizionata viene indicata utilizzando la notazione $(A \indep B \mid C)$. Di seguito è riportato il modello grafico per una tale situazione.
 
@@ -222,15 +216,37 @@ $$
 
 ## Reti bayesiane
 
-La figura che abbiamo esaminato in precedenza, per rappresentare l'indipendenza condizionale di $A$ e $B$ dato $C$ è un esempio di rete bayesiana (BN, Bayesian network). Le reti bayesiane rappresentano mediante un grafico un insieme di variabili casuali con le loro dipendenze condizionali. Ogni nodo disponibile nelle reti bayesiane rappresenta una variabile. I collegamenti tra i nodi rappresentano l'influenza diretta di un nodo su un altro. Nello specifico, una rete bayesiana rappresenta la distribuzione congiunta facendo una serie di assunzioni relativamente all'indipendenza condizionale tra le variabili (un nome migliore per questi modelli sarebbe infatti "diagrammi di indipendenza", ma il termine "modelli grafici" è ormai radicato).  
+La figura che abbiamo esaminato in precedenza, per rappresentare l'indipendenza condizionale di $A$ e $B$ dato $C$, è un esempio di rete bayesiana (BN, Bayesian network). Le reti bayesiane sono grafici diretti aciclici (Directed Acyclic Graph, DAG) usati per rappresentare un insieme di variabili casuali e le loro dipendenze condizionali. Ogni nodo disponibile nelle BN rappresenta una variabile. Definendo i genitori di un nodo come tutti quei nodi le cui frecce puntano al nodo stesso, si può introdurre la seguente suddivisione:
 
-Quando si inferiscono i parametri dai dati, spesso assumiamo che le osservazioni siano iid. Possiamo rappresentare questa ipotesi in modo esplicito utilizzando un modello grafico, come mostrato nella figura seguente. 
+- i nodi radice sono tutti quei nodi che non hanno genitori;
+- i nodi foglia sono tutti quei nodi che non hanno alcun figlio; non hanno cioè
+nessuna influenza causale sulle altre variabili.
+
+Ogni nodo ha associata una probabilità condizionata. Quando il nodo non è un nodo radice, cioè quando ha dei nodi genitori, la distribuzione di probabilita condizionale quantifica le dipendenze probabilistiche tra il nodo ed i suoi genitori. 
+
+Una BN è quindi una rappresentazione grafica di un sistema. Nello specifico, una BN rappresenta la distribuzione congiunta di un sistema facendo una serie di assunzioni relativamente all'indipendenza condizionale tra le variabili (un nome migliore per la BN sarebbe infatti "diagramma di indipendenza", ma il termine "modello grafico" è ormai radicato). I nodi rappresentano quindi le variabili del sistema, gli archi (frecce) ne mostrano qualitativamente le relazioni di dipendenza e le probabilita condizionali ne definiscono quantitativamente i valori.
+
+I nodi nei BN sono di tre tipi.
+
+1. Le costanti sono fissate per disegno: sono sempre nodi radice (cioè non hanno genitori) e sono indicate come rettangoli nel grafico.
+2. I nodi stocastici sono variabili a cui viene data una distribuzione di probabilità e sono indicate come ellissi nel grafico; possono essere genitori o figli (o entrambi). I nodi stocastici possono essere osservati, nel qual caso sono dati, o possono essere non osservati, e quindi sono parametri.
+3. I nodi deterministici sono funzioni logiche di altri nodi.
+
+I collegamenti diretti possono essere di due tipi: una freccia piena e sottile indica una dipendenza stocastica mentre una freccia trateggiata (o spessa) indica una funzione logica (vedremo un esempio di funzione logica, ovvero di relazione deterministica, nella parte VI della dispensa, in relazione al modello lineare). 
+
+Le ipotesi di indipendenza condizionale rappresentate dal grafico indicano che la distribuzione congiunta completa di tutte le quantità $V$ ha una semplice fattorizzazione in termini di distribuzione condizionale $p( v \mid \text{genitori}[ v ])$ di ciascun nodo dati i suoi genitori, in modo che
+
+$$
+p(V) = \prod_{i=1}^n p(v \mid \text{genitori}[ v ]), \quad \forall v \in V.
+$$
+
+Ad esempio, quando inferiamo i parametri dai dati $y_1, \dots, y_n$, spesso assumiamo che le osservazioni siano i.i.d.. Utilizzando un BN possiamo rappresentare questa ipotesi come indicato nella figura seguente. 
 
 ![](images/plates_example_1.png){width=30%}
 
-La figura illustra l'ipotesi che ogni osservazione sia stata generata indipendentemente dalla stessa distribuzione. Si noti che i dati sono condizionalmente indipendenti dal parametro $\theta$; marginalmente, le osservazioni sono dipendenti. 
+La figura illustra l'ipotesi che ogni osservazione $y_i$ sia stata generata indipendentemente dalla stessa distribuzione. Si noti che i dati sono condizionalmente indipendenti dal parametro $\theta$; marginalmente, invece, le osservazioni sono dipendenti. 
 
-Per evitare una rappresentazione grafica disordinata è comune utilizzare una forma di zucchero sintattico (_syntactic sugar_) chiamato _"plates"_ (piastre): si disegna  un piccolo riquadro attorno alle variabili ripetute, con la convenzione che i nodi all'interno del riquadro vengano ripetuti il numero indicato di volte. 
+Per evitare una rappresentazione grafica disordinata, nei BN è comune utilizzare una forma di zucchero sintattico (_syntactic sugar_) chiamato _"plates"_ (piastre): si disegna  un piccolo riquadro attorno alle variabili ripetute, con la convenzione che i nodi all'interno del riquadro vengano ripetuti il numero indicato di volte. 
 
 ![](images/plates_example_2.png){width=30%}
 
@@ -240,16 +256,24 @@ $$
 p(\theta, \mathcal{D}) = p(\theta) \left[ \prod_{i=1}^n p(y_i \mid \theta) \right].
 $$
 
-Gli autori del linguaggio OpenBugs raccomandano vivamente che il primo passo di qualsiasi analisi sia la costruzione di un _directed graphical model_. 
+Gli autori del linguaggio _OpenBUGS_ raccomandano la costruzione di un _directed graphical model_ prima di qualsiasi analisi statistica. 
 
-I nodi nel grafico sono di tre tipi.
+### Topologia delle Reti Bayesiane
 
-1. Le costanti sono fissate per disegno: sono sempre nodi fondatori (cioè non hanno genitori) e sono indicate come rettangoli nel grafico.
-2. I nodi stocastici sono variabili a cui viene data una distribuzione e sono indicate come ellissi nel grafico; possono essere genitori o figli (o entrambi). I nodi stocastici possono essere osservati, nel qual caso sono dei dati, o possono essere non osservati, e quindi sono dei parametri.
-3. I nodi deterministici sono funzioni logiche di altri nodi.
+In sintesi, una BN è una struttura di dati utilizzata per rappresentare, sia visivamente, tramite la connessione nodi –- archi, sia matematicamente, tramite la distribuzione di probabilità congiunta, la dipendenza fra le variabili di un sistema.
+Possiamo perciò definire le BN come un grafo per cui valgono le seguenti caratteristiche, già in parte precedentemente anticipate:
 
-
-
+1. Un insieme di variabili casuali costituiscono i nodi della rete.
+2. Un insieme di archi con verso connette le coppie di nodi. Il significato di
+una freccia dal nodo $X$ al nodo $Y$ è che $X$ ha un'influenza diretta su $Y$.
+3. Può essere associato ad ogni nodo un insieme di probabilità condizionate che quantificano gli effetti che i genitori hanno sul nodo.
+4. I genitori di un nodo sono tutti quei nodi che hanno frecce che puntano al
+nodo.
+5. I nodi radice sono tutti quei nodi che non hanno genitori.
+6. I nodi foglia sono tutti quei nodi che non hanno alcun figlio; non hanno
+nessuna influenza causale sulle altre variabili.
+7. Il grafo non genera e non contiene cicli diretti (grafo diretto aciclico,
+DAG, dall'inglese _Directed Acyclic Graph_)
 
 ## Anticipazione
 
