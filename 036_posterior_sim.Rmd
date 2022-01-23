@@ -213,8 +213,8 @@ suppressPackageStartupMessages(library("rethinking"))
 
 mod <- quap(
   alist(
-  N ~ dbinom(N + P, p), # verosimiglianza binomiale
-  p ~ dbeta(2, 10) # distribuzione a priori Beta(2, 10)
+  N ~ dbinom(N + P, p),
+  p ~ dbeta(2, 10) 
   ),
   data = list(N = 23, P = 7)
 )
@@ -253,7 +253,7 @@ I metodi più ampiamente adottati nell'analisi bayesiana per la costruzione dell
 Il termine Monte Carlo si riferisce al fatto che la computazione fa ricorso ad un ripetuto campionamento casuale attraverso la generazione di sequenze di numeri casuali. Una delle sue applicazioni più potenti è il calcolo degli integrali mediante simulazione numerica. Data una successione di realizzazioni indipendenti $y^{(1)}, y^{(2)},\dots, y^{(T)}$ da una distribuzione $p(y)$ con media $\mu$ abbiamo che
 
 $$
-\E(Y) = \int y p(y) dy \approx \frac{1}{T} \sum_{i=1}^T y^{(t)}.
+\E(Y) = \int y p(y) \,\operatorname {d}\!y \approx \frac{1}{T} \sum_{i=1}^T y^{(t)}.
 $$
 In altre parole, l'aspettazione teorica di $Y$ può essere approssimata dalla media campionaria di un insieme di realizzazioni indipendenti ricavate da $p(y)$. Per la Legge Forte dei Grandi Numeri, l'approssimazione diventa arbitrariamente esatta per $T \rightarrow \infty$.  L'integrazione Monte Carlo può essere utilizzata anche per la valutazione di integrali più complessi.
 
