@@ -1,4 +1,4 @@
-# Approssimazione della distribuzione a posteriori {#metropolis}
+# Approssimazione della distribuzione a posteriori {#ch:metropolis}
 
 ```{r c036, include = FALSE}
 source("_common.R")

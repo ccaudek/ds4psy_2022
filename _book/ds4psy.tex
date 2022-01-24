@@ -363,8 +363,6 @@ in cui \(p(\theta \mid y)\) prende il nome di \emph{distribuzione a posteriori}.
 
 Il denominatore del Teorema di Bayes \eqref{eq:bayes-intro}, che costituisce la costante di normalizzazione, è la densità marginale dei dati descritta nel Paragrafo XX. In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio le medie a posteriori di funzioni di \(\theta\).
 
-Le quantità di interesse della statistica bayesiana sono espresse nei termini di integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente e, per questo motivo, si ricorre a metodi di numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC).
-
 Seguendo \citep{martin2022bayesian}, possiamo descrivere la modellazione bayesiana distinguendo tre passaggi.
 
 \begin{enumerate}
@@ -427,8 +425,8 @@ La figura seguente mostra esempi di distribuzioni a priori non informative, debo
 
 La selezione delle distribuzioni a priori è stata spesso vista come una delle scelte più importanti che un ricercatore fa quando implementa un modello bayesiano in quanto può avere un impatto sostanziale sui risultati finali. La soggettività delle distribuzioni a priori è evidenziata dai critici come un potenziale svantaggio dei metodi bayesiani. A questa critica, \citet{vandeSchoot2021modelling} rispondono dicendo che, al di là della scelta delle distribuzioni a priori, ci sono molti elementi del processo di inferenza statistica che sono soggettivi, ovvero la scelta del modello statistico e le ipotesi sulla distribuzione degli errori. In secondo luogo, \citet{vandeSchoot2021modelling} notano come le distribuzioni a priori svolgono due importanti ruoli statistici: quello della ``regolarizzazione della stima'', ovvero, il processo che porta ad indebolire l'influenza indebita di osservazioni estreme, e quello del miglioramento dell'efficienza della stima, ovvero, la facilitazione dei processi di calcolo numerico di stima della distribuzione a posteriori. L'effetto della distribuzione a priori sulla distribuzione a posteriori verrà discusso nel Capitolo \ref{chapter-balance}.
 
-\hypertarget{la-distribuzione-a-priori-per-i-dati-di-zetschefuture2019}{%
-\subsection{\texorpdfstring{La distribuzione a priori per i dati di \citet{zetschefuture2019}}{La distribuzione a priori per i dati di @zetschefuture2019}}\label{la-distribuzione-a-priori-per-i-dati-di-zetschefuture2019}}
+\hypertarget{un-esempio-concreto}{%
+\subsection{Un esempio concreto}\label{un-esempio-concreto}}
 
 In un problema concreto di analisi dei dati, la scelta della distribuzione a priori dipende dalle credenze a priori che vogliamo includere nell'analisi dei dati. Se non abbiamo alcuna informazione a priori, potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri \(\alpha=1\) e \(\beta=1\). Questa, tuttavia, è una cattiva idea perché il risultato ottenuto non è invariante a seconda delle trasformazioni di scala dei dati. È invece raccomandato usare una distribuzione a priori debolmente informativa, come ad esempio \(\mbox{Beta}(2, 2)\).
 
@@ -452,23 +450,6 @@ La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta\) assume valori \(< 0
 
 \hypertarget{la-funzione-di-verosimiglianza}{%
 \section{La funzione di verosimiglianza}\label{la-funzione-di-verosimiglianza}}
-
-Se i dati di \citet{zetschefuture2019} possono essere riassunti da una proporzione allora, quale meccanismo generatore dei dati, è sensato adottare un modello probabilistico binomiale:
-
-\begin{equation}
-y  \sim \mbox{Bin}(n, \theta),
-\label{eq:binomialmodel}
-\end{equation}
-
-laddove \(\theta\) è la probabiltà che una prova Bernoulliana assuma il valore 1 e \(n\) corrisponde al numero di prove Bernoulliane. Questo modello assume che le prove Bernoulliane \(y_i\) che costituiscono il campione \(y\) siano tra loro indipendenti e che ciascuna abbia la stessa probabilità \(\theta \in [0, 1]\) di essere un ``successo'' (valore 1). In altre parole, il modello generatore dei dati avrà una funzione di massa di probabilità
-
-\[
-p(y \mid \theta)
-\ = \
-\mbox{Bin}(y \mid n, \theta).
-\]
-
-Nei capitoli precedenti è stato mostrato come, sulla base del modello binomiale, sia possibile assegnare una probabilità a ciascun possibile valore \(y \in \{0, 1, \dots, n\}\) \emph{assumendo noto il valore del parametro} \(\theta\). Ma ora abbiamo il problema inverso, ovvero quello di fare inferenza su \(\theta\) alla luce dei dati campionari \(y\). In altre parole, riteniamo di conoscere il modello probabilistico che ha generato i dati, ma di tale modello non conosciamo i parametri: vogliamo dunque ottenere informazioni su \(\theta\) avendo osservato i dati \(y\). Esaminiamo dunque la definizione di verosimiglianza.
 
 \begin{definition}
 La \emph{funzione di verosimiglianza} \(\mathcal{L}(\theta \mid y) = f(y \mid \theta), \theta \in \Theta,\) è la funzione di massa o di densità di probabilità dei dati \(y\) vista come una funzione del parametro sconosciuto (o dei parametri sconosciuti) \(\theta\).
@@ -509,9 +490,25 @@ Si noti che non è necessario lavorare con i logaritmi, ma è fortemente consigl
 Seguendo una pratica comune, in questa dispensa spesso useremo la notazione \(p(\cdot)\) per rappresentare due quantità differenti, ovvero la funzione di verosimiglianza e la distribuzione a priori. Questo piccolo abuso di notazione riflette il seguente punto di vista: anche se la verosimiglianza non è una funzione di densità di probabilità, noi non vogliamo stressare questo aspetto, ma vogliamo piuttosto pensare alla verosimiglianza e alla distribuzione a priori come a due elementi che sono egualmente necessari per calcolare la distribuzione a posteriori. In altri termini, per così dire, questa notazione assegna lo stesso status epistemologico alle due diverse quantità che si trovano al numeratore della regola di Bayes.
 \end{remark}
 
-\begin{exercise}
-Per i dati di \citet{zetschefuture2019}, ovvero 23 ``successi'' in 30 prove, si trovi e si interpreti la funzione di verosimiglianza.
-\end{exercise}
+\hypertarget{un-esempio-concreto-1}{%
+\subsection{Un esempio concreto}\label{un-esempio-concreto-1}}
+
+Se i dati di \citet{zetschefuture2019} possono essere riassunti da una proporzione allora, quale meccanismo generatore dei dati, è sensato adottare un modello probabilistico binomiale:
+
+\begin{equation}
+y  \sim \mbox{Bin}(n, \theta),
+\label{eq:binomialmodel}
+\end{equation}
+
+laddove \(\theta\) è la probabiltà che una prova Bernoulliana assuma il valore 1 e \(n\) corrisponde al numero di prove Bernoulliane. Questo modello assume che le prove Bernoulliane \(y_i\) che costituiscono il campione \(y\) siano tra loro indipendenti e che ciascuna abbia la stessa probabilità \(\theta \in [0, 1]\) di essere un ``successo'' (valore 1). In altre parole, il modello generatore dei dati avrà una funzione di massa di probabilità
+
+\[
+p(y \mid \theta)
+\ = \
+\mbox{Bin}(y \mid n, \theta).
+\]
+
+Nei capitoli precedenti è stato mostrato come, sulla base del modello binomiale, sia possibile assegnare una probabilità a ciascun possibile valore \(y \in \{0, 1, \dots, n\}\) \emph{assumendo noto il valore del parametro} \(\theta\). Ma ora abbiamo il problema inverso, ovvero quello di fare inferenza su \(\theta\) alla luce dei dati campionari \(y\). In altre parole, riteniamo di conoscere il modello probabilistico che ha generato i dati, ma di tale modello non conosciamo i parametri: vogliamo dunque ottenere informazioni su \(\theta\) avendo osservato i dati \(y\).
 
 Per i dati di \citet{zetschefuture2019} la funzione di verosimiglianza corrisponde alla funzione binomiale di parametro \(\theta \in [0, 1]\) sconosciuto. Abbiamo osservato un ``successo'' 23 volte in 30 ``prove'', dunque, \(y = 23\) e \(n = 30\). La funzione di verosimiglianza diventa
 
@@ -586,8 +583,10 @@ Per il calcolo di \(p(\theta \mid y)\) è necessario dividere il prodotto tra la
 
 Si noti che il denominatore della regola di Bayes (ovvero la verosimiglianza marginale) è sempre espresso nei termini di un integrale. Tranne in pochi casi particolari, tale integrale non ha una soluzione analitica. Per questa ragione, l'inferenza bayesiana procede calcolando una approssimazione della distribuzione a posteriori mediante metodi numerici.
 
-\begin{exercise}
-Si trovi la verosimiglianza maginale per i dati di \citet{zetschefuture2019}.
+\hypertarget{un-esempio-concreto-2}{%
+\subsection{Un esempio concreto}\label{un-esempio-concreto-2}}
+
+Poniamoci il problema di trovare la verosimiglianza maginale per i dati di \citet{zetschefuture2019}.
 
 Supponiamo che nel numeratore bayesiano la verosimiglianza sia moltiplicata per una distribuzione uniforme, \(\mbox{Beta}(1, 1)\). In questo caso, il prodotto si riduce alla funzione di verosimiglianza. In riferimento ai dati di \citet{zetschefuture2019}, la costante di normalizzazione per si ottiene semplicemente marginalizzando la funzione di verosimiglianza \(p(y = 23, n = 30 \mid \theta)\) sopra \(\theta\), ovvero risolvendo l'integrale:
 
@@ -608,8 +607,7 @@ Una soluzione numerica si trova facilmente usando \(\R\):
 \end{Highlighting}
 \end{Shaded}
 
-La derivazione analitica della costante di normalizzazione qui discussa è fornita nell'Appendice \ref{appendix:const-norm-bino23}.
-\end{exercise}
+La derivazione analitica della costante di normalizzazione qui discussa è fornita nell'Appendice \ref{appendix:const-norm-bino23}. :::
 
 \hypertarget{distribuzione-a-posteriori}{%
 \section{Distribuzione a posteriori}\label{distribuzione-a-posteriori}}
@@ -619,15 +617,6 @@ La distribuzione a postreriori si trova applicando il teorema di Bayes:
 \[
 \text{probabilità a posteriori} = \frac{\text{probabilità a priori} \cdot \text{verosimiglianza}}{\text{costante di normalizzazione}}
 \]
-
-Ci sono due metodi principali per calcolare la distribuzione a posteriori \(p(\theta \mid y)\):
-
-\begin{itemize}
-\item
-  una precisa derivazione matematica formulata nei termini della distribuzione a priori coniugata alla distribuzione a posteriori (si veda il Capitolo \ref{chapter-distr-coniugate}); tale procedura però ha un'applicabilità molto limitata;
-\item
-  un metodo approssimato, molto facile da utilizzare in pratica, che dipende da metodi Monte Carlo basati su Catena di Markov (MCMC); questo problema verrà discusso nel Capitolo ??
-\end{itemize}
 
 Una volta trovata la distribuzione a posteriori, possiamo usarla per derivare altre quantità di interesse. Questo viene generalmente ottenuto calcolando il valore atteso:
 
@@ -640,6 +629,8 @@ Se \(f(\cdot)\) è la funzione identità, ad esempio, \(J\) risulta essere la me
 \[
 \bar{\theta} = \int_{\Theta} \theta p(\theta \mid y) \,\operatorname {d}\!\theta .
 \]
+
+Le quantità di interesse della statistica bayesiana(costante di normalizzazione, valore atteso della distribuzione a posteriori, ecc.) contengono integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente e, per questo motivo, si ricorre a metodi di numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC). Questo argomento verrà discusso nel Capitolo \ref{ch:metropolis}.
 
 \hypertarget{distribuzione-predittiva-a-priori}{%
 \section{Distribuzione predittiva a priori}\label{distribuzione-predittiva-a-priori}}
