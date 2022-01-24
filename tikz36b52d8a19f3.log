@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.1.23)  23 JAN 2022 09:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2022/dev) (preloaded format=pdflatex 2022.1.23)  24 JAN 2022 06:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**tikz1bd51e0ed5d8.tex
-(./tikz1bd51e0ed5d8.tex
+**tikz36b52d8a19f3.tex
+(./tikz36b52d8a19f3.tex
 LaTeX2e <2021-11-15> patch level 1
 L3 programming layer <2022-01-21> (/Users/corrado/Library/TinyTeX/texmf-dist/tex/latex/standalone/standalone.cls
 Document Class: standalone 2018/03/26 v1.3a Class to compile TeX sub-files standalone
@@ -312,8 +312,8 @@ File: tikzlibrarymatrix.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count295
 \l__pdf_internal_box=\box64
-) (./tikz1bd51e0ed5d8.aux)
-\openout1 = `tikz1bd51e0ed5d8.aux'.
+) (./tikz36b52d8a19f3.aux)
+\openout1 = `tikz36b52d8a19f3.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
@@ -460,20 +460,20 @@ File: tikzlibrarytrees.code.tex 2021/05/15 v3.1.9a (3.1.9a)
 \c@pgf@lsystem@iteration=\count303
 )) [1
 
-{/Users/corrado/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./tikz1bd51e0ed5d8.aux) ) 
+{/Users/corrado/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] (./tikz36b52d8a19f3.aux) ) 
 Here is how much of TeX's memory you used:
- 17496 strings out of 480236
- 400774 string characters out of 5894581
- 658077 words of memory out of 5000000
- 35084 multiletter control sequences out of 15000+600000
- 473428 words of font info for 43 fonts, out of 8000000 for 9000
+ 17434 strings out of 480236
+ 399530 string characters out of 5894581
+ 658076 words of memory out of 5000000
+ 35032 multiletter control sequences out of 15000+600000
+ 469713 words of font info for 30 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 115i,7n,118p,421b,630s stack positions out of 5000i,500n,10000p,200000b,80000s
-</Users/corrado/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/corrado/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb>
-Output written on tikz1bd51e0ed5d8.pdf (1 page, 18313 bytes).
+ 115i,7n,118p,421b,565s stack positions out of 5000i,500n,10000p,200000b,80000s
+</Users/corrado/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/corrado/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></Users/corrado/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on tikz36b52d8a19f3.pdf (1 page, 26207 bytes).
 PDF statistics:
- 21 PDF objects out of 1000 (max. 8388607)
- 13 compressed objects within 1 object stream
+ 26 PDF objects out of 1000 (max. 8388607)
+ 16 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

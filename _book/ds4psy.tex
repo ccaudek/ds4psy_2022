@@ -233,7 +233,7 @@
 
 \title{Data Science per psicologi}
 \author{Corrado Caudek}
-\date{2022-01-23}
+\date{2022-01-24}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -357,6 +357,7 @@ La definizione della probabilità è un problema estremamente dibattuto ed apert
 In termini epistemici, la probabilità fornisce una misura della nostra incertezza sul verificarsi di un fenomeno, alla luce delle informazioni disponibili. Potremmo dire che c'è una ``scala'' naturale che ha per estremi il vero (1: evento certo) da una parte ed il falso (0: evento impossibile) dall'altra. La probabilità è la quantificazione di questa scala: quantifica lo stato della nostra incertezza rispetto al contenuto di verità di una proposizione (ovvero, quantifica la plausibilità di una proposizione).
 
 \begin{itemize}
+\tightlist
 \item
   Nell'interpretazione frequentista della probabilità, la probabilità \(P(A)\) rappresenta la frequenza relativa a lungo termine nel caso di un grande numero di ripetizioni di un esperimento casuale sotto le medesime condizioni. L'evento \(A\) deve essere una proposizione relativa alle variabili casuali\footnote{Viene stressata qui l'idea che ciò di cui parliamo è qualcosa che emerge nel momento in cui è possibile ripetere l'esperimento casuale tante volte sotto le medesime condizioni. Le variabili casuali, infatti, forniscono una quantificazione dei risultati che si ottengono ripetendo tante volte l'esperimento casuale sotto le medesime condizioni.}.
 \item
@@ -400,15 +401,21 @@ Il funzionale \(Pr[·]\) definisce la probabilità di un evento. Ad esempio, per
 
 \[
 Pr[Y = 1] = 0.5.
-\] Se la moneta è equilibrata dobbiamo anche avere \(Pr[Y = 0] = 0.5\). I due eventi \emph{Y} = 1 e \(Y\) = 0 sono \emph{mutuamente esclusivi} nel senso che non possono entrambi verificarsi contemporaneamente. Nella notazione probabilistica,
+\]
+
+Se la moneta è equilibrata dobbiamo anche avere \(Pr[Y = 0] = 0.5\). I due eventi \emph{Y} = 1 e \(Y\) = 0 sono \emph{mutuamente esclusivi} nel senso che non possono entrambi verificarsi contemporaneamente. Nella notazione probabilistica,
 
 \[
 Pr[Y = 1\; e \; Y = 0] = 0.
-\] Gli eventi \(Y\) = 1 e \(Y\) = 0 di dicono \emph{esaustivi}, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica,
+\]
+
+Gli eventi \(Y\) = 1 e \(Y\) = 0 di dicono \emph{esaustivi}, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica,
 
 \[
 Pr[Y = 1\; o \; Y = 0] = 1.
-\] Il connettivo logico ``e'' specifica eventi \emph{congiunti}, ovvero eventi che possono verificarsi contemporaneamente (eventi \emph{compatibili}) e per i quali, perciò, la probabilità della loro congiunzione è \(Pr(A \; e \; B) > 0\). Il connettivo logico ``o'' specifica eventi \emph{disgiunti}, ovvero eventi che non possono verificarsi contemporaneamente (eventi \emph{incompatibili}) e per i quali, perciò, la probabilità della loro congiunzione è \(P(A \; e \; B) = 0\).
+\]
+
+Il connettivo logico ``o'' specifica eventi \emph{disgiunti}, ovvero eventi che non possono verificarsi contemporaneamente (eventi \emph{incompatibili}) e per i quali, perciò, la probabilità della loro congiunzione è \(P(A \; e \; B) = 0\). Il connettivo logico ``e'', invece, specifica eventi \emph{congiunti}, ovvero eventi che possono verificarsi contemporaneamente (eventi \emph{compatibili}) e per i quali, perciò, la probabilità della loro congiunzione è \(Pr(A \; e \; B) > 0\).
 
 \hypertarget{spazio-campionario-e-risultati-possibili}{%
 \section{Spazio campionario e risultati possibili}\label{spazio-campionario-e-risultati-possibili}}
@@ -422,7 +429,7 @@ Il lancio di un dado ci fornisce l'esempio di un altro esperimento casuale. Supp
 \hypertarget{usare-la-simulazione-per-stimare-le-probabilituxe0}{%
 \section{Usare la simulazione per stimare le probabilità}\label{usare-la-simulazione-per-stimare-le-probabilituxe0}}
 
-I metodi basati sulla simulazione ci consentono di stimare le probabilità degli eventi in un modo diretto se siamo in grado di generare realizzazioni molteplici e casuali delle variabili casuali coinvolte nelle definizioni degli eventi. Per simulare il lancio di una moneta equilibrata in R iniziamo a definire un vettore che contiene i possibili risultati del lancio della moneta (ovvero i possibili valori della variabile casuale \(Y\)):
+I metodi basati sulla simulazione consentono di stimare le probabilità degli eventi in un modo diretto, se siamo in grado di generare molteplici e casuali realizzazioni delle variabili casuali coinvolte nelle definizioni degli eventi. Per simulare il lancio di una moneta equilibrata in \(\R\) iniziamo a definire un vettore che contiene i possibili risultati del lancio della moneta (ovvero i possibili valori della variabile casuale \(Y\)):
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -439,7 +446,7 @@ I metodi basati sulla simulazione ci consentono di stimare le probabilità degli
 \end{Highlighting}
 \end{Shaded}
 
-\noindent In maniera equivalente, lo stesso risultato si ottiene mediante l'istruzione
+\noindent In maniera equivalente, la stessa operazione si può realizzare mediante l'istruzione
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -452,7 +459,7 @@ Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i ri
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{10}
+\NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{100}
 \NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
 \ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
 \NormalTok{  y[m] }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
@@ -460,11 +467,11 @@ Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i ri
 \NormalTok{estimate }\OtherTok{=} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ M}
 
 \FunctionTok{cat}\NormalTok{(}\StringTok{"estimated Pr[Y = 1] ="}\NormalTok{, estimate)}
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.53}
 \end{Highlighting}
 \end{Shaded}
 
-\noindent Ripetiamo questa procedura 10 volte.
+Ripetiamo questa procedura 10 volte.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -482,67 +489,67 @@ Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i ri
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
-  \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+  \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{100}\NormalTok{)}
 \NormalTok{\}}
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.3 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.7 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.6 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.8 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.44 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.52 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.46 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.57 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.47 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.46 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.48 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.49 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.47 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.62}
 \end{Highlighting}
 \end{Shaded}
 
-\noindent Dato che la moneta è equilibrata, la stima delle probabilità dell'evento \(Pr[Y = 1]\) è simile a al valore che ci aspettiamo (\(Pr[Y = 1]\) = 0.5), ma il risultato ottenuto nelle varie simulazioni non è sempre esatto. Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
+Dato che la moneta è equilibrata, la stima delle probabilità dell'evento \(Pr[Y = 1]\) è simile a al valore che ci aspettiamo (\(Pr[Y = 1]\) = 0.5), ma il risultato ottenuto nelle varie simulazioni non è sempre esatto. Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
-  \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+  \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
 \NormalTok{\}}
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.44 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.53 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.43 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.58 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.41 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.51 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.497 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.529 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.493 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.511 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.506 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.52 }
 \CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.49 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.57}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.495 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.489 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.496}
 \end{Highlighting}
 \end{Shaded}
 
-\noindent In questo secondo caso, gli errori tendono ad essere più piccoli della simulazione precedente. Cosa succede se in ciascuna simulazione esaminiamo i risultati di 10,000 lanci della moneta?
+In questo secondo caso, gli errori tendono ad essere più piccoli della simulazione precedente. Cosa succede se in ciascuna simulazione esaminiamo i risultati di 10,000 lanci della moneta?
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
   \FunctionTok{flip\_coin}\NormalTok{(}\FloatTok{1e4}\NormalTok{)}
 \NormalTok{\}}
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5029 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4886 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4956 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.49 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4885 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4957 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4902 }
 \CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5032 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5051 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4928 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4968 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4991 }
-\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4976}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5048 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4931 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4965 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.499 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4979 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4973}
 \end{Highlighting}
 \end{Shaded}
 
-\noindent Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stimare (cioè 0.5, perché la moneta è equilibrata). I risultati delle simulazioni precedenti pongono dunque il problema di determinare quale sia il numero di lanci di cui abbiamo bisogno per assicurarci che le stime siano accurate (ovvero, vicine al valore corretto della probabilità)
+Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stimare (cioè 0.5, perché la moneta è equilibrata). I risultati delle simulazioni precedenti pongono dunque il problema di determinare quale sia il numero di lanci di cui abbiamo bisogno per assicurarci che le stime siano accurate (ovvero, vicine al valore corretto della probabilità)
 
 \hypertarget{la-legge-dei-grandi-numeri}{%
 \section{La legge dei grandi numeri}\label{la-legge-dei-grandi-numeri}}
 
-La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere ciò che accade all'aumentare del numero \(M\) di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento \(Pr[Y = 1]\) in funzione del numero di ripetizioni dell'esperimento casuale per ogni \(m \in 1 : M.\) Un grafico dell'andamento della stima di \(Pr[Y = 1]\) in funzione di \(m\) si ottiene nel modo seguente.
+La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere qjello che accade all'aumentare del numero \(M\) di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento \(Pr[Y = 1]\) in funzione del numero di ripetizioni dell'esperimento casuale per ogni \(m \in 1:M.\) Un grafico dell'andamento della stima di \(Pr[Y = 1]\) in funzione di \(m\) si ottiene nel modo seguente.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -582,7 +589,7 @@ La visualizzazione mediante grafici contribuisce alla comprensione dei concetti 
 \caption{Stima della probabilità di successo in funzione del numero di lanci di una moneta.}\label{fig:legge-grandi-n-1}
 \end{figure}
 
-Dato che il grafico \ref{fig:legge-grandi-n-1} su una scala lineare non rivela chiaramente l'andamento della simulazione, utilizzeremo invece un grafico in cui sull'asse \(x\) è stata imposta una scala logaritmica. Con l'asse \(x\) su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza come nel caso dei valori tra 50 e 700, eccetera.
+Dato che il grafico \ref{fig:legge-grandi-n-1} espresso su una scala lineare non rivela chiaramente l'andamento della simulazione, possiamo usare un grafico che impone una scala logaritmica sull'asse delle ascisse (\(x\)). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osseerva per valori tra 50 e 700, eccetera.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -612,16 +619,20 @@ Dato che il grafico \ref{fig:legge-grandi-n-1} su una scala lineare non rivela c
 \caption{Stima della probabilità di successo in funzione del numero di lanci di una moneta -- scala logaritmica.}\label{fig:legge-grandi-n-2}
 \end{figure}
 
-La \emph{legge dei grandi numeri} ci dice che all'aumentare del numero di ripetizioni dell'esperimento casuale la media dei risultati ottenuti tenderà ad avvicinarsi al valore atteso man mano che verranno eseguite più prove. Nel caso presente, la figura \ref{fig:legge-grandi-n-2} mostra appunto che, all'aumentare del numero \emph{M} di lanci della moneta, la stima di \(Pr[Y = 1]\) tende a convergere al vero valore di 0.5.
+La \emph{legge dei grandi numeri} ci dice che, all'aumentare del numero di ripetizioni dell'esperimento casuale, la media dei risultati ottenuti tenderà ad avvicinarsi al valore atteso, man mano che verranno eseguite più prove. Nel caso presente, la figura \ref{fig:legge-grandi-n-2} mostra appunto che, all'aumentare del numero \emph{M} di lanci della moneta, la stima di \(Pr[Y = 1]\) tende a convergere al vero valore di 0.5.
 
 \hypertarget{variabili-casuali-multiple}{%
 \section{Variabili casuali multiple}\label{variabili-casuali-multiple}}
 
-Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una singola variabile casuale \emph{Y} che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. Ciò suggerisce che possiamo avere le variabili casuali \(Y_1 , Y_2 , Y_3\) che rappresentano i risultati di ciascuno dei lanci. Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Ognuna di queste variabili \(Y_n\) per \(n \in 1:3\) ha \(Pr[Y_n =1]=0.5\) e \(Pr[Y_n =0]=0.5\). Possiamo combinare più variabili casuali usando le operazioni aritmetiche. Se \(Y_1 , Y_2, Y_3\) sono variabili casuali che rappresentano tre lanci di una moneta equilibrata (o un lancio di tre monete equilibrate), possiamo definire la somma di tali variabili casuali come
+Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una singola variabile casuale \emph{Y} che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. Ciò suggerisce che i risultati di ciascuno dei tre lanci possono essere rappresentati da una diversa variabile casuale, ad esepio, \(Y_1 , Y_2 , Y_3\). Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Ognuna di queste variabili \(Y_n\) per \(n \in 1:3\) ha \(Pr[Y_n =1]=0.5\) e \(Pr[Y_n =0]=0.5\).
+
+È possibile combinare più variabili casuali usando le operazioni aritmetiche. Se \(Y_1 , Y_2, Y_3\) sono variabili casuali che rappresentano tre lanci di una moneta equilibrata (o un lancio di tre monete equilibrate), possiamo definire la somma di tali variabili casuali come
 
 \[
 Z = Y_1 + Y_2 + Y_3.
-\] \noindent Possiamo simulare i valori assunti dalla variabile casuale \emph{Z} simulando i valori di \(Y_1, Y_2, Y_3\) per poi sommarli.
+\]
+
+Possiamo simulare i valori assunti dalla variabile casuale \emph{Z} simulando i valori di \(Y_1, Y_2, Y_3\) per poi sommarli.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -629,14 +640,14 @@ Z = Y_1 + Y_2 + Y_3.
 \NormalTok{y2 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{y3 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \FunctionTok{c}\NormalTok{(y1, y2, y3)}
-\CommentTok{\#\textgreater{} [1] 0 0 1}
+\CommentTok{\#\textgreater{} [1] 1 0 1}
 \NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{c}\NormalTok{(y1, y2, y3))}
 \FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{\#\textgreater{} z = 1}
+\CommentTok{\#\textgreater{} z = 2}
 \end{Highlighting}
 \end{Shaded}
 
-\noindent ovvero,
+ovvero,
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -645,19 +656,6 @@ Z = Y_1 + Y_2 + Y_3.
 \NormalTok{  y[i] }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{\}}
 \NormalTok{y}
-\CommentTok{\#\textgreater{} [1] 1 0 0}
-\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
-\FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
-\CommentTok{\#\textgreater{} z = 1}
-\end{Highlighting}
-\end{Shaded}
-
-\noindent oppure, ancora più semplicemente:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
-\NormalTok{y}
 \CommentTok{\#\textgreater{} [1] 0 1 1}
 \NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
 \FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
@@ -665,7 +663,20 @@ Z = Y_1 + Y_2 + Y_3.
 \end{Highlighting}
 \end{Shaded}
 
-\noindent Possiamo ripetere questa simulazione \(M = 1e5\) volte:
+oppure, ancora più semplicemente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{y}
+\CommentTok{\#\textgreater{} [1] 1 0 1}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} z = 2}
+\end{Highlighting}
+\end{Shaded}
+
+Possiamo ripetere questa simulazione \(M = 1e5\) volte:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -678,14 +689,14 @@ Z = Y_1 + Y_2 + Y_3.
 \end{Highlighting}
 \end{Shaded}
 
-\noindent e calcolare una stima della probabilità che la variabile casuale \(Z\) assuma i valori 0, 1, 2, 3:
+e calcolare una stima della probabilità che la variabile casuale \(Z\) assuma i valori 0, 1, 2, 3:
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \FunctionTok{table}\NormalTok{(z) }\SpecialCharTok{/}\NormalTok{ M}
 \CommentTok{\#\textgreater{} z}
 \CommentTok{\#\textgreater{}      0      1      2      3 }
-\CommentTok{\#\textgreater{} 0.1256 0.3750 0.3749 0.1245}
+\CommentTok{\#\textgreater{} 0.1258 0.3750 0.3748 0.1244}
 \end{Highlighting}
 \end{Shaded}
 
@@ -702,11 +713,11 @@ Nel caso di 4 monete equilibrate, avremo:
 \FunctionTok{table}\NormalTok{(z) }\SpecialCharTok{/}\NormalTok{ M}
 \CommentTok{\#\textgreater{} z}
 \CommentTok{\#\textgreater{}       0       1       2       3       4 }
-\CommentTok{\#\textgreater{} 0.06213 0.25019 0.37400 0.25097 0.06271}
+\CommentTok{\#\textgreater{} 0.06340 0.24917 0.37360 0.25022 0.06361}
 \end{Highlighting}
 \end{Shaded}
 
-Viene detta \emph{variabile casuale discreta} una variabile casuale le cui modalità possono essere costituite solo da numeri interi:
+Una variabile casuale le cui modalità possono essere costituite solo da numeri interi è detta \emph{variabile casuale discreta}:
 
 \[
 \mathbb{Z} = \dots, -2, -1, 0, 1, 2, \dots
@@ -754,11 +765,12 @@ Una rappresentazione grafica della stima della funzione di massa di probabilità
 \NormalTok{nflips }\OtherTok{\textless{}{-}} \DecValTok{4}
 \NormalTok{u }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(M, nflips, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\NormalTok{nflips}
-\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nflips}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}
-\ControlFlowTok{for}\NormalTok{ (n }\ControlFlowTok{in} \DecValTok{0}\SpecialCharTok{:}\NormalTok{nflips)}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nflips }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (n }\ControlFlowTok{in} \DecValTok{0}\SpecialCharTok{:}\NormalTok{nflips) \{}
 \NormalTok{  y[n }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(u }\SpecialCharTok{==}\NormalTok{ n) }\SpecialCharTok{/}\NormalTok{ M}
+\NormalTok{\}}
 \NormalTok{bar\_plot }\OtherTok{\textless{}{-}}
-  \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Z =}\NormalTok{ x, }\AttributeTok{count =}\NormalTok{ y) }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Z =}\NormalTok{ x, }\AttributeTok{count =}\NormalTok{ y) }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}
     \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Z, }\AttributeTok{y =}\NormalTok{ count)}
 \NormalTok{  ) }\SpecialCharTok{+}
@@ -769,7 +781,7 @@ Una rappresentazione grafica della stima della funzione di massa di probabilità
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
     \AttributeTok{y =} \StringTok{"Probabilità stimata Pr[Z = z]"}
-\NormalTok{)}
+\NormalTok{  )}
 \NormalTok{bar\_plot}
 \end{Highlighting}
 \end{Shaded}
@@ -790,7 +802,9 @@ P_{z}(A) = \sum_{z \in A} P_{z}(Z).
 \]
 
 \begin{example}
-Nel caso dell'esempio discusso nella Sezione \ref{sec:fun-mass-prob}, la probabilità che la variabile casuale \(Z\) sia un numero dispari è \[
+Nel caso dell'esempio discusso nella Sezione \ref{sec:fun-mass-prob}, la probabilità che la variabile casuale \(Z\) sia un numero dispari è
+
+\[
 Pr(\text{Z è un numero dispari}) = P_{z}(Z = 1) + P_{z}(Z = 3) = \frac{4}{16} + \frac{4}{16} = \frac{1}{2}.
 \]
 \end{example}
@@ -804,20 +818,20 @@ In questo capitolo abbiamo visto come si costruisce lo spazio campionario di un 
 \hypertarget{chapter-prob-cond}{%
 \chapter{Probabilità condizionata}\label{chapter-prob-cond}}
 
-Il fondamento della statistica bayesiana è il teorema di Bayes e il fondamento del teorema di Bayes è la probabilità condizionata. In questo capitolo, inizieremo a presentare la probabilità condizionata. Nel Capitolo successivo, partendo dalla definizione di probabilità condizionata, deriveremo il teorema di Bayes.
+Il fondamento della statistica bayesiana è il teorema di Bayes e il fondamento del teorema di Bayes è la probabilità condizionata. In questo Capitolo, inizieremo a presentare la probabilità condizionata. Nel Capitolo successivo, partendo dalla definizione di probabilità condizionata, deriveremo il teorema di Bayes.
 
 \hypertarget{sec:bayes-cancer}{%
 \section{Probabilità condizionata su altri eventi}\label{sec:bayes-cancer}}
 
-L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione.
-
-La probabilità condizionata è una componente essenziale del ragionamento scientifico dato che chiarisce come sia possibile incorporare le evidenze disponibili, in maniera logica e coerente, nella nostra conoscenza del mondo. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. Consideriamo il seguente problema.
+L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. Consideriamo il seguente problema.
 
 \begin{exercise}
 
 Supponiamo che lo screening per la diagnosi precoce del tumore mammario si avvalga di test che sono accurati al 90\%, nel senso che il 90\% delle donne con cancro e il 90\% delle donne senza cancro saranno classificate correttamente. Supponiamo che l'1\% delle donne sottoposte allo screening abbia effettivamente il cancro al seno. Ci chiediamo: qual è la probabilità che una donna scelta casualmente abbia una mammografia positiva e, se ce l'ha, qual è la probabilità che abbia davvero il cancro?
 
-Per risolvere questo problema, supponiamo che il test in questione venga somministrato ad un grande campione di donne, diciamo a 1000 donne. Di queste 1000 donne, 10 (ovvero, l'1\%) hanno il cancro al seno. Per queste 10 donne, il test darà un risultato positivo in 9 casi (ovvero, nel 90\% dei casi). Per le rimanenti 990 donne che non hanno il cancro al seno, il test darà un risultato positivo in 99 casi (se la probabilità di un vero positivo è del 90\%, la probabilità di un falso positivo è del 10\%). Questa situazione è rappresentata nella figura \ref{fig:mammografia}. Combinando questi due risultati, vediamo che il test dà un risultato positivo per 9 donne che hanno effettivamente il cancro al seno e per 99 donne che non ce l'hanno, per un totale di 108 risultati positivi. Dunque, la probabilità di ottenere un risultato positivo al test è \(\frac{108}{1000}\) = 11\%. Ma delle 108 donne che hanno ottenuto un risultato positivo al test, solo 9 hanno il cancro al seno. Dunque, la probabilità di avere il cancro, dato un risultato positivo al test, è pari a \(\frac{9}{108}\) = 8\%.
+Per risolvere questo problema, supponiamo che il test in questione venga somministrato ad un grande campione di donne, diciamo a 1000 donne. Di queste 1000 donne, 10 (ovvero, l'1\%) hanno il cancro al seno. Per queste 10 donne, il test darà un risultato positivo in 9 casi (ovvero, nel 90\% dei casi). Per le rimanenti 990 donne che non hanno il cancro al seno, il test darà un risultato positivo in 99 casi (se la probabilità di un vero positivo è del 90\%, la probabilità di un falso positivo è del 10\%). Questa situazione è rappresentata nella figura \ref{fig:mammografia}.
+
+Combinando i due risultati precedenti, vediamo che il test dà un risultato positivo per 9 donne che hanno effettivamente il cancro al seno e per 99 donne che non ce l'hanno, per un totale di 108 risultati positivi. Dunque, la probabilità di ottenere un risultato positivo al test è \(\frac{108}{1000}\) = 11\%. Ma delle 108 donne che hanno ottenuto un risultato positivo al test, solo 9 hanno il cancro al seno. Dunque, la probabilità di avere il cancro, dato un risultato positivo al test, è pari a \(\frac{9}{108}\) = 8\%.
 
 \begin{figure}[h]
 
@@ -830,7 +844,7 @@ Per risolvere questo problema, supponiamo che il test in questione venga sommini
 
 \end{exercise}
 
-Nell'esercizio precedente, la probabilità dell'evento ``ottenere un risultato positivo al test'' è una probabilità non condizionata, mentre la probabilità dell'evento ``avere il cancro al seno, dato che il test ha dato un risultato positivo'' è una probabilità condizionata. In termini generali, la probabilità condizionata \(P(A \mid B)\) rappresenta la probabilità che si verifichi l'evento \(A\) sapendo che si è verificato l'evento \(B\) (oppure: la probabilità di \(A\) in una prova valida solo se si verifica anche \(B\)). Ciò ci conduce alla seguente definizione.
+Nell'esercizio precedente, la probabilità dell'evento ``ottenere un risultato positivo al test'' è una probabilità non condizionata, mentre la probabilità dell'evento ``avere il cancro al seno, dato che il test ha prodotto un risultato positivo'' è una probabilità condizionata. In termini generali, la probabilità condizionata \(P(A \mid B)\) rappresenta la probabilità che si verifichi l'evento \(A\) sapendo che si è verificato l'evento \(B\) (oppure: la probabilità di \(A\) in una prova valida solo se si verifica anche \(B\)). Ciò ci conduce alla seguente definizione.
 
 \begin{definition}
 Dato un qualsiasi evento \(A\), si chiama \emph{probabilità condizionata} di \(A\) dato \(B\) il numero
@@ -843,9 +857,9 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{con}\, P(B) > 0,
 dove \(P(A\cap B)\) è la probabilità congiunta dei due eventi, ovvero la probabilità che si verifichino entrambi.
 \end{definition}
 
-Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta come prodotto di due probabilità, una condizionata e una marginale (regola moltiplicativa, o della catena). Per esempio se conosciamo la probabilità marginale \(P(B)\) e la probabilità condizionata \(P(A \mid B)\) otteniamo
+Nella \eqref{eq:probcond} possiamo distinguere tra la \(P(A\cap B)\), probabilità congiunta, \(P(A \cap B\), probabilità condizionata, e \(P(B)\), probabilità marginale.
 
-\begin{equation}
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta come prodotto di due probabilità, una condizionata e una marginale (\emph{regola moltiplicativa}, o \emph{della catena}). Per esempio se conosciamo la probabilità marginale \(P(B)\) e la probabilità condizionata \(P(A \mid B)\) otteniamo \begin{equation}
 P(A \cap B) = P(B)P(A \mid B),
 \label{eq:probcondinv}
 \end{equation}
@@ -857,7 +871,7 @@ P(A \cap B) = P(A)P(B \mid A).
 \]
 
 \begin{exercise}
-Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta 1 in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
+Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
 
 Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4. Per rispondere alla seconda domanda consideriamo solo le 13 carte di cuori; la probabilità cercata è dunque 3/13.
 \end{exercise}
@@ -871,10 +885,10 @@ Consideriamo il caso di un esame del DNA. Un esperto forense potrebbe affermare,
 
 Le considerazioni precedenti risultano più chiare se facciamo nuovamente riferimento all'esercizio sul tumore mammario descritto sopra. In tale esercizio abbiamo visto come la probabilità di cancro dato un risultato positivo al test sia uguale a 0.08. Tale probabilità è molto diversa dalla probabilità di un risultato positivo al test data la presenza del cancro. Infatti, questa seconda probabilità è uguale a 0.90 ed è descritta nel problema come una delle caratteristiche del test in questione.
 
-\hypertarget{legge-della-probabilituxe0-composta}{%
-\section{Legge della probabilità composta}\label{legge-della-probabilituxe0-composta}}
+\hypertarget{legge-delle-probabilituxe0-composte}{%
+\section{Legge delle probabilità composte}\label{legge-delle-probabilituxe0-composte}}
 
-Il teorema della probabilità composta deriva dal concetto di probabilità condizionata per cui la probabilità che si verifichino due eventi \(A_i\) e \(A_j\) è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo.
+Il teorema delle probabilità composte deriva dal concetto di probabilità condizionata per cui la probabilità che si verifichino due eventi \(A_i\) e \(A_j\) è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo.
 
 L'equazione \eqref{eq:probcondinv} si estende al caso di \(n\) eventi \(A_1, \dots, A_n\) nella forma seguente:
 
@@ -886,7 +900,7 @@ P(A_1 \cap A_2 \cap \dots\cap A_n) = {}& P(A_1)P(A_2 \mid A_1)P(A_3 \mid A_1 \ca
 \label{eq:probcomposte}
 \end{equation}
 
-la quale esprime in forma generale la legge della probabilità composta.
+la quale esprime in forma generale la legge delle probabilità composte.
 
 \begin{exercise}
 Da un'urna contenente 6 palline bianche e 4 nere si estrae una pallina per volta, senza reintrodurla nell'urna. Indichiamo con \(B_i\) l'evento: ``esce una pallina bianca alla \(i\)-esima estrazione'' e con \(N_i\) l'estrazione di una pallina nera. L'evento: ``escono due palline bianche nelle prime due estrazioni'' è rappresentato dalla intersezione \(\{B_1 \cap B_2\}\) e la sua probabilità vale, per la~\eqref{eq:probcondinv}
@@ -947,6 +961,17 @@ P(B \mid A) &= P(B).
 \end{split}
 \]
 
+Si noti inoltre che, se due eventi con probabilità non nulla sono statisticamente indipendenti, la legge delle probabilità totali espressa dalla \eqref{eq:probunione} \begin{equation}
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+\label{eq:probunione}
+\end{equation}
+
+si modifica nella relazione seguente:
+
+\begin{equation}
+P(A \cup B) = P(A) + P(B) - P(A)P(B).
+\end{equation}
+
 \begin{exercise}
 Nel lancio di due dadi non truccati, si considerino gli eventi: \emph{A} = \{esce un 1 o un 2 nel primo lancio\} e \emph{B} = \{il punteggio totale è 8\}. Gli eventi \emph{A} e \emph{B} sono indipendenti?
 
@@ -969,21 +994,8 @@ P(A \cap B) = 1/36 = 3/108 \neq P(A)P(B) = 5/108.
 \end{exercise}
 
 \begin{remark}
-Si noti che il concetto di indipendenza è del tutto differente da quello di incompatibilità. Due eventi \emph{A} e \emph{B} incompatibili (per i quali si ha \(A \cap B = \emptyset\)) sono statisticamente dipendenti, poiché il verificarsi dell'uno esclude il verificarsi dell'altro: \(P(A \cap B)=0 \neq P(A)P(B)\).
+Il concetto di indipendenza è del tutto differente da quello di incompatibilità. Si noti infatti che due eventi \emph{A} e \emph{B} incompatibili (per i quali si ha \(A \cap B = \emptyset\)) sono statisticamente dipendenti, poiché il verificarsi dell'uno esclude il verificarsi dell'altro: \(P(A \cap B)=0 \neq P(A)P(B)\).
 \end{remark}
-
-Si noti inoltre che, se due eventi con probabilità non nulla sono statisticamente indipendenti, la legge delle probabilità totali espressa dalla~\eqref{eq:probunione}
-
-\begin{equation}
-P(A \cup B) = P(A) + P(B) - P(A \cap B)
-\label{eq:probunione}
-\end{equation}
-
-si modifica nella relazione seguente:
-
-\begin{equation}
-P(A \cup B) = P(A) + P(B) - P(A)P(B).
-\end{equation}
 
 \hypertarget{commenti-e-considerazioni-finali-1}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-1}}
@@ -994,15 +1006,15 @@ La probabilità condizionata è importante perché ci fornisce uno strumento per
 \hypertarget{chapter-teo-bayes}{%
 \chapter{Il teorema di Bayes}\label{chapter-teo-bayes}}
 
-Questo Capitolo presenterà il teorema di Bayes per calcolare la probabilità degli eventi riferiti a esperimenti casuali, ossia esperimenti di cui non si può prevedere il risultato finale ma di cui si conoscono tutti i possibili risultati. Prima di esaminare il teorema di Bayes verrà introdotta una sua componente, ovvero il teorema della probabilità totale.
+Il teorema di Bayes deriva da due teoremi fondamentali delle probabilità: il \emph{teorema della probabilità composta}, ovvero \(\ {\mbox{P}}(A\cap B)={\mbox{P}}(B){\mbox{P}}(A \mid B)={\mbox{P}}(A){\mbox{P}}(B \mid A)\), e il \emph{teorema della probabilità assoluta} (detto anche \emph{teorema delle partizioni}), ovvero \({\mbox{P}}(B)=\sum _{{i=1}}^{n}{\mbox{P}}(A_{i}\cap B)=\sum _{{i=1}}^{n}{\mbox{P}}(A_{i}){\mbox{P}}(B \mid A_{i})\). Iniziamo con il teorema della probabilità assoluta.
 
-\hypertarget{il-teorema-della-probabilituxe0-totale}{%
-\section{Il teorema della probabilità totale}\label{il-teorema-della-probabilituxe0-totale}}
+\hypertarget{il-teorema-della-probabilituxe0-assoluta}{%
+\section{Il teorema della probabilità assoluta}\label{il-teorema-della-probabilituxe0-assoluta}}
 
-Il teorema della probabilità totale fa uso della legge della probabilità composta \eqref{eq:probcomposte}. Lo discuteremo qui considerando il caso di una partizione dello spazio campionario in tre sottoinsiemi, ma è facile estendere tale discussione al caso di una partizione in un qualunque numero di sottoinsiemi.
+Il teorema della probabilità assoluta verrà qui presentato considerando una partizione dello spazio campionario in tre sottoinsiemi, ma è facile estendere tale discussione al caso di una partizione in un qualunque numero di sottoinsiemi.
 
 \begin{theorem}
-Sia \(\{F_1, F_2, F_3\}\) una partizione dello spazio campionario \(\Omega\). Se \(E\) è un qualunque altro evento, allora:
+Sia \(\{F_1, F_2, F_3\}\) una partizione dello spazio campionario \(\Omega\). Se \(E\) è un qualunque altro evento, \(E \subset \Omega\), con \(p(E) > 0\), allora:
 
 \begin{equation}
 P(E) = P(E \cap F_1) + P(E \cap F_2) + P(E \cap F_3) \notag
@@ -1017,7 +1029,7 @@ P(E) = P(E \mid F_1) P(F_1) + P (E \mid F_2) P(F_2) + P(E \mid F_3) P(F_3).
 \end{equation}
 \end{theorem}
 
-Il teorema della probabilità totale afferma che, se l'evento \(E\) è costituito da tutti gli eventi elementari in \(E \cap F_1\), \(E \cap F_2\) e \(E \cap F_3\), allora la probabilità \(P(E)\) è data dalla somma delle probabilità di questi tre eventi (figura \ref{fig:tikz-prob-tot}).
+Il teorema della probabilità assoluta afferma che, se l'evento \(E\) è costituito da tutti gli eventi elementari in \(E \cap F_1\), \(E \cap F_2\) e \(E \cap F_3\), allora la probabilità \(P(E)\) è data dalla somma delle probabilità di questi tre eventi (figura \ref{fig:tikz-prob-tot}). La \citet{ref}(eq:prob-total-1b) costituisce il denominatore del teorema di Bayes,
 
 \begin{figure}[h]
 
@@ -1049,7 +1061,7 @@ Sia \(R\) l'evento ``la pallina estratta è rossa'' e sia \(U_i\) l'evento che c
 P(R \mid U_1) = 0.75, \quad P(R \mid U_2) = 0.60, \quad P(R \mid U_3) = 0.45.
 \]
 
-Gli eventi \(U_1\), \(U_2\) e \(U_3\) costituiscono una partizione dello spazio campionario in quanto \(U_1\), \(U_2\) e \(U_3\) sono eventi mutualmente esclusivi ed esaustivi, \(P(U_1 \cup U_2 \cup U_3) = 1.0\). In base al teorema della probabilità totale, la probabilità di estrarre una pallina rossa è
+Gli eventi \(U_1\), \(U_2\) e \(U_3\) costituiscono una partizione dello spazio campionario in quanto \(U_1\), \(U_2\) e \(U_3\) sono eventi mutualmente esclusivi ed esaustivi, \(P(U_1 \cup U_2 \cup U_3) = 1.0\). In base al teorema della probabilità assoluta, la probabilità di estrarre una pallina rossa è dunque
 
 \[
 \begin{split}
@@ -1057,35 +1069,19 @@ P(R) &= P(R \mid U_1)P(U_1)+P(R \mid U_2)P(U_2)+P(R \mid U_3)P(U_3) \\
 &= 0.75 \cdot \frac{1}{3}+0.60 \cdot \frac{1}{3}+0.45 \cdot \frac{1}{3} \\
 &=0.60.
 \end{split}
-\]
+\] (Un altro esercizio sulla probabilità assoluta è fornito in Appendice \ref{appendix:exrc-abs-prob}.)
 \end{exercise}
 
-\begin{exercise}
-Consideriamo un'urna che contiene 5 palline rosse e 2 palline verdi. Due palline vengono estratte, una dopo l'altra. Vogliamo sapere la probabilità dell'evento ``la seconda pallina estratta è rossa''.
+\eqref{eq:binom}
 
-Lo spazio campionario è \(\Omega = \{RR, RV, VR, VV\}\). Chiamiamo \(R_1\) l'evento ``la prima pallina estratta è rossa'', \(V_1\) l'evento ``la prima pallina estratta è verde'', \(R_2\) l'evento ``la seconda pallina estratta è rossa'' e \(V_2\) l'evento ``la seconda pallina estratta è verde''. Dobbiamo trovare \(P(R_2)\) e possiamo risolvere il problema usando il teorema della probabilità totale \eqref{eq:prob-total-1b}:
+\hypertarget{il-teorema-di-bayes}{%
+\section{Il teorema di Bayes}\label{il-teorema-di-bayes}}
 
-\[
-\begin{split}
-P(R_2) &= P(R_2 \mid R_1) P(R_1) + P(R_2 \mid V_1)P(V_1)\\
-&= \frac{4}{6} \cdot \frac{5}{7} + \frac{5}{6} \cdot \frac{2}{7} \\
-&= \frac{30}{42} = \frac{5}{7}.
-\end{split}
-\]
-
-Se la prima estrazione è quella di una pallina rossa, nell'urna restano 4 palline rosse e due verdi, dunque, la probabilità che la seconda estrazione produca una pallina rossa è uguale a 4/6. La probabilità di una pallina rossa nella prima estrazione è 5/7. Se la prima estrazione è quella di una pallina verde, nell'urna restano 5 palline rosse e una pallina verde, dunque, la probabilità che la seconda estrazione produca una pallina rossa è uguale a 5/6. La probabilità di una pallina verde nella prima estrazione è 2/7.
-\end{exercise}
-
-\hypertarget{la-regola-di-bayes}{%
-\section{La regola di Bayes}\label{la-regola-di-bayes}}
-
-Il teorema di Bayes rappresenta uno dei fondamenti della teoria della probabilità e della statistica. Lo presentiamo qui considerando un caso specifico per poi descriverlo nella sua forma più generale.
-
-Sia \(\{F_1, F_2\}\) una partizione dello spazio campionario \(\Omega\). Consideriamo un terzo evento \(E \subset \Omega\) con probabilità non nulla di cui si conoscono le probabilità condizionate rispetto ad \(F_1\) e a \(F_2\), ovvero \(P(E \mid F_1)\) e \(P(E \mid F_2)\). È chiaro per le ipotesi fatte che se si verifica \(E\) deve anche essersi verificato almeno uno degli eventi \(F_1\) e \(F_2\). Supponendo che si sia verificato l'evento \(E\), ci chiediamo: qual è la probabilità che si sia verificato \(F_1\) piuttosto che \(F_2\)?
+Introduciamo ora il teorema di Bayes considerando un caso specifico per poi esaminarlo nella sua forma più generale. Sia \(\{F_1, F_2\}\) una partizione dello spazio campionario \(\Omega\). Consideriamo un terzo evento \(E \subset \Omega\) con probabilità non nulla di cui si conoscono le probabilità condizionate rispetto ad \(F_1\) e a \(F_2\), ovvero \(P(E \mid F_1)\) e \(P(E \mid F_2)\). È chiaro per le ipotesi fatte che se si verifica \(E\) deve anche essersi verificato almeno uno degli eventi \(F_1\) e \(F_2\). Supponendo che si sia verificato l'evento \(E\), ci chiediamo: qual è la probabilità che si sia verificato \(F_1\) piuttosto che \(F_2\)?
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=0.45\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-16-1} 
+{\centering \includegraphics[width=0.45\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-17-1} 
 
 }
 
@@ -1100,7 +1096,7 @@ P(F_1 \mid E) &= \frac{P(E \cap F_1)}{P(E)}\notag\\
 \end{split}
 \]
 
-Sapendo che \(E = (E \cap F_1) \cup (E \cap F_2)\) e che \(F_1\) e \(F_2\) sono eventi disgiunti, ovvero \(F_1 \cap F_2 = \emptyset\), ne segue che possiamo calcolare \(P(E)\) utilizzando il teorema della probabilità totale:
+Sapendo che \(E = (E \cap F_1) \cup (E \cap F_2)\) e che \(F_1\) e \(F_2\) sono eventi disgiunti, ovvero \(F_1 \cap F_2 = \emptyset\), ne segue che possiamo calcolare \(P(E)\) utilizzando il teorema della probabilità assoluta:
 
 \[
 \begin{split}
@@ -1127,27 +1123,16 @@ P(F_j \mid E) = \frac{P(E \mid F_j)P(F_j)}{\sum_{j=1}^{k}P(F_j)P(E \mid F_j)}.
 \end{equation}
 \end{theorem}
 
-\noindent La \eqref{eq:bayes2} prende il nome di \emph{Teorema di Bayes} e mostra che la conoscenza del verificarsi dell'evento \(E\) modifica la probabilità che abbiamo attribuito all'evento \(F_j\). Nella \eqref{eq:bayes2} la probabilità condizionata \(P(F_j \mid E)\) prende il nome di probabilità \emph{a posteriori} dell'evento \(F_j\): il termine ``a posteriori'' sta a significare ``dopo che è noto che si è verificato l'evento \(E\)''. Nel capitolo \ref{chapter-intro-bayes-inference} estenderemo questa discussione mostrando come la \eqref{eq:bayes2} può essere formulata in un modo più generale, ovvero in modo tale che non faccia riferimento unicamente alla probabilità di eventi, ma bensì anche alle funzioni di densità di probabilità. In maniera corrispondente, mostreremo come il teorema di Bayes descrive la probabilità di un evento dopo che la sua probabilità a priori è stata aggiornata, nell'ambito di un modello, sulla base di nuove informazioni.
+\noindent La \eqref{eq:bayes2} prende il nome di \emph{teorema di Bayes} e mostra che la conoscenza del verificarsi dell'evento \(E\) modifica la probabilità che avevamo attribuito all'evento \(F_j\). Nella \eqref{eq:bayes2} la probabilità condizionata \(P(F_j \mid E)\) prende il nome di probabilità \emph{a posteriori} dell'evento \(F_j\): il termine ``a posteriori'' sta a significare ``dopo che è noto che si è verificato l'evento \(E\)''.
+
+Nel capitolo \ref{chapter-intro-bayes-inference} estenderemo questa discussione mostrando come la \eqref{eq:bayes2} può essere formulata in un modo ancora più generale, ovvero in modo tale da sostituire le funzioni di densità di probabilità alle probabilità di eventi.
 
 \begin{remark}
 Qual è la pronuncia di ``Bayesian''? Per saperlo possiamo seguire \href{https://bayes-rules.github.io/posts/fun/}{questo link}.
 \end{remark}
 
-\hypertarget{le-probabilita-come-grado-di-fiducia}{%
-\subsection{Le probabilità come grado di fiducia}\label{le-probabilita-come-grado-di-fiducia}}
-
-Il teorema di Bayes rende esplicito il motivo per cui la probabilità non può essere pensata come uno stato oggettivo, quanto piuttosto come un'inferenza soggettiva e condizionata. Il denominatore del membro di destra della \eqref{eq:bayes2} è un semplice fattore di normalizzazione. Nel numeratore compaiono invece due quantità: \(P(F_j\)) e \(P(E \mid F_j)\). La probabilità \(P(F_j\)) è la probabilità \emph{probabilità a priori} (\emph{prior}) dell'evento \(F_j\) e rappresenta l'informazione che l'agente bayesiano possiede a proposito dell'evento \(F_j\). Diremo che \(P(F_j)\) codifica il grado di fiducia che l'agente ripone in \(F_j\) prima di avere osservato i dati. Nell'interpretazione bayesiana, \(P(F_j)\) rappresenta un giudizio personale dell'agente e non esistono criteri esterni che possano determinare se tale giudizio sia coretto o meno. La probabilità condizionata \(P(E \mid F_j)\) rappresenta invece la verosimiglianza di \(F_j\) e ci dice quant'è plausibile che si verifichi l'evento \(E\) condizionatemente al fatto che si sia verificato \(F_j\). Il teorema di Bayes descrive la regola che l'agente deve seguire per aggiornare il suo grado di fiducia in \(F_j\) alla luce di un ulteriore evento \(E\). La \(P(F_j \mid E)\) è chiamata probabilità a posteriori dato che rappresenta la nuova probabilità che l'agente assegna ad \(F_j\) affinché rimanga consistente con le nuove informazioni fornitegli da \(E\).
-
-La probabilità a posteriori dipende sia da \(E\), sia dalla conoscenza a priori dell'agente \(P(F_j)\). In questo senso è chiaro come non abbia senso parlare di una probabilità oggettiva: per il teorema di Bayes la probabilità è definita condizionatamente alla probabilità a priori, la quale a sua volta, per definizione, è un'assegnazione soggettiva. Ne segue pertanto che ogni probabilità debba essere considerata come una rappresentazione del grado di fiducia soggettiva dell'agente. Dato che ogni assegnazione probabilistica rappresenta uno stato di conoscenza e che ciascun particolare stato di conoscenza è arbitrario, un accordo tra agenti diversi non è richiesto. Tuttavia, la teoria delle probabilità ci fornisce uno strumento che, alla luce di nuove informazioni, consente l'aggiornamento dello stato di conoscenza in un modo razionale.
-
-\hypertarget{aggiornamento-bayesiano}{%
-\subsection{Aggiornamento bayesiano}\label{aggiornamento-bayesiano}}
-
-Il teorema di Bayes consente di modificare una credenza a priori in maniera dinamica, via via che nuove evidenze vengono raccolte, in modo tale da formulare una credenza a posteriori la quale non è mai definitiva, ma può sempre essere aggiornata in base alle nuove evidenze disponibili. Questo processo si chiama \emph{aggiornamento bayesiano}.
-
 \begin{exercise}
-
-Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes, quando abbiamo risolto l'esercizio riportato nella Sezione \ref{sec:bayes-cancer}. Svolgiamo ora nuovamente lo stesso esercizio applicando questa volta la \eqref{eq:bayes2}. Per semplicità, riscriviamo la formula nel modo seguente:
+Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes, quando abbiamo risolto l'esercizio riportato nella Sezione \ref{sec:bayes-cancer}. Svolgiamo ora nuovamente lo stesso esercizio applicando questa volta la \eqref{eq:bayes2}. Per semplicità, riscriviamo la formula del teorema di Bayes nel modo seguente:
 
 \begin{align}
 P(M \mid +) &= \frac{P(+ \mid M) P(M)}{P(+ \mid M) P(M) + P(+ \mid M^\complement) P(M^\complement)}\notag\\ 
@@ -1155,15 +1140,18 @@ P(M \mid +) &= \frac{P(+ \mid M) P(M)}{P(+ \mid M) P(M) + P(+ \mid M^\complement
 &= \frac{9}{108}.
 \end{align}
 
-Ovviamente, viene così replicato il risultato precedente. Un esercizio simile è proposto in Appendice \ref{appendix:bayes-updating}.
-
+Viene così replicato il risultato precedente. Un esercizio simile è proposto in Appendice \ref{appendix:bayes-updating}.
 \end{exercise}
 
 \hypertarget{commenti-e-considerazioni-finali-2}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-2}}
 
 
-Il teorema di Bayes costituisce il fondamento dell'approccio più moderno della statistica, quello appunto detto bayesiano. Chi usa il teorema di Bayes non è, solo per questo motivo, ``bayesiano'': ci vuole ben altro. Ci vuole un modo diverso per intendere il significato della probabilità e un modo diverso per intendere gli obiettivi dell'inferenza statistica. In anni recenti, una gran parte della comunità scientifica ha riconosciuto all'approccio bayesiano il merito di consentire lo sviluppo di modelli anche molto complessi senza richiedere, d'altra parte, conoscenze matematiche troppo avanzate all'utente. Per questa ragione l'approccio bayesiano sta prendendo sempre più piede, anche in psicologia.
+Il teorema di Bayes rende esplicito il motivo per cui la probabilità non può essere pensata come uno stato oggettivo, quanto piuttosto come un'inferenza soggettiva e condizionata. Il denominatore del membro di destra della \eqref{eq:bayes2} è un semplice fattore di normalizzazione. Nel numeratore compaiono invece due quantità: \(P(F_j\)) e \(P(E \mid F_j)\). La probabilità \(P(F_j\)) è la probabilità \emph{probabilità a priori} (\emph{prior}) dell'evento \(F_j\) e rappresenta l'informazione che l'agente bayesiano possiede a proposito dell'evento \(F_j\). Diremo che \(P(F_j)\) codifica il grado di fiducia che l'agente ripone in \(F_j\) prima di avere osservato i dati. Nell'interpretazione bayesiana, \(P(F_j)\) rappresenta un giudizio personale dell'agente e non esistono criteri esterni che possano determinare se tale giudizio sia coretto o meno. La probabilità condizionata \(P(E \mid F_j)\) rappresenta invece la verosimiglianza di \(F_j\) e ci dice quant'è plausibile che si verifichi l'evento \(E\) condizionatemente al fatto che si sia verificato \(F_j\). Il teorema di Bayes descrive la regola che l'agente deve seguire per aggiornare il suo grado di fiducia in \(F_j\) alla luce di un ulteriore evento \(E\). La \(P(F_j \mid E)\) è chiamata probabilità a posteriori dato che rappresenta la nuova probabilità che l'agente assegna ad \(F_j\) affinché rimanga consistente con le nuove informazioni fornitegli da \(E\).
+
+La probabilità a posteriori dipende sia da \(E\), sia dalla conoscenza a priori dell'agente \(P(F_j)\). In questo senso è chiaro come non abbia senso parlare di una probabilità oggettiva: per il teorema di Bayes la probabilità è definita condizionatamente alla probabilità a priori, la quale a sua volta, per definizione, è un'assegnazione soggettiva. Ne segue pertanto che ogni probabilità debba essere considerata come una rappresentazione del grado di fiducia soggettiva dell'agente. Dato che ogni assegnazione probabilistica rappresenta uno stato di conoscenza e che ciascun particolare stato di conoscenza è arbitrario, un accordo tra agenti diversi non è richiesto. Tuttavia, la teoria delle probabilità ci fornisce uno strumento che, alla luce di nuove informazioni, consente l'aggiornamento dello stato di conoscenza in un modo razionale.
+
+Il teorema di Bayes consente di modificare una credenza a priori in maniera dinamica, via via che nuove evidenze vengono raccolte, in modo tale da formulare una credenza a posteriori la quale non è mai definitiva, ma possa sempre essere aggiornata in base alle nuove evidenze disponibili. Questo processo si chiama \emph{aggiornamento bayesiano}.
 
 \hypertarget{chapter-prob-congiunta}{%
 \chapter{Probabilità congiunta}\label{chapter-prob-congiunta}}
@@ -1485,11 +1473,11 @@ Consideriamo il seguente esperimento casuale. Facciamo ruotare ad alta velocita�
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-17-1} 
+{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-18-1} 
 
 }
 
-\caption{Uno spinner che riposa a 36 gradi, o il dieci percento del percorso intorno al cerchio. La pendenza dello spinner può assumere qualunque valore tra 0 e 360 gradi.}\label{fig:unnamed-chunk-17}
+\caption{Uno spinner che riposa a 36 gradi, o il dieci percento del percorso intorno al cerchio. La pendenza dello spinner può assumere qualunque valore tra 0 e 360 gradi.}\label{fig:unnamed-chunk-18}
 \end{figure}
 
 Cosa implica per \(\Theta\) dire che lo spinner è simmetrico? Possiamo dire che, in ciascuna prova, la rotazione dello spinner produce un angolo qualunque da 0 a 360 gradi. In altri termini, un valore \(\Theta\) compreso tra 0 e 36 gradi ha la stessa probabilità di essere osservato di un valore \(\Theta\) compreso tra 200 e 236 gradi. Inoltre, poiché 36 gradi è un decimo del percorso intorno al cerchio, la probabilità di ottenere un qualsiasi intervallo di 36 gradi sarà sempre uguale al 10\%. Ovvero \(\mbox{P}[0 \leq \Theta \leq 36] \ = \ \frac{1}{10}\) e \(\mbox{P}[200 \leq \Theta \leq 236] \ = \ \frac{1}{10}\).
@@ -1567,11 +1555,11 @@ Possiamo verificare questo risultato mediante simulazione. Per stimare la funzio
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-18-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-19-1} 
 
 }
 
-\caption{Grafico della funzione di ripartizione di una variabile casuale $\Theta$ che rappresenta il risultato di una rotazione di uno spinner simmetrico. Come previsto, tale funzione è una semplice funzione lineare perché la variabile sottostante $\Theta$ ha una distribuzione uniforme.}\label{fig:unnamed-chunk-18}
+\caption{Grafico della funzione di ripartizione di una variabile casuale $\Theta$ che rappresenta il risultato di una rotazione di uno spinner simmetrico. Come previsto, tale funzione è una semplice funzione lineare perché la variabile sottostante $\Theta$ ha una distribuzione uniforme.}\label{fig:unnamed-chunk-19}
 \end{figure}
 
 Anche con \emph{M} = 1000, tale grafico è praticamente indistinguibile da quello prodotto per via analitica.
@@ -1640,11 +1628,11 @@ Creaiamo ora un istogramma che descrive la distribuzione delle 10,000 realizzazi
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-20-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-21-1} 
 
 }
 
-\caption{Istogramma di $10\,000$ realizzazioni $\Theta \sim \mbox{Uniform}(0, 1)$. }\label{fig:unnamed-chunk-20}
+\caption{Istogramma di $10\,000$ realizzazioni $\Theta \sim \mbox{Uniform}(0, 1)$. }\label{fig:unnamed-chunk-21}
 \end{figure}
 
 È chiaro che, all'aumentare del numero delle realizzazioni \(\Theta\), il profilo dell'istogramma tenderà a diventare una linea retta. Ciò significa che la funzione di densità di una variabile casuale uniforme continua è una costante. Cioè, se \(\Theta \sim \mbox{Uniform} (a, b)\), allora \(p_{\Theta}(\theta) = c\), dove \(c\) è una costante.
@@ -1686,7 +1674,7 @@ Creaiamo ora un istogramma che descrive la distribuzione delle 10,000 realizzazi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-21-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-22-1} \end{center}
 
 \noindent Dal grafico vediamo che l'area sottesa alla funzione di densità è \((b - a)\times c\). Dato che tale area deve essere unitaria, ovvero, \((b - a) \times c = 1\), possiamo trovare \(c\) dividendo entrambi i termini per \(b - a\),
 
@@ -1757,11 +1745,11 @@ Come si trasformano gli istogrammi all'aumentare del numero di osservazioni? Nei
 
 \begin{figure}[h]
 
-{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-22-1} 
+{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-23-1} 
 
 }
 
-\caption{Istogramma di $M$ campioni casuali $\Theta \sim \mbox{Uniform}(0, 1)$ trasformati in valori $\Phi = \mbox{logit}(\Theta).$ Il profilo limite dell'istogramma è evidenziato nella figura in basso a destra che è stata costruita usando $1\,000\,000$ di osservazioni.}\label{fig:unnamed-chunk-22}
+\caption{Istogramma di $M$ campioni casuali $\Theta \sim \mbox{Uniform}(0, 1)$ trasformati in valori $\Phi = \mbox{logit}(\Theta).$ Il profilo limite dell'istogramma è evidenziato nella figura in basso a destra che è stata costruita usando $1\,000\,000$ di osservazioni.}\label{fig:unnamed-chunk-23}
 \end{figure}
 
 In un istogramma, l'area di ciascuna barra è proporzionale alla frequenza relativa delle osservazioni in quel'intervallo. Perché tutti gli intervalli hanno la stessa ampiezza, anche l'altezza di ciascuna barra sarà proporzionale alla frequenza relativa delle osservazioni in quel'intervallo.
@@ -2554,11 +2542,11 @@ Iniziamo con un un breve excursus storico. Nel 1733, Abraham de Moivre notò che
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-31-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-32-1} 
 
 }
 
-\caption{Probabilità del numero di successi in $N = 10$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 10, 0.9)$. Con solo dieci prove, la distribuzione è fortemente asimmetrica negativa.}\label{fig:unnamed-chunk-31}
+\caption{Probabilità del numero di successi in $N = 10$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 10, 0.9)$. Con solo dieci prove, la distribuzione è fortemente asimmetrica negativa.}\label{fig:unnamed-chunk-32}
 \end{figure}
 
 Ma se aumentiamo il numero di prove di un fattore di 100 a \emph{N} = 1000, senza modificare la probabilità di successo di 0.9, la distribuzione assume una forma campanulare quasi simmetrica. Dunque, de Moivre scoprì che, quando \emph{N} è grande, la funzione Normale (che introdurremo qui sotto), nonostante sia la densità di v.a. continue, fornisce una buona approssimazione alla funzione di massa di probabilità binomiale.
@@ -2581,11 +2569,11 @@ Ma se aumentiamo il numero di prove di un fattore di 100 a \emph{N} = 1000, senz
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-32-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-33-1} 
 
 }
 
-\caption{Probabilità del numero di successi in $N = 1000$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 1000, 0.9)$. Con mille prove, la distribuzione è quasi simmetrica a forma campanulare.}\label{fig:unnamed-chunk-32}
+\caption{Probabilità del numero di successi in $N = 1000$ prove bernoulliane indipendenti, ciascuna con una probabilità di successo di 0.90. Il risultato è una distribuzione $\Bin(y \mid 1000, 0.9)$. Con mille prove, la distribuzione è quasi simmetrica a forma campanulare.}\label{fig:unnamed-chunk-33}
 \end{figure}
 
 La distribuzione Normale fu scoperta da Gauss nel 1809 e, storicamente, è intimamente legata al metodo dei minimi quadrati -- si veda l'Appendice \ref{gauss-normale}. Il Paragrafo successivo illustra come si possa giungere alla Normale mediante una simulazione.
@@ -2812,7 +2800,7 @@ Il problema ci chiede di trovare l'area sottesa alla distribuzione \(\mathcal{N}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-37-1} \end{center}
 
 \noindent La risposta si trova utilizzando la funzione di ripartizione \(F(X)\) della legge \(\mathcal{N}(1.7, 0.1)\) in corrispondenza dei due valori forniti dal problema: \(F(X = 1.8) - F(X = 1.7)\). Utilizzando la seguente istruzione
 
@@ -2860,7 +2848,7 @@ Si noti che la funzione logistica (in blu), pur essendo del tutto diversa dalla 
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-39-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-40-1} \end{center}
 
 \hypertarget{teorema-del-limite-centrale}{%
 \section{Teorema del limite centrale}\label{teorema-del-limite-centrale}}
@@ -2948,7 +2936,7 @@ Usiamo \(\R\) per disegnare la densità chi-quadrato con 3 gradi di libertà div
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-40-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-41-1} \end{center}
 
 \end{exercise}
 
@@ -3082,7 +3070,7 @@ Si può ottenere una rappresentazione grafica della distribuzione \(\mbox{Beta}(
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-41-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-42-1} \end{center}
 
 La funzione \texttt{bayesrules::summarize\_beta()} ci restituisce la media, moda e varianza della distribuzione Beta. Per esempio:
 
@@ -3112,7 +3100,7 @@ Nel disturbo depressivo la recidiva è definita come la comparsa di un nuovo epi
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 La media della distribuzione a priori diventa:
 
@@ -3205,7 +3193,7 @@ f(x)=(x_m/x)^\alpha,
 
 dove \(x_m\) (parametro di scala) è il minimo (necessariamente positivo) valore possibile di \(X\) e \(\alpha\) è un parametro di forma.
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 \noindent La distribuzione di Pareto ha una asimmetria positiva. Il supporto della distribuzione di Pareto è la retta reale positiva. Tutti i valori devono essere maggiori del parametro di scala \(x_m\), che è in realtà un parametro di soglia.
 
@@ -3300,6 +3288,25 @@ P(H_2 \mid y) = \frac{0.0864 \cdot 0.25}{0.0384 \cdot 0.75 + 0.0864 \cdot 0.25} 
 e le evidenze a favore di \(H_1\) si riducono a 1.33. Se si ottenesse un altro esito croce in un sesto lancio della moneta, l'ipotesi \(H2\) diventerebbe più probabile dell'ipotesi \(H_1\).
 
 In conclusione, questo esercizio ci fa capire come sia possibile aggiornare le nostre credenze sulla base delle evidenze disponibili, ovvero come sia possibile passare da un grado di conoscenza del mondo a priori a una conoscenza a posteriori. Se prima di lanciare la moneta ritenevamo che l'ipotesi \(H_1\) fosse tre volte più plausibile dell'ipotesi \(H_2\), dopo avere osservato uno specifico campione di dati siamo giunti alla conclusione opposta. Il processo di aggiornamento bayesiano, dunque, ci fornisce un metodo per modificare il livello di fiducia in una data ipotesi, alla luce di nuove informazioni.
+
+\hypertarget{appendix:exrc-abs-prob}{%
+\chapter{Il teorema della probabilità totale}\label{appendix:exrc-abs-prob}}
+
+\begin{exercise}
+Consideriamo un'urna che contiene 5 palline rosse e 2 palline verdi. Due palline vengono estratte, una dopo l'altra. Vogliamo sapere la probabilità dell'evento ``la seconda pallina estratta è rossa''.
+
+Lo spazio campionario è \(\Omega = \{RR, RV, VR, VV\}\). Chiamiamo \(R_1\) l'evento ``la prima pallina estratta è rossa'', \(V_1\) l'evento ``la prima pallina estratta è verde'', \(R_2\) l'evento ``la seconda pallina estratta è rossa'' e \(V_2\) l'evento ``la seconda pallina estratta è verde''. Dobbiamo trovare \(P(R_2)\) e possiamo risolvere il problema usando il teorema della probabilità assoluta \eqref{eq:prob-total-1b}:
+
+\[
+\begin{split}
+P(R_2) &= P(R_2 \mid R_1) P(R_1) + P(R_2 \mid V_1)P(V_1)\\
+&= \frac{4}{6} \cdot \frac{5}{7} + \frac{5}{6} \cdot \frac{2}{7} \\
+&= \frac{30}{42} = \frac{5}{7}.
+\end{split}
+\]
+
+Se la prima estrazione è quella di una pallina rossa, nell'urna restano 4 palline rosse e due verdi, dunque, la probabilità che la seconda estrazione produca una pallina rossa è uguale a 4/6. La probabilità di una pallina rossa nella prima estrazione è 5/7. Se la prima estrazione è quella di una pallina verde, nell'urna restano 5 palline rosse e una pallina verde, dunque, la probabilità che la seconda estrazione produca una pallina rossa è uguale a 5/6. La probabilità di una pallina verde nella prima estrazione è 2/7.
+\end{exercise}
 
   \bibliography{refs.bib,book.bib,packages.bib}
 
