@@ -333,11 +333,11 @@ Marzo 2022 \end{flushright}
 
 \mainmatter
 
-\hypertarget{part-inferenza-statistica-bayesiana}{%
-\part{Inferenza statistica bayesiana}\label{part-inferenza-statistica-bayesiana}}
+\hypertarget{part-inferenza-bayesiana}{%
+\part{Inferenza bayesiana}\label{part-inferenza-bayesiana}}
 
 \hypertarget{ch:intro-bayes-inference}{%
-\chapter{Inferenza bayesiana}\label{ch:intro-bayes-inference}}
+\chapter{Flusso di lavoro bayesiano}\label{ch:intro-bayes-inference}}
 
 La moderna statistica bayesiana viene per lo più eseguita utilizzando un linguaggio di programmazione probabilistico implementato su computer. Ciò ha cambiato radicalmente il modo in cui venivano eseguite le statistiche bayesiane anche fin pochi decenni fa. La complessità dei modelli che possiamo costruire è aumentata e la barriera delle competenze matematiche e computazionali che sono richieste è diminuita. Inoltre, il processo di modellazione iterativa è diventato, sotto molti aspetti, molto più facile da eseguire. Anche se formulare modelli statistici complessi è diventato più facile che mai, la statistica è un campo pieno di sottigliezze che non scompaiono magicamente utilizzando potenti metodi computazionali. Pertanto, avere una buona preparazione sugli aspetti teorici, specialmente quelli rilevanti nella pratica, è estremamente utile per applicare efficacemente i metodi statistici.
 
@@ -386,11 +386,7 @@ Per fissare la notazione, nel seguito \(y\) rappresenterà i dati e \(\theta\) r
 \hypertarget{distribuzioni-a-priori}{%
 \section{Distribuzioni a priori}\label{distribuzioni-a-priori}}
 
-Quando adottiamo un approccio bayesiano, i parametri della distribuzione di riferimento non venono considerati come delle costanti incognite ma bensì vengono trattati come variabili casuali e, di conseguenza, i parametri assumono una particolare distribuzione che nelle statistica bayesiana viene definita come ``a priori''. I parametri (o il parametro), che possiamo indicare con \(\theta\), possono assumere delle distribuzioni a priori differenti; a seconda delle informazioni disponibili bisogna cercare di assegnare una distribuzione di \(\theta\) in modo tale che venga assegnata una probabilità maggiore a quei valori che si ritengono più plausibili per \(\theta\).
-
-La distribuzione a priori sui valori dei parametri \(p(\theta)\) è parte integrante del modello statistico. Ciò implica che due modelli bayesiani possono condividere la stessa funzione di verosimiglianza, ma tuttavia devono essere considerati come modelli diversi se specificano diverse distribuzioni a priori. Ciò significa che, quando diciamo ``Modello binomiale'', intendiamo in realtà un'intera classe di modelli, ovvero tutti i possibili modelli che hanno la stessa verosimiglianza ma diverse distribuzioni a priori su \(\theta\).
-
-Nell'analisi dei dati bayesiana, la distribuzione a priori \(p(\theta)\) codifica le credenze del ricercatore a proposito dei valori dei parametri, prima di avere osservato i dati. Idealmente, le credenze a priori che supportano la specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti, o altre motivazioni giustificabili.
+Quando adottiamo un approccio bayesiano, i parametri della distribuzione di riferimento non venono considerati come delle costanti incognite ma bensì vengono trattati come variabili casuali e, di conseguenza, i parametri assumono una particolare distribuzione che nelle statistica bayesiana viene definita come ``a priori''. I parametri (o il parametro), che possiamo indicare con \(\theta\), possono assumere delle distribuzioni a priori differenti; a seconda delle informazioni disponibili bisogna cercare di assegnare una distribuzione di \(\theta\) in modo tale che venga assegnata una probabilità maggiore a quei valori che si ritengono più plausibili per \(\theta\). Idealmente, le credenze a priori che supportano la specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti, o altre motivazioni giustificabili.
 
 \hypertarget{tipologie-di-distribuzioni-a-priori}{%
 \subsection{Tipologie di distribuzioni a priori}\label{tipologie-di-distribuzioni-a-priori}}
@@ -428,11 +424,11 @@ La selezione delle distribuzioni a priori è stata spesso vista come una delle s
 \hypertarget{un-esempio-concreto}{%
 \subsection{Un esempio concreto}\label{un-esempio-concreto}}
 
-In un problema concreto di analisi dei dati, la scelta della distribuzione a priori dipende dalle credenze a priori che vogliamo includere nell'analisi dei dati. Se non abbiamo alcuna informazione a priori, potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri \(\alpha=1\) e \(\beta=1\). Questa, tuttavia, è una cattiva idea perché il risultato ottenuto non è invariante a seconda delle trasformazioni di scala dei dati. È invece raccomandato usare una distribuzione a priori debolmente informativa, come ad esempio \(\mbox{Beta}(2, 2)\).
+Per fare un esempio concreto, useremo i dati riportati da \citet{zetschefuture2019} (si veda l'appendice \ref{appendix:future-exp}). Tali dati possono essere considerati la manifestazione di una variabile casuale Bernoulliana e corrispondono a 23 ``successi'' in 30 prove.
 
-Nella presente discussione, per fare un esempio concreto, useremo i dati riportati da \citet{zetschefuture2019} (si veda l'appendice \ref{appendix:future-exp}). Tali dati possono essere considerati la manifestazione di una variabile casuale Bernoulliana e corrispondono a 23 ``successi'' in 30 prove.
+Se non abbiamo alcuna informazione a priori su \(\theta\) (probabilità di osservare ``una aspettativa dell'umore futuro del partecipante distorta negativamente''), potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri \(\alpha=1\) e \(\beta=1\). Questa, tuttavia, è una cattiva idea perché il risultato ottenuto non è invariante a seconda delle trasformazioni di scala dei dati. È invece raccomandato usare una distribuzione a priori debolmente informativa, come ad esempio \(\mbox{Beta}(2, 2)\).
 
-In tale contesto, ha senso usare una distribuzione a priori debolmente informativa, per esempio, \(\mbox{Beta}(2, 2)\). Nel presente Capitolo, quale distribuzione a priori, useremo una \(\mbox{Beta}(2, 10)\):
+Ha incece più senso usare una distribuzione a priori debolmente informativa, per esempio, \(\mbox{Beta}(2, 2)\). Nella presente discussione, quale distribuzione a priori, useremo invece una \(\mbox{Beta}(2, 10)\):
 
 \[
 p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}.
@@ -446,7 +442,7 @@ p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}
 
 \begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-4-1} \end{center}
 
-La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta\) assume valori \(< 0.5\), con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile nel caso dell'esempio in discussione. Una tale distribuzione a priori verrà usata solo per scopi didattici, per esplorare le conseguenze di tale scelta sulla distribuzione a posteriori.
+La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta\) assume valori \(< 0.5\), con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile nel caso dell'esempio in discussione: useremo una \(\mbox{Beta}(2, 10)\) solo per scopi didattici, ovvero, per esplorare le conseguenze di tale scelta sulla distribuzione a posteriori.
 
 \hypertarget{la-funzione-di-verosimiglianza}{%
 \section{La funzione di verosimiglianza}\label{la-funzione-di-verosimiglianza}}
@@ -457,11 +453,14 @@ La \emph{funzione di verosimiglianza} \(\mathcal{L}(\theta \mid y) = f(y \mid \t
 
 Detto in altre parole, le funzioni di verosimiglianza e di (massa o densità di) probabilità sono formalmente identiche, ma è completamente diversa la loro interpretazione. Nel caso della funzione di massa o di densità di probabilità la distribuzione del vettore casuale delle osservazioni campionarie \(y\) dipende dai valori assunti dal parametro (o dai parametri) \(\theta\); nel caso della la funzione di verosimiglianza la credibilità assegnata a ciascun possibile valore \(\theta\) viene determinata avendo acquisita l'informazione campionaria \(y\) che rappresenta l'elemento condizionante. In altri termini, la funzione di verosimiglianza è lo strumento che consente di rispondere alla seguente domanda: avendo osservato i dati \(y\), quanto risultano (relativamente) credibili i diversi valori del parametro \(\theta\)?
 
-Spesso per indicare la verosimiglianza si scrive \(\mathcal{L}(\theta)\) se è chiaro a quali valori \(y\) ci si riferisce. La verosimiglianza \(\mathcal{L}\) è una curva (in generale, una superficie) nello spazio \(\Theta\) del parametro (in generale, dei parametri) che riflette la credibilità relativa dei valori \(\theta\) alla luce dei dati osservati.
-
 Notiamo un punto importante: la funzione \(\mathcal{L}(\theta \mid y)\) non è una funzione di densità. Infatti, essa non racchiude un'area unitaria.
 
 In conclusione, la funzione di verosimiglianza descrive in termini relativi il sostegno empirico che \(\theta \in \Theta\) riceve da \(y\). Infatti, la funzione di verosimiglianza assume forme diverse al variare di \(y\). Per un approfondimento della stima di massima verosimiglianza si veda l'Appendice \ref{appendix:max-like}.
+
+\hypertarget{notazione-1}{%
+\subsection{Notazione}\label{notazione-1}}
+
+Spesso per indicare la verosimiglianza si scrive \(\mathcal{L}(\theta)\) se è chiaro a quali valori \(y\) ci si riferisce. Seguendo una pratica comune, in questa dispensa spesso useremo la notazione \(p(\cdot)\) per rappresentare due quantità differenti, ovvero la funzione di verosimiglianza e la distribuzione a priori. Questo piccolo abuso di notazione riflette il seguente punto di vista: anche se la verosimiglianza non è una funzione di densità di probabilità, noi non vogliamo stressare questo aspetto, ma vogliamo piuttosto pensare alla verosimiglianza e alla distribuzione a priori come a due elementi che sono egualmente necessari per calcolare la distribuzione a posteriori. In altri termini, per così dire, questa notazione assegna lo stesso status epistemologico alle due diverse quantità che si trovano al numeratore della regola di Bayes.
 
 \hypertarget{la-log-verosimiglianza}{%
 \subsection{La log-verosimiglianza}\label{la-log-verosimiglianza}}
@@ -485,10 +484,6 @@ Per le proprietà del logaritmo, si ha
 \end{equation}
 
 Si noti che non è necessario lavorare con i logaritmi, ma è fortemente consigliato. Il motivo è che i valori della verosimiglianza, in cui si moltiplicano valori di probabilità molto piccoli, possono diventare estremamente piccoli -- qualcosa come \(10^{-34}\). In tali circostanze, non è sorprendente che i programmi dei computer mostrino problemi di arrotondamento numerico. Le trasformazioni logaritmiche risolvono questo problema.
-
-\begin{remark}
-Seguendo una pratica comune, in questa dispensa spesso useremo la notazione \(p(\cdot)\) per rappresentare due quantità differenti, ovvero la funzione di verosimiglianza e la distribuzione a priori. Questo piccolo abuso di notazione riflette il seguente punto di vista: anche se la verosimiglianza non è una funzione di densità di probabilità, noi non vogliamo stressare questo aspetto, ma vogliamo piuttosto pensare alla verosimiglianza e alla distribuzione a priori come a due elementi che sono egualmente necessari per calcolare la distribuzione a posteriori. In altri termini, per così dire, questa notazione assegna lo stesso status epistemologico alle due diverse quantità che si trovano al numeratore della regola di Bayes.
-\end{remark}
 
 \hypertarget{un-esempio-concreto-1}{%
 \subsection{Un esempio concreto}\label{un-esempio-concreto-1}}
