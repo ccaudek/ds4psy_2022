@@ -802,5 +802,7 @@ print(gg)
 La distribuzione di Pareto ha una asimmetria positiva. Il supporto della distribuzione di Pareto è la retta reale positiva. Tutti i valori devono essere maggiori del parametro di scala $x_m$, che è in realtà un parametro di soglia.
 
 
+## Commenti e considerazioni finali {-}
 
+In questa dispensa le densità continue che useremo più spesso sono la distribuzione gaussiana e la distribuzione Beta. Faremo un uso limitato della distribuzione $t$ di Student e della distribuzione di Cauchy. Le altre distribuzioni qui descritte sono stato presentate solo per completezza. 
 

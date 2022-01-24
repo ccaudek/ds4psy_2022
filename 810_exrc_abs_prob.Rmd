@@ -1,4 +1,4 @@
-# Il teorema della probabilità totale {#appendix:exrc-abs-prob}
+# Il teorema della probabilità assoluta {#appendix:exrc-abs-prob}
 
 ::: {.exercise}
 Consideriamo un'urna che contiene 5 palline rosse e 2 palline verdi. Due

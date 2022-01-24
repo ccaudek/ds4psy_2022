@@ -4,11 +4,13 @@
 source("_common.R")
 ```
 
-Per descrivere la relazione tra due variabili casuali è necessario calcolare la *covarianza* e la *correlazione*. Il calcolo di questi due indici richiede la conoscenza della funzione di probabilità congiunta. Obiettivo di questo Capitolo è descrivere la funzione di probabilità congiunta di due variabili casuali; esamineremo in dettaglio il caso discreto.
+La probabilità congiunta è la probabilità che due o più eventi si verifichino contemporaneamente. In questo Captitolo verrà esaminato in dettaglio il caso discreto. 
 
 ## Funzione di probabilità congiunta
 
-Dopo aver trattato della distribuzione di probabilità di una variabile casuale, la quale associa ad ogni evento elementare dello spazio campionario uno ed un solo numero reale, è naturale estendere questo concetto al caso di due o più variabili casuali. Iniziamo a descrivere il caso discreto con un esempio. Consideriamo l'esperimento casuale corrispondente al lancio di tre monete equilibrate. Lo spazio campionario è
+Dopo aver trattato della distribuzione di probabilità di una variabile casuale, la quale associa ad ogni evento elementare dello spazio campionario uno ed un solo numero reale, è naturale estendere questo concetto al caso di due o più variabili casuali. 
+
+Iniziamo a descrivere il caso discreto con un esempio. Consideriamo l'esperimento casuale corrispondente al lancio di tre monete equilibrate. Lo spazio campionario è
 
 $$
 \Omega = \{TTT, TTC, TCT, CTT, CCT, CTC, TCC, CCC\}.
@@ -63,9 +65,13 @@ P(x, y) = P(X = x, Y = y).
 $$
 ::: 
 
-\noindent
 Il termine "congiunta" deriva dal fatto che questa probabilità è legata al verificarsi di una coppia di valori, il primo associato alla variabile casuale $X$ ed il secondo alla variabile casuale $Y$. Nel caso di due sole variabili casuali si parla di distribuzione bivariata, mentre nel caso di più variabili casuali si parla di distribuzione multivariata.
 
+La regola della catena, $P(A \cap B) = P(A)P(B \mid A)$, permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate. Nel caso di 4 eventi, per esempio, la regola della catena diventa
+
+$$
+P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3).
+$$
 
 ### Proprietà
 
@@ -92,24 +98,6 @@ Per trovare la probabilità richiesta dobbiamo semplicemente sommare le probabil
 P_{XY}(X+Y \leq 1) = P_{XY}(0, 0) + P_{XY}(1, 0)= 3/8.\notag
 \end{equation}
 ::: 
-
-### Regola della catena
-
-Regola della catena permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate.
-
-::: {.definition}
-Dati due eventi $A$ e $B$, la regola della catena afferma che
-
-$$
-P(A \cap B) = P(A)P(B \mid A).
-$$
-::: 
-
-Nel caso di 4 eventi, per esempio, la regola della catena diventa
-
-$$
-P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3).
-$$
 
 ### Funzioni di probabilità marginali {#sec:marg-distr-discr}
 

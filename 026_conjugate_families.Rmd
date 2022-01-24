@@ -1,6 +1,6 @@
 # Distribuzioni a priori coniugate {#chapter-distr-coniugate}
 
-```{r c026, include = FALSE}
+```{r, include = FALSE}
 source("_common.R")
 ```
 

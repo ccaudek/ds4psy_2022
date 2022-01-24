@@ -1,4 +1,4 @@
-# Funzione di densità di probabilità {#chapter-intro-density-function}
+# La densità di probabilità {#chapter-intro-density-function}
 
 ```{r c019, include = FALSE}
 source("_common.R")
@@ -21,7 +21,7 @@ plot_spinner <-
     aes(x = factor(1), y = prob, fill = value)
   ) +
   geom_bar(
-    stat = "identity", position = "fill", fill = "#ffffe8",
+    stat = "identity", position = "fill", fill = "#D3D3D3",
     color = "black", size = 0.25
   ) +
   coord_polar(theta = "y") +
@@ -333,5 +333,31 @@ Per descrivere le probabilità che possono essere associate ad una variabile cas
 - $p(a < x < b) = \int_a^b p(x) \,\operatorname {d}\!x$, se $a \leq b$, ovvero, l'area sottesa dalla $p(y)$ tra due punti $a$ e $b$ corrisponde alla probabilità che la v.c. $x$ assuma un valore compresto tra questi due estremi.
 
 *Interpretazione.* È possibile che $p(x) > 1$, quindi una densità di probabilità non può essere interpretata come una probabilità. Piuttosto, la densità $p(x)$ può essere utilizzata per confrontare la plausibilità relativa di diversi valori $X$. Considerata una variabile casuale $X$ di cui è disponibile un insieme di realizzazioni, tanto maggiore è $p(x_k)$ rispetto a $p(x_l)$, tanto più grande sarà la nostra certezza che valori nell'intorno di $x_k$ verranno osservati con maggiore frequenza di valori nell'intorno di $x_l$.
+
+
+## La funzione di ripartizione
+
+La funzione di ripartizione $F(X)$ è quella funzione che associa a ogni valore di una variabile aleatoria $X$ la probabilità che la variabile assuma valore minore o uguale a un prefissato valore $x_k$.
+
+La funzione di ripartizione è sempre non negativa, monotona non decrescente tra $0$ e $1$, tale che:
+
+$$
+\lim_{x \to -\infty} F_x(X) = F_X(-\infty) = 0, \quad \lim_{x \to +\infty} F_X(X) = F_X(+\infty) = 1.
+$$
+
+Se $X$ è una variabile aleatoria discreta, tale funzione può essere espressa nel seguente modo:
+
+$$
+F(x_k) = P(X \leq x_k) = \sum_{i=1}^k P(X = x_i),
+$$
+
+dove $P(X = xi)$ rappresenta la probabilità che la variabile aleatoria $X$ assuma la modalità $x_i$. 
+
+Se $X$ è una variabile aleatoria continua allora la funzione di ripartizione è:
+
+$$
+F(x_k) = P(X \leq x_k) = \int_{-\infty}^{x_k} f(x) \,\operatorname {d}\!x .
+$$
+
 
 

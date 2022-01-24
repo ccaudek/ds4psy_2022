@@ -4,7 +4,7 @@
 
 # Inferenza bayesiana {#ch:intro-bayes-inference}
 
-```{r c025, include = FALSE}
+```{r, include = FALSE}
 source("_common.R")
 ```
 
@@ -12,102 +12,94 @@ La moderna statistica bayesiana viene per lo più eseguita utilizzando un lingua
 
 ## Modellizzazione bayesiana
 
-Seguendo [@martin2022bayesian], possiamo descrivere il processo della modellazione bayesiana distinguendo 3 passaggi.
+L'analisi bayesiana corrisponde alla costruzione di un modello statistico che si può rappresentare con una quaterna
+
+$$
+(\Omega, p(y \mid \theta), p(\theta), \theta \in \Theta),
+$$
+
+dove $\Omega$ è l'insieme di tutti i possibili risultati ottenuti dall'esperimento casuale e $p(y \mid \theta)$ è una famiglia di leggi di probabilità, indicizzata dal parametro $\theta \in \Theta$, che descrive l'incertezza sull'esito dell'esperimento. Secondo l'approccio bayesiano, il parametro incognito $\theta$ è considerato una variabile casuale che segue la legge di probabilità $p(\theta)$. L'incertezza su $\theta$ è la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima di avere osservato il risultato dell'esperimento e prende il nome di _distribuzione a priori_. La costruzione del modello statistico passa  attraverso la scelta di una densità $p(y \mid \theta)$ che rappresenta, in senso probabilistico, il fenomeno d'interesse, e attraverso la scelta di una distribuzione a priori $p(\theta)$.
+
+In ambito bayesiano le informazioni che si hanno a priori sul parametro di interesse $\theta$, contenute in $p(\theta)$, vengono aggiornate attraverso quelle provenienti dal campione osservato $y = (y_1, \dots, y_n)$ contenute nella funzione $p(y \mid \theta)$, che, osservata come funzione di $\theta$ per $y$, prende il nome di _funzione di verosimiglianza_. L'aggiornamento delle informazioni avviene attraverso la formula di Bayes
+
+\begin{equation}
+p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int_{\Theta}p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta} \quad \theta \in \Theta,
+ (\#eq:bayes-intro)
+\end{equation}
+
+in cui $p(\theta \mid y)$ prende il nome di _distribuzione a posteriori_.
+
+Il denominatore del Teorema di Bayes \@ref(eq:bayes-intro), che costituisce la costante di normalizzazione, è la densità marginale dei dati descritta nel Paragrafo XX. In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio le medie a posteriori di funzioni di $\theta$. 
+
+Le quantità di interesse della statistica bayesiana sono espresse nei termini di integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente e, per questo motivo, si ricorre a metodi di numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC).
+
+Seguendo [@martin2022bayesian], possiamo descrivere la modellazione bayesiana distinguendo tre passaggi.
 
 1. Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, progettiamo un modello combinando e trasformando variabili casuali.
-2. Usiamo il teorema di Bayes per condizionare i nostri modelli ai dati disponibili. Chiamiamo questo processo "inferenza" e come risultato otteniamo una distribuzione a posteriori. Ci auguriamo che i dati riducano l'incertezza per i possibili valori dei parametri, sebbene questo non sia garantito per nessun modello bayesiano.
-3. Critichiamo il modello verificando se il modello abbia senso utilizzando criteri diversi, inclusi i dati e la nostra conoscenza del dominio. Poiché generalmente siamo incerti sui modelli stessi, a volte confrontiamo diversi modelli.
+2. Usiamo il teorema di Bayes per condizionare i nostri modelli ai dati disponibili. Chiamiamo questo processo "inferenza" e come risultato otteniamo una distribuzione a posteriori. 
+3. Critichiamo il modello verificando se il modello abbia senso utilizzando criteri diversi, inclusi i dati e la nostra conoscenza del dominio. Poiché generalmente siamo incerti sui modelli stessi, a volte confrontiamo modelli diversi.
 
-Questi 3 passaggi vengono eseguiti in modo iterativo e danno luogo a quello che si chiama un "flusso di lavoro bayesiano" (_bayesian workflow_).
+Questi tre passaggi vengono eseguiti in modo iterativo e danno luogo a quello che è chiamato "flusso di lavoro bayesiano" (_bayesian workflow_).
 
-::: {.remark}
-Un modello è uno strumento concettuale che viene utilizzato per risolvere uno specifico problema. In quanto tale, è generalmente più conveniente parlare dell'adeguatezza del modello a un dato problema che di determinare la sua intrinseca correttezza. I modelli esistono esclusivamente come l'ausilio per il raggiungimento di un qualche ulteriore obiettivo. Il problema che i modelli bayesiani cercano di risolvere è quello dell'inferenza^[In termini colloquiali, l'inferenza può essere descritta come la capacità di giungere a conclusioni basate su evidenze e ragionamenti. L'inferenza bayesiana è una particolare forma di inferenza statistica basata sulla combinazione di distribuzioni di probabilità che ha il fine di ottenere altre distribuzioni di probabilità. Nello specifico, la regola di Bayes ci fornisce un metodo per giungere alla quantificazione della plausibilità di una teoria alla luce dei dati osservati.]. 
-:::
+<!-- ::: {.remark} -->
+<!-- Un modello è uno strumento concettuale che viene utilizzato per risolvere uno specifico problema. In quanto tale, è generalmente più conveniente parlare dell'adeguatezza del modello a un dato problema che di determinare la sua intrinseca correttezza. I modelli esistono esclusivamente come l'ausilio per il raggiungimento di un qualche ulteriore obiettivo. Il problema che i modelli bayesiani cercano di risolvere è quello dell'inferenza^[In termini colloquiali, l'inferenza può essere descritta come la capacità di giungere a conclusioni basate su evidenze e ragionamenti. L'inferenza bayesiana è una particolare forma di inferenza statistica basata sulla combinazione di distribuzioni di probabilità che ha il fine di ottenere altre distribuzioni di probabilità. Nello specifico, la regola di Bayes ci fornisce un metodo per giungere alla quantificazione della plausibilità di una teoria alla luce dei dati osservati.].  -->
+<!-- ::: -->
 
-I modelli bayesiani, computazionali o meno, hanno due caratteristiche distintive:
+<!-- I modelli bayesiani, computazionali o meno, hanno due caratteristiche distintive: -->
 
-- Le quantità incognite sono descritte utilizzando le distribuzioni di probabilità. Queste quantità incognite sono chiatame parametri.
-- Il teorema di Bayes viene utilizzato per aggiornare i valori dei parametri condizionati ai dati. Possiamo anche concepire questo processo come una riallocazione delle probabilità.
-
-## Inferenza bayesiana come un problema inverso
-
-In questo capitolo ci focalizzeremo sul passaggio 2 descritto sopra. Nello specifico, descrivemo in dettaglio il significato dei tre i termini a destra del segno di uguale nella formula di Bayes: la distribuzione a priori e la funzione di verosimiglianza al numeratore, e la verosimiglianza marginale al denominatore.
+<!-- - Le quantità incognite sono descritte utilizzando le distribuzioni di probabilità. Queste quantità incognite sono chiatame parametri. -->
+<!-- - Il teorema di Bayes viene utilizzato per aggiornare i valori dei parametri condizionati ai dati. Possiamo anche concepire questo processo come una riallocazione delle probabilità. -->
 
 ### Notazione
 
-Per fissare la notazione, nel seguito $y$ rappresenterà i dati e $\theta$ rappresenterà i parametri incogniti di un modello statistico. Sia $y$ che $\theta$ saranno concepiti come delle variabili casuali.^[Nell'approccio bayesiano si fa riferimento ad un modello probabilistico $f(y \mid \theta)$ rappresentativo del fenomeno d'interesse noto a meno del valore assunto dal parametro (o dei parametri) che lo caratterizza. Si fa inoltre riferimento ad una distribuzione congiunta (di massa o di densità di probabilità) $f(y, \theta)$. Entrambi gli argomenti della funzione $y$ e $\theta$ hanno natura di variabili casuali, laddove la nostra incertezza relativa a $y$ è dovuta alla naturale variabilità del fenomeno indagato (_variabilità aleatoria_), mentre la nostra incertezza relativa a $\theta$ è dovuta alla mancata conoscenza del suo valore numerico (_variabilità epistemica_).] Con $x$ verranno invece denotate le quantità note, come ad esempio i predittori del modello lineare. Per rappresentare in un modo conciso i modelli probabilistici viene usata una notazione particolare. Ad esempio, invece di scrivere $p(\theta) = \mbox{Beta}(1, 1)$
+Per fissare la notazione, nel seguito $y$ rappresenterà i dati e $\theta$ rappresenterà i parametri incogniti di un modello statistico. Sia $y$ che $\theta$ vengono concepiti come variabili casuali. Con $x$ vengono invece denotate le quantità note, come ad esempio i predittori del modello lineare. Per rappresentare in un modo conciso i modelli probabilistici viene usata una notazione particolare. Ad esempio, invece di scrivere $p(\theta) = \mbox{Beta}(1, 1)$
 scriviamo $\theta \sim \mbox{Beta}(1, 1)$. Il simbolo "$\sim$" viene spesso letto "è distribuito come". Possiamo anche pensare che significhi che $\theta$ costituisce un campione casuale estratto dalla distribuzione Beta(1, 1). Allo stesso modo, ad esempio, la verosimiglianza del modello binomiale può essere scritta come $y \sim \text{Bin}(n, \theta)$.
 
-### Funzioni di probabilità
+<!-- ### Funzioni di probabilità -->
 
-Una caratteristica attraente della statistica bayesiana è che la nostra credenza "a posteriori" viene sempre descritta mediante una distribuzione. Questo fatto ci consente di fare affermazioni probabilistiche sui parametri, come ad esempio: "la probabilità che un parametro sia positivo è 0.35"; oppure, "il valore più probabile di $\theta$ è 12 e abbiamo probabilità del 50% che $\theta$ sia compreso tra 10 e 15". Inoltre, possiamo pensare alla distribuzione a posteriori come alla logica conseguenza della combinazione di un modello con i dati; quindi, abbiamo la garanzia che le affermazioni probabilistiche associate alla distribuzione a posteriori siano matematicamente coerenti. Dobbiamo solo ricordare che tutte queste belle proprietà matematiche sono valide solo nel mondo platonico delle idee dove esistono oggetti matematici come sfere, distribuzioni gaussiane e catene di Markov. Quando passiamo dalla purezza della matematica al disordine della matematica applicata al mondo reale, dobbiamo sempre tenere a mente che i nostri risultati sono condizionati, non solo dai dati, ma anche dai modelli. Di conseguenza, dati errati e/o modelli errati conducono facilmente a conclusioni prive di senso, anche se matematicamente coerenti. È dunque necessario conservare sempre una sana quota di scetticismo relativamente ai nostri dati, modelli e risultati [@martin2022bayesian].
+<!-- Una caratteristica attraente della statistica bayesiana è che la nostra credenza "a posteriori" viene sempre descritta mediante una distribuzione. Questo fatto ci consente di fare affermazioni probabilistiche sui parametri, come ad esempio: "la probabilità che un parametro sia positivo è 0.35"; oppure, "il valore più probabile di $\theta$ è 12 e abbiamo probabilità del 50% che $\theta$ sia compreso tra 10 e 15". Inoltre, possiamo pensare alla distribuzione a posteriori come alla logica conseguenza della combinazione di un modello con i dati; quindi, abbiamo la garanzia che le affermazioni probabilistiche associate alla distribuzione a posteriori siano matematicamente coerenti. Dobbiamo solo ricordare che tutte queste belle proprietà matematiche sono valide solo nel mondo platonico delle idee dove esistono oggetti matematici come sfere, distribuzioni gaussiane e catene di Markov. Quando passiamo dalla purezza della matematica al disordine della matematica applicata al mondo reale, dobbiamo sempre tenere a mente che i nostri risultati sono condizionati, non solo dai dati, ma anche dai modelli. Di conseguenza, dati errati e/o modelli errati conducono facilmente a conclusioni prive di senso, anche se matematicamente coerenti. È dunque necessario conservare sempre una sana quota di scetticismo relativamente ai nostri dati, modelli e risultati [@martin2022bayesian]. -->
 
-Avendo detto questo, nell'aggiornamento bayesiano (dai dati ai parametri) vengono utilizzate le seguenti distribuzioni di probabilità (o di massa di probabilità): 
+<!-- Avendo detto questo, nell'aggiornamento bayesiano (dai dati ai parametri) vengono utilizzate le seguenti distribuzioni di probabilità (o di massa di probabilità):  -->
 
-- la *distribuzione a priori* $p(\theta)$ --- la credenza iniziale (prima di avere osservato i dati $Y = y$) riguardo a $\theta$;
-- la *funzione di verosimiglianza* $p(y \mid \theta)$ --- quanto sono compatibili i dati osservati $Y = y$ con i diversi valori possibili di $\theta$? 
-- la *verosimiglianza marginale* $p(y)$ --- costante di normalizzazione: qual è la probabilità complessiva di osservare i dati $Y = y$? In termini formali:
+<!-- - la *distribuzione a priori* $p(\theta)$ --- la credenza iniziale (prima di avere osservato i dati $Y = y$) riguardo a $\theta$; -->
+<!-- - la *funzione di verosimiglianza* $p(y \mid \theta)$ --- quanto sono compatibili i dati osservati $Y = y$ con i diversi valori possibili di $\theta$?  -->
+<!-- - la *verosimiglianza marginale* $p(y)$ --- costante di normalizzazione: qual è la probabilità complessiva di osservare i dati $Y = y$? In termini formali: -->
 
-$$
-p(y) = \int_\theta p(y, \theta) \,\operatorname {d}\!\theta = \int_\theta p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta.
-$$
+<!-- $$ -->
+<!-- p(y) = \int_\theta p(y, \theta) \,\operatorname {d}\!\theta = \int_\theta p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta. -->
+<!-- $$ -->
 
-- la *distribuzione a posteriori* $p(\theta \mid y)$ --- la nuova credenza relativa alla credibilità di ciascun valore $\theta$ dopo avere osservato i dati $Y = y$.
+<!-- - la *distribuzione a posteriori* $p(\theta \mid y)$ --- la nuova credenza relativa alla credibilità di ciascun valore $\theta$ dopo avere osservato i dati $Y = y$. -->
 
 
-## La regola di Bayes
+<!-- ## La regola di Bayes -->
 
-Assumendo un modello statistico, la formula di Bayes consente di giungere alla distribuzione a posteriori $p(\theta \mid y)$ per il parametro di interesse $\theta$, come indicato dalla seguente catena di equazioni^[In realtà, avremmo dovuto scrivere $p(\theta \mid y, \mathcal{M})$, in quanto non condizioniamo la stima di $\theta$ solo rispetto ai dati $y$ ma anche ad un modello probabilistico $\mathcal{M}$ che viene assunto quale meccanismo generatore dei dati. Per semplicità di notazione, omettiamo il riferimento a $\mathcal{M}$.]:
+<!-- Assumendo un modello statistico, la formula di Bayes consente di giungere alla distribuzione a posteriori $p(\theta \mid y)$ per il parametro di interesse $\theta$, come indicato dalla seguente catena di equazioni^[In realtà, avremmo dovuto scrivere $p(\theta \mid y, \mathcal{M})$, in quanto non condizioniamo la stima di $\theta$ solo rispetto ai dati $y$ ma anche ad un modello probabilistico $\mathcal{M}$ che viene assunto quale meccanismo generatore dei dati. Per semplicità di notazione, omettiamo il riferimento a $\mathcal{M}$.]: -->
 
-\begin{align}
-p(\theta \mid y)  &= \displaystyle \frac{p(\theta,y)}{p(y)}
- \ \ \ \ \ \mbox{ [def. prob. condizionata]}
-\\
-&= \displaystyle \frac{p(y \mid \theta) \, p(\theta)}{p(y)}
- \ \ \ \ \ \mbox{ [legge prob. composta]}
-\\
-&=  \displaystyle \frac{p(y \mid\theta) \, p(\theta)}
-                        {\int_{\Theta} p(y,\theta) \, \,\operatorname {d}\!\theta}
- \ \ \ \ \ \mbox{ [legge prob. totale]}
-\\
-&= \displaystyle \frac{p(y \mid\theta) \, p(\theta)}
-                        {\int_{\Theta} p(y \mid\theta) \, p(\theta) \, \,\operatorname {d}\!\theta}
- \ \ \ \ \ \mbox{ [legge prob. composta]}
-\\
-& \propto \displaystyle p(y \mid\theta) \, p(\theta)
-(\#eq:bayesmodel)
-\end{align}
+<!-- \begin{align} -->
+<!-- p(\theta \mid y)  &= \displaystyle \frac{p(\theta,y)}{p(y)} -->
+<!--  \ \ \ \ \ \mbox{ [def. prob. condizionata]} -->
+<!-- \\ -->
+<!-- &= \displaystyle \frac{p(y \mid \theta) \, p(\theta)}{p(y)} -->
+<!--  \ \ \ \ \ \mbox{ [legge prob. composta]} -->
+<!-- \\ -->
+<!-- &=  \displaystyle \frac{p(y \mid\theta) \, p(\theta)} -->
+<!--                         {\int_{\Theta} p(y,\theta) \, \,\operatorname {d}\!\theta} -->
+<!--  \ \ \ \ \ \mbox{ [legge prob. totale]} -->
+<!-- \\ -->
+<!-- &= \displaystyle \frac{p(y \mid\theta) \, p(\theta)} -->
+<!--                         {\int_{\Theta} p(y \mid\theta) \, p(\theta) \, \,\operatorname {d}\!\theta} -->
+<!--  \ \ \ \ \ \mbox{ [legge prob. composta]} -->
+<!-- \\ -->
+<!-- & \propto \displaystyle p(y \mid\theta) \, p(\theta) -->
+<!-- (\#eq:bayesmodel) -->
+<!-- \end{align} -->
 
-La regola di Bayes "inverte" la probabilità della distribuzione a posteriori $p(\theta \mid y)$, esprimendola nei termini della funzione di verosimiglianza $p(y \mid \theta)$ e della distribuzione a priori $p(\theta)$. L'ultimo passo è importante per la stima della distribuzione a posteriori mediante i metodi Monte Carlo a catena di Markov, in quanto per questi metodi richiedono soltanto che le funzioni di probabilità siano definite a meno di una costante di proporzionalità. In altri termini, per la maggior parte degli scopi dell'inferenza inversa, è sufficiente calcolare la densità a posteriori non normalizzata, ovvero è possibile ignorare il denominatore bayesiano $p(y)$. La distribuzione a posteriori non normalizzata, dunque, si riduce al prodotto della varosimiglianza e della distribuzione a priori.
+<!-- La regola di Bayes "inverte" la probabilità della distribuzione a posteriori $p(\theta \mid y)$, esprimendola nei termini della funzione di verosimiglianza $p(y \mid \theta)$ e della distribuzione a priori $p(\theta)$. L'ultimo passo è importante per la stima della distribuzione a posteriori mediante i metodi Monte Carlo a catena di Markov, in quanto per questi metodi richiedono soltanto che le funzioni di probabilità siano definite a meno di una costante di proporzionalità. In altri termini, per la maggior parte degli scopi dell'inferenza inversa, è sufficiente calcolare la densità a posteriori non normalizzata, ovvero è possibile ignorare il denominatore bayesiano $p(y)$. La distribuzione a posteriori non normalizzata, dunque, si riduce al prodotto della varosimiglianza e della distribuzione a priori. -->
 
-Possiamo dire che la regola di Bayes viene usata per aggiornare le credenze a priori su $\theta$ (ovvero, la distribuzione a priori) in modo tale da produrre le nuove credenze a posteriori $p(\theta \mid y)$ che combinano le informazioni fornite dai dati $y$ con le credenze precedenti. La distribuzione a posteriori riflette dunque l'aggiornamento delle credenze del ricercatore alla luce dei dati. La distribuzione a posteriori $p(\theta \mid y)$ contiene tutta l'informazione riguardante il parametro $\theta$ e viene utilizzata per produrre indicatori sintetici, per la determinazione di stime puntuali o intervallari, e per la verifica d'ipotesi.
+<!-- Possiamo dire che la regola di Bayes viene usata per aggiornare le credenze a priori su $\theta$ (ovvero, la distribuzione a priori) in modo tale da produrre le nuove credenze a posteriori $p(\theta \mid y)$ che combinano le informazioni fornite dai dati $y$ con le credenze precedenti. La distribuzione a posteriori riflette dunque l'aggiornamento delle credenze del ricercatore alla luce dei dati. La distribuzione a posteriori $p(\theta \mid y)$ contiene tutta l'informazione riguardante il parametro $\theta$ e viene utilizzata per produrre indicatori sintetici, per la determinazione di stime puntuali o intervallari, e per la verifica d'ipotesi. -->
 
-La \@ref(eq:bayesmodel) rende evidente che, in ottica bayesiana, la quantità di interesse $\theta$ non è fissata (come nell'impostazione frequentista), ma è una variabile casuale la cui distribuzione di probabilità è influenzata sia dalle informazioni a priori sia dai dati a disposizione. In altre parole, nell'approccio bayesiano non esiste un valore vero di $\theta$, ma invece lo scopo è quello di  fornire invece un giudizio di probabilità (o di formulare una "previsione", nel linguaggio di de Finetti). Prima delle osservazioni, sulla base delle nostre conoscenze assegnamo a $\theta$ una distribuzione a priori di probabilità. Dopo le osservazioni, correggiamo il nostro giudizio e assegniamo a $\theta$ una distribuzione a posteriori di probabilità. 
-
-## Modello probabilistico
-
-Poniamoci il problema di analizzare i dati riportati da @zetschefuture2019 (si veda l'appendice \@ref(appendix:future-exp)). Tali dati possono essere considerati la manifestazione di una variabile casuale Bernoulliana e corrispondono a 23 "successi" in 30 prove. Se i dati rappresentano una proporzione allora, quale meccanismo generatore dei dati, possiamo adottare un modello probabilistico binomiale: 
-
-\begin{equation}
-y  \sim \mbox{Bin}(n, \theta),
-(\#eq:binomialmodel)
-\end{equation}
-
-laddove $\theta$ è la probabiltà che una prova Bernoulliana assuma il valore 1 e $n$ corrisponde al numero di prove Bernoulliane. Questo modello assume che le prove Bernoulliane $y_i$ che costituiscono il campione $y$ siano tra loro indipendenti e che ciascuna abbia la stessa probabilità $\theta \in [0, 1]$ di essere un "successo" (valore 1). In altre parole, il modello generatore dei dati avrà una funzione di massa di probabilità 
-
-$$
-p(y \mid \theta)
-\ = \
-\mbox{Bin}(y \mid n, \theta).
-$$
-
-Nei capitoli precedenti è stato mostrato come, sulla base del modello binomiale, sia possibile assegnare una probabilità a ciascun possibile valore $y \in \{0, 1, \dots, n\}$ _assumendo noto il valore del parametro_ $\theta$. Ma ora abbiamo il problema inverso, ovvero quello di fare inferenza su $\theta$ alla luce dei dati campionari $y$. In altre parole, riteniamo di conoscere il modello probabilistico che ha generato i dati, ma di tale modello non conosciamo i parametri: vogliamo dunque ottenere informazioni su $\theta$ avendo osservato i dati $y$.
-
-Nel modello probabilistico che stiamo esaminando, il termine $n$ viene trattato come una costante nota e $\theta$ come una *variabile casuale*. Dato che $\theta$ è incognito, ma abbiamo a disposione i dati $y$, svolgeremo l'inferenza su $\theta$ mediante la regola di Bayes per determinare la distribuzione a posteriori $p(\theta \mid y)$. 
-
-::: {.remark}
-Si noti che il modello probabilistico \@ref(eq:binomialmodel) non spiega perché, in ciascuna realizzazione, $Y$ assuma un particolare valore. Questo modello deve piuttosto essere inteso come un costrutto matematico che ha lo scopo di riflettere alcune proprietà del processo corrispondente ad una sequenza di prove Bernoulliane. Una parte del lavoro della ricerca in tutte le scienze consiste nel verificare le assunzioni dei modelli e, se necessario, nel migliorare i modelli dei fenomeni considerati. Un modello viene giudicato in relazione al suo obiettivo. Se l'obiettivo del modello molto semplice che stiamo discutendo è quello di prevedere la proporzione di casi nei quali $y_i = 1$, $i = 1, \dots, n$, allora un modello con un solo parametro come quello che abbiamo introdotto sopra può essere sufficiente. Ma l'evento $y_i=1$ (supponiamo: superare l'esame di Psicometria, oppure risultare positivi al COVID-19) dipende da molti fattori e se vogliamo rendere conto di una tale complessità, un modello come quello che stiamo discutendo qui certamente non sarà sufficiente. In altre parole, modelli sempre migliori vengono proposti, laddove ogni successivo modello è migliore di quello precedente in quanto ne migliora le capacità di previsione, è più generale, o è più elegante. Per concludere, un modello è un costrutto matematico il cui scopo è quello di rappresentare un qualche aspetto della realtà. Il valore di un tale strumento dipende dalla sua capacità di ottenere lo scopo per cui è stato costruito.
-:::
+<!-- La \@ref(eq:bayesmodel) rende evidente che, in ottica bayesiana, la quantità di interesse $\theta$ non è fissata (come nell'impostazione frequentista), ma è una variabile casuale la cui distribuzione di probabilità è influenzata sia dalle informazioni a priori sia dai dati a disposizione. In altre parole, nell'approccio bayesiano non esiste un valore vero di $\theta$, ma invece lo scopo è quello di  fornire invece un giudizio di probabilità (o di formulare una "previsione", nel linguaggio di de Finetti). Prima delle osservazioni, sulla base delle nostre conoscenze assegnamo a $\theta$ una distribuzione a priori di probabilità. Dopo le osservazioni, correggiamo il nostro giudizio e assegniamo a $\theta$ una distribuzione a posteriori di probabilità.  -->
 
 ## Distribuzioni a priori
 
@@ -116,10 +108,6 @@ Quando adottiamo un approccio bayesiano, i parametri della distribuzione di rife
 La distribuzione a priori sui valori dei parametri $p(\theta)$ è parte integrante del modello statistico. Ciò implica che due modelli bayesiani possono condividere la stessa funzione di verosimiglianza, ma tuttavia devono essere considerati come modelli diversi se specificano diverse distribuzioni a priori. Ciò significa che, quando diciamo "Modello binomiale", intendiamo in realtà un'intera classe di modelli, ovvero tutti i possibili modelli che hanno la stessa verosimiglianza ma diverse distribuzioni a priori su $\theta$.
 
 Nell'analisi dei dati bayesiana, la distribuzione a priori $p(\theta)$ codifica le credenze del ricercatore a proposito dei valori dei parametri, prima di avere osservato i dati. Idealmente, le credenze a priori che supportano la specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti, o altre motivazioni giustificabili. 
-
-Quando una nuova osservazione (p. es., vedo un cigno bianco) corrisponde alle mie credenze precedenti (p. es., la maggior parte dei cigni sono bianchi) la nuova osservazione rafforza le mie credenze precedenti: più nuove osservazioni raccolgo (p. es., più cigni bianchi vedo), più forti diventano le mie credenze precedenti. Tuttavia, quando una nuova osservazione (p. es., vedo un cigno nero) non corrisponde alle mie credenze precedenti, ciò contribuisce a diminuire la certezza che attribuisco alle mie credenze: tanto maggiori diventano le osservazioni non corrispondenti alle mie credenze (p. es., più cigni neri vedo ), tanto più si indeboliscono le mie credenze. Fondamentalmente, tanto più forti sono le mie credenze precedenti, di tante più osservazioni incompatibili (ad esempio, cigni neri) ho bisogno per cambiare idea.
-
-Pertanto, da una prospettiva bayesiana, l'incertezza intorno ai parametri di un modello *dopo* aver visto i dati (ovvero le distribuzioni a posteriori) deve includere anche le credenze precedenti. Se questo modo di ragionare vi sembra molto intuitivo, non è una coincidenza: vi sono infatti diverse teorie psicologiche che prendono l'aggiornamento bayesiano come modello di funzionamento di diversi processi cognitivi.
 
 ### Tipologie di distribuzioni a priori
 
@@ -132,7 +120,7 @@ La figura seguente mostra esempi di distribuzioni a priori non informative, debo
 - *fortemente informativa* : $\theta_c \sim \mbox{Beta}(50,20)$;
 - *valore puntuale* : $\theta_c \sim \mbox{Beta}(\alpha, \beta)$ con $\alpha, \beta \rightarrow \infty$ e $\frac{\alpha}{\beta} = \frac{5}{2}$.
 
-```{r ch-03-02-models-types-of-priors, echo = F, fig.cap = "Esempi di distribuzioni a priori per il parametro $\\theta_c$ nel Modello Binomiale."}
+```{r, echo = F, fig.cap = "Esempi di distribuzioni a priori per il parametro $\\theta_c$ nel Modello Binomiale."}
 tibble(
   theta = seq(0, 1, length.out = 401),
   `non informativa` = dbeta(theta, 1, 1),
@@ -164,9 +152,13 @@ La selezione delle distribuzioni a priori è stata spesso vista come una delle s
 
 ### La distribuzione a priori per i dati di @zetschefuture2019
 
-In un problema concreto di analisi dei dati, la scelta della distribuzione a priori dipende dalle credenze a priori che vogliamo includere nell'analisi dei dati. Se non abbiamo alcuna informazione a priori, potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri $\alpha=1$ e $\beta=1$. Questa, tuttavia, è una cattiva idea perché il risultato ottenuto non è invariante a seconda della trasformazione della scala dei dati (ad esempio, se esprimiamo l'altezza in cm piuttosto che in m). Il problema della _riparametrizzazione_ verrà discusso nel Capitolo ?? **TODO**. È invece raccomandato usare una distribuzione a priori poco informativa, come ad esempio $\mbox{Beta}(2, 2)$.
+In un problema concreto di analisi dei dati, la scelta della distribuzione a priori dipende dalle credenze a priori che vogliamo includere nell'analisi dei dati. Se non abbiamo alcuna informazione a priori, potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri $\alpha=1$ e $\beta=1$. Questa, tuttavia, è una cattiva idea perché il risultato ottenuto non è invariante a seconda delle trasformazioni di scala dei dati. 
+<!-- Il problema della _riparametrizzazione_ verrà discusso nel Capitolo ?? **TODO**.  -->
+È invece raccomandato usare una distribuzione a priori debolmente informativa, come ad esempio $\mbox{Beta}(2, 2)$.
 
-Nella presente discussione, per fare un esempio, quale distribuzione a priori useremo una $\mbox{Beta}(2, 10)$, ovvero:
+Nella presente discussione, per fare un esempio concreto, useremo i dati riportati da @zetschefuture2019 (si veda l'appendice \@ref(appendix:future-exp)). Tali dati possono essere considerati la manifestazione di una variabile casuale Bernoulliana e corrispondono a 23 "successi" in 30 prove. 
+
+In tale contesto, ha senso usare una distribuzione a priori debolmente informativa, per esempio, $\mbox{Beta}(2, 2)$. Nel presente Capitolo, quale distribuzione a priori, useremo una $\mbox{Beta}(2, 10)$:
 
 $$
 p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}.
@@ -176,12 +168,40 @@ $$
 bayesrules::plot_beta(alpha = 2, beta = 10, mean = TRUE, mode = TRUE)
 ```
 
-\noindent
-La $\mbox{Beta}(2, 10)$ esprime la credenza che $\theta$ assume valori $< 0.5$, con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile, nel caso dell'esempio in discussione. Adotteremo una tale distribuzione a priori solo per scopi didattici, per esplorare le conseguenze di tale scelta (molto più sensato sarebbe stato usare $\mbox{Beta}(2, 2)$).
+La $\mbox{Beta}(2, 10)$ esprime la credenza che $\theta$ assume valori $< 0.5$, con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile nel caso dell'esempio in discussione. Una tale distribuzione a priori verrà usata solo per scopi didattici, per esplorare le conseguenze di tale scelta sulla distribuzione a posteriori.
 
-## Verosimiglianza
+## La funzione di verosimiglianza
 
-Oltre alla distribuzione a priori di $\theta$, nel numeratore della regola di Bayes troviamo la funzione di verosimigliana. Iniziamo dunque con una definizione.
+Se i dati di @zetschefuture2019 possono essere riassunti da una proporzione allora, quale meccanismo generatore dei dati, è sensato adottare un modello probabilistico binomiale: 
+
+\begin{equation}
+y  \sim \mbox{Bin}(n, \theta),
+(\#eq:binomialmodel)
+\end{equation}
+
+laddove $\theta$ è la probabiltà che una prova Bernoulliana assuma il valore 1 e $n$ corrisponde al numero di prove Bernoulliane. Questo modello assume che le prove Bernoulliane $y_i$ che costituiscono il campione $y$ siano tra loro indipendenti e che ciascuna abbia la stessa probabilità $\theta \in [0, 1]$ di essere un "successo" (valore 1). In altre parole, il modello generatore dei dati avrà una funzione di massa di probabilità 
+
+$$
+p(y \mid \theta)
+\ = \
+\mbox{Bin}(y \mid n, \theta).
+$$
+
+Nei capitoli precedenti è stato mostrato come, sulla base del modello binomiale, sia possibile assegnare una probabilità a ciascun possibile valore $y \in \{0, 1, \dots, n\}$ _assumendo noto il valore del parametro_ $\theta$. Ma ora abbiamo il problema inverso, ovvero quello di fare inferenza su $\theta$ alla luce dei dati campionari $y$. In altre parole, riteniamo di conoscere il modello probabilistico che ha generato i dati, ma di tale modello non conosciamo i parametri: vogliamo dunque ottenere informazioni su $\theta$ avendo osservato i dati $y$. Esaminiamo dunque la definizione di verosimiglianza.
+
+
+<!-- Nel modello probabilistico che stiamo esaminando, il termine $n$ viene trattato come una costante nota e $\theta$ come una *variabile casuale*. Dato che $\theta$ è incognito, ma abbiamo a disposione i dati $y$, svolgeremo l'inferenza su $\theta$ mediante la regola di Bayes per determinare la distribuzione a posteriori $p(\theta \mid y)$.  -->
+
+<!-- ::: {.remark} -->
+<!-- Si noti che il modello probabilistico \@ref(eq:binomialmodel) non spiega perché, in ciascuna realizzazione, $Y$ assuma un particolare valore. Questo modello deve piuttosto essere inteso come un costrutto matematico che ha lo scopo di riflettere alcune proprietà del processo corrispondente ad una sequenza di prove Bernoulliane. Una parte del lavoro della ricerca in tutte le scienze consiste nel verificare le assunzioni dei modelli e, se necessario, nel migliorare i modelli dei fenomeni considerati. Un modello viene giudicato in relazione al suo obiettivo. Se l'obiettivo del modello molto semplice che stiamo discutendo è quello di prevedere la proporzione di casi nei quali $y_i = 1$, $i = 1, \dots, n$, allora un modello con un solo parametro come quello che abbiamo introdotto sopra può essere sufficiente. Ma l'evento $y_i=1$ (supponiamo: superare l'esame di Psicometria, oppure risultare positivi al COVID-19) dipende da molti fattori e se vogliamo rendere conto di una tale complessità, un modello come quello che stiamo discutendo qui certamente non sarà sufficiente. In altre parole, modelli sempre migliori vengono proposti, laddove ogni successivo modello è migliore di quello precedente in quanto ne migliora le capacità di previsione, è più generale, o è più elegante. Per concludere, un modello è un costrutto matematico il cui scopo è quello di rappresentare un qualche aspetto della realtà. Il valore di un tale strumento dipende dalla sua capacità di ottenere lo scopo per cui è stato costruito. -->
+<!-- ::: -->
+
+
+
+<!-- ## Verosimiglianza -->
+
+<!-- Oltre alla distribuzione a priori di $\theta$, nel numeratore della regola di Bayes troviamo la funzione di verosimigliana. Iniziamo dunque con una definizione. -->
+
 
 ::: {.definition}
 La *funzione di verosimiglianza* $\mathcal{L}(\theta \mid y) = f(y \mid \theta), \theta \in \Theta,$ è la funzione di massa o di densità di probabilità dei dati $y$ vista come una funzione del parametro sconosciuto (o dei parametri sconosciuti) $\theta$.
@@ -193,21 +213,7 @@ Spesso per indicare la verosimiglianza si scrive $\mathcal{L}(\theta)$ se è chi
 
 Notiamo un punto importante: la funzione $\mathcal{L}(\theta \mid y)$ non è una funzione di densità. Infatti, essa non racchiude un'area unitaria.
 
-In conclusione, la funzione di verosimiglianza descrive in termini relativi il sostegno empirico che $\theta \in \Theta$ riceve da $y$. Infatti, la funzione di verosimiglianza assume forme diverse al variare di $y$ (lasciamo come esercizio da svolgere la verifica di questa affermazione).
-
-### La stima di massima verosimiglianza
-
-La funzione di verosimiglianza rappresenta la "credibilità relativa" dei  valori del parametro di interesse. Ma qual è il valore più credibile? Se utilizziamo soltanto la funzione di verosimiglianza, allora la risposta è data dalla stima di massima verosimiglinza.
-
-::: {.definition}
-Un valore di $\theta$ che massimizza $\mathcal{L}(\theta \mid y)$ sullo spazio parametrico $\Theta$ è detto _stima di massima verosimiglinza_ (s.m.v.) di $\theta$ ed è indicato con $\hat{\theta}$: 
-
-\begin{equation}
-\hat{\theta} = \argmax_{\theta \in \Theta} \mathcal{L}(\theta).
-\end{equation}
-:::
-
-Il paradigma frequentista utilizza la funzione di verosimiglianza quale unico strumento per giungere alla stima del valore più credibile del parametro sconosciuto $\theta$. Tale stima corrisponde al punto di massimo della funzione di verosimiglianza. In base all'approccio bayesiano, invece, il valore più credibile del parametro sconosciuto $\theta$, anziché alla s.m.v., corrisponde invece alla moda (o media, o mediana) della distribuzione a posteriori $p(\theta \mid y)$ che si ottiene combinando la verosimiglianza $p(y \mid \theta)$ con la distribuzione a priori  $p(\theta)$. Per un approfondimento della stima di massima verosimiglianza si veda l'Appendice \@ref(appendix:max-like).
+In conclusione, la funzione di verosimiglianza descrive in termini relativi il sostegno empirico che $\theta \in \Theta$ riceve da $y$. Infatti, la funzione di verosimiglianza assume forme diverse al variare di $y$. Per un approfondimento della stima di massima verosimiglianza si veda l'Appendice \@ref(appendix:max-like).
 
 ### La log-verosimiglianza
 
