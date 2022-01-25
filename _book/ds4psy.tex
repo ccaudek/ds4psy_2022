@@ -577,7 +577,7 @@ Si noti che, nel caso di variabili continue, la verosimiglianza marginale è esp
 \hypertarget{un-esempio-concreto-2}{%
 \subsection{Un esempio concreto}\label{un-esempio-concreto-2}}
 
-Consideriamo nuovamente i dati di \citet{zetschefuture2019}. Supponiamo che nel numeratore bayesiano la verosimiglianza sia moltiplicata per una distribuzione uniforme, ovvero \(\mbox{Beta}(1, 1)\). In tali circostanze, il prodotto si riduce alla funzione di verosimiglianza. Per i dati di \citet{zetschefuture2019}, dunque, la costante di normalizzazione per si ottiene marginalizzando la funzione di verosimiglianza \(p(y = 23, n = 30 \mid \theta)\) sopra \(\theta\), ovvero risolvendo l'integrale:
+Consideriamo nuovamente i dati di \citet{zetschefuture2019}. Supponiamo che nel numeratore bayesiano la verosimiglianza sia moltiplicata per una distribuzione uniforme, ovvero \(\mbox{Beta}(1, 1)\). In tali circostanze, il prodotto si riduce alla funzione di verosimiglianza. Per i dati di \citet{zetschefuture2019}, dunque, la costante di normalizzazione si ottiene marginalizzando la funzione di verosimiglianza \(p(y = 23, n = 30 \mid \theta)\) sopra \(\theta\), ovvero risolvendo l'integrale:
 
 \begin{equation}
 p(y = 23, n = 30) = \int_0^1 \binom{30}{23} \theta^{23} (1-\theta)^{7} \,\operatorname {d}\!\theta.
@@ -656,59 +656,27 @@ Questo Capitolo ha brevemente passato in rassegna i concetti di base dell'infere
 \hypertarget{chapter-distr-coniugate}{%
 \chapter{Distribuzioni a priori coniugate}\label{chapter-distr-coniugate}}
 
-Obiettivo di questo Capitolo è fornire un esempio di derivazione della distribuzione a posteriori scegliendo quale distribuzione a priori una distribuzione coniugata. Esamineremo qui il modello Beta-Binomiale.
+Obiettivo di questo Capitolo è fornire un esempio di derivazione della distribuzione a posteriori scegliendo quale distribuzione a priori una distribuzione coniugata. Esamineremo qui il lo schema beta-binomiale.
 
-\hypertarget{pensare-a-una-proporzione-in-termini-soggettivi}{%
-\section{Pensare a una proporzione ``in termini soggettivi''}\label{pensare-a-una-proporzione-in-termini-soggettivi}}
+\hypertarget{chapter-distr-priori-coniugate}{%
+\section{Lo schema beta-binomiale}\label{chapter-distr-priori-coniugate}}
 
-Nei problemi tradizionali di teoria delle probabilità ci sono molti esempi che riguardano l'estrazizone di palline colorate da un'urna. In questi esempi, ci viene fornito il numero di palline di vari colori nell'urna e ci viene chiesto di calcolare le probabilità di vari eventi. Ad esempio, in una scatola ci sono 40 palline bianche e 20 rosse. Se estrai due palline a caso, qual è la probabilità che entrambe siano bianche?
-
-L'approccio bayesiano considera uno scenario diverso: quello in cui non conosciamo le proporzioni delle palline colorate nell'urna. Cioè, nell'esempio precedente, sappiamo solo che ci sono due tipi di palline colorate nell'urna, ma non sappiamo che 40 palline su 60 sono bianche (proporzione di bianco = \(2/3\)) e 20 delle 60 palline sono rosse (proporzione di rosso = \(1/3\)). Ci poniamo la seguente domanda: è possibile inferire le proporzioni cercate estraendo un campione di palline dall'urna e osservando i colori delle palline nel campione? Espresso in questo modo, questo diventa un problema di inferenza statistica, perché stiamo cercando di inferire la proporzione \(\pi\) della popolazione sulla base di un campione casuale della popolazione. Per continuare con l'esempio precedente, quello che ci chiediamo è: come è possibile inferire \(\pi\), la proporzione di palline rosse nella popolazione, in base al numero (per esempio, 10) di palline rosse e bianche che osserviamo nel campione?
-
-Le proporzioni assomigliano alle probabilità. Ricordiamo che sono state proposte tre diverse interpretazioni del concetto di una probabilità.
-
-\begin{itemize}
-\tightlist
-\item
-  Il punto di vista classico: è necessario enumerare tutti gli eventi elementari dello spazio campionario in cui ogni risultato è ugualmente probabile.
-\item
-  Il punto di vista frequentista: è necessario ripetere l'esperimento esperimento casuale (cioè l'estrazione del campione) molte volte in condizioni identiche.
-\item
-  La visione soggettiva: è necessario esprimere la propria opinione sulla probabilità di un evento unico e irripetibile.
-\end{itemize}
-
-La visione classica non sembra potere funzionare qui, perché sappiamo solo che ci sono due tipi di palline colorate e il numero totale di palline è 60. Anche se estraiamo un campione di 10 palline, possiamo solo osservare la proporzione di palline rosse palline nel campione. Non c'è modo per stabilire quali sono le proprietà dello spazio campionario in cui ogni risultato è ugualmente probabile.
-
-La visione frequentista potrebbe funzionare nel caso presente. Possiamo considerare il processo del campionamento (cioè l'estrazione di un campione casuale di 10 palline dall'urna) come un esperimento casuale che produce una proporzione campionaria \(p\). Potremmo quindi pensare di ripetere l'esperimento molte volte nelle stesse condizioni, ottenere molte proporzioni campionarie \(p\) e riassumere poi in qualche modo questa distribuzione di statistiche campionarie. Ripetendo l'esperimento casuale tante volte è possibile ottenere una stima abbastanza accurata della proporzione \(\pi\) di palline rosse nell'urna. Questo processo è fattibile, ma è però noioso, dispendioso in termini di tempo e soggetto a errori.
-
-La visione soggettivista concepisce invece la probabilità sconosciuta \(\pi\) come un'opinione soggettiva di cui possiamo essere più o meno sicuri. Abbiamo visto in precedenza come questa opinione soggettiva dipende da due fonti di evidenza: le nostre credenze iniziali e le nuove informazioni fornite dai dati che abbiamo osservato. Vedremo in questo capitolo come sia possibile combinare le credenze iniziali rispetto al possibile valore \(\pi\) con le evidenza fornite dai dati per giungere ad una credenza a posteriori su \(\pi\). Se le nostre credenze a priori sono espresse nei termini di una distribuzione Beta, allora è possibile derivare le proprietà della distribuzione a priori per via analitica. Questo capitolo ha lo scopo di mostrare come questo possa essere fatto.
-
-\hypertarget{il-denominatore-bayesiano}{%
-\section{Il denominatore bayesiano}\label{il-denominatore-bayesiano}}
-
-In termini generali possiamo dire che, in un problema bayesiano, i dati \(y\) provengono da una distribuzione \(p(y \mid \theta)\) e al parametro \(\theta\) viene assegnata una distribuzione a priori \(p(\theta)\). La scelta della distribuzione a priori ha importanti conseguenze di tipo computazionale. Infatti, a meno di non utilizzare particolari forme analitiche, risulta impossibile ottenere espressioni esplicite per la distribuzione a posteriori. Ciò dipende dall'espressione a denominatore della formula di Bayes
-
-\begin{equation}
-p(\theta \mid y) = \frac{p(\theta) p(y \mid \theta)}{\int p(\theta) p(y \mid \theta) \,\operatorname {d}\! \theta} \notag
-\end{equation}
-
-il cui calcolo, in generale, non è eseguibile in modo analitico in forma chiusa. Una soluzione analitica dell'integrale al denominatore della regola di Bayes è possibile solo se vengono usate distribuzioni provenienti da famiglie coniugate.
+Iniziamo con una definizione.
 
 \begin{definition}
 Una distribuzione di probabilità a priori \(p(\theta)\) si dice \emph{coniugata} al modello usato se la distribuzione a priori e la distribuzione a posteriori hanno la stessa forma funzionale. Dunque, le due distribuzioni differiscono solo per il valore dei parametri.
 \end{definition}
 
-\noindent Ad esempio, se la verosimiglianza è Poisson e la distribuzione a priori è Gamma, allora anche la distribuzione a posteriori sarà una distribuzione Gamma. Da un punto di vista puramente matematico, le distribuzioni a priori coniugate sono la scelta più conveniente in quanto ci consentono di calcolare analiticamente la distribuzione a posteriori con ``carta e penna'', senza la necessità di ricorrere a calcoli complessi. Da una prospettiva computazionale moderna, però, le distribuzioni a priori coniugate generalmente non sono migliori delle alternative, dato che i moderni metodi computazionali ci consentono di eseguire l'inferenza praticamente con qualsiasi scelta delle distribuzioni a priori, e non solo con quelle che sono matematicamente convenienti. Tuttavia, le famiglie coniugate offronto un utile ausilio didattico nello studio dell'inferenza bayesiana (e anche in alcune situazioni in cui è necessario utilizzare espressioni analitiche per la distribuzione a posteriori). Questo è il motivo per cui le esamineremo qui. Nello specifico, esamineremo quello che viene chiamato il caso Beta-Binomiale.
+Ad esempio, se la distribuzione a priori è una distribuzione Beta e se la funzione di verosimiglianza è binomiale, allora anche la distribuzione a posteriori sarà una distribuzione Beta.
 
-\hypertarget{chapter-distr-priori-coniugate}{%
-\section{Il modello Beta-Binomiale}\label{chapter-distr-priori-coniugate}}
+Da un punto di vista matematico, le distribuzioni a priori coniugate sono la scelta più conveniente in quanto ci consentono di calcolare analiticamente la distribuzione a posteriori con ``carta e penna'', senza la necessità di ricorrere a calcoli complessi. Da una prospettiva computazionale moderna, però, le distribuzioni a priori coniugate generalmente non sono migliori delle alternative, dato che i moderni metodi computazionali ci consentono di eseguire l'inferenza praticamente con qualsiasi scelta delle distribuzioni a priori, e non solo con le distribuzioni a priori che risultano matematicamente convenienti. Tuttavia, le famiglie coniugate offronto un utile ausilio didattico nello studio dell'inferenza bayesiana. Questo è il motivo per cui le esamineremo qui. Nello specifico, esamineremo quello che viene chiamato lo schema beta-binomiale.
 
-Per fare un esempio concreto, consideriamo nuovamente i dati di \citet{zetschefuture2019}: nel campione di 30 partecipanti clinici le aspettative future di 23 partecipanti risultano distorte negativamente e quelle di 7 partecipanti risultano distorte positivamente. Nel seguito, indicheremo con \(\theta\) la probabilità che le aspettative di un paziente clinico siano distorte negativamente. Ci poniamo il problema di ottenere una stima a posteriori di \(\theta\) avendo osservato 23 ``successi'' in 30 prove.
+Per fare un esempio concreto, consideriamo nuovamente i dati di \citet{zetschefuture2019}: nel campione di 30 partecipanti clinici le aspettative future di 23 partecipanti risultano negativamente distorte mentre quelle di 7 partecipanti risultano positivamente distorte. Nel seguito, indicheremo con \(\theta\) la probabilità che le aspettative di un paziente clinico siano distorte negativamente. Ci poniamo il problema di ottenere una stima a posteriori di \(\theta\) avendo osservato 23 ``successi'' in 30 prove.
 
 I dati osservati (\(y = 23\)) possono essere considerati la manifestazione di una variabile casuale Bernoulliana. In tali circostanze, esiste una famiglia di distribuzioni che, qualora venga scelta per la distribuzione a priori, fa sì che la distribuzione a posteriori abbia la stessa forma funzionale della distribuzione a priori. Questo consente una soluzione analitica dell'integrale che compare a denominatore nella formula di Bayes. Nel caso presente, la famiglia di distribuzioni che ha questa proprietà è la distribuzione Beta.
 
-\hypertarget{parametri-della-distribuzione-beta}{%
-\subsection{Parametri della distribuzione Beta}\label{parametri-della-distribuzione-beta}}
+\hypertarget{la-specificazione-della-distribuzione-a-priori}{%
+\subsection{La specificazione della distribuzione a priori}\label{la-specificazione-della-distribuzione-a-priori}}
 
 È possibile esprimere diverse credenze iniziali rispetto a \(\theta\) mediante la distribuzione Beta. Ad esempio, la scelta di una \(\mbox{Beta}(\alpha = 4, \beta = 4)\) quale distribuzione a priori per il parametro \(\theta\) corrisponde alla credenza a priori che associa all'evento ``presenza di una aspettativa futura distorta negativamente'' una grande incertezza: il valore 0.5 è il valore di \(\theta\) più plausibile, ma anche gli altri valori del parametro (tranne gli estremi) sono ritenuti piuttosto plausibili. Questa distribuzione a priori esprime la credenza che sia egualmente probabile per un'aspettativa futura essere distorta negativamente o positivamente.
 
@@ -749,9 +717,9 @@ ma ora la nostra certezza a priori sul valore del parametro è maggiore, come in
 \end{Highlighting}
 \end{Shaded}
 
-Quale distribuzione a priori dobbiamo scegliere? In un problema concreto di analisi dei dati, la scelta della distribuzione a priori dipende dalle credenze a priori che vogliamo includere nell'analisi dei dati. Se non abbiamo alcuna informazione a priori, potremmo usare \(\alpha=1\) e \(\beta=1\), che produce una distribuzione a priori uniforme. Ma l'uso di distribuzioni a priori uniformi è sconsigliato per vari motivi, inclusa l'instabilità numerica della stima dei parametri. È meglio invece usare una distribuzione a priori poco informativa, come \(\mbox{Beta}(2, 2)\).
+Quale distribuzione a priori dobbiamo scegliere? In un problema concreto di analisi dei dati, la scelta della distribuzione a priori dipende dalle credenze a priori che vogliamo includere nell'analisi dei dati. Se non abbiamo alcuna informazione a priori, potremmo usare \(\alpha=1\) e \(\beta=1\), che produce una distribuzione a priori uniforme. Ma l'uso di distribuzioni a priori uniformi è sconsigliato per vari motivi, inclusa l'instabilità numerica della stima dei parametri. È meglio invece usare una distribuzione a priori debolmente informativa, come \(\mbox{Beta}(2, 2)\).
 
-Nella discussione successiva, solo per fare un esempio, useremo quale distribuzione a priori una \(\mbox{Beta}(2, 10)\), ovvero:
+Nella discussione presente, solo per fare un esempio, useremo quale distribuzione a priori una \(\mbox{Beta}(2, 10)\), ovvero:
 
 \[
 p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}.
@@ -782,15 +750,15 @@ Nel caso presente abbiamo
 p(\theta \mid n=30, y=23) = \frac{\Big[\binom{30}{23}\theta^{23}(1-\theta)^{30-23}\Big]\Big[\frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}\Big]}{p(y = 23)},
 \]
 
-laddove \(p(y = 23)\), ovvero la verosimiglianza marginale, è una costante di normalizzazione che fa sì che l'area sottesa alla densità a posteriori sia unitaria.
+laddove \(p(y = 23)\), ovvero la verosimiglianza marginale, è una costante di normalizzazione.
 
-Riscriviamo ora l'equazione precedente in termini generali
+Riscriviamo l'equazione precedente in termini più generali:
 
 \[
 p(\theta \mid n, y) = \frac{\Big[\binom{n}{y}\theta^{y}(1-\theta)^{n-y}\Big]\Big[\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1} (1-\theta)^{b-1}\Big]}{p(y)}
 \]
 
-e raccogliendo tutte le costanti otteniamo:
+Raccogliendo tutte le costanti otteniamo:
 
 \[
 p(\theta \mid n, y) =\left[\frac{\binom{n}{y}\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}}{p(y)}\right] \theta^{y}(1-\theta)^{n-y}\theta^{a-1} (1-\theta)^{b-1}.
@@ -811,16 +779,16 @@ Per ottenere una distribuzione di densità, dobbiamo aggiungere una costante di 
 \frac{\Gamma(a'+b')}{\Gamma(a')\Gamma(b')} = \frac{\Gamma(a+b+n)}{\Gamma(a+y)\Gamma(b+n-y)}.
 \]
 
-In altri termini, la distribuzione a posteriori diventa una \(\mbox{Beta}(a+y, b+n-y)\):
+In altri termini, nel caso dello schema beta-binomiale, la distribuzione a posteriori è una \(\mbox{Beta}(a+y, b+n-y)\):
 
 \[
 \mbox{Beta}(a+y, b+n-y) = \frac{\Gamma(a+b+n)}{\Gamma(a+y)\Gamma(b+n-y)} \theta^{a+y-1}(1-\theta)^{b+n-y-1}.
 \]
 
-Possiamo concludere dicendo che siamo partiti da una verosimiglianza \(\Bin(n = 30, y = 23 \mid \theta)\). Moltiplicando la verosimiglianza per la distribuzione a priori \(\theta \sim \mbox{Beta}(2, 10)\), abbiamo ottenuto la distribuzione a posteriori \(p(\theta \mid n, y) \sim \mbox{Beta}(25, 17)\). Questo è un esempio di analisi coniugata: la distribuzione a posteriori del parametro ha la stessa forma funzionale della distribuzione a priori. La presente combinazione di verosimiglianza e distribuzione a priori è chiamata caso coniugato \emph{Beta-Binomiale} ed è descritto dal seguente teorema.
+In sintesi, moltiplicando verosimiglianza \(\mbox{Bin}(n = 30, y = 23 \mid \theta)\) per la la distribuzione a priori \(\theta \sim \mbox{Beta}(2, 10)\) e dividendo per la costante di normalizzazione, abbiamo ottenuto la distribuzione a posteriori \(p(\theta \mid n, y) \sim \mbox{Beta}(25, 17)\). Questo è un esempio di analisi coniugata. La presente combinazione di verosimiglianza e distribuzione a priori è chiamata caso coniugato \emph{beta-binomiale} ed è descritta dal seguente teorema.
 
 \begin{theorem}
-Sia data la funzione di verosimiglianza \(\Bin(n, y \mid \theta)\) e sia \(\mbox{Beta}(\alpha, \beta)\) una distribuzione a priori. In tali circostanze, la distribuzione a posteriori del parametro \(\theta\) sarà una distribuzione \(\mbox{Beta}(\alpha + y, \beta + n - y)\).
+\protect\hypertarget{thm:post-beta-bin-1}{}\label{thm:post-beta-bin-1}Sia data la funzione di verosimiglianza \(\mbox{Bin}(n, y \mid \theta)\) e sia \(\mbox{Beta}(\alpha, \beta)\) una distribuzione a priori. In tali circostanze, la distribuzione a posteriori del parametro \(\theta\) sarà una distribuzione \(\mbox{Beta}(\alpha + y, \beta + n - y)\).
 \end{theorem}
 
 È facile calcolare il valore atteso a posteriori di \(\theta\). Essendo \(\E[\mbox{Beta}(\alpha, \beta)] = \frac{\alpha}{\alpha + \beta}\), il risultato cercato diventa
@@ -832,9 +800,9 @@ Sia data la funzione di verosimiglianza \(\Bin(n, y \mid \theta)\) e sia \(\mbox
 
 \begin{exercise}
 
-Usando le funzione \(\R\) \texttt{plot\_beta\_binomial()} e \texttt{plot\_beta\_binomial()} del pacchetto \texttt{bayesrules}, si rappresenti in maniera grafica e si descriva in forma numerica l'aggiornamento bayesiano Beta-Binomiale per i dati di \citet{zetschefuture2019}.
+Si rappresenti in maniera grafica e si descriva in forma numerica l'aggiornamento bayesiano beta-binomiale per i dati di \citet{zetschefuture2019}. Si assuma una distribuzione a priori \(\mbox{Beta}(2, 10)\).
 
-Per i dati in discussione, abbiamo:
+Per i dati in questione, l'aggiornamento bayesiano può essere rappresentato in forma grafica usando la funzione \texttt{plot\_beta\_binomial()} del pacchetto \texttt{bayesrules}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -846,7 +814,7 @@ Per i dati in discussione, abbiamo:
 
 \begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-È facile replicare il grafico precedente scrivendo noi stessi una funzione, come descritto in Appendice \ref{appendix:beta-binom}. Con la funzione \texttt{plot\_beta\_binom()} e i dati usati in precedenza otteniamo
+Oppure, possiamo scrivere noi stessi una funzione, come ad esempio la funzione \texttt{plot\_beta\_binom()} riportata in Appendice \ref{appendix:beta-binom}. Mediante tale la funzione otteniamo
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -856,7 +824,7 @@ Per i dati in discussione, abbiamo:
 
 \begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
-Un sommario delle distribuzioni a priori e a posteriori si ottiene usando la funzione \texttt{summarize\_beta\_binomial()}:
+Un sommario delle distribuzioni a priori e a posteriori può essere ottenuto, ad esempio, usando la funzione \texttt{summarize\_beta\_binomial()} del pacchetto \texttt{bayesrules}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -875,7 +843,7 @@ Un sommario delle distribuzioni a priori e a posteriori si ottiene usando la fun
 
 Per i dati di \citet{zetschefuture2019}, si trovino la media, la moda, la deviazione standard della distribuzione a posteriori di \(\theta\). Si trovi inoltre l'intervallo di credibilità a posteriori del 95\% per il parametro \(\theta\).
 
-Usando la \ref{thm:beta-binom}, possiamo ottenere l'intervallo di credibilità a posteriori del 95\% per il parametro \(\theta\) come segue:
+Usando il Teorema \ref{thm:post-beta-bin-1}, l'intervallo di credibilità a posteriori del 95\% per il parametro \(\theta\) è:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -884,7 +852,7 @@ Usando la \ref{thm:beta-binom}, possiamo ottenere l'intervallo di credibilità a
 \end{Highlighting}
 \end{Shaded}
 
-La media della distribuzione a posteriori è
+Usando la \eqref{eq:ev-post-beta-bin-1}, la media della distribuzione a posteriori è
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -893,7 +861,7 @@ La media della distribuzione a posteriori è
 \end{Highlighting}
 \end{Shaded}
 
-La moda della distribuzione a posteriori è
+Per le proprietà della distribuzione Beta, la moda della distribuzione a posteriori è
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -902,7 +870,7 @@ La moda della distribuzione a posteriori è
 \end{Highlighting}
 \end{Shaded}
 
-La deviazione standard della distribuzione a priori è
+e la deviazione standard della distribuzione a priori è
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -924,7 +892,7 @@ All'insaputa del partecipante, gli shock elettrici erano falsi e l'attore stava 
 \citet{Johnson2022bayesrules} fanno inferenza sui risultati dello studio di Milgram mediante il modello Beta-Binomiale. Il parametro di interesse è \(\theta\), la probabiltà che una persona obbedisca all'autorità (in questo caso, somministrando lo shock più severo), anche se ciò significa recare danno ad altri. \citet{Johnson2022bayesrules} ipotizzano che, prima di raccogliere dati, le credenze di Milgram relative a \(\theta\) possano essere rappresentate mediante una \(\mbox{Beta}(1, 10)\). Sia \(y = 26\) il numero di soggetti che, sui 40 partecipanti allo studio, aveva accettato di infliggere lo shock più severo. Assumendo che ogni partecipante si comporti indipendentemente dagli altri, possiamo modellare la dipendenza di \(y\) da \(\theta\) usando la distribuzione binomiale. Giungiamo dunque al seguente modello bayesiano Beta-Binomiale:
 
 \begin{align}
-y \mid \theta & \sim \Bin(n = 40, \theta) \notag\\
+y \mid \theta & \sim \mbox{Bin}(n = 40, \theta) \notag\\
 \theta & \sim \text{Beta}(1, 10) \; . \notag
 \end{align}
 
@@ -974,7 +942,7 @@ Esistono molte altre combinazioni simili di verosimiglianza e distribuzione a pr
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-1}}
 
 
-Lo scopo di questa discussione è stato quello di mostrare come sia possibile combinare le nostre conoscenze a priori (espresse nei termini di una densità di probabilità) con le evidenze fornite dai dati (espresse nei termini della funzione di verosimiglianza), così da determinare, mediante il teorema di Bayes, una distribuzione a posteriori, la quale condensa l'incertezza che abbiamo sul parametro \(\theta\). Per illustrare tale problema, abbiamo considerato una situazione nella quale \(\theta\) corrisponde alla probabilità di successo in una sequenza di prove Bernoulliane. Abbiamo visto come, in queste circostanze, sia ragionevole esprimere le nostre credenze a priori mediante la densità Beta, con opportuni parametri. L'inferenza rispetto ad una proporzione rappresenta un caso particolare, ovvero un caso nel quale la distribuzione a priori è Beta e la verosimiglianza è Binomiale. In tali circostanze, la distribuzione a posteriori diventa una distribuzione Beta -- questo è il cosiddetto modello Beta-Binomiale. Dato che utilizza una distribuzione a priori coniugata, dunque, il modello Beta-Binomiale rende possibile la determinazione analitica dei parametri della distribuzione a posteriori.
+Lo scopo di questa discussione è mostrare come sia possibile combinare le nostre conoscenze a priori (espresse nei termini di una densità di probabilità) con le evidenze fornite dai dati (espresse nei termini della funzione di verosimiglianza), così da determinare, mediante il teorema di Bayes, una distribuzione a posteriori, la quale condensa l'incertezza che abbiamo sul parametro \(\theta\). Per illustrare tale problema, abbiamo considerato una situazione nella quale \(\theta\) corrisponde alla probabilità di successo in una sequenza di prove Bernoulliane. In tali circostanze è ragionevole esprimere le nostre credenze a priori mediante la densità Beta, con opportuni parametri. L'inferenza rispetto ad una proporzione rappresenta un caso particolare, ovvero un caso nel quale la distribuzione a priori è Beta e la verosimiglianza è binomiale. In tali circostanze, la distribuzione a posteriori è essa stessa una distribuzione Beta -- questo è il cosiddetto schema beta-binomiale. Dato che utilizza una distribuzione a priori coniugata, lo schema beta-binomiale rende possibile la determinazione analitica dei parametri della distribuzione a posteriori.
 
 \mainmatter
 
@@ -2193,6 +2161,31 @@ La seguente funzione può essere usata per rappresentare la distribuzione a prio
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{pensare-a-una-proporzione-in-termini-soggettivi}{%
+\chapter{Pensare a una proporzione ``in termini soggettivi''}\label{pensare-a-una-proporzione-in-termini-soggettivi}}
+
+Nei problemi tradizionali di teoria delle probabilità ci sono molti esempi che riguardano l'estrazizone di palline colorate da un'urna. In questi esempi, ci viene fornito il numero di palline di vari colori nell'urna e ci viene chiesto di calcolare le probabilità di vari eventi. Ad esempio, in una scatola ci sono 40 palline bianche e 20 rosse. Se estrai due palline a caso, qual è la probabilità che entrambe siano bianche?
+
+L'approccio bayesiano considera uno scenario diverso: quello in cui non conosciamo le proporzioni delle palline colorate nell'urna. Cioè, nell'esempio precedente, sappiamo solo che ci sono due tipi di palline colorate nell'urna, ma non sappiamo che 40 palline su 60 sono bianche (proporzione di bianco = \(2/3\)) e 20 delle 60 palline sono rosse (proporzione di rosso = \(1/3\)). Ci poniamo la seguente domanda: è possibile inferire le proporzioni cercate estraendo un campione di palline dall'urna e osservando i colori delle palline nel campione? Espresso in questo modo, questo diventa un problema di inferenza statistica, perché stiamo cercando di inferire la proporzione \(\pi\) della popolazione sulla base di un campione casuale della popolazione. Per continuare con l'esempio precedente, quello che ci chiediamo è: come è possibile inferire \(\pi\), la proporzione di palline rosse nella popolazione, in base al numero (per esempio, 10) di palline rosse e bianche che osserviamo nel campione?
+
+Le proporzioni assomigliano alle probabilità. Ricordiamo che sono state proposte tre diverse interpretazioni del concetto di una probabilità.
+
+\begin{itemize}
+\tightlist
+\item
+  Il punto di vista classico: è necessario enumerare tutti gli eventi elementari dello spazio campionario in cui ogni risultato è ugualmente probabile.
+\item
+  Il punto di vista frequentista: è necessario ripetere l'esperimento esperimento casuale (cioè l'estrazione del campione) molte volte in condizioni identiche.
+\item
+  La visione soggettiva: è necessario esprimere la propria opinione sulla probabilità di un evento unico e irripetibile.
+\end{itemize}
+
+La visione classica non sembra potere funzionare qui, perché sappiamo solo che ci sono due tipi di palline colorate e il numero totale di palline è 60. Anche se estraiamo un campione di 10 palline, possiamo solo osservare la proporzione di palline rosse palline nel campione. Non c'è modo per stabilire quali sono le proprietà dello spazio campionario in cui ogni risultato è ugualmente probabile.
+
+La visione frequentista potrebbe funzionare nel caso presente. Possiamo considerare il processo del campionamento (cioè l'estrazione di un campione casuale di 10 palline dall'urna) come un esperimento casuale che produce una proporzione campionaria \(p\). Potremmo quindi pensare di ripetere l'esperimento molte volte nelle stesse condizioni, ottenere molte proporzioni campionarie \(p\) e riassumere poi in qualche modo questa distribuzione di statistiche campionarie. Ripetendo l'esperimento casuale tante volte è possibile ottenere una stima abbastanza accurata della proporzione \(\pi\) di palline rosse nell'urna. Questo processo è fattibile, ma è però noioso, dispendioso in termini di tempo e soggetto a errori.
+
+La visione soggettivista concepisce invece la probabilità sconosciuta \(\pi\) come un'opinione soggettiva di cui possiamo essere più o meno sicuri. Abbiamo visto in precedenza come questa opinione soggettiva dipende da due fonti di evidenza: le nostre credenze iniziali e le nuove informazioni fornite dai dati che abbiamo osservato. Vedremo in questo capitolo come sia possibile combinare le credenze iniziali rispetto al possibile valore \(\pi\) con le evidenza fornite dai dati per giungere ad una credenza a posteriori su \(\pi\). Se le nostre credenze a priori sono espresse nei termini di una distribuzione Beta, allora è possibile derivare le proprietà della distribuzione a priori per via analitica. Questo capitolo ha lo scopo di mostrare come questo possa essere fatto.
 
 \hypertarget{appendix:const-norm-bino23}{%
 \chapter{Verosimiglianza marginale}\label{appendix:const-norm-bino23}}

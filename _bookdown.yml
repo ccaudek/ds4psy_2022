@@ -75,6 +75,7 @@ rmd_files:
     - "840_max_like.Rmd"
     - "845_future_expect.Rmd"
     - "846_plot_beta_bin.Rmd"
+    - "847_proportion_subjective.Rmd"
     - "850_marginal_like.Rmd"
     - "910_grid_method.Rmd"
     # - "913_markov_chains.Rmd"
