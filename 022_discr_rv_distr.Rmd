@@ -4,7 +4,7 @@
 
 # Distribuzioni di v.c. discrete {#distr-rv-discr}
 
-```{r c022, include = FALSE}
+```{r, include = FALSE}
 source("_common.R")
 ```
 
@@ -36,8 +36,7 @@ Applicando l'operatore di valore atteso e di varianza, otteniamo
 (\#eq:ev-var-bern)
 \end{align}
 
-Scriviamo $Y \sim \mathcal{B}(\theta)$ per indicare che la variabile
-casuale $Y$ ha una distribuzione Bernoulliana di parametro $\theta$.
+Scriviamo $Y \sim \Bernoulli(\theta)$ per indicare che la variabile casuale $Y$ ha una distribuzione Bernoulliana di parametro $\theta$.
 
 :::{.exercise}
 Nel caso del lancio di una moneta equilibrata la variabile casuale di Bernoulli assume i valori $0$ e $1$. La distribuzione di massa di probabilità è pari a $\frac{1}{2}$ in corrispondenza di entrambi iv valori. La funzione di distribuzione vale $\frac{1}{2}$ per $Y = 0$ e $1$ per $Y = 1$.

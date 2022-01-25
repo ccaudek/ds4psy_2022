@@ -1,3 +1,7 @@
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts}
+
 \defaultfontfeatures{Scale=MatchLowercase}
 
 \usepackage{booktabs}
@@ -65,34 +69,34 @@
 }
 \makeatother
 
-\newcommand{\E}{\mathbb{E}} % Define expected value operator
 \DeclareMathOperator{\Var}{\mathbb{V}} % Define variance operator
 \DeclareMathOperator{\SD}{SD} % Define sd operator
 \DeclareMathOperator{\Cov}{Cov} % Define covariance operator
 \DeclareMathOperator{\Corr}{Corr} % Define correlation operator
 \DeclareMathOperator{\Me}{Me} % Define mediane operator
 \DeclareMathOperator{\Mo}{Mo} % Define mode operator
-\DeclareMathOperator{\Bin}{Bin} % Define binomial operator
+
+\DeclareMathOperator{\Bin}{Binomial} % Define binomial operator
 \DeclareMathOperator{\Bernoulli}{Bernoulli} % Define Bernoulli operator
-\DeclareMathOperator{\Poi}{Poi} % Define Poisson operator
+\DeclareMathOperator{\Ber}{\mathscr{B}} % Define Bernoulli operator
+\DeclareMathOperator{\Poi}{Poisson} % Define Poisson operator
 \DeclareMathOperator{\Uniform}{Uniform} % Define Uniform operator
 \DeclareMathOperator{\Cauchy}{Cauchy} % Define Cauchy operator
-\DeclareMathOperator{\elpd}{elpd} % Define elpd operator
-\DeclareMathOperator{\lppd}{lppd} % Define lppd operator
-\DeclareMathOperator{\LOO}{LOO} % Define LOO operator
-\DeclareMathOperator{\Ber}{\mathscr{B}} % Define Bernoulli operator
 \DeclareMathOperator{\B}{B} % beta function
 % \mbox{B}(a, b) % beta function
 % \mbox{Beta}(a, b) % beta distribution
+
+\DeclareMathOperator{\elpd}{elpd} % Define elpd operator
+\DeclareMathOperator{\lppd}{lppd} % Define lppd operator
+\DeclareMathOperator{\LOO}{LOO} % Define LOO operator
+\DeclareMathOperator{\argmin}{arg\,min} 
+\DeclareMathOperator{\argmax}{arg\,max} 
+
+\newcommand{\E}{\mathbb{E}} % Define expected value operator
 \newcommand{\R}{\textsf{R}} % Define R programming language symbol
 \newcommand{\Real}{\mathbb{R}} % Define real number operator
 \newcommand{\Prob}{\mathscr{P}}
 \newcommand{\indep}{\perp \!\!\! \perp}
-\DeclareMathOperator{\argmin}{arg\,min} % thin space, limits on side in displays
-\DeclareMathOperator{\argmax}{arg\,max} % no space, limits on side in displays
-
-\raggedbottom % allow variable (ragged) site heights
-\frenchspacing
 
 \usepackage[
  labelfont=bf,
@@ -104,7 +108,5 @@
 
 \usepackage{polyglossia}
 \setmainlanguage{italian}
-
-% \DeclareMathSizes{10}{9}{7}{5}
 
 \frontmatter
