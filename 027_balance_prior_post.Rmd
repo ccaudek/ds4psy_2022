@@ -4,7 +4,11 @@
 source("_common.R")
 ```
 
-La notazione $p(\theta \mid y) \propto p(\theta) \ p(y \mid \theta)$ rende particolarmente chiaro che la distribuzione a posteriori è un "miscuglio" della distribuzione a priori e della verosimiglianza. Prima di preoccuparci di come calcolare la distribuzione a posteriori, cerchiamo di capire meglio cosa significa "mescolare" la distribuzione a priori e la verosimiglianza. Considereremo qui un esempio fornito da @Johnson2022bayesrules. Nel fumetto di Alison Bechdel _The Rule_, un personaggio afferma di guardare un film solo se soddisfa le seguenti tre regole [@Bechdel1986dykes]:
+La notazione $p(\theta \mid y) \propto p(\theta) \ p(y \mid \theta)$ rende particolarmente chiaro che la distribuzione a posteriori è un "miscuglio" della distribuzione a priori e della verosimiglianza. Prima di preoccuparci di come calcolare la distribuzione a posteriori, cerchiamo di capire meglio cosa significa "mescolare" la distribuzione a priori e la verosimiglianza. Considereremo qui un esempio discusso da @Johnson2022bayesrules. 
+
+## Il test di Benchdel
+
+Nel fumetto di Alison Bechdel _The Rule_, un personaggio afferma di guardare un film solo se soddisfa le seguenti tre regole [@Bechdel1986dykes]:
 
 - almeno due caratteri nel film devono essere donne;
 - queste due donne si parlano; 
@@ -16,17 +20,17 @@ Sia $\pi \in [0, 1]$ una variabile casuale che indica la proporzione sconosciuta
 
 Abbiamo visto in precedenza come sia possibile usare la distribuzione Beta per rappresentare le credenze a priori. Ponendo la gran parte della massa della probabilità a priori su valori $\pi < 0.5$, la distribuzione a priori $\text{Beta}(5, 11)$ riflette il punto di vista femminista secondo il quale la maggioranza dei film non supera il test di Bechdel. Al contrario, la $\text{Beta}(14,1)$ pone la gran parte della massa della distribuzione a priori su valori $\pi$ prossimi a 1, e corrisponde quindi alle credenze a priori dell'amica ottimista. Infine, una $\text{Beta}(1 ,1)$ o $Unif(0, 1)$, assegna lo stesso livello di plausibilità a tutti i valori $\pi \in [0, 1]$, e corrisponde all'incertezza a priori dell'ignara.
 
-Nell'esempio di @Johnson2022bayesrules, le tre amiche decidano di rivedere un campione di $n$ film e di registrare $y$, il numero di film che supera il test di Bechdel. Se $y$ corrisponde al numero di "successi" in un numero fisso di $n$ prove Bernoulliane i.i.d., allora la dipendenza di $y$ da $\pi$ viene specificata nei termini di un modello binomiale. Quindi, per ciascuna delle tre amiche è possibile scrivere un modello Beta-Binomiale 
+Nell'esempio di @Johnson2022bayesrules, le tre amiche decidono di rivedere un campione di $n$ film e di registrare $y$, ovvero il numero di film che superano il test di Bechdel. Se $y$ corrisponde al numero di "successi" in un numero fisso di $n$ prove Bernoulliane i.i.d., allora la dipendenza di $y$ da $\pi$ viene specificata nei termini di un modello binomiale. Quindi, per ciascuna delle tre amiche è possibile scrivere un modello beta-binomiale 
 
 \begin{align}
-Y \mid \pi & \sim \text{Bin}(n, \pi)  \notag\\
-\pi & \sim \text{Beta}(\alpha, \beta) \notag
+Y \mid \pi & \sim \mbox{Bin}(n, \pi)  \notag\\
+\pi & \sim \mbox{Beta}(\alpha, \beta) \notag
 \end{align} 
 
-che utilizza parametri $\alpha$ e $\beta$ diversi per la distribuzione a priori, il che conduce a tre diverse distribuzioni a posteriori per il parametro sconosciuto $\pi$:
+che utilizza diversi parametri $\alpha$ e $\beta$ per la distribuzione a priori e che conduce a tre diverse distribuzioni a posteriori per il parametro sconosciuto $\pi$:
 
 \begin{equation}
-\pi \mid (Y = y) \sim \text{Beta}(\alpha + y, \beta + n - y).
+\pi \mid (Y = y) \sim \mbox{Beta}(\alpha + y, \beta + n - y).
 \end{equation}
 
 @Johnson2022bayesrules si chiedono come le credenze a priori delle tre amiche influenzano le conclusioni a posteriori a cui esse giungono, dopo avere osservato i dati. Si chiedono inoltre in che modo la dimensione del campione moduli l'influenza della distribuzione a priori sulla distribuzione a posteriori. Per rispondere a queste domande, @Johnson2022bayesrules consideriamo tre diversi scenari: 
@@ -98,7 +102,7 @@ bayesrules:::summarize_beta_binomial(
 )
 ```
 
-Per calcolare la distribuzione a posteriori, ho qui usato le funzioni del pacchetto `bayesrules`. Ma nel caso Beta-Binomiale è facile trovafre i parametri della distribuzione a posteriori. Per esempio, nel caso dell'amica femminista, la distribuzione a posteriori è una Beta di parametri 
+Per calcolare la distribuzione a posteriori, ho qui usato le funzioni del pacchetto `bayesrules`. Ma per lo schema beta-binomiale è facile trovare i parametri della distribuzione a posteriori. Per esempio, nel caso dell'amica femminista, la distribuzione a posteriori è una Beta di parametri 
 
 $$
 \alpha_{post} = \alpha_{prior} + y = 5+9 = 14
@@ -119,7 +123,7 @@ Supponiamo ora che l'amica ottimista abbia tre amiche, Maria, Anna e Sara, tutte
 
 Supponiamo che Maria, Anna e Sara condividano la stessa credenza a priori su $\pi$: ovvero, Beta(14, 1). In tali circostanze e, alla luce dei dati osservati, cosa possiamo dire delle tre distribuzioni a posteriori?
 
-```{r, fig.height = 2.5, out.width = "95%", fig.cap = "Aggiornamento bayesiano per Maria, Anna e Sara."}
+```{r, fig.height = 2.5, out.width = "95%", fig.cap = "Aggiornamento bayesiano per le credenze di Maria, Anna e Sara."}
 p1 <- bayesrules:::plot_beta_binomial(
   alpha = 14, beta = 1, y = 6, n = 13
   ) + 
@@ -183,10 +187,6 @@ p9 <- bayesrules:::plot_beta_binomial(
 
 La figura indica che, se il campione è grande, una distribuzione a priori debolmente informativa ha uno scarso effetto sulla distribuzione a posteriori. Invece, se il campione è piccolo, anche una distribuzione a priori debolmente informativa ha un grande effetto sulla distribuzione a posteriori. 
 
-La conclusione che possiamo trarre dall'esempio di @Johnson2022bayesrules è molto chiara: l'aggiornamento bayesiano può essere paragonato ai processi di ragionamento del senso comune. Quando le evidenze (i dati) sono deboli, non c'è ragione di cambiare idea (le nostre credenze "a posreriori" sono molto simili a ciò che pensavamo prima di avere osservato i dati). Quando le evidenze sono irrefutabili, dobbiamo cambiare idea, ovvero modellare le nostre credenze su ciò che dicono i dati, quali che siano le nostre credenze pregresse --- non fare ciò significherebbe vivere in un mondo di fantasia e avere scarsissime possibilità di sopravvivere nel mondo empirico. L'aggiornamento bayesiano esprime in maniera quantitativa e precisa ciò che ci dicono le nostre intuizioni.
-
-Incredibilmente, però, l'approccio frequentista nega questa logica. I test frequentisti non tengono conto delle conoscenze pregresse. Dunque, se un test frequentista, calcolato su un piccolo campione (ovvero, quando i dati sono molto deboli), suggerisce che dovremmo farci un'opinione di un certo tipo sul fenomeno in esame, l'indicazione è di prendere seriamente il risultato del test _quali siano le evidenze precedenti_ --- le quali, possibilmente, mostrano che il risultato del test non ha alcun senso. È sorprendente che un tale modo di pensare possa essere preso sul serio nella comunità scientifica, ma vi sono alcuni ricercatori che continuano a seguire questo modo di (s)ragionare.
-
 ## Collegare le intuizioni alla teoria
 
 Il compromesso che abbiamo osservato nell'esempio precedente, che combina la distribuzione a priori con le evidenze fornite dai dati, è molto vicino alle nostre intuizioni. Ma è anche il frutto di una necessità matematica. È infatti possibile riscrivere la \@ref(eq:ev-post-beta-bin-1) nel modo seguente
@@ -201,6 +201,12 @@ Ciò indica che  il valore atteso a posteriori è una media pesata fra il valore
 
 Queste osservazioni ci fanno capire come scegliere i parametri $\alpha$ e $\beta$: se vogliamo assumere una totale ignoranza rispetto al fenomeno in esame, la scelta coerente è $\alpha = \beta = 1$ (ogni valore di $\theta$ è ugualmente probabile); se invece abbiamo delle credenze a priori, allora possiamo scegliere $\alpha$ così che sia uguale al valore atteso a priori, mentre $\alpha + \beta$ esprime l'importanza che diamo all'informazione a priori: maggiore è il valore di $\alpha + \beta$, tanti più dati serviranno per allontanare la distribuzione a posteriori dalla distribuzione a priori. Se $n$ è grande, infine, la distribuzione a posteriori sarà scarsamente influenzata dalla distribuzione a priori, a meno di scelte estreme.
 
+## Commenti e considerazioni finali {-}
 
+La conclusione che possiamo trarre dall'esempio di @Johnson2022bayesrules è molto chiara: l'aggiornamento bayesiano può essere paragonato ai processi di ragionamento del senso comune. Quando le nuove evidenze (i dati) sono deboli, non c'è ragione di cambiare idea (le nostre credenze "a posteriori" sono molto simili a ciò che pensavamo prima di avere osservato i dati). Quando le nuove evidenze sono irrefutabili, invece, è necessario modificare le nostre credenze sulla base di ciò che ci dicono i dati, quali che siano le nostre credenze pregresse --- non farlo significherebbe vivere in un mondo di fantasia e avere scarse possibilità di sopravvivere nel mondo empirico. L'aggiornamento bayesiano esprime in maniera quantitativa e precisa ciò che ci dicono le nostre intuizioni.
+
+Incredibilmente, però, l'approccio frequentista nega questa logica. I test frequentisti non tengono conto delle conoscenze pregresse. Dunque, se un test frequentista, calcolato su un piccolo campione (ovvero, quando i dati sono molto deboli), suggerisce che dovremmo farci un'opinione di un certo tipo sul fenomeno in esame, l'indicazione è di prendere seriamente il risultato del test _quali siano le evidenze precedenti_ --- le quali, possibilmente, mostrano che il risultato del test non ha alcun senso. È sorprendente che un tale modo di pensare possa essere preso sul serio nella comunità scientifica, ma vi sono alcuni ricercatori che continuano a seguire questo modo di (s)ragionare. Dato che in questo Capitolo paliamo di fumetti, concluderei dicendo che la presente discussione è catturata nella maniera più chiara possibile in questa famosa [striscia](https://xkcd.com/1132/).
+
+<!-- Se devo sintetizzare la relazione tra distribuzione a priori e distribuzione a posteriori mi viene in mente il seguente "take-home message": se le evidenze fornite dai dati sono convincenti, le credenze iniziali (la distribuzione a priori) sono irrilevanti; se invece i dati forniscono evidenze deboli, la nostra credenza a posteriori (dopo avere visto i dati) è fortemente influenzata dalla nostra credenza iniziale (non è necessario cambiare idea se le nuove evidenze non ci convincono). Presentato in questo modo, il teorema di Bayes non è altro che la formalizzazione del buonsenso. -->
 
 

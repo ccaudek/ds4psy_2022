@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.1.24)  25 JAN 2022 09:09
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.1.24)  26 JAN 2022 10:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1358,53 +1358,11 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[5]
-LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/m/n' will be
-(Font)              scaled to size 8.52493pt on input line 51.
-[6])
+[5])
 \tf@toc=\write6
 \openout6 = `ds4psy.toc'.
 
-[7]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[8
-
-]
+[6]
 Underfull \vbox (badness 10000) detected at line 280
  []
 
@@ -1452,57 +1410,19 @@ Package hyperref Warning: bookmark level for unknown fm defaults to 0.
 LaTeX Info: Redefining \rmfamily on input line 1.
 LaTeX Info: Redefining \sffamily on input line 1.
 LaTeX Info: Redefining \ttfamily on input line 1.
-)
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[7
+
+
+])
 \tf@lof=\write7
 \openout7 = `ds4psy.lof'.
 
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[9
-
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[10
-
-]
+[8]
 Underfull \vbox (badness 10000) detected at line 281
  []
 
@@ -1556,7 +1476,8 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[11
+[9
+
 
 ]
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -1595,7 +1516,7 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[12
+[10
 
 ]
 Underfull \vbox (badness 10000) detected at line 283
@@ -1643,14 +1564,14 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[13
+[11
 
-] [14]
+] [12]
 Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: TU).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-[15] [16]
+[13] [14]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
 (Font)              scaled to size 9.0pt on input line 325.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
@@ -1669,7 +1590,7 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 5.99936pt on input line 325.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 4.99947pt on input line 325.
-[17] [18]
+[15] [16]
 Underfull \vbox (badness 10000) detected at line 339
  []
 
@@ -1872,13 +1793,19 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 9.99893pt on input line 414.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 (Font)              scaled to size 6.99925pt on input line 414.
-
-LaTeX Warning: Reference `chapter-balance' on page 6 undefined on input line 420.
-
 [6]
+
+LaTeX Warning: Reference `appendix:future-exp' on page 7 undefined on input line 425.
+
+LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/m/n' will be
+(Font)              scaled to size 8.52493pt on input line 434.
 File: ds4psy_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-4-1.pdf>
-[7] [8] [9] [10]
+[7] [8]
+
+LaTeX Warning: Reference `appendix:max-like' on page 9 undefined on input line 470.
+
+[9] [10]
 LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/m/it' will be
 (Font)              scaled to size 8.52493pt on input line 522.
 File: ds4psy_files/figure-latex/likefutexpect-1.pdf Graphic file (type pdf)
@@ -1889,11 +1816,10 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 [11] [12]
 LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/b/n' will be
 (Font)              scaled to size 8.52493pt on input line 591.
-[13]
 
-LaTeX Warning: Reference `ch:metropolis' on page 14 undefined on input line 622.
+LaTeX Warning: Reference `appendix:const-norm-bino23' on page 13 undefined on input line 599.
 
-[14] [15]
+[13] [14] [15]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -1998,6 +1924,9 @@ Underfull \hbox (badness 3942) in paragraph at lines 794--795
 [22]
 File: ds4psy_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-14-1.pdf>
+
+LaTeX Warning: Reference `appendix:beta-binom' on page 23 undefined on input line 817.
+
 File: ds4psy_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-16-1.pdf>
 [23] [24] [25]
@@ -2008,1117 +1937,392 @@ Underfull \hbox (badness 1189) in paragraph at lines 899--900
 File: ds4psy_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-23-1.pdf>
 [26] [27] [28]
-Underfull \vbox (badness 10000) detected at line 950
+Underfull \vbox (badness 10000) detected at line 948
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 950
+Overfull \hbox (336.25pt too wide) detected at line 948
 []
  []
 
 
-Underfull \vbox (badness 10000) detected at line 950
+Underfull \vbox (badness 10000) detected at line 948
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 950
+Overfull \hbox (336.25pt too wide) detected at line 948
 []
  []
 
 
-Underfull \vbox (badness 10000) detected at line 950
+Underfull \vbox (badness 10000) detected at line 948
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 950
+Overfull \hbox (336.25pt too wide) detected at line 948
 []
  []
 
 
-Underfull \vbox (badness 10000) detected at line 950
+Underfull \vbox (badness 10000) detected at line 948
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 950
+Overfull \hbox (336.25pt too wide) detected at line 948
 []
  []
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
+Capitolo 3.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[1
-
-
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[2]
-
-Package hyperref Warning: The anchor of a bookmark and its parent's must not
-(hyperref)                be the same. Added a new anchor on input line 953.
-
-
-Underfull \vbox (badness 10000) detected at line 957
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 957
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 957
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 957
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 957
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 957
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 957
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 957
-[]
- []
-
-Appendice A.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[3
-
-
-]
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 11.0pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 7.7pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/b/n' will be
-(Font)              scaled to size 5.5pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 11.001pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 7.7007pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/b/n' will be
-(Font)              scaled to size 5.5005pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 10.99883pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 7.69917pt on input line 1004.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/b/n' will be
-(Font)              scaled to size 5.4994pt on input line 1004.
-
-Underfull \hbox (badness 1259) in paragraph at lines 1026--1028
-[]$[][][][]$\TU/lmr/m/n/11 : distribuzione di Bernoulli di parametro $[]$ (probabilità di
- []
-
-[4]
-Underfull \vbox (badness 10000) detected at line 1034
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1034
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1034
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1034
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1034
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1034
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1034
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1034
-[]
- []
-
-Appendice B.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[5
-
-
-] [6] [7]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[8
-
-]
-Underfull \vbox (badness 10000) detected at line 1113
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1113
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1113
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1113
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1113
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1113
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1113
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1113
-[]
- []
-
-Appendice C.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[9
-
-]
-Missing character: There is no ⧵ (U+29F5) in font [latinmodern-math.otf]/OT:script=math;language=dflt;!
-Missing character: There is no ⧵ (U+29F5) in font [latinmodern-math.otf]/OT:script=math;language=dflt;!
-[10]
-Missing character: There is no ⧵ (U+29F5) in font [latinmodern-math.otf]/OT:script=math;language=dflt;!
-File: images/sets-venn-diagrams.pdf Graphic file (type pdf)
-<use images/sets-venn-diagrams.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-File: images/demorgan.pdf Graphic file (type pdf)
-<use images/demorgan.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[11] [12] [13]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[14
-
-]
-Underfull \vbox (badness 10000) detected at line 1254
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1254
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1254
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1254
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1254
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1254
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1254
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1254
-[]
- []
-
-Appendice D.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[15
-
-] [16] [17] [18]
-Overfull \hbox (33.61922pt too wide) detected at line 1401
-[]
- []
-
-LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/bx/n' in size <12> not available
-(Font)              Font shape `TU/MesloLGSNF(0)/b/n' tried instead on input line 1411.
-LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/b/n' will be
-(Font)              scaled to size 9.29993pt on input line 1411.
-LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/m/it' will be
-(Font)              scaled to size 7.74994pt on input line 1434.
-[19] [20]
-Underfull \vbox (badness 10000) detected at line 1470
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1470
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1470
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1470
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1470
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1470
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1470
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1470
-[]
- []
-
-Appendice E.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[21
-
-
-] [22] [23] [24]
-Underfull \vbox (badness 10000) detected at line 1562
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1562
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1562
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1562
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1562
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1562
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1562
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1562
-[]
- []
-
-Appendice F.
-
-LaTeX Warning: Reference `eq:prob-total-1b' on page 25 undefined on input line 1567.
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[25
-
-
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[26
-
-]
-Underfull \vbox (badness 10000) detected at line 1581
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1581
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1581
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1581
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1581
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1581
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 1581
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1581
-[]
- []
-
-Appendice G.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[27
-
-]
+[29
+
+
+] [30]
+File: ds4psy_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-26-1.pdf>
+[31]
+File: ds4psy_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-28-1.pdf>
+[32]
+File: ds4psy_files/figure-latex/unnamed-chunk-30-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-30-1.pdf>
+[33] [34]
 File: ds4psy_files/figure-latex/unnamed-chunk-32-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-32-1.pdf>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[35]
+Underfull \vbox (badness 1221) detected at line 1198
+ []
+
+[36]
 File: ds4psy_files/figure-latex/unnamed-chunk-33-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-33-1.pdf>
-[28]
-File: ds4psy_files/figure-latex/unnamed-chunk-34-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-34-1.pdf>
-[29]
-File: ds4psy_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-35-1.pdf>
-[30] [31]
-File: ds4psy_files/figure-latex/unnamed-chunk-36-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-36-1.pdf>
-[32] [33]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[37] [38]
+LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/m/n' will be
+(Font)              scaled to size 6.97495pt on input line 1232.
+[39] [40]
+Underfull \vbox (badness 10000) detected at line 1235
+ []
 
 
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
+Overfull \hbox (336.25pt too wide) detected at line 1235
 []
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 10000) detected at line 1235
+ []
 
 
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
+Overfull \hbox (336.25pt too wide) detected at line 1235
 []
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 10000) detected at line 1235
+ []
 
 
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
+Overfull \hbox (336.25pt too wide) detected at line 1235
 []
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 10000) detected at line 1235
+ []
 
 
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
+Overfull \hbox (336.25pt too wide) detected at line 1235
 []
  []
 
+Capitolo 4.
 
 Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[34
+[41
+
 
 ]
-Underfull \vbox (badness 10000) detected at line 1785
+Overfull \hbox (0.27725pt too wide) in paragraph at lines 1255--1256
+[]\TU/lmr/m/n/11 In generale, possiamo distinguere cinque metodi per calcolare le proprietà
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1785
-[]
+Underfull \hbox (badness 10000) detected at line 1261
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1785
+Underfull \hbox (badness 10000) detected at line 1261
+[][][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1785
-[]
+Underfull \hbox (badness 10000) detected at line 1263
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1785
+Underfull \hbox (badness 10000) detected at line 1263
+[][][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1785
-[]
+Underfull \hbox (badness 10000) detected at line 1265
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1785
+Underfull \hbox (badness 10000) detected at line 1265
+[][][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1785
-[]
- []
-
-Appendice H.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[35
-
-] [36]
-
-LaTeX Warning: Reference `normal-random-walk' on page 37 undefined on input line 1817.
-
-[37]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
+Underfull \hbox (badness 10000) detected at line 1267
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \hbox (badness 10000) detected at line 1267
+[][][]
+ []
 
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
+[42]
+Underfull \hbox (badness 10000) detected at line 1269
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
+Underfull \hbox (badness 10000) detected at line 1269
+[][][]
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (336.25pt too wide) has occurred while \output is active
-[]
+Underfull \hbox (badness 10000) detected at line 1278
+ [][]
  []
 
 
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[38
-
-]
-Underfull \vbox (badness 10000) detected at line 1820
+Underfull \hbox (badness 10000) detected at line 1278
+[][][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1820
-[]
+Underfull \hbox (badness 10000) detected at line 1280
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1820
+Underfull \hbox (badness 10000) detected at line 1280
+[][][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1820
-[]
+Underfull \hbox (badness 10000) detected at line 1282
+ [][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 1820
+Underfull \hbox (badness 10000) detected at line 1282
+[][][]
+ []
+
+[43] [44] [45]
+Underfull \hbox (badness 2359) in paragraph at lines 1393--1394
+[]\TU/lmr/m/n/11 Abbiamo dunque ottenuto la seguente distribuzione a posteriori
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 1820
-[]
+Underfull \hbox (badness 1917) in paragraph at lines 1413--1414
+[]\TU/lmr/m/n/11 La figura [][]4.1[][] mostra un grafico della distribuzione a posteriori
  []
 
-
-Underfull \vbox (badness 10000) detected at line 1820
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 1820
-[]
- []
-
-Appendice I.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[39
-
-] [40]
-File: ds4psy_files/figure-latex/unnamed-chunk-40-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-40-1.pdf>
-
-Underfull \hbox (badness 4886) in paragraph at lines 1910--1911
-[]\TU/lmr/m/n/11 Nella simulazione, il valore $[]$ che massimizza la funzione di
- []
-
-[41] [42] [43] [44] [45]
-File: ds4psy_files/figure-latex/unnamed-chunk-46-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-46-1.pdf>
-[46] [47]
-Overfull \hbox (0.29431pt too wide) in paragraph at lines 2100--2101
-\TU/lmr/m/n/11 stici i parametri: i parametri dei modelli statistici vengono concepiti come
- []
-
+[46]
+File: ds4psy_files/figure-latex/grid-method-6points-posterior-plot-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/grid-method-6points-posterior-plot-1.pdf>
+[47]
+File: ds4psy_files/figure-latex/grid-method-6points-posterior-plot-sampling-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/grid-method-6points-posterior-plot-sampling-1.pdf>
 [48]
-Underfull \vbox (badness 10000) detected at line 2103
+File: ds4psy_files/figure-latex/grid-method-100points-posterior-plot-sampling-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/grid-method-100points-posterior-plot-sampling-1.pdf>
+[49]
+File: ds4psy_files/figure-latex/grid-method-100points-posterior-plot-and-correct-posterior-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/grid-method-100points-posterior-plot-and-correct-posterior-1.pdf>
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[50] [51]
+Underfull \hbox (badness 10000) detected at line 1570
+ [][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 2103
-[]
+Underfull \hbox (badness 10000) detected at line 1570
+[][][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 2103
+Underfull \hbox (badness 10000) detected at line 1572
+ [][]
  []
 
 
-Overfull \hbox (336.25pt too wide) detected at line 2103
-[]
+Underfull \hbox (badness 10000) detected at line 1572
+[][][]
  []
 
 
-Underfull \vbox (badness 10000) detected at line 2103
+Overfull \vbox (0.16743pt too high) detected at line 1589
  []
 
-
-Overfull \hbox (336.25pt too wide) detected at line 2103
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2103
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2103
-[]
- []
-
-Appendice J.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[49
-
-
-] [50]
-Underfull \vbox (badness 10000) detected at line 2117
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2117
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2117
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2117
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2117
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2117
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2117
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2117
-[]
- []
-
-Appendice K.
-
-Underfull \vbox (badness 1199) detected at line 2163
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[51
-
-
-] [52]
-Underfull \vbox (badness 10000) detected at line 2166
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2166
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2166
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2166
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2166
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2166
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2166
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2166
-[]
- []
-
-Appendice L.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[53
-
-
-] [54]
-Underfull \vbox (badness 10000) detected at line 2191
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2191
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2191
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2191
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2191
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2191
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2191
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2191
-[]
- []
-
-Appendice M.
-
-Underfull \hbox (badness 1147) in paragraph at lines 2196--2197
-[]\TU/lmr/m/n/11 Riportiamo di seguito la derivazione analitica per la costante di
- []
-
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[55
-
-
-]
-Underfull \hbox (badness 1082) in paragraph at lines 2221--2222
-[]\TU/lmr/m/n/11 In conclusione, nel caso di una verosimiglianza binomiale $[] [][]
+[52]
+File: ds4psy_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-43-1.pdf>
+[53] [54] [55]
+Underfull \hbox (badness 1668) in paragraph at lines 1658--1659
+[]\TU/lmr/m/n/11 In alternativa, sapendo che la distribuzione a posteriori di $[]$ è
  []
 
 [56]
-Underfull \vbox (badness 10000) detected at line 2261
- []
+File: /Users/corrado/_repositories/ds4psy/images/mcmc-chains-1.png Graphic file (type bmp)
+</Users/corrado/_repositories/ds4psy/images/mcmc-chains-1.png>
+[57]
 
+LaTeX Warning: Reference `markov-chains' on page 58 undefined on input line 1717.
 
-Overfull \hbox (336.25pt too wide) detected at line 2261
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2261
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2261
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2261
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2261
-[]
- []
-
-
-Underfull \vbox (badness 10000) detected at line 2261
- []
-
-
-Overfull \hbox (336.25pt too wide) detected at line 2261
-[]
- []
-
-Appendice N.
-
-Underfull \hbox (badness 10000) has occurred while \output is active
- [][][][] 
- []
-
-[57
-
-
-] [58]
-File: ds4psy_files/figure-latex/gridappr1-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/gridappr1-1.pdf>
-
-Underfull \hbox (badness 1642) in paragraph at lines 2341--2341
-\TU/lmr/m/it/10 il parametro $[][][][]$, ovvero la probabilità di aspettative future distorte
- []
-
+[58]
+File: ds4psy_files/figure-latex/formetropolisdistr-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/formetropolisdistr-1.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[59] [60]
-File: ds4psy_files/figure-latex/gridappr2-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/gridappr2-1.pdf>
 
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-LaTeX Font Info:    Font shape `TU/MesloLGSNF(0)/m/n' will be
-(Font)              scaled to size 6.97495pt on input line 2410.
-[61]
-Underfull \vbox (badness 2073) detected at line 2427
- []
-
-[62] [63]
-File: ds4psy_files/figure-latex/gridappr3-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/gridappr3-1.pdf>
-
-Underfull \hbox (badness 1242) in paragraph at lines 2488--2488
-[]\TU/lmr/bx/it/10 Figura N.3: |\TU/lmr/m/it/10 Rappresentazione della distribuzione a posteriori per il
- []
-
-[64] [65]
-File: ds4psy_files/figure-latex/gridappr4-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/gridappr4-1.pdf>
-[66]
-File: ds4psy_files/figure-latex/gridappr5-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/gridappr5-1.pdf>
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[67]
-Underfull \hbox (badness 1521) in paragraph at lines 2629--2630
-\TU/lmr/m/n/11 Una rappresentazione grafica del campione casuale estratto dalla
- []
-
-[68]
-File: ds4psy_files/figure-latex/unnamed-chunk-69-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-69-1.pdf>
-[69]
-Underfull \hbox (badness 3758) in paragraph at lines 2697--2698
-[]\TU/lmr/m/n/11 Possiamo semplificare i calcoli precedenti definendo le funzioni
- []
-
-[70]
-File: ds4psy_files/figure-latex/unnamed-chunk-73-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-73-1.pdf>
-
-Underfull \hbox (badness 2213) in paragraph at lines 2726--2727
-[]\TU/lmr/m/n/11 La funzione \TU/MesloLGSNF(0)/m/n/11 likelihood() \TU/lmr/m/n/11 ritorna l’ordinata della verosimiglianza
+Underfull \hbox (badness 10000) detected at line 1777
+ [][]
  []
 
 
-Underfull \hbox (badness 2591) in paragraph at lines 2728--2729
-[]\TU/lmr/m/n/11 Quale distribuzione a priori utilizzeremo una $[][][][] [][][]$ che è
+Underfull \hbox (badness 10000) detected at line 1777
+[][][]
  []
 
-[71]
-File: ds4psy_files/figure-latex/unnamed-chunk-74-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-74-1.pdf>
-[72]
-File: ds4psy_files/figure-latex/unnamed-chunk-75-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-75-1.pdf>
-(./ds4psy.bbl [73]
+
+Underfull \hbox (badness 10000) detected at line 1779
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1779
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1781
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1781
+[][][]
+ []
+
+[59]
+Underfull \hbox (badness 10000) detected at line 1793
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1793
+[][][]
+ []
+
+[60] [61]
+File: ds4psy_files/figure-latex/metropolishistogramsim-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/metropolishistogramsim-1.pdf>
+[62]
+Underfull \hbox (badness 1668) in paragraph at lines 1882--1882
+[][][]\TU/lmr/m/n/9 Una illustrazione visiva di come si svolge il processo di “esplorazione”
+ []
+
+
+Underfull \hbox (badness 3396) in paragraph at lines 1900--1901
+[]\TU/lmr/m/n/11 Esaminiamo ora nei dettagli il funzionamento dell’algoritmo di
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1905
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1905
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1907
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1907
+[][][]
+ []
+
+[63]
+Underfull \hbox (badness 10000) detected at line 1909
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1909
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1923
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1923
+[][][]
+ []
+
+[64]
+Underfull \hbox (badness 10000) detected at line 1925
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 1925
+[][][]
+ []
+
+[65]
+
+LaTeX Warning: Reference `es-pratico-zetsche-funzioni' on page 66 undefined on input line 1967.
+
+[66] [67] [68]
+File: ds4psy_files/figure-latex/sim-markov-chain-zetsche-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/sim-markov-chain-zetsche-1.pdf>
+[69] [70]
+File: ds4psy_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-59-1.pdf>
+[71] [72] (./ds4psy.bbl [73]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -3249,15 +2453,15 @@ LaTeX Info: Redefining \ttfamily on input line 21.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `ds4psy.out' has not changed.
-(rerunfilecheck)             Checksum: AECDFDFBF6420C2629B93A0245E1C316;14256.
+(rerunfilecheck)             Checksum: B7E5881496C167C085C06091CB53A9DC;9283.
  ) 
 Here is how much of TeX's memory you used:
- 24062 strings out of 478175
- 462394 string characters out of 5852970
- 970581 words of memory out of 5000000
- 44219 multiletter control sequences out of 15000+600000
- 479343 words of font info for 132 fonts, out of 8000000 for 9000
+ 24000 strings out of 478175
+ 462677 string characters out of 5852970
+ 960647 words of memory out of 5000000
+ 44160 multiletter control sequences out of 15000+600000
+ 477914 words of font info for 126 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 86i,15n,123p,2164b,581s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 86i,11n,123p,2164b,604s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ds4psy.pdf (121 pages).
+Output written on ds4psy.pdf (91 pages).
