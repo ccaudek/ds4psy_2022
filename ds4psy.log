@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.1.24)  26 JAN 2022 10:53
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.1.24)  27 JAN 2022 08:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2054,275 +2054,173 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [41
 
 
-]
-Overfull \hbox (0.27725pt too wide) in paragraph at lines 1255--1256
-[]\TU/lmr/m/n/11 In generale, possiamo distinguere cinque metodi per calcolare le proprietà
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1261
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1261
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1263
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1263
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1265
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1265
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1267
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1267
-[][][]
- []
-
-[42]
-Underfull \hbox (badness 10000) detected at line 1269
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1269
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1278
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1278
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1280
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1280
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1282
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1282
-[][][]
- []
-
-[43] [44] [45]
-Underfull \hbox (badness 2359) in paragraph at lines 1393--1394
+] [42] [43] [44]
+Underfull \hbox (badness 2359) in paragraph at lines 1371--1372
 []\TU/lmr/m/n/11 Abbiamo dunque ottenuto la seguente distribuzione a posteriori
  []
 
 
-Underfull \hbox (badness 1917) in paragraph at lines 1413--1414
+Underfull \hbox (badness 1917) in paragraph at lines 1391--1392
 []\TU/lmr/m/n/11 La figura [][]4.1[][] mostra un grafico della distribuzione a posteriori
  []
 
-[46]
+[45]
 File: ds4psy_files/figure-latex/grid-method-6points-posterior-plot-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/grid-method-6points-posterior-plot-1.pdf>
-[47]
+[46]
 File: ds4psy_files/figure-latex/grid-method-6points-posterior-plot-sampling-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/grid-method-6points-posterior-plot-sampling-1.pdf>
-[48]
+[47]
 File: ds4psy_files/figure-latex/grid-method-100points-posterior-plot-sampling-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/grid-method-100points-posterior-plot-sampling-1.pdf>
-[49]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \vbox (badness 1142) detected at line 1508
+ []
+
+[48]
 File: ds4psy_files/figure-latex/grid-method-100points-posterior-plot-and-correct-posterior-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/grid-method-100points-posterior-plot-and-correct-posterior-1.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[50] [51]
-Underfull \hbox (badness 10000) detected at line 1570
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1570
-[][][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1572
- [][]
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1572
-[][][]
- []
-
-
-Overfull \vbox (0.16743pt too high) detected at line 1589
- []
-
-[52]
-File: ds4psy_files/figure-latex/unnamed-chunk-43-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-43-1.pdf>
-[53] [54] [55]
-Underfull \hbox (badness 1668) in paragraph at lines 1658--1659
+[49] [50] [51]
+Underfull \hbox (badness 1668) in paragraph at lines 1572--1573
 []\TU/lmr/m/n/11 In alternativa, sapendo che la distribuzione a posteriori di $[]$ è
  []
 
-[56]
+[52]
 File: /Users/corrado/_repositories/ds4psy/images/mcmc-chains-1.png Graphic file (type bmp)
 </Users/corrado/_repositories/ds4psy/images/mcmc-chains-1.png>
-[57]
+[53]
 
-LaTeX Warning: Reference `markov-chains' on page 58 undefined on input line 1717.
+LaTeX Warning: Reference `markov-chains' on page 54 undefined on input line 1629.
 
-[58]
+[54]
 File: ds4psy_files/figure-latex/formetropolisdistr-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/formetropolisdistr-1.pdf>
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-
-Underfull \hbox (badness 10000) detected at line 1777
+[55]
+Underfull \hbox (badness 10000) detected at line 1689
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1777
+Underfull \hbox (badness 10000) detected at line 1689
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1779
+Underfull \hbox (badness 10000) detected at line 1691
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1779
+Underfull \hbox (badness 10000) detected at line 1691
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1781
+Underfull \hbox (badness 10000) detected at line 1693
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1781
+Underfull \hbox (badness 10000) detected at line 1693
 [][][]
  []
 
-[59]
-Underfull \hbox (badness 10000) detected at line 1793
+
+Underfull \hbox (badness 10000) detected at line 1705
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1793
+Underfull \hbox (badness 10000) detected at line 1705
 [][][]
  []
 
-[60] [61]
+
+LaTeX Warning: Reference `markov-chains' on page 56 undefined on input line 1708.
+
+[56] [57]
 File: ds4psy_files/figure-latex/metropolishistogramsim-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/metropolishistogramsim-1.pdf>
-[62]
-Underfull \hbox (badness 1668) in paragraph at lines 1882--1882
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 1668) in paragraph at lines 1794--1794
 [][][]\TU/lmr/m/n/9 Una illustrazione visiva di come si svolge il processo di “esplorazione”
  []
 
-
-Underfull \hbox (badness 3396) in paragraph at lines 1900--1901
-[]\TU/lmr/m/n/11 Esaminiamo ora nei dettagli il funzionamento dell’algoritmo di
- []
-
-
-Underfull \hbox (badness 10000) detected at line 1905
+[58] [59]
+Underfull \hbox (badness 10000) detected at line 1817
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1905
+Underfull \hbox (badness 10000) detected at line 1817
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1907
+Underfull \hbox (badness 10000) detected at line 1819
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1907
+Underfull \hbox (badness 10000) detected at line 1819
 [][][]
  []
 
-[63]
-Underfull \hbox (badness 10000) detected at line 1909
+
+Underfull \hbox (badness 10000) detected at line 1821
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1909
+Underfull \hbox (badness 10000) detected at line 1821
 [][][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1923
+Underfull \hbox (badness 10000) detected at line 1835
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1923
+Underfull \hbox (badness 10000) detected at line 1835
 [][][]
  []
 
-[64]
-Underfull \hbox (badness 10000) detected at line 1925
+[60]
+Underfull \hbox (badness 10000) detected at line 1837
  [][]
  []
 
 
-Underfull \hbox (badness 10000) detected at line 1925
+Underfull \hbox (badness 10000) detected at line 1837
 [][][]
  []
 
-[65]
 
-LaTeX Warning: Reference `es-pratico-zetsche-funzioni' on page 66 undefined on input line 1967.
+LaTeX Warning: Reference `es-pratico-zetsche-funzioni' on page 61 undefined on input line 1845.
 
-[66] [67] [68]
+[61] [62] [63] [64]
 File: ds4psy_files/figure-latex/sim-markov-chain-zetsche-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/sim-markov-chain-zetsche-1.pdf>
-[69] [70]
-File: ds4psy_files/figure-latex/unnamed-chunk-59-1.pdf Graphic file (type pdf)
-<use ds4psy_files/figure-latex/unnamed-chunk-59-1.pdf>
-[71] [72] (./ds4psy.bbl [73]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[65] [66] [67]
+File: ds4psy_files/figure-latex/unnamed-chunk-56-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-56-1.pdf>
+[68] [69]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
@@ -2359,7 +2257,231 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[74
+[70
+
+]
+Underfull \vbox (badness 10000) detected at line 2084
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2084
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2084
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2084
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2084
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2084
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2084
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2084
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[1
+
+]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[2]
+
+Package hyperref Warning: The anchor of a bookmark and its parent's must not
+(hyperref)                be the same. Added a new anchor on input line 2087.
+
+
+Underfull \vbox (badness 10000) detected at line 2091
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2091
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2091
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2091
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2091
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2091
+[]
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 2091
+ []
+
+
+Overfull \hbox (336.25pt too wide) detected at line 2091
+[]
+ []
+
+Appendice A.
+
+Underfull \hbox (badness 10000) detected at line 2101
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 2101
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 2103
+ [][]
+ []
+
+
+Underfull \hbox (badness 10000) detected at line 2103
+[][][]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[3
+
+
+]
+File: ds4psy_files/figure-latex/unnamed-chunk-60-1.pdf Graphic file (type pdf)
+<use ds4psy_files/figure-latex/unnamed-chunk-60-1.pdf>
+[4] (./ds4psy.bbl [5]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[6
 
 ]
 Underfull \vbox (badness 10000) detected at line 1
@@ -2442,7 +2564,7 @@ Underfull \hbox (badness 10000) has occurred while \output is active
  [][][][] 
  []
 
-[75
+[7
 
 ] (./ds4psy.aux
 LaTeX Info: Redefining \rmfamily on input line 21.
@@ -2453,15 +2575,15 @@ LaTeX Info: Redefining \ttfamily on input line 21.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `ds4psy.out' has not changed.
-(rerunfilecheck)             Checksum: B7E5881496C167C085C06091CB53A9DC;9283.
+(rerunfilecheck)             Checksum: 079090966D79F1A8F14D5C52C71BEB75;9619.
  ) 
 Here is how much of TeX's memory you used:
- 24000 strings out of 478175
- 462677 string characters out of 5852970
- 960647 words of memory out of 5000000
- 44160 multiletter control sequences out of 15000+600000
- 477914 words of font info for 126 fonts, out of 8000000 for 9000
+ 24004 strings out of 478175
+ 462736 string characters out of 5852970
+ 962083 words of memory out of 5000000
+ 44162 multiletter control sequences out of 15000+600000
+ 477922 words of font info for 127 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,11n,123p,2164b,604s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on ds4psy.pdf (91 pages).
+Output written on ds4psy.pdf (93 pages).

@@ -62,8 +62,8 @@ rmd_files:
     # - "091_kl.Rmd"
     # - "092_info_criterion.Rmd"
     # - "093_projpred.Rmd"
-    # # ## APPENDIX
-    # - "800_appendix.Rmd"
+    ## APPENDIX
+    - "800_appendix.Rmd"
     # - "801_math_symbols.Rmd"
     # - "802_number_sets.Rmd"
     # - "803_set_theory.Rmd"
@@ -77,6 +77,7 @@ rmd_files:
     # - "846_plot_beta_bin.Rmd"
     # - "847_proportion_subjective.Rmd"
     # - "850_marginal_like.Rmd"
+    - "905_quadratic_approx.Rmd"
     # - "910_grid_method.Rmd"
     # - "913_markov_chains.Rmd"
     # - "914_stan_lang.Rmd"
