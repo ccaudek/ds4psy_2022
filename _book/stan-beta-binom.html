@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Commenti e considerazioni finali | Data Science per psicologi</title>
+  <title>Capitolo 3 Il modello beta-binomiale in linguaggio Stan | Data Science per psicologi</title>
   <meta name="description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Commenti e considerazioni finali | Data Science per psicologi" />
+  <meta property="og:title" content="Capitolo 3 Il modello beta-binomiale in linguaggio Stan | Data Science per psicologi" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="ccaudek/ds4psy" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Commenti e considerazioni finali | Data Science per psicologi" />
+  <meta name="twitter:title" content="Capitolo 3 Il modello beta-binomiale in linguaggio Stan | Data Science per psicologi" />
   
   <meta name="twitter:description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="due-proporzioni.html"/>
-<link rel="next" href="appendix:intro-stan.html"/>
+<link rel="prev" href="commenti-e-considerazioni-finali.html"/>
+<link rel="next" href="una-proporzione.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -246,35 +246,17 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="commenti-e-considerazioni-finali-1" class="section level2 unnumbered">
-<h2>Commenti e considerazioni finali</h2>
-<p>Concludiamo questa discussione dicendo che ciò che è stato presentato in questo capitolo è un esercizio didattico: la ricerca di <span class="citation">Gautret et al. (<a href="#ref-Gautret_2020" role="doc-biblioref">2020</a>)</span> include tante altre informazioni che non sono state qui considerate. Tuttavia, notiamo che la semplice analisi statistica che abbiamo qui descritto è stata in grado di replicare le conclusioni a cui sono giunti (per altra via) <span class="citation">Hulme et al. (<a href="#ref-Hulme_2020" role="doc-biblioref">2020</a>)</span>.</p>
-
-</div>
-<!-- </div> -->
-
-
-
-
-
-
-</div>
-<h3>References</h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-Gautret_2020" class="csl-entry">
-Gautret, P., J. C. Lagier, P. Parola, L. Meddeb, M. Mailhe, B. Doudier, and S. Honoré. 2020. <span>“Hydroxychloroquine and Azithromycin as a Treatment of COVID-19: Results of an Open-Label Non-Randomized Clinical Trial.”</span> <em>International Journal of Antimicrobial Agents</em>.
-</div>
-<div id="ref-Hulme_2020" class="csl-entry">
-Hulme, O. J., E. J. Wagenmakers, P. Damkier, C. F. Madelung, H. R. Siebner, J. Helweg-Larsen, and K. H. Madsen. 2020. <span>“Reply to Gautret Et Al. 2020: A Bayesian Reanalysis of the Effects of Hydroxychloroquine and Azithromycin on Viral Carriage in Patients with COVID-19.”</span> <em>medRxiv</em>.
-</div>
+<div id="stan-beta-binom" class="section level1" number="3">
+<h1><span class="header-section-number">Capitolo 3</span> Il modello beta-binomiale in linguaggio Stan</h1>
+<p>In questo Capitolo introdurremo un linguaggio di programmazione probabilistica chiamato Stan, ovvero un linguaggio di programmazione in grado di creare modelli e previsioni e di analizzare campioni di dati. Il linguaggio Stan viene utilizzato per specificare un modello statistico bayesiano mediante un insieme di istruzioni che calcolano la funzione di densità di probabilità (logaritmica) a posteriori. Stan prende il nome in onore di Stanislaw Ulam, pioniere del metodo Monte Carlo. Un’introduzione alla sintassi di Stan è fornita nell’Appendice <a href="appendix:intro-stan.html#appendix:intro-stan">A</a>. In questo Capitolo vedremo come fare inferenza su una proporzione mediante il linguaggio Stan.</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="due-proporzioni.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="appendix:intro-stan.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="commenti-e-considerazioni-finali.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="una-proporzione.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,4 +1,4 @@
-# Programmare in Stan {#intro-stan}
+# Programmare in Stan {#appendix:intro-stan}
 
 <!-- http://avehtari.github.io/BDA_R_demos/demos_rstan/rstan_demo.html -->
 
@@ -9,14 +9,12 @@ suppressPackageStartupMessages(library("rethinking"))
 suppressPackageStartupMessages(library("brms")) 
 ```
 
-## Che cos'è Stan?
-
-[STAN](http://mc-stan.org/) è un linguaggio di programmazione probabilistico usato per l'inferenza bayesiana [@carpenter2017stan]. Prende il nome da uno dei creatori del metodo Monte Carlo, Stanislaw Ulam [@Eckhardt1987stan]. Stan consente di generare campioni da distribuzioni di probabilità basati sulla costruzione di una catena di Markov avente come distribuzione di equilibrio (o stazionaria) la distribuzione desiderata.  
+## Interfacce e pacchetti
 
 È possibile accedere al linguaggio Stan tramite diverse interfacce:
 
 - `CmdStan`: eseguibile da riga di comando,
-- `RStan` - integrazione con il linguaggio \R;
+- `RStan` - integrazione con il linguaggio $\R$;
 - `PyStan` - integrazione con il linguaggio di programmazione Python;
 - `MatlabStan` - integrazione con MATLAB;
 - `Stan.jl` - integrazione con il linguaggio di programmazione Julia;
@@ -24,8 +22,8 @@ suppressPackageStartupMessages(library("brms"))
 
 Inoltre, vengono fornite interfacce di livello superiore con i pacchetti che utilizzano Stan come backend, principalmente in Linguaggio \R:
 
-- `shinystan`: interfaccia grafica interattiva per l'analisi della distribuzione a posteriori e le diagnostiche MCMC;  
-- `bayesplot`: insieme di funzioni utilizzabili per creare grafici relativi all'analisi della distribuzione a posteriori, ai test del modello e alle diagnostiche MCMC;  
+- `shinystan`: interfaccia grafica interattiva per l'analisi della distribuzione a posteriori e le diagnostiche MCMC;
+- `bayesplot`: insieme di funzioni utilizzabili per creare grafici relativi all'analisi della distribuzione a posteriori, ai test del modello e alle diagnostiche MCMC;
 - `brms`: fornisce un'ampia gamma di modelli lineari e non lineari specificando i modelli statistici mediante la sintassi usata in \R;
 - `rstanarm`: fornisce un sostituto per i modelli frequentisti forniti da base $\R$ e `lme4` utilizzando la sintassi usata in $\R$ per la specificazione dei modelli statistici;
 - `edstan`: modelli Stan per la Item Response Theory;

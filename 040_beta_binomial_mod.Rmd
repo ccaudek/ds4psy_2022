@@ -1,4 +1,4 @@
-# Modello Beta-Binomiale {#mod-binom}
+# Il modello beta-binomiale in linguaggio Stan {#stan-beta-binom}
 
 ```{r c040, include = FALSE}
 source("_common.R")
@@ -7,41 +7,41 @@ suppressPackageStartupMessages(library("rethinking"))
 suppressPackageStartupMessages(library("brms"))
 ```
 
-In questo Capitolo vedremo come si possa fare inferenza su una proporzione impiegando nell'analisi il linguaggio Stan.
+In questo Capitolo introdurremo un linguaggio di programmazione probabilistica chiamato Stan. [Stan](http://mc-stan.org/) è un linguaggio di programmazione probabilistica usato per l'inferenza bayesiana [@carpenter2017stan]. Prende il nome da uno dei creatori del metodo Monte Carlo, Stanislaw Ulam [@Eckhardt1987stan]. Stan consente di generare campioni da distribuzioni di probabilità basati sulla costruzione di una catena di Markov avente come distribuzione di equilibrio (o stazionaria) la distribuzione desiderata. Un'introduzione al linguaggio Stan è fornita nell'Appendice \@ref(appendix:intro-stan). In questo Capitolo useremo Stan per fare inferenza su una proporzione.
+
+## Il presidente Trump e l'idrossiclorochina 
+
+Per fare un esempio concreto, consideriamo un set di dati reali. Cito dal *Washington Post* del 7 aprile 2020: *"One of the most bizarre and disturbing aspects of President Trump's nightly press briefings on the coronavirus pandemic is when he turns into a drug salesman. Like a cable TV pitchman hawking 'male enhancement' pills, Trump regularly extols the virtues of taking hydroxychloroquine, a drug used to treat malaria and lupus, as a potential 'game changer' that just might cure Covid-19."* Tralasciamo qui il fatto che il Donald Trump non sia un esperto in questo campo. Esaminiamo invece le evidenze iniziali a supporto dell'ipotesi che l'idrossiclorochina possa essere utile per la cura del Covid-19, ovvero le evidenze che erano disponibili nel momento in cui il Donald Trump ha fatto le affermazioni riportate sopra (in seguito, quest'idea è stata screditata). Tali evidenze sono state fornite da uno studio di @Gautret_2020. Il disegno sperimentale di @Gautret_2020 comprende, tra le altre cose, il confronto tra una condizione sperimentale e una condizione di controllo. Il confronto importante è tra la proporzione di paziente positivi al virus SARS-CoV-2 nel gruppo sperimentale (a cui è stata somministrata l'idrossiclorochina; 6 su 14) e la proporzione di paziente positivi nel gruppo di controllo (a cui non è stata somministrata l'idrossiclorochina; ovvero 14 su 16). Obiettivo di questo Capitolo è mostrare come si possa fare inferenza sui dati di @Gautret_2020 usando il linguaggio Stan. Per semplicità, iniziamo considerando solo il gruppo di controllo.
 
 ## Una proporzione 
 
-Si considerino $n$ variabili casuali Bernoulliane i.i.d.: 
+Sulla base di ciò che è stato detto nel Capitolo \@ref(chapter-distr-coniugate), sappiamo che, quando i dati sono rappresentati da una proporzione $\theta$, e quando utilizziamo una distribuzione a priori Beta per $\theta$, la distribuzione a posteriori di $\theta$ è specificata dallo schema beta-binomiale. Se scegliamo, ad esempio, una $\mbox{Beta}(2, 2)$ quale distribuzione a priori per $\theta$, il modello diventa:
 
-$$
-y = (y_1, \dots, y_n) \stackrel{iid}{\sim} \mathcal{B}(\theta).
-$$ 
+<!-- Si considerino $n$ variabili casuali Bernoulliane i.i.d.:  -->
 
-Vogliamo stimare $\theta$ avendo osservato $y$. Essendo i.i.d., i dati possono essere riassunti dal numero totale di successi nelle $n$ prove, denotato da $y$. Il modello binomiale è
+<!-- $$ -->
+<!-- y = (y_1, \dots, y_n) \stackrel{iid}{\sim} \mbox{Bernoulli}(\theta). -->
+<!-- $$  -->
 
-\begin{equation}
-p(y \mid \theta) = \Bin(y \mid n, \theta) = \binom{n}{y}\theta^y (1 -\theta)^{n-y},
-\end{equation}
+<!-- Vogliamo stimare $\theta$ avendo osservato $y$. Essendo i.i.d., i dati possono essere riassunti dal numero totale di successi nelle $n$ prove, denotato da $y$. Il modello binomiale è -->
 
-dove nel termine di sinistra dell'equazione abbiamo ignorato $n$ in quanto viene considerato fisso per disegno. L'inferenza sul modello binomiale richiede di assegnare una distribuzione a priori su $\theta$ che dipende dall'informazione disponibile a priori. Se sceglamo, ad esempio, una $\mbox{Beta}(2, 2)$ quale distribuzione a priori, il modello diventa:
+<!-- \begin{equation} -->
+<!-- p(y \mid \theta) = \mbox{Bin}(y \mid n, \theta) = \binom{n}{y}\theta^y (1 -\theta)^{n-y}, -->
+<!-- \end{equation} -->
+
+<!-- dove nel termine di sinistra dell'equazione abbiamo ignorato $n$ in quanto viene considerato fisso per disegno. L'inferenza sul modello binomiale richiede di assegnare una distribuzione a priori su $\theta$ che dipende dall'informazione disponibile a priori.  -->
 
 \begin{align}
-y &\sim \Bin(n, \theta) \notag\\
+y &\sim \mbox{Bin}(n, \theta) \notag\\
 \theta &\sim \mbox{Beta}(2, 2),
 (\#eq:beta-binom-trump)
 \end{align}
 
-dove la prima riga definisce la funzione di verosimiglianza e la seconda riga definisce la distribuzione a priori. Sulla base di ciò che è stato detto nel Capitolo \@ref(chapter-distr-coniugate), sappiamo che le equazioni \@ref(eq:beta-binom-trump) definiscono il caso Beta-Binomiale.
+dove la prima riga definisce la funzione di verosimiglianza e la seconda riga definisce la distribuzione a priori. Vediamo ora come specificare tale modello beta-binomiale in linguaggio Stan.
 
-### Il presidente Trump e l'idrossiclorochina 
+## Interfaccia `cmdstanr` {#cmdstanr-gautret}
 
-Per fare un esempio concreto, consideriamo un set di dati reali. Cito dal *Washington Post* del 7 aprile 2020: *"One of the most bizarre and disturbing aspects of President Trump's nightly press briefings on the coronavirus pandemic is when he turns into a drug salesman. Like a cable TV pitchman hawking 'male enhancement' pills, Trump regularly extols the virtues of taking hydroxychloroquine, a drug used to treat malaria and lupus, as a potential 'game changer' that just might cure Covid-19."*
-
-Tralasciamo qui il fatto che il presidente Trump non è un esperto in questo campo. Esaminiamo invece le evidenze iniziali a supporto dell'ipotesi che l'idrossiclorochina possa essere utile per la cura del Covid-19, ovvero le evidenze che erano disponibili nel momento in cui il presidente Trump ha fatto le affermazioni riportate sopra (in seguito, quest'idea è stata screditata). Tali evidenze sono state fornite da uno studio di @Gautret_2020. Il disegno sperimentale di @Gautret_2020 comprende, tra le altre cose, il confronto tra una condizione sperimentale e una condizione di controllo. Il confronto importante è tra la proporzione di paziente positivi al virus SARS-CoV-2 nel gruppo sperimentale (a cui è stata somministrata l'idrossiclorochina; 6 su 14) e la proporzione di paziente positivi nel gruppo di controllo (a cui non è stata somministrata l'idrossiclorochina; ovvero 14 su 16). Obiettivo di questo Capitolo è mostrare come si possa fare inferenza sul modello \@ref(eq:beta-binom-trump) usando il linguaggio Stan.
-
-### Interfaccia `cmdstanr` {#cmdstanr-gautret}
-
-Nella seguente discussione verrà ottenuta una stima bayesiana del parametro $\theta$ usando l'interfaccia `cmdstanr` di CmdStan.^[I modelli discussi in questo capitolo sono discussi da @gelman1995bayesian mentre il codice è stato ricavato dalla seguente [pagina web](http://avehtari.github.io/BDA_R_demos/demos_rstan/rstan_demo.html).]. Considereremo qui solo il gruppo di controllo. Iniziamo a caricare i pacchetti necessari:
+Nella seguente discussione useremo l'interfaccia `cmdstanr` di CmdStan.^[I modelli discussi in questo capitolo sono discussi da @gelman1995bayesian mentre il codice è stato ricavato dalla seguente [pagina web](http://avehtari.github.io/BDA_R_demos/demos_rstan/rstan_demo.html).]. Carichiamo i pacchetti necessari:
 
 ```{r, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
 library("cmdstanr")
@@ -54,16 +54,11 @@ Sys.setenv(LOCAL_CPPFLAGS = '-march=native')
 SEED <- 374237 # set random seed for reproducibility
 ```
 
-Ci sono due passaggi essenziali per le analisi svolte mediante `cmdstanr`: 
-
-1. definire la struttura del modello bayesiano nella notazione Stan; 
-2. eseguire il campionamento della distribuzione a posteriori. 
-
-Esaminiamo questi due passaggi nel contesto del modello Beta-Binomiale definito dalla \@ref(eq:beta-binom-trump). 
+Per svolgere l'analisi mediante `cmdstanr` è necessario prima specificare la struttura del modello bayesiano nella notazione Stan e, poi, eseguire il campionamento dalla distribuzione a posteriori. Esaminiamo questi due passaggi per il caso dell'esempio presente. 
 
 ### Fase 1
 
-È necessario definire i dati, i parametri e il modello. I *dati* del gruppo di controllo, che verrà qui esaminato, devono essere contenuti in un oggetto di classe `list`:
+Nella prima fase dell'analisi dobbiamo definire i dati, i parametri e il modello. I *dati* devono essere contenuti in un oggetto di classe `list`. Per l'esempio presente abbiamo:
 
 ```{r}
 data1_list <- list(
@@ -72,23 +67,19 @@ data1_list <- list(
 )
 ```
 
-Il modello dipende dal *parametro* `theta`. In Stan, dobbiamo specificare che `theta` può essere un qualsiasi numero reale compreso tra 0 e 1.
-
-Il *modello* è $\Bin(n, \theta)$ e, nel linguaggio Stan, può essere scritto come 
-
-```{r, eval=FALSE}
-for (i in 1:N) {
-  y[i] ~ bernoulli(theta);
-}
-```
-
-ovvero come
+Il *modello* è $\Bin(n, \theta)$ e, in linguaggio Stan, può essere specificato come 
 
 ```{r, eval=FALSE}
 y ~ bernoulli(theta);
 ```
 
-La struttura del modello Beta-Binomiale viene tradotta nella sintassi Stan^[Si veda l'Appendice \@ref(intro-stan)] e viene poi memorizzata come stringa di caratteri del file `oneprop1.stan`:
+Il modello dipende dal *parametro* `theta`. In Stan, dobbiamo specificare che `theta` può essere un qualsiasi numero reale compreso tra 0 e 1. Inoltre, dobbiamo specificare la distribuzione a priori di  $\theta$. Per questo parametro abbiamo scelto una $\mbox{Beta}(2, 2)$ e, in linguaggio Stan, scriviamo 
+
+```{r, eval=FALSE}
+theta ~ beta(2, 2);
+```
+
+Memorizziamo ora il modello beta-binomiale specificato in linguaggio Stan come stringa di caratteri nel file `oneprop.stan`:
 
 ```{r}
 modelString = "
@@ -102,56 +93,33 @@ parameters {
 model {
   theta ~ beta(2, 2);
   y ~ bernoulli(theta);
-  // the notation using ~ is syntactic sugar for
-  //  target += beta_lpdf(theta | 1, 1);   
-  //  target += bernoulli_lpmf(y | theta); 
-  // target is the log density to be sampled
-  //
-  // y is an array of integers and
-  //  y ~ bernoulli(theta);
-  // is equivalent to
-  //  for (i in 1:N) {
-  //    y[i] ~ bernoulli(theta);
-  //  }
-  // which is equivalent to
-  //  for (i in 1:N) {
-  //    target += bernoulli_lpmf(y[i] | theta); 
-  //  }
-}
-generated quantities {
-  int y_rep[N];
-  real log_lik[N];
-  for (n in 1:N) {
-    y_rep[n] = bernoulli_rng(theta);
-    log_lik[n] = bernoulli_lpmf(y[n] | theta);
-  }
 }
 "
-writeLines(modelString, con = "code/oneprop1.stan")
+writeLines(modelString, con = "code/oneprop.stan")
 ```
 
 ### Fase 2
 
-Leggiamo l'indirizzo del file che contiene il codice Stan:
+Per utilizzare il modello che abbiamo specificato, leggiamo l'indirizzo del file che contiene il codice Stan:
 
 ```{r}
-file <- file.path("code", "oneprop1.stan")
+file <- file.path("code", "oneprop.stan")
 ```
 
-Compiliamo il codice:
+Compiliamo il codice 
 
 ```{r, message=FALSE, comment=FALSE, error=FALSE}
 mod <- cmdstan_model(file)
 ```
 
-Il campionamento MCMC si realizza con la chiamata:
+ed eseguiamo il campionamento MCMC con la chiamata
 
 ```{r, message=FALSE, comment=FALSE, error=FALSE, results='hide'}
 fit1 <- mod$sample(
   data = data1_list,
   iter_sampling = 4000L,
   iter_warmup = 2000L,
-  seed = SEED,
+  seed = 84735,
   chains = 4L,
   parallel_chains = 4L,
   refresh = 0,
@@ -163,7 +131,7 @@ Avendo assunto una distribuzione a priori per il parametro $\theta$, l'algoritmo
 
 Si noti che `$sample()` richiede due tipi di informazioni. Innanzitutto, dobbiamo specificare le informazioni sul modello in base a:
 
-- `mod` = la stringa di caratteri che definisce il modello (qui `oneprop1.stan`),
+- `mod` = la stringa di caratteri che definisce il modello (qui `oneprop.stan`),
 - `data` = i dati in formato lista (`data1_list`).
 
 Dobbiamo inoltre specificare le informazioni sul campionamento MCMC utilizzando tre argomenti aggiuntivi:
@@ -239,7 +207,7 @@ rstantools::posterior_interval(as.matrix(stanfit1), prob = 0.95)
 
 Svolgendo un'analisi bayesiana simile a questa, @Gautret_2020 hanno trovato che gli intervalli di credibilità del gruppo di controllo e del gruppo sperimentale non si sovrappongono. Questo fatto viene interpretato dicendo che il parametro $\theta$ è diverso nei due gruppi. Sulla base di queste evidenza, @Gautret_2020 hanno concluso, con un grado di certezza soggettiva del 95%, che nel gruppo sperimentale vi è una probabilità più bassa di risultare positivi al SARS-CoV-2 rispetto al gruppo di controllo. In altri termini, questa analisi dei dati suggerisce che l'idrossiclorochina sia efficace come terapia per il Covid-19. 
 
-### La critica di @Hulme_2020
+## La critica di @Hulme_2020
 
 Un articolo pubblicato da @Hulme_2020 si è posto il problema di rianalizzare i dati di @Gautret_2020.^[Si veda <https://osf.io/5dgmx/>.] Tra gli autori di questo articolo figura anche Eric-Jan Wagenmakers, uno psicologo molto conosciuto per i suoi contributi metodologici. @Hulme_2020 hanno osservato che, nelle  analisi statistiche riportate, @Gautret_2020 hanno escluso alcuni dati. Nel gruppo sperimentale, infatti, vi erano alcuni pazienti i quali, anziché migliorare, sono in realtà peggiorati. L'analisi statistica di @Gautret_2020 ha escluso i dati di questi pazienti. Se consideriamo tutti i pazienti --- non solo quelli selezionati da @Gautret_2020 --- la situazione diventa la seguente:
 
