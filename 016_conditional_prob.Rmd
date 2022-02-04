@@ -38,26 +38,14 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{con}\, P(B) > 0,
 dove $P(A\cap B)$ è la probabilità congiunta dei due eventi, ovvero la probabilità che si verifichino entrambi.
 :::
 
-Nella \@ref(eq:probcond) possiamo distinguere tra la $P(A\cap B)$, probabilità congiunta, $P(A \cap B$, probabilità condizionata, e $P(B)$, probabilità marginale.
+Nella \@ref(eq:probcond) possiamo distinguere tra la probabilità congiunta $P(A \cap B)$, la probabilità condizionata $P(A \mid B)$ e la probabilità marginale $P(B)$.
 
-Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta come prodotto di due probabilità, una condizionata e una marginale (_regola moltiplicativa_, o _della catena_). Per esempio se conosciamo la probabilità marginale $P(B)$ e la probabilità condizionata  $P(A \mid B)$ otteniamo 
-\begin{equation}
-P(A \cap B) = P(B)P(A \mid B),
-(\#eq:probcondinv)
-\end{equation}
-
-mentre se conosciamo la probabilità marginale $P(A)$ e la probabilità condizionata  $P(B \mid A)$ otteniamo 
-
-$$
-P(A \cap B) = P(A)P(B \mid A).
-$$
 
 ::: {.exercise}
 Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
 
 Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4. Per rispondere alla seconda domanda consideriamo solo le 13 carte di cuori; la probabilità cercata è dunque 3/13.
 ::: 
-
 
 ### La fallacia del condizionale trasposto
 
@@ -69,27 +57,38 @@ Le considerazioni precedenti risultano più chiare se facciamo nuovamente riferi
 
 ## Legge delle probabilità composte
 
-Il teorema delle probabilità composte deriva dal concetto di probabilità condizionata per cui la probabilità che si verifichino due eventi $A_i$ e $A_j$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo.
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta come prodotto di due probabilità, una condizionata e una marginale. La legge delle probabilità composte afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo. Per esempio se conosciamo la probabilità marginale $P(B)$ e la probabilità condizionata  $P(A \mid B)$ otteniamo
+
+\begin{equation}
+P(A \cap B) = P(B)P(A \mid B),
+(\#eq:probcondinv)
+\end{equation}
+
+mentre se conosciamo la probabilità marginale $P(A)$ e la probabilità condizionata $P(B \mid A)$ otteniamo 
+
+$$
+P(A \cap B) = P(A)P(B \mid A).
+$$
 
 L'equazione \@ref(eq:probcondinv) si estende al caso di $n$ eventi $A_1, \dots, A_n$ nella forma seguente: 
 
 \begin{equation}
-\begin{split}
-P(A_1 \cap A_2 \cap \dots\cap A_n) = {}& P(A_1)P(A_2 \mid A_1)P(A_3 \mid A_1 \cap A_2) \dots\\
- & P(A_n \mid A_1 \cap A_2 \cap \dots \cap A_{n-1})
-\end{split}
+P\left( \bigcap_{k=1}^n A_k \right) = \prod_{k=1}^n \left(  A_k  \ \Biggl\lvert \ \bigcap_{j=1}^{k-1} A_j \right)
 (\#eq:probcomposte)
 \end{equation}
 
-la quale esprime in forma generale la legge delle probabilità composte.
+Per esempio, nel caso di quattro eventi abbiamo
+
+\begin{equation}
+\begin{split}
+P(A_1 \cap A_2 \cap A_3 \cap A_4) = {}& P(A_1) \cdot P(A_2 \mid A_1) \cdot  P(A_3 \mid A_1 \cap A_2) \cdot \\
+ & P(A_4 \mid A_1 \cap A_2 \cap A_{3}).\notag
+\end{split}
+\end{equation}
 
 ::: {.exercise}
-Da un'urna contenente 6 palline bianche e 4 nere si estrae una pallina
-per volta, senza reintrodurla nell'urna. Indichiamo con $B_i$ l'evento:
-"esce una pallina bianca alla $i$-esima estrazione" e con $N_i$
-l'estrazione di una pallina nera. L'evento: "escono due palline bianche
-nelle prime due estrazioni" è rappresentato dalla intersezione
-$\{B_1 \cap  B_2\}$ e la sua probabilità vale, per la \@ref(eq:probcondinv) 
+Da un'urna contenente 6 palline bianche e 4 nere si estrae una pallina per volta, senza reintrodurla nell'urna. Indichiamo con $B_i$ l'evento: "esce una pallina bianca alla $i$-esima estrazione" e con $N_i$ l'estrazione di una pallina nera. L'evento: "escono due palline bianche nelle prime due estrazioni" è rappresentato dalla intersezione
+$\{B_1 \cap  B_2\}$ e la sua probabilità vale, per la \@ref(eq:probcondinv) 
 
 $$
 P(B_1 \cap B_2) = P(B_1)P(B_2 \mid B_1).
@@ -140,12 +139,12 @@ $$
 
 Possiamo dunque dire che due eventi $A$ e $B$ sono indipendenti se 
 
-$$
+\begin{equation}
 \begin{split}
 P(A \mid B) &= P(A), \\
 P(B \mid A) &= P(B).
 \end{split}
-$$
+\end{equation}
 
 Si noti inoltre che, se due eventi con probabilità non nulla sono statisticamente indipendenti, la legge delle probabilità totali espressa dalla \@ref(eq:probunione) 
 \begin{equation}

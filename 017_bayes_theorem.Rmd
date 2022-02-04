@@ -127,10 +127,7 @@ $$
 &=0.60.
 \end{split}
 $$
-(Un altro esercizio sulla probabilità assoluta è fornito in Appendice \@ref(appendix:exrc-abs-prob).)
 :::
-
- \@ref(eq:binom)
 
 
 <!-- ::: {.exercise} -->
@@ -231,15 +228,13 @@ La \@ref(eq:bayes2) prende il nome di *teorema di Bayes* e mostra che la conosce
 Nel capitolo \@ref(chapter-intro-bayes-inference) estenderemo questa discussione mostrando come la \@ref(eq:bayes2) possa essere formulata nel caso delle variabili casuali continue. 
 
 ::: {.exercise}
-Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes, quando abbiamo risolto l'esercizio riportato nella Sezione \@ref(sec:bayes-cancer). Svolgiamo nuovamente lo stesso esercizio applicando ora  la \@ref(eq:bayes2) che, per convenienza, riscriviamo come:
+Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes, quando abbiamo risolto l'esercizio riportato nella Sezione \@ref(sec:bayes-cancer). Svolgiamo nuovamente lo stesso esercizio applicando ora la \@ref(eq:bayes2) che, per convenienza, riscriviamo come:
 
 \begin{align}
 {\mbox{P}}(M \mid +) &= \frac{{\mbox{P}}(+ \mid M) {\mbox{P}}(M)}{{\mbox{P}}(+ \mid M) {\mbox{P}}(M) + {\mbox{P}}(+ \mid M^\complement) {\mbox{P}}(M^\complement)}\notag\\ 
 &= \frac{0.9 \cdot 10/1000}{0.9 \cdot 10/1000 + 99 / 990 \cdot 990 / 1000} \notag\\
-&= \frac{9}{108}.
+&= \frac{9}{108}.\notag
 \end{align}
-
-(Un esercizio simile è proposto in Appendice \@ref(appendix:bayes-updating).)
 :::
 
 ## Commenti e considerazioni finali {-}
@@ -248,7 +243,8 @@ Il teorema di Bayes rende esplicito il motivo per cui la probabilità non possa 
 
 La probabilità a posteriori dipende sia da $E$, sia dalla conoscenza a priori dell'agente ${\mbox{P}}(F_j)$. In questo senso è chiaro come non abbia senso parlare di una probabilità oggettiva: per il teorema di Bayes la probabilità è definita condizionatamente alla probabilità a priori, la quale a sua volta, per definizione, è un'assegnazione soggettiva. Ne segue pertanto che ogni probabilità debba essere considerata come una rappresentazione del grado di fiducia soggettiva dell'agente. Dato che ogni assegnazione probabilistica rappresenta uno stato di conoscenza e che ciascun particolare stato di conoscenza è arbitrario, un accordo tra agenti diversi  non è richiesto. Tuttavia, la teoria delle probabilità ci fornisce uno strumento che, alla luce di nuove informazioni, consente l'aggiornamento dello stato di conoscenza in un modo razionale.
 
-Il teorema di Bayes consente di modificare una credenza a priori in maniera dinamica, via via che nuove evidenze vengono raccolte, in modo tale da formulare una credenza a posteriori la quale non è mai definitiva, ma possa sempre essere aggiornata in base alle nuove evidenze disponibili. Questo processo si chiama *aggiornamento bayesiano*.
+Il teorema di Bayes consente di modificare una credenza a priori in maniera dinamica, via via che nuove evidenze vengono raccolte, in modo tale da formulare una credenza a posteriori la quale non è mai definitiva, ma possa sempre essere aggiornata in base alle nuove evidenze disponibili. Questo processo si chiama *aggiornamento bayesiano*. 
+<!-- Esercizi uleriori sono proposti nelle Appendici \@ref(appendix:bayes-updating) e \@ref(appendix:exrc-abs-prob). -->
 
 ::: {.remark}
 Qual è la pronuncia di "Bayesian"? Per saperlo possiamo seguire [questo link](https://bayes-rules.github.io/posts/fun/).

@@ -4,7 +4,7 @@
 source("_common.R")
 ```
 
-La probabilità congiunta è la probabilità che due o più eventi si verifichino contemporaneamente. In questo Captitolo verrà esaminato in dettaglio il caso discreto. 
+La probabilità congiunta è la probabilità che due o più eventi si verifichino contemporaneamente. In questo Capitolo verrà esaminato in dettaglio il caso discreto. 
 
 ## Funzione di probabilità congiunta
 

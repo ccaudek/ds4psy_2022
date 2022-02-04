@@ -235,7 +235,7 @@
 
 \title{Data Science per psicologi}
 \author{Corrado Caudek}
-\date{2022-01-27}
+\date{2022-02-04}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -335,746 +335,1120 @@ Marzo 2022 \end{flushright}
 
 \mainmatter
 
-\hypertarget{part-inferenza-bayesiana}{%
-\part{Inferenza bayesiana}\label{part-inferenza-bayesiana}}
+\hypertarget{part-il-calcolo-delle-probabilituxe0}{%
+\part{Il calcolo delle probabilità}\label{part-il-calcolo-delle-probabilituxe0}}
 
-\hypertarget{ch:intro-bayes-inference}{%
-\chapter{Flusso di lavoro bayesiano}\label{ch:intro-bayes-inference}}
+\hypertarget{intro-prob-1}{%
+\chapter{Nozioni di base}\label{intro-prob-1}}
 
-La moderna statistica bayesiana viene per lo più eseguita utilizzando un linguaggio di programmazione probabilistico implementato su computer. Ciò ha cambiato radicalmente il modo in cui venivano eseguite le statistiche bayesiane anche fin pochi decenni fa. La complessità dei modelli che possiamo costruire è aumentata e la barriera delle competenze matematiche e computazionali che sono richieste è diminuita. Inoltre, il processo di modellazione iterativa è diventato, sotto molti aspetti, molto più facile da eseguire. Anche se formulare modelli statistici complessi è diventato più facile che mai, la statistica è un campo pieno di sottigliezze che non scompaiono magicamente utilizzando potenti metodi computazionali. Pertanto, avere una buona preparazione sugli aspetti teorici, specialmente quelli rilevanti nella pratica, è estremamente utile per applicare efficacemente i metodi statistici.
+L'\emph{inferenza statistica} è un tipo di inferenza induttiva. L'inferenza statistica è un insieme di procedure che hanno lo scopo di quantificare quanto più plausibile sia la proposizione \(A\) dopo aver osservato l'evento \(B\). Per svolgere l'inferenza statistica è necessario quantificare tale plausibilità e lo strumento che consente di fare ciò è la teoria delle probabilità. Una discussione dell'inferenza statistica richiede dunque la conoscenze delle nozioni di base della teoria delle probabilità.
 
-\hypertarget{modellizzazione-bayesiana}{%
-\section{Modellizzazione bayesiana}\label{modellizzazione-bayesiana}}
+\hypertarget{che-cosuxe8-la-probabilituxe0}{%
+\section{Che cos'è la probabilità?}\label{che-cosuxe8-la-probabilituxe0}}
 
-L'analisi bayesiana corrisponde alla costruzione di un modello statistico che si può rappresentare con una quaterna
-
-\begin{equation}
-(\mathcal{Y}, p(y \mid \theta), p(\theta), \theta \in \Theta),
-\end{equation}
-
-dove \(\mathcal{Y}\) è l'insieme di tutti i possibili risultati ottenuti dall'esperimento casuale e \(p(y \mid \theta)\) è una famiglia di leggi di probabilità, indicizzata dal parametro \(\theta \in \Theta\), che descrive l'incertezza sull'esito dell'esperimento. Secondo l'approccio bayesiano, il parametro incognito \(\theta\) è considerato una variabile casuale che segue la legge di probabilità \(p(\theta)\). L'incertezza su \(\theta\) è la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima di avere osservato il risultato dell'esperimento e prende il nome di \emph{distribuzione a priori}. La costruzione del modello statistico passa attraverso la scelta di una densità \(p(y \mid \theta)\) che rappresenta, in senso probabilistico, il fenomeno d'interesse, e attraverso la scelta di una distribuzione a priori \(p(\theta)\). Le informazioni che si hanno a priori sul parametro di interesse \(\theta\), contenute in \(p(\theta)\), vengono aggiornate attraverso quelle provenienti dal campione osservato \(y = (y_1, \dots, y_n)\) contenute nella funzione \(p(y \mid \theta)\), che, osservata come funzione di \(\theta\) per \(y\), prende il nome di \emph{funzione di verosimiglianza}. L'aggiornamento delle informazioni avviene attraverso la formula di Bayes
-
-\begin{equation}
-p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int_{\Theta}p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta} \quad \theta \in \Theta,
- \label{eq:bayes-intro}
-\end{equation}
-
-in cui \(p(\theta \mid y)\) prende il nome di \emph{distribuzione a posteriori}.
-
-Il denominatore del Teorema di Bayes \eqref{eq:bayes-intro}, che costituisce la costante di normalizzazione, è la densità marginale dei dati (o verosimiglianza marginale). In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio la media a posteriori di \(\theta\).
-
-Possiamo descrivere la modellazione bayesiana distinguendo tre passaggi \citep{martin2022bayesian}.
+La definizione della probabilità è un problema estremamente dibattuto ed aperto. Sono state fornite due possibili soluzioni al problema di definire il concetto di probabilità.
 
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
+\def\labelenumi{(\alph{enumi})}
 \item
-  Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, progettiamo un modello combinando e trasformando variabili casuali.
+  La natura della probabilità è ``ontologica'' (ovvero, basata sulla metafisica): la probabilità è una proprietà della della realtà, del mondo, di come sono le cose, indipendentemente dalla nostra esperienza. È una visione che qualcuno chiama ``oggettiva''.
 \item
-  Usiamo il teorema di Bayes per condizionare i nostri modelli ai dati disponibili. Chiamiamo questo processo ``inferenza'' e come risultato otteniamo una distribuzione a posteriori.
-\item
-  Critichiamo il modello verificando se il modello abbia senso utilizzando criteri diversi, inclusi i dati e la nostra conoscenza del dominio. Poiché generalmente siamo incerti sui modelli, a volte confrontiamo modelli diversi.
+  La natura della probabilità è ``epistemica'' (ovvero, basata sulla conoscenza): la probabilità si riferisce alla conoscenza che abbiamo del mondo, non al mondo in sé. Di conseguenza è detta, in contrapposizione alla precedente definizione, ``soggettiva''.
 \end{enumerate}
 
-Questi tre passaggi vengono eseguiti in modo iterativo e danno luogo a quello che è chiamato ``flusso di lavoro bayesiano'' (\emph{bayesian workflow}).
-
-\hypertarget{notazione}{%
-\subsection{Notazione}\label{notazione}}
-
-Per fissare la notazione, nel seguito \(y\) rappresenterà i dati e \(\theta\) rappresenterà i parametri incogniti di un modello statistico. Sia \(y\) che \(\theta\) vengono concepiti come variabili casuali. Con \(x\) vengono invece denotate le quantità note, come ad esempio i predittori del modello lineare. Per rappresentare in un modo conciso i modelli probabilistici viene usata una notazione particolare. Ad esempio, invece di scrivere \(p(\theta) = \mbox{Beta}(1, 1)\) scriviamo \(\theta \sim \mbox{Beta}(1, 1)\). Il simbolo ``\(\sim\)'' viene spesso letto ``è distribuito come''. Possiamo anche pensare che significhi che \(\theta\) costituisce un campione casuale estratto dalla distribuzione Beta(1, 1). Allo stesso modo, ad esempio, la verosimiglianza del modello binomiale può essere scritta come \(y \sim \text{Bin}(n, \theta)\).
-
-\hypertarget{distribuzioni-a-priori}{%
-\section{Distribuzioni a priori}\label{distribuzioni-a-priori}}
-
-Quando adottiamo un approccio bayesiano, i parametri della distribuzione di riferimento non venono considerati come delle costanti incognite ma bensì vengono trattati come variabili casuali; di conseguenza, i parametri assumono una particolare distribuzione che nelle statistica bayesiana viene definita ``a priori''. I parametri (o il parametro), che possiamo indicare con \(\theta\), possono assumere delle distribuzioni a priori differenti: a seconda delle informazioni disponibili bisogna selezionare una distribuzione di \(\theta\) in modo tale che venga assegnata una probabilità maggiore a quei valori che si ritengono più plausibili per \(\theta\). Idealmente, le credenze a priori che portano alla specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti.
-
-\hypertarget{tipologie-di-distribuzioni-a-priori}{%
-\subsection{Tipologie di distribuzioni a priori}\label{tipologie-di-distribuzioni-a-priori}}
-
-Possiamo distinguere tra diverse distribuzioni a priori in base a quanto fortemente impegnano il ricercatore a ritenere come plausibile un particolare intervallo di valori dei parametri. Il caso più estremo è quello che rivela una totale assenza di conoscenze a priori, il che conduce alle \emph{distribuzioni a priori non informative}, ovvero quelle che assegnano lo stesso livello di credibilità a tutti i valori dei parametri. Le distribuzioni a priori informative, d'altra parte, possono essere \emph{debolmente informative} o \emph{fortemente informative}, a seconda della forza della credenza che esprimono. Il caso più estremo di credenza a priori è quello che riassume il punto di vista del ricercatore nei termini di un \emph{unico valore} del parametro, il che assegna tutta la probabilità (massa o densità) ad di un singolo valore del parametro. Poiché questa non è più una distribuzione di probabilità, sebbene ne soddisfi la definizione, in questo caso si parla di una \emph{distribuzione a priori degenerata}. La figura seguente motra alcuni esempi di distribuzioni a priori per il modello Binomiale:
+In termini epistemici, la probabilità fornisce una misura della nostra incertezza sul verificarsi di un fenomeno, alla luce delle informazioni disponibili. Potremmo dire che c'è una ``scala'' naturale che ha per estremi il vero (1: evento certo) da una parte ed il falso (0: evento impossibile) dall'altra. La probabilità è la quantificazione di questa scala: quantifica lo stato della nostra incertezza rispetto al contenuto di verità di una proposizione (ovvero, quantifica la plausibilità di una proposizione).
 
 \begin{itemize}
 \tightlist
 \item
-  distribuzione \emph{non informativa}: \(\theta_c \sim \mbox{Beta}(1,1)\);
+  Nell'interpretazione frequentista della probabilità, la probabilità \(P(A)\) rappresenta la frequenza relativa a lungo termine nel caso di un grande numero di ripetizioni di un esperimento casuale sotto le medesime condizioni. L'evento \(A\) deve essere una proposizione relativa alle variabili casuali\footnote{Viene stressata qui l'idea che ciò di cui parliamo è qualcosa che emerge nel momento in cui è possibile ripetere l'esperimento casuale tante volte sotto le medesime condizioni. Le variabili casuali, infatti, forniscono una quantificazione dei risultati che si ottengono ripetendo tante volte l'esperimento casuale sotto le medesime condizioni.}.
 \item
-  distribuzione \emph{debolmente informativa}: \(\theta_c \sim \mbox{Beta}(5,2)\);
-\item
-  distribuzione \emph{fortemente informativa}: \(\theta_c \sim \mbox{Beta}(50,20)\);
-\item
-  \emph{valore puntuale}: \(\theta_c \sim \mbox{Beta}(\alpha, \beta)\) con \(\alpha, \beta \rightarrow \infty\) e \(\frac{\alpha}{\beta} = \frac{5}{2}\).
+  Nell'interpretazione bayesiana della probabilità \(P(A)\) rappresenta il grado di credenza, o plausibilità, a proposito di \(A\), dove \(A\) può essere qualsiasi proposizione logica.
 \end{itemize}
 
-\begin{figure}[h]
-
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-3-1} 
-
-}
-
-\caption{Esempi di distribuzioni a priori per il parametro $\theta_c$ nel Modello Binomiale.}\label{fig:unnamed-chunk-3}
-\end{figure}
-
-\hypertarget{selezione-della-distribuzione-a-priori}{%
-\subsection{Selezione della distribuzione a priori}\label{selezione-della-distribuzione-a-priori}}
-
-La selezione delle distribuzioni a priori è stata spesso vista come una delle scelte più importanti che un ricercatore fa quando implementa un modello bayesiano in quanto può avere un impatto sostanziale sui risultati finali. La soggettività delle distribuzioni a priori è evidenziata dai critici come un potenziale svantaggio dei metodi bayesiani. A questa critica, \citet{vandeSchoot2021modelling} rispondono dicendo che, al di là della scelta delle distribuzioni a priori, ci sono molti elementi del processo di inferenza statistica che sono soggettivi, ovvero la scelta del modello statistico e le ipotesi sulla distribuzione degli errori. In secondo luogo, \citet{vandeSchoot2021modelling} notano come le distribuzioni a priori svolgono due importanti ruoli statistici: quello della ``regolarizzazione della stima'', ovvero, il processo che porta ad indebolire l'influenza indebita di osservazioni estreme, e quello del miglioramento dell'efficienza della stima, ovvero, la facilitazione dei processi di calcolo numerico di stima della distribuzione a posteriori. L'effetto della distribuzione a priori sulla distribuzione a posteriori verrà discusso in dettaglio nel Capitolo \ref{chapter-balance}.
-
-\hypertarget{un-esempio-concreto}{%
-\subsection{Un esempio concreto}\label{un-esempio-concreto}}
-
-Per introdurre la modelizzazione bayesiana useremo qui i dati riportati da \citet{zetschefuture2019} (si veda l'appendice \ref{appendix:future-exp}). Tali dati corrispondono a 23 ``successi'' in 30 prove e possono dunque essere considerati la manifestazione di una variabile casuale Bernoulliana.
-
-Se non abbiamo alcuna informazione a priori su \(\theta\) (ovvero, la probabilità che l'aspettativa dell'umore futuro del partecipante sia distorta negativamente), potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri \(\alpha=1\) e \(\beta=1\). Una tale scelta, tuttavia, è sconsigliata in quanto è più vantaggioso usare una distribuzione debolmente informativa, come ad esempio \(\mbox{Beta}(2, 2)\), che ha come scopo la regolarizzazione, cioè quello di mantenere le inferenze in un intervallo ragionevole. Qui useremo una \(\mbox{Beta}(2, 10)\).
-
-\[
-p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}.
-\]
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bayesrules}\SpecialCharTok{::}\FunctionTok{plot\_beta}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{2}\NormalTok{, }\AttributeTok{beta =} \DecValTok{10}\NormalTok{, }\AttributeTok{mean =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{mode =} \ConstantTok{TRUE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-4-1} \end{center}
-
-La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta\) assume valori \(< 0.5\), con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile per il caso dell'esempio in discussione: la \(\mbox{Beta}(2, 10)\) verrà usata solo per scopi didattici, ovvero, per esplorare le conseguenze di tale scelta sulla distribuzione a posteriori.
-
-\hypertarget{la-funzione-di-verosimiglianza}{%
-\section{La funzione di verosimiglianza}\label{la-funzione-di-verosimiglianza}}
-
-Iniziamo con una definizione.
+In questo insegnamento utilizzeremo l'interpretazione bayesiana della probabilità. Possiamo citare De Finetti, ad esempio, il quale ha formulato la seguente definizione ``soggettiva'' di probabilità la quale risulta applicabile anche ad esperimenti casuali i cui eventi elementari non siano ritenuti ugualmente possibili e che non siano necessariamente ripetibili più volte sotto le stesse condizioni:
 
 \begin{definition}
-La \emph{funzione di verosimiglianza} \(\mathcal{L}(\theta \mid y) = f(y \mid \theta), \theta \in \Theta,\) è la funzione di massa o di densità di probabilità dei dati \(y\) vista come una funzione del parametro sconosciuto (o dei parametri sconosciuti) \(\theta\).
+La probabilità di un evento \(E\) è la quota \(p(E)\) che un individuo reputa di dover pagare ad un banco per ricevere ``1'' ovvero ``0'' verificandosi o non verificandosi \(E\). Le valutazioni di probabilità degli eventi devono rispondere ai pricipi di equità e coerenza.
 \end{definition}
 
-Detto in altre parole, le funzioni di verosimiglianza e di (massa o densità di) probabilità sono formalmente identiche, ma è completamente diversa la loro interpretazione. Nel caso della funzione di massa o di densità di probabilità la distribuzione del vettore casuale delle osservazioni campionarie \(y\) dipende dai valori assunti dal parametro (o dai parametri) \(\theta\); nel caso della la funzione di verosimiglianza la credibilità assegnata a ciascun possibile valore \(\theta\) viene determinata avendo acquisita l'informazione campionaria \(y\) che rappresenta l'elemento condizionante. In altri termini, la funzione di verosimiglianza descrive in termini relativi il sostegno empirico che \(\theta \in \Theta\) riceve da \(y\). Infatti, la funzione di verosimiglianza assume forme diverse al variare di \(y\). Possiamo dunque pensare alla funzione di verosimiglianza come alla risposta alla seguente domanda: avendo osservato i dati \(y\), quanto risultano (relativamente) credibili i diversi valori del parametro \(\theta\)? In termini più formali possiamo dire: sulla base dei dati, \(\theta_1 \in \Theta\) risulta più credibile di \(\theta_2 \in \Theta\) quale indice del modello probabilistico generatore dei dati se \(\mathcal{L}(\theta_1) > \mathcal{L}(\theta_1)\).
+I principi di equità e coerenza sono definiti come segue.
 
-Notiamo un punto importante: la funzione \(\mathcal{L}(\theta \mid y)\) non è una funzione di densità. Infatti, essa non racchiude un'area unitaria.
+\begin{definition}
+Una scommessa risponde ai pricipi di \emph{equità} se il ruolo di banco e giocatore sono scambiabili in ogni momento del gioco e sempre alle stesse condizioni; \emph{coerenza} se non vi sono combinazioni di scommesse che consentano (sia al banco che al giocatore) di realizzare perdite o vincite certe.
+\end{definition}
 
-\hypertarget{notazione-1}{%
-\subsection{Notazione}\label{notazione-1}}
+Secondo \citet{definetti1931prob}, \emph{``nessuna scienza ci permetterà di dire: il tale fatto accadrà, andrà così e così, perché ciò è conseguenza di tale legge, e tale legge è una verità assoluta, ma tanto meno ci condurrà a concludere scetticamente: la verità assoluta non esiste, e quindi tale fatto può accadere e può non accadere, può andare così e può andare in tutt'altro modo, nulla io ne so. Quel che si potrà dire è questo: io prevedo che il tale fatto avverrà, e avverrà nel tal modo, perché l'esperienza del passato e l'elaborazione scientifica cui il pensiero dell'uomo l'ha sottoposta mi fanno sembrare ragionevole questa previsione.''}
 
-Seguendo una pratica comune, in questa dispensa spesso useremo la notazione \(p(\cdot)\) per rappresentare due quantità differenti, ovvero la funzione di verosimiglianza e la distribuzione a priori. Questo piccolo abuso di notazione riflette il seguente punto di vista: anche se la verosimiglianza non è una funzione di densità di probabilità, noi non vogliamo stressare questo aspetto, ma vogliamo piuttosto pensare alla verosimiglianza e alla distribuzione a priori come a due elementi che sono egualmente necessari per calcolare la distribuzione a posteriori. In altri termini, per così dire, questa notazione assegna lo stesso status epistemologico alle due diverse quantità che si trovano al numeratore della regola di Bayes.
+In altri termini, de Finetti ritiene che la probabilità debba essere concepita non come una proprietà ``oggettiva'' dei fenomeni (``la probabilità di un fenomeno ha un valore determinato che dobbiamo solo scoprire''), ma bensì come il ``grado di fiducia -- in inglese \emph{degree of belief} -- di un dato soggetto, in un dato istante e con un dato insieme d'informazioni, riguardo al verificarsi di un evento''. Per denotare sia la probabilità (soggettiva) di un evento sia il concetto di \emph{valore atteso} (che descriveremo in seguito), \citet{definetti1970teoria} utilizza il termine ``previsione'' (e lo stesso simbolo \(P\)): \emph{``la previsione {[}\(\dots\){]} consiste nel considerare ponderatamente tutte le alternative possibili per ripartire fra di esse nel modo che parrà più appropriato le proprie aspettative, le proprie sensazioni di probabilità.''}
 
-\hypertarget{la-log-verosimiglianza}{%
-\subsection{La log-verosimiglianza}\label{la-log-verosimiglianza}}
+\hypertarget{variabili-casuali-e-probabilituxe0-di-un-evento}{%
+\section{Variabili casuali e probabilità di un evento}\label{variabili-casuali-e-probabilituxe0-di-un-evento}}
 
-Dal punto di vista pratico risulta più conveniente utilizzare, al posto della funzione di verosimiglianza, il suo logaritmo naturale, ovvero la funzione di log-verosimiglianza:
+Esaminiamo qui di seguito alcuni concetti di base della teoria delle probabilità.
 
-\begin{equation}
-\ell(\theta) = \log \mathcal{L}(\theta).
-\end{equation}
+\hypertarget{eventi-e-probabilituxe0}{%
+\subsection{Eventi e probabilità}\label{eventi-e-probabilituxe0}}
 
-Poiché il logaritmo è una funzione strettamente crescente (usualmente si considera il logaritmo naturale), allora \(\mathcal{L}(\theta)\) e \(\ell(\theta)\) assumono il massimo (o i punti di massimo) in corrispondenza degli stessi valori di \(\theta\) (per un approfondimento, si veda l'Appendice \ref{appendix:max-like}):
-
-\[
-\hat{\theta} = \argmax_{\theta \in \Theta} \ell(\theta) = \argmax_{\theta \in \Theta} \mathcal{L}(\theta).
-\]
-
-Per le proprietà del logaritmo, si ha
-
-\begin{equation}
-\ell(\theta) = \log \left( \prod_{i = 1}^n f(y \mid \theta) \right) = \sum_{i = 1}^n \log f(y \mid \theta).
-\end{equation}
-
-Si noti che non è necessario lavorare con i logaritmi, ma è fortemente consigliato. Il motivo è che i valori della verosimiglianza, in cui si moltiplicano valori di probabilità molto piccoli, possono diventare estremamente piccoli -- qualcosa come \(10^{-34}\). In tali circostanze, non è sorprendente che i programmi dei computer mostrino problemi di arrotondamento numerico. Le trasformazioni logaritmiche risolvono questo problema.
-
-\hypertarget{un-esempio-concreto-1}{%
-\subsection{Un esempio concreto}\label{un-esempio-concreto-1}}
-
-Se i dati di \citet{zetschefuture2019} possono essere riassunti da una proporzione allora è sensato adottare un modello probabilistico binomiale quale meccanismo generatore dei dati:
-
-\begin{equation}
-y  \sim \mbox{Bin}(n, \theta),
-\label{eq:binomialmodel}
-\end{equation}
-
-laddove \(\theta\) è la probabiltà che una prova Bernoulliana assuma il valore 1 e \(n\) corrisponde al numero di prove Bernoulliane. Questo modello assume che le prove Bernoulliane \(y_i\) che costituiscono il campione \(y\) siano tra loro indipendenti e che ciascuna abbia la stessa probabilità \(\theta \in [0, 1]\) di essere un ``successo'' (valore 1). In altre parole, il modello generatore dei dati avrà una funzione di massa di probabilità
+Nella teoria delle probabilità il risultato ``testa'' nel lancio di una moneta è chiamato \emph{evento}.\footnote{Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \ref{insiemistica}.} Ad esempio, \(Y\) = 1 denota l'evento in cui il lancio di una moneta produce come risultato testa. Il funzionale \(Pr[·]\) definisce la probabilità di un evento. Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento ``il risultato del lancio della moneta è testa'' è scritta come
 
 \[
-p(y \mid \theta)
-\ = \
-\mbox{Bin}(y \mid n, \theta).
+Pr[Y = 1] = 0.5.
 \]
 
-Nei capitoli precedenti è stato mostrato come, sulla base del modello binomiale, sia possibile assegnare una probabilità a ciascun possibile valore \(y \in \{0, 1, \dots, n\}\) \emph{assumendo noto il valore del parametro} \(\theta\). Ma ora abbiamo il problema inverso, ovvero quello di fare inferenza su \(\theta\) alla luce dei dati campionari \(y\). In altre parole, riteniamo di conoscere il modello probabilistico che ha generato i dati, ma di tale modello non conosciamo i parametri: vogliamo dunque ottenere informazioni su \(\theta\) avendo osservato i dati \(y\).
-
-Per i dati di \citet{zetschefuture2019} la funzione di verosimiglianza corrisponde alla funzione binomiale di parametro \(\theta \in [0, 1]\) sconosciuto. Abbiamo osservato un ``successo'' 23 volte in 30 ``prove'', dunque, \(y = 23\) e \(n = 30\). La funzione di verosimiglianza diventa
-
-\begin{equation}
-\mathcal{L}(\theta \mid y) = \frac{(23 + 7)!}{23!7!} \theta^{23} + (1-\theta)^7.
-\label{eq:likebino23}
-\end{equation}
-
-Per costruire la funzione di verosimiglianza dobbiamo applicare la \eqref{eq:likebino23} tante volte, cambiando ogni volta il valore \(\theta\) ma \emph{tenendo sempre costante il valore dei dati}. Per esempio, se poniamo \(\theta = 0.1\)
+Se la moneta è equilibrata dobbiamo anche avere \(Pr[Y = 0] = 0.5\). I due eventi \emph{Y} = 1 e \(Y\) = 0 sono \emph{mutuamente esclusivi} nel senso che non possono entrambi verificarsi contemporaneamente. Nella notazione probabilistica,
 
 \[
-\mathcal{L}(\theta \mid y) = \frac{(23 + 7)!}{23!7!} 0.1^{23} + (1-0.1)^7
+Pr[Y = 1\; e \; Y = 0] = 0.
 \]
 
-otteniamo
+Gli eventi \(Y\) = 1 e \(Y\) = 0 di dicono \emph{esaustivi}, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica,
+
+\[
+Pr[Y = 1\; o \; Y = 0] = 1.
+\]
+
+Il connettivo logico ``o'' specifica eventi \emph{disgiunti}, ovvero eventi che non possono verificarsi contemporaneamente (eventi \emph{incompatibili}) e per i quali, perciò, la probabilità della loro congiunzione è \(P(A \; e \; B) = 0\). Il connettivo logico ``e'', invece, specifica eventi \emph{congiunti}, ovvero eventi che possono verificarsi contemporaneamente (eventi \emph{compatibili}) e per i quali, perciò, la probabilità della loro congiunzione è \(Pr(A \; e \; B) > 0\).
+
+\hypertarget{spazio-campionario-e-risultati-possibili}{%
+\subsection{Spazio campionario e risultati possibili}\label{spazio-campionario-e-risultati-possibili}}
+
+Anche se il lancio di una moneta produce sempre uno specifico risultato nel mondo reale, noi possiamo anche immaginare i possibili risultati alternativi che si sarebbero potuti osservare. Quindi, anche se in uno specifico lancio la moneta dà testa (\(Y\) = 1), possiamo immaginare la possibilità che il lancio possa avere prodotto croce (\(Y\) = 0). Tale ragionamento controfattuale è la chiave per comprendere la teoria delle probabilità e l'inferenza statistica.
+
+I risultati possibili che si possono osservare come conseguenza del lancio di una moneta determinano i valori possibili che la variabile casuale può assumere. L'insieme di tutti i risultati possibili è chiamato \emph{spazio campionario}. Lo spazio campionario può essere concettualizzato come un'urna contenente una pallina per ogni possibile risultato del lancio della moneta. Su ogni pallina è scritto il valore della variabile casuale. Uno specifico lancio di una moneta -- ovvero, l'osservazione di uno specifico valore di una variabile casuale -- è chiamato \emph{esperimento casuale}.
+
+Il lancio di un dado ci fornisce l'esempio di un altro esperimento casuale. Supponiamo di essere interessati all'evento ``il lancio del dado produce un numero dispari''. Un \emph{evento} seleziona un sottoinsieme dello spazio campionario: in questo caso, l'insieme dei risultati \(\{1, 3, 5\}\). Se esce 3, per esempio, diciamo che si è verificato l'evento ``dispari'' (ma l'evento ``dispari'' si sarebbe anche verificato anche se fosse uscito 1 o 5).
+
+\hypertarget{variabili-casuali}{%
+\subsection{Variabili casuali}\label{variabili-casuali}}
+
+Sia \(Y\) il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, \(Y\) è una \emph{variabile casuale}, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50\% che il lancio della moneta dia come risultato ``testa'' e una probabilità del 50\% che dia come risultato ``croce''.
+
+Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale \(Y\) assume il valore 1 se esce testa e il valore 0 se esce croce.
+
+Una variabile casuale può essere \emph{discreta} o \emph{continua}. Una variabile casuale discreta può assumere un numero finito di valori \(x_1, \dots ,x_n\), in corrispondenza degli eventi \(E_i, \dots, E_n\) che si verificano con le rispettive probabilità \(p_1, \dots, p_n\). Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'intervallo dei valori che può assumere la variabile casuale è detto \emph{supporto} della sua distribuzione di probabilità, che può essere finito (come nel caso di una variabile casuale uniforme di supporto \([a, b]\)) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale).
+
+\hypertarget{usare-la-simulazione-per-stimare-le-probabilituxe0}{%
+\section{Usare la simulazione per stimare le probabilità}\label{usare-la-simulazione-per-stimare-le-probabilituxe0}}
+
+I metodi basati sulla simulazione consentono di stimare le probabilità degli eventi in un modo diretto, se siamo in grado di generare molteplici e casuali realizzazioni delle variabili casuali coinvolte nelle definizioni degli eventi. Per simulare il lancio di una moneta equilibrata in \(\R\) iniziamo a definire un vettore che contiene i possibili risultati del lancio della moneta (ovvero i possibili valori della variabile casuale \(Y\)):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 9.737e{-}18}
+\NormalTok{coin }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Se poniamo \(\theta = 0.2\)
-
-\[
-\mathcal{L}(\theta \mid y) = \frac{(23 + 7)!}{23!7!} 0.2^{23} + (1-0.2)^7
-\]
-
-otteniamo
+\noindent L'estrazione casuale di uno di questi due possibili valori (ovvero, la simulazione di uno specifico lancio di una moneta) si realizza con la funzione \texttt{sample()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, }\FloatTok{0.2}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 3.581e{-}11}
+\FunctionTok{sample}\NormalTok{(coin, }\AttributeTok{size =} \DecValTok{1}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 0}
 \end{Highlighting}
 \end{Shaded}
 
-e così via. La figura \ref{fig:likefutexpect} --- costruita utilizzando 100 valori equispaziati \(\theta \in [0, 1]\) --- fornisce una rappresentazione grafica della funzione di verosimiglianza.
+\noindent In maniera equivalente, la stessa operazione si può realizzare mediante l'istruzione
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{30}
-\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{23}
-\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
-\NormalTok{like }\OtherTok{\textless{}{-}} \FunctionTok{choose}\NormalTok{(n, y) }\SpecialCharTok{*}\NormalTok{ theta}\SpecialCharTok{\^{}}\NormalTok{y }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ theta)}\SpecialCharTok{\^{}}\NormalTok{(n }\SpecialCharTok{{-}}\NormalTok{ y)}
-\FunctionTok{tibble}\NormalTok{(theta, like) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta, }\AttributeTok{y =}\NormalTok{ like)) }\SpecialCharTok{+}
+\FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 1}
+\end{Highlighting}
+\end{Shaded}
+
+Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i risultati così ottenuti. La stima della probabilità dell'evento \(Pr[Y = 1]\) è data dalla frequenza relativa del numero di volte in cui abbiamo osservato l'evento di interesse (\(Y = 1\)):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{100}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
+\ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
+\NormalTok{  y[m] }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{\}}
+\NormalTok{estimate }\OtherTok{=} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ M}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"estimated Pr[Y = 1] ="}\NormalTok{, estimate)}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.53}
+\end{Highlighting}
+\end{Shaded}
+
+Ripetiamo questa procedura 10 volte.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{flip\_coin }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(M) \{}
+\NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
+  \ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
+\NormalTok{    y[m] }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  \}}
+\NormalTok{  estimate }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ M}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"estimated Pr[Y = 1] ="}\NormalTok{, estimate, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+  \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{100}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.44 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.52 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.46 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.57 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.47 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.46 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.48 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.49 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.47 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.62}
+\end{Highlighting}
+\end{Shaded}
+
+Dato che la moneta è equilibrata, la stima delle probabilità dell'evento \(Pr[Y = 1]\) è simile a al valore che ci aspettiamo (\(Pr[Y = 1]\) = 0.5), ma il risultato ottenuto nelle varie simulazioni non è sempre esatto. Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+  \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.497 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.529 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.493 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.511 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.506 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.52 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.49 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.495 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.489 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.496}
+\end{Highlighting}
+\end{Shaded}
+
+In questo secondo caso, gli errori tendono ad essere più piccoli della simulazione precedente. Cosa succede se in ciascuna simulazione esaminiamo i risultati di 10,000 lanci della moneta?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+  \FunctionTok{flip\_coin}\NormalTok{(}\FloatTok{1e4}\NormalTok{)}
+\NormalTok{\}}
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4885 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4957 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4902 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5032 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.5048 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4931 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4965 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.499 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4979 }
+\CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4973}
+\end{Highlighting}
+\end{Shaded}
+
+Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stimare (cioè 0.5, perché la moneta è equilibrata). I risultati delle simulazioni precedenti pongono dunque il problema di determinare quale sia il numero di lanci di cui abbiamo bisogno per assicurarci che le stime siano accurate (ovvero, vicine al valore corretto della probabilità)
+
+\hypertarget{la-legge-dei-grandi-numeri}{%
+\section{La legge dei grandi numeri}\label{la-legge-dei-grandi-numeri}}
+
+La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere qjello che accade all'aumentare del numero \(M\) di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento \(Pr[Y = 1]\) in funzione del numero di ripetizioni dell'esperimento casuale per ogni \(m \in 1:M.\) Un grafico dell'andamento della stima di \(Pr[Y = 1]\) in funzione di \(m\) si ottiene nel modo seguente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nrep }\OtherTok{\textless{}{-}} \FloatTok{1e4}
+\NormalTok{estimate }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nrep)}
+\NormalTok{flip\_coin }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(m) \{}
+\NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(m, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  phat }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ m}
+\NormalTok{  phat}
+\NormalTok{\}}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nrep) \{}
+\NormalTok{  estimate[i] }\OtherTok{\textless{}{-}} \FunctionTok{flip\_coin}\NormalTok{(i)}
+\NormalTok{\}}
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{n =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nrep, }
+\NormalTok{  estimate}
+\NormalTok{)}
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ n, }\AttributeTok{y =}\NormalTok{ estimate)}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(}\FunctionTok{L}\NormalTok{(theta)),}
-    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(}\StringTok{"Valori possibili di"} \SpecialCharTok{\textasciitilde{}}\NormalTok{ theta)}
-\NormalTok{  )}
+    \AttributeTok{x =} \StringTok{"Numero di lanci della moneta"}\NormalTok{, }
+    \AttributeTok{y =} \StringTok{"Stima Pr[Y = 1]"}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/likefutexpect-1} 
+{\centering \includegraphics{ds4psy_files/figure-latex/legge-grandi-n-1-1} 
 
 }
 
-\caption{Funzione di verosimiglianza nel caso di 23 successi in 30 prove.}\label{fig:likefutexpect}
+\caption{Stima della probabilità di successo in funzione del numero di lanci di una moneta.}\label{fig:legge-grandi-n-1}
 \end{figure}
 
-Come possiamo interpretare la curva che abbiamo ottenuto? Per alcuni valori \(\theta\) la funzione di verosimiglianza assume valori piccoli; per altri valori \(\theta\) la funzione di verosimiglianza assume valori più grandi. Questi ultimi sono i valori di \(\theta\) più credibili e il valore 23/30 (la moda della funzione di verosimiglianza) è il valore più credibile di tutti.
-
-\hypertarget{sec:const-normaliz-bino23}{%
-\section{La verosimiglianza marginale}\label{sec:const-normaliz-bino23}}
-
-Per il calcolo di \(p(\theta \mid y)\) è necessario dividere il prodotto tra la distribuzione a priori e la verosimiglianza per una costante di normalizzazione. Tale costante di normalizzazione, detta \emph{verosimiglianza marginale}, ha lo scopo di fare in modo che \(p(\theta \mid y)\) abbia area unitaria.
-
-Si noti che, nel caso di variabili continue, la verosimiglianza marginale è espressa nei termini di un integrale. Tranne in pochi casi particolari, tale integrale non ha una soluzione analitica. Per questa ragione, l'inferenza bayesiana procede calcolando una approssimazione della distribuzione a posteriori mediante metodi numerici.
-
-\hypertarget{un-esempio-concreto-2}{%
-\subsection{Un esempio concreto}\label{un-esempio-concreto-2}}
-
-Consideriamo nuovamente i dati di \citet{zetschefuture2019}. Supponiamo che nel numeratore bayesiano la verosimiglianza sia moltiplicata per una distribuzione uniforme, ovvero \(\mbox{Beta}(1, 1)\). In tali circostanze, il prodotto si riduce alla funzione di verosimiglianza. Per i dati di \citet{zetschefuture2019}, dunque, la costante di normalizzazione si ottiene marginalizzando la funzione di verosimiglianza \(p(y = 23, n = 30 \mid \theta)\) sopra \(\theta\), ovvero risolvendo l'integrale:
-
-\begin{equation}
-p(y = 23, n = 30) = \int_0^1 \binom{30}{23} \theta^{23} (1-\theta)^{7} \,\operatorname {d}\!\theta.
-\label{eq:intlikebino23}
-\end{equation}
-
-Una soluzione numerica si trova facilmente usando \(\R\):
+Dato che il grafico \ref{fig:legge-grandi-n-1} espresso su una scala lineare non rivela chiaramente l'andamento della simulazione, possiamo usare un grafico che impone una scala logaritmica sull'asse delle ascisse (\(x\)). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osseerva per valori tra 50 e 700, eccetera.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{like\_bin }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta) \{}
-  \FunctionTok{choose}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{23}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ theta}\SpecialCharTok{\^{}}\DecValTok{23} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ theta)}\SpecialCharTok{\^{}}\DecValTok{7}
-\NormalTok{\}}
-\FunctionTok{integrate}\NormalTok{(like\_bin, }\AttributeTok{lower =} \DecValTok{0}\NormalTok{, }\AttributeTok{upper =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{$}\NormalTok{value}
-\CommentTok{\#\textgreater{} [1] 0.03226}
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%} 
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ n, }\AttributeTok{y =}\NormalTok{ estimate)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_log10}\NormalTok{(}
+    \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{200}\NormalTok{, }
+               \DecValTok{700}\NormalTok{, }\DecValTok{2500}\NormalTok{, }\DecValTok{10000}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{x =} \StringTok{"Numero di lanci della moneta"}\NormalTok{, }
+    \AttributeTok{y =} \StringTok{"Stima Pr[Y = 1]"}
+\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-La derivazione analitica è fornita nell'Appendice \ref{appendix:const-norm-bino23}.
+\begin{figure}[h]
 
-\hypertarget{distribuzione-a-posteriori}{%
-\section{Distribuzione a posteriori}\label{distribuzione-a-posteriori}}
+{\centering \includegraphics{ds4psy_files/figure-latex/legge-grandi-n-2-1} 
 
-La distribuzione a postreriori si trova applicando il teorema di Bayes:
+}
+
+\caption{Stima della probabilità di successo in funzione del numero di lanci di una moneta -- scala logaritmica.}\label{fig:legge-grandi-n-2}
+\end{figure}
+
+La \emph{legge dei grandi numeri} ci dice che, all'aumentare del numero di ripetizioni dell'esperimento casuale, la media dei risultati ottenuti tenderà ad avvicinarsi al valore atteso, man mano che verranno eseguite più prove. Nel caso presente, la figura \ref{fig:legge-grandi-n-2} mostra appunto che, all'aumentare del numero \emph{M} di lanci della moneta, la stima di \(Pr[Y = 1]\) tende a convergere al vero valore di 0.5.
+
+\hypertarget{variabili-casuali-multiple}{%
+\section{Variabili casuali multiple}\label{variabili-casuali-multiple}}
+
+Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una singola variabile casuale \emph{Y} che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. Ciò suggerisce che i risultati di ciascuno dei tre lanci possono essere rappresentati da una diversa variabile casuale, ad esepio, \(Y_1 , Y_2 , Y_3\). Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Ognuna di queste variabili \(Y_n\) per \(n \in 1:3\) ha \(Pr[Y_n =1]=0.5\) e \(Pr[Y_n =0]=0.5\).
+
+È possibile combinare più variabili casuali usando le operazioni aritmetiche. Se \(Y_1 , Y_2, Y_3\) sono variabili casuali che rappresentano tre lanci di una moneta equilibrata (o un lancio di tre monete equilibrate), possiamo definire la somma di tali variabili casuali come
 
 \[
-\text{probabilità a posteriori} = \frac{\text{probabilità a priori} \cdot \text{verosimiglianza}}{\text{costante di normalizzazione}}
+Z = Y_1 + Y_2 + Y_3.
 \]
 
-Una volta trovata la distribuzione a posteriori, possiamo usarla per derivare altre quantità di interesse. Questo viene generalmente ottenuto calcolando il valore atteso:
+Possiamo simulare i valori assunti dalla variabile casuale \emph{Z} simulando i valori di \(Y_1, Y_2, Y_3\) per poi sommarli.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y1 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{y2 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{y3 }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\FunctionTok{c}\NormalTok{(y1, y2, y3)}
+\CommentTok{\#\textgreater{} [1] 1 0 1}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{c}\NormalTok{(y1, y2, y3))}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} z = 2}
+\end{Highlighting}
+\end{Shaded}
+
+ovvero,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{) \{}
+\NormalTok{  y[i] }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{\}}
+\NormalTok{y}
+\CommentTok{\#\textgreater{} [1] 0 1 1}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} z = 2}
+\end{Highlighting}
+\end{Shaded}
+
+oppure, ancora più semplicemente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{y}
+\CommentTok{\#\textgreater{} [1] 1 0 1}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"z ="}\NormalTok{, z, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\CommentTok{\#\textgreater{} z = 2}
+\end{Highlighting}
+\end{Shaded}
+
+Possiamo ripetere questa simulazione \(M = 1e5\) volte:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M }\OtherTok{\textless{}{-}} \FloatTok{1e5}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
+\NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  z[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+e calcolare una stima della probabilità che la variabile casuale \(Z\) assuma i valori 0, 1, 2, 3:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{table}\NormalTok{(z) }\SpecialCharTok{/}\NormalTok{ M}
+\CommentTok{\#\textgreater{} z}
+\CommentTok{\#\textgreater{}      0      1      2      3 }
+\CommentTok{\#\textgreater{} 0.1258 0.3750 0.3748 0.1244}
+\end{Highlighting}
+\end{Shaded}
+
+Nel caso di 4 monete equilibrate, avremo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M }\OtherTok{\textless{}{-}} \FloatTok{1e5}
+\NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
+\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
+\NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  z[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
+\NormalTok{\}}
+\FunctionTok{table}\NormalTok{(z) }\SpecialCharTok{/}\NormalTok{ M}
+\CommentTok{\#\textgreater{} z}
+\CommentTok{\#\textgreater{}       0       1       2       3       4 }
+\CommentTok{\#\textgreater{} 0.06340 0.24917 0.37360 0.25022 0.06361}
+\end{Highlighting}
+\end{Shaded}
+
+Una variabile casuale le cui modalità possono essere costituite solo da numeri interi è detta \emph{variabile casuale discreta}:
 
 \[
-J = \int f(\theta) p(\theta \mid y) \,\operatorname {d}\!y
+\mathbb{Z} = \dots, -2, -1, 0, 1, 2, \dots
 \]
 
-Se \(f(\cdot)\) è la funzione identità, ad esempio, \(J\) risulta essere la media di \(\theta\):
+\hypertarget{sec:fun-mass-prob}{%
+\section{Funzione di massa di probabilità}\label{sec:fun-mass-prob}}
+
+È conveniente avere una funzione che associa ogni possibile valore di una variabile casuale alla sua probabilità. In generale, ciò è possibile se e solo se la variabile casuale è discreta, così com'è stata definita nel Paragrafo precedente.
+
+Ad esempio, se consideriamo \(Z = Y_1 + \dots + Y_4\) come il numero di risultati ``testa'' in 4 lanci della moneta, allora possiamo definire la seguente funzione:
 
 \[
-\bar{\theta} = \int_{\Theta} \theta p(\theta \mid y) \,\operatorname {d}\!\theta .
+\begin{array}{rclll}
+p_Z(0) & = & 1/16 & & \mathrm{TTTT}
+\\
+p_Z(1) & = & 4/16 & & \mathrm{HTTT, THTT, TTHT, TTTH}
+\\
+p_Z(2) & = & 6/16 & & \mathrm{HHTT, HTHT, HTTH, THHT, THTH, TTTH}
+\\
+p_Z(3) & = & 4/16 & & \mathrm{HHHT, HHTH, HTHH, THHH}
+\\
+p_Z(4) & = & 1/16 & & \mathrm{HHHH}
+\end{array}
 \]
 
-Ripeto qui quanto detto sopra: le quantità di interesse della statistica bayesiana(costante di normalizzazione, valore atteso della distribuzione a posteriori, ecc.) contengono integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente. Per questo motivo, si ricorre a metodi di stima numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC). Questo argomento verrà discusso nel Capitolo \ref{ch:metropolis}.
+Il lancio di quattro monete può produrre sedici possibili risultati. Dato che i lanci sono indipendenti e le monete sono equilibrate, ogni possibile risultato è ugualmente probabile. Nella tabella in alto, le sequenze dei risultati possibili del lancio delle 4 monete sono riportate nella colonna più a destra. Le probabilità si ottengono dividendo il numero di sequenze che producono lo stesso numero di eventi testa per il numero dei risultati possibili.
 
-\hypertarget{distribuzione-predittiva-a-priori}{%
-\section{Distribuzione predittiva a priori}\label{distribuzione-predittiva-a-priori}}
+La funzione \(p_Z\) è stata costruita per mappare un valore \(u\) per \(Z\) alla probabilità dell'evento \(Z = u\). Convenzionalmente, queste probabilità sono scritte come
 
-La distribuzione a posteriori è l'oggetto centrale nella statistica bayesiana, ma non è l'unico. Oltre a fare inferenze sui valori dei parametri, potremmo voler fare inferenze sui dati. Questo può essere fatto calcolando la \emph{distribuzione predittiva a priori}:
+\[
+p_Z(z) = \mbox{Pr}[Z = z].
+\]
 
-\begin{equation}
-p(y^*) = \int_\Theta p(y^* \mid \theta) p(\theta) \,\operatorname {d}\!\theta .
-\label{eq:prior-pred-distr}
-\end{equation}
+La parte a destra dell'uguale si può leggere come: ``la probabilità che la variabile casuale \(Z\) assuma il valore \(z\)''.
 
-La \eqref{eq:prior-pred-distr} descrive la distribuzione prevista dei dati in base al modello (che include la distribuzione a priori e la verosimiglianza), ovvero descrive i dati \(y^*\) che ci aspettiamo di osservare, dato il modello, prima di avere osservato i dati del campione.
+Una funzione definita come sopra è detta \emph{funzione di massa di probabilità} della variabile casuale \(Z\). Ad ogni variabile casuale discreta è associata un'unica funzione di massa di probabilità.
 
-È possibile utilizzare campioni dalla distribuzione predittiva a priori per valutare e calibrare i modelli utilizzando le nostre conoscenze dominio-specifiche. Ad esempio, ci possiamo chiedere: ``È sensato che un modello dell'altezza umana preveda che un essere umano sia alto -1.5 metri?''. Già prima di misurare una singola persona, possiamo renderci conto dell'assurdità di questa domanda. Se la distribuzione prevista dei dati consente domande di questo tipo (ovvero, prevede di osservare dati che risultano insensati alla luce delle nostre conoscenze dominio-specifiche), è chiaro che il modello deve essere riformulato.
+Una rappresentazione grafica della stima della funzione di massa di probabilità per l'esperimento casuale del lancio di quattro monete equilibrate è fornita nella figura \ref{fig:barplot-mdf-4coins}.
 
-\hypertarget{distribuzione-predittiva-a-posteriori}{%
-\section{Distribuzione predittiva a posteriori}\label{distribuzione-predittiva-a-posteriori}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{M }\OtherTok{\textless{}{-}} \FloatTok{1e5}
+\NormalTok{nflips }\OtherTok{\textless{}{-}} \DecValTok{4}
+\NormalTok{u }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(M, nflips, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\NormalTok{nflips}
+\NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, nflips }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)}
+\ControlFlowTok{for}\NormalTok{ (n }\ControlFlowTok{in} \DecValTok{0}\SpecialCharTok{:}\NormalTok{nflips) \{}
+\NormalTok{  y[n }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(u }\SpecialCharTok{==}\NormalTok{ n) }\SpecialCharTok{/}\NormalTok{ M}
+\NormalTok{\}}
+\NormalTok{bar\_plot }\OtherTok{\textless{}{-}}
+  \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{Z =}\NormalTok{ x, }\AttributeTok{count =}\NormalTok{ y) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}
+    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Z, }\AttributeTok{y =}\NormalTok{ count)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{breaks =} \DecValTok{0}\SpecialCharTok{:}\DecValTok{4}\NormalTok{,}
+    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{4}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}
+    \AttributeTok{y =} \StringTok{"Probabilità stimata Pr[Z = z]"}
+\NormalTok{  )}
+\NormalTok{bar\_plot}
+\end{Highlighting}
+\end{Shaded}
 
-Un'altra quantità utile da calcolare è la distribuzione predittiva a posteriori:
+\begin{figure}[h]
 
-\begin{equation}
-p(\tilde{y} \mid y) = \int_\Theta p(\tilde{y} \mid \theta) p(\theta \mid y) \,\operatorname {d}\!\theta .
-\label{eq:post-pred-distr}
-\end{equation}
+{\centering \includegraphics{ds4psy_files/figure-latex/barplot-mdf-4coins-1} 
 
-Questa è la distribuzione dei dati attesi futuri \(\tilde{y}\) alla luce della distribuzione a posteriori \(p(\theta \mid y)\), che a sua volta è una conseguenza del modello adottato (distribuzione a priori e verosimiglianza) e dei dati osservati. In altre parole, questi sono i dati che il modello si aspetta dopo aver osservato i dati de campione. Dalla \eqref{eq:post-pred-distr} possiamo vedere che le previsioni sui dati attesi futuri sono calcolate integrando (o marginalizzando) sulla distribuzione a posteriori dei parametri. Di conseguenza, le previsioni calcolate in questo modo incorporano l'incertezza relativa alla stima dei parametri del modello.
+}
+
+\caption{Grafico di $M = 100\,000$ simulazioni della funzione di massa di probabilità di una variabile casuale definita come il numero di teste in quattro lanci di una moneta equilibrata.}\label{fig:barplot-mdf-4coins}
+\end{figure}
+
+Se \(A\) è un sottoinsieme della variabile casuale \(Z\), allora denotiamo con \(P_{z}(A)\) la probabilità assegnata ad \(A\) dalla distribuzione \(P_{z}\). Mediante una distribuzione di probabilità \(P_{z}\) è dunque possibile determinare la probabilità di ciascun sottoinsieme \(A \subset Z\) come
+
+\[
+P_{z}(A) = \sum_{z \in A} P_{z}(Z).
+\]
+
+\begin{example}
+Nel caso dell'esempio discusso nella Sezione \ref{sec:fun-mass-prob}, la probabilità che la variabile casuale \(Z\) sia un numero dispari è
+
+\[
+Pr(\text{Z è un numero dispari}) = P_{z}(Z = 1) + P_{z}(Z = 3) = \frac{4}{16} + \frac{4}{16} = \frac{1}{2}.
+\]
+\end{example}
 
 \hypertarget{commenti-e-considerazioni-finali}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali}}
 
 
-Questo Capitolo ha brevemente passato in rassegna i concetti di base dell'inferenza statistica bayesiana. In base all'approccio bayesiano, invece di dire che il parametro di interesse di un modello statistico ha un valore vero ma sconosciuto, diciamo che, prima di eseguire l'esperimento, è possibile assegnare una distribuzione di probabilità, che chiamano stato di credenza, a quello che è il vero valore del parametro. Questa distribuzione a priori può essere nota (per esempio, sappiamo che la distribuzione dei punteggi del QI è normale con media 100 e deviazione standard 15) o può essere del tutto arbitraria. L'inferenza bayesiana procede poi nel modo seguente: si raccolgono alcuni dati e si calcola la probabilità dei possibili valori del parametro alla luce dei dati osservati e delle credenze a priori. Questa nuova distribuzione di probabilità è chiamata ``distribuzione a posteriori'' e riassume l'incertezza dell'inferenza.
+In questo capitolo abbiamo visto come si costruisce lo spazio campionario di un esperimento casuale, quali sono le proprietà di base della probabilità e come si assegnano le probabilità agli eventi definiti sopra uno spazio campionario discreto. Abbiamo anche introdotto le nozioni di ``variabile casuale'', ovvero di una variabile che prende i suoi valori casualmente. E abbiamo descritto il modo di specificare la probabilità con cui sono presi i differenti valori, ovvero la funzione di distribuzione probabilistica \(F(X) = Pr(X < x)\), e la funzione di massa di probabilità. Le procedure di analisi dei dati psicologici che discuteremo in seguito faranno un grande uso di questi concetti e della notazione qui introdotta.
 
-\hypertarget{stan-beta-binom}{%
-\chapter{Il modello beta-binomiale in linguaggio Stan}\label{stan-beta-binom}}
+\hypertarget{chapter-prob-cond}{%
+\chapter{Probabilità condizionata}\label{chapter-prob-cond}}
 
-In questo Capitolo introdurremo un linguaggio di programmazione probabilistica chiamato Stan. \href{http://mc-stan.org/}{Stan} è un linguaggio di programmazione probabilistica usato per l'inferenza bayesiana \citep{carpenter2017stan}. Prende il nome da uno dei creatori del metodo Monte Carlo, Stanislaw Ulam \citep{Eckhardt1987stan}. Stan consente di generare campioni da distribuzioni di probabilità basati sulla costruzione di una catena di Markov avente come distribuzione di equilibrio (o stazionaria) la distribuzione desiderata. Un'introduzione al linguaggio Stan è fornita nell'Appendice \ref{appendix:intro-stan}. In questo Capitolo useremo Stan per fare inferenza su una proporzione.
+Il fondamento della statistica bayesiana è il teorema di Bayes e il fondamento del teorema di Bayes è la probabilità condizionata. In questo Capitolo, inizieremo a presentare la probabilità condizionata. Nel Capitolo successivo, partendo dalla definizione di probabilità condizionata, deriveremo il teorema di Bayes.
 
-\hypertarget{il-presidente-trump-e-lidrossiclorochina}{%
-\section{Il presidente Trump e l'idrossiclorochina}\label{il-presidente-trump-e-lidrossiclorochina}}
+\hypertarget{sec:bayes-cancer}{%
+\section{Probabilità condizionata su altri eventi}\label{sec:bayes-cancer}}
 
-Per fare un esempio concreto, consideriamo un set di dati reali. Cito dal \emph{Washington Post} del 7 aprile 2020: \emph{``One of the most bizarre and disturbing aspects of President Trump's nightly press briefings on the coronavirus pandemic is when he turns into a drug salesman. Like a cable TV pitchman hawking `male enhancement' pills, Trump regularly extols the virtues of taking hydroxychloroquine, a drug used to treat malaria and lupus, as a potential `game changer' that just might cure Covid-19.''} Tralasciamo qui il fatto che il Donald Trump non sia un esperto in questo campo. Esaminiamo invece le evidenze iniziali a supporto dell'ipotesi che l'idrossiclorochina possa essere utile per la cura del Covid-19, ovvero le evidenze che erano disponibili nel momento in cui il Donald Trump ha fatto le affermazioni riportate sopra (in seguito, quest'idea è stata screditata). Tali evidenze sono state fornite da uno studio di \citet{Gautret_2020}. Il disegno sperimentale di \citet{Gautret_2020} comprende, tra le altre cose, il confronto tra una condizione sperimentale e una condizione di controllo. Il confronto importante è tra la proporzione di paziente positivi al virus SARS-CoV-2 nel gruppo sperimentale (a cui è stata somministrata l'idrossiclorochina; 6 su 14) e la proporzione di paziente positivi nel gruppo di controllo (a cui non è stata somministrata l'idrossiclorochina; ovvero 14 su 16). Obiettivo di questo Capitolo è mostrare come si possa fare inferenza sui dati di \citet{Gautret_2020} usando il linguaggio Stan. Per semplicità, iniziamo considerando solo il gruppo di controllo.
+L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. Consideriamo il seguente problema.
 
-\hypertarget{una-proporzione}{%
-\section{Una proporzione}\label{una-proporzione}}
+\begin{exercise}
 
-Sulla base di ciò che è stato detto nel Capitolo \ref{chapter-distr-coniugate}, sappiamo che, quando i dati sono rappresentati da una proporzione \(\theta\), e quando utilizziamo una distribuzione a priori Beta per \(\theta\), la distribuzione a posteriori di \(\theta\) è specificata dallo schema beta-binomiale. Se scegliamo, ad esempio, una \(\mbox{Beta}(2, 2)\) quale distribuzione a priori per \(\theta\), il modello diventa:
+Supponiamo che lo screening per la diagnosi precoce del tumore mammario si avvalga di test che sono accurati al 90\%, nel senso che il 90\% delle donne con cancro e il 90\% delle donne senza cancro saranno classificate correttamente. Supponiamo che l'1\% delle donne sottoposte allo screening abbia effettivamente il cancro al seno. Ci chiediamo: qual è la probabilità che una donna scelta casualmente abbia una mammografia positiva e, se ce l'ha, qual è la probabilità che abbia davvero il cancro?
 
-\begin{align}
-y &\sim \mbox{Bin}(n, \theta) \notag\\
-\theta &\sim \mbox{Beta}(2, 2),
-\label{eq:beta-binom-trump}
-\end{align}
+Per risolvere questo problema, supponiamo che il test in questione venga somministrato ad un grande campione di donne, diciamo a 1000 donne. Di queste 1000 donne, 10 (ovvero, l'1\%) hanno il cancro al seno. Per queste 10 donne, il test darà un risultato positivo in 9 casi (ovvero, nel 90\% dei casi). Per le rimanenti 990 donne che non hanno il cancro al seno, il test darà un risultato positivo in 99 casi (se la probabilità di un vero positivo è del 90\%, la probabilità di un falso positivo è del 10\%). Questa situazione è rappresentata nella figura \ref{fig:mammografia}.
 
-dove la prima riga definisce la funzione di verosimiglianza e la seconda riga definisce la distribuzione a priori. Vediamo ora come specificare tale modello beta-binomiale in linguaggio Stan.
-
-\hypertarget{cmdstanr-gautret}{%
-\section{\texorpdfstring{Interfaccia \texttt{cmdstanr}}{Interfaccia cmdstanr}}\label{cmdstanr-gautret}}
-
-Nella seguente discussione useremo l'interfaccia \texttt{cmdstanr} di CmdStan.\footnote{I modelli discussi in questo capitolo sono discussi da \citet{gelman1995bayesian} mentre il codice è stato ricavato dalla seguente \href{http://avehtari.github.io/BDA_R_demos/demos_rstan/rstan_demo.html}{pagina web}.}. Carichiamo i pacchetti necessari:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(}\StringTok{"cmdstanr"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(}\StringTok{"posterior"}\NormalTok{)}
-\FunctionTok{rstan\_options}\NormalTok{(}\AttributeTok{auto\_write =} \ConstantTok{TRUE}\NormalTok{) }\CommentTok{\# avoid recompilation of models}
-\CommentTok{\# parallelize across all CPUs}
-\FunctionTok{options}\NormalTok{(}\AttributeTok{mc.cores =}\NormalTok{ parallel}\SpecialCharTok{::}\FunctionTok{detectCores}\NormalTok{()) }
-\CommentTok{\# improve execution time}
-\FunctionTok{Sys.setenv}\NormalTok{(}\AttributeTok{LOCAL\_CPPFLAGS =} \StringTok{\textquotesingle{}{-}march=native\textquotesingle{}}\NormalTok{) }
-\NormalTok{SEED }\OtherTok{\textless{}{-}} \DecValTok{374237} \CommentTok{\# set random seed for reproducibility}
-\end{Highlighting}
-\end{Shaded}
-
-Per svolgere l'analisi mediante \texttt{cmdstanr} è necessario prima specificare la struttura del modello bayesiano nella notazione Stan e, poi, eseguire il campionamento dalla distribuzione a posteriori. Esaminiamo questi due passaggi per il caso dell'esempio presente.
-
-\hypertarget{fase-1}{%
-\subsection{Fase 1}\label{fase-1}}
-
-Nella prima fase dell'analisi dobbiamo definire i dati, i parametri e il modello. I \emph{dati} devono essere contenuti in un oggetto di classe \texttt{list}. Per l'esempio presente abbiamo:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data1\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
-  \AttributeTok{N =} \DecValTok{16}\NormalTok{,}
-  \AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{14}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Il \emph{modello} è \(\Bin(n, \theta)\) e, in linguaggio Stan, può essere specificato come
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{y }\SpecialCharTok{\textasciitilde{}} \FunctionTok{bernoulli}\NormalTok{(theta);}
-\end{Highlighting}
-\end{Shaded}
-
-Il modello dipende dal \emph{parametro} \texttt{theta}. In Stan, dobbiamo specificare che \texttt{theta} può essere un qualsiasi numero reale compreso tra 0 e 1. Inoltre, dobbiamo specificare la distribuzione a priori di \(\theta\). Per questo parametro abbiamo scelto una \(\mbox{Beta}(2, 2)\) e, in linguaggio Stan, scriviamo
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{theta }\SpecialCharTok{\textasciitilde{}} \FunctionTok{beta}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{);}
-\end{Highlighting}
-\end{Shaded}
-
-Memorizziamo ora il modello beta-binomiale specificato in linguaggio Stan come stringa di caratteri nel file \texttt{oneprop.stan}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{modelString }\OtherTok{=} \StringTok{"}
-\StringTok{data \{}
-\StringTok{  int\textless{}lower=0\textgreater{} N;}
-\StringTok{  int\textless{}lower=0, upper=1\textgreater{} y[N];}
-\StringTok{\}}
-\StringTok{parameters \{}
-\StringTok{  real\textless{}lower=0, upper=1\textgreater{} theta;}
-\StringTok{\}}
-\StringTok{model \{}
-\StringTok{  theta \textasciitilde{} beta(2, 2);}
-\StringTok{  y \textasciitilde{} bernoulli(theta);}
-\StringTok{\}}
-\StringTok{"}
-\FunctionTok{writeLines}\NormalTok{(modelString, }\AttributeTok{con =} \StringTok{"code/oneprop.stan"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{fase-2}{%
-\subsection{Fase 2}\label{fase-2}}
-
-Per utilizzare il modello che abbiamo specificato, leggiamo l'indirizzo del file che contiene il codice Stan:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{file }\OtherTok{\textless{}{-}} \FunctionTok{file.path}\NormalTok{(}\StringTok{"code"}\NormalTok{, }\StringTok{"oneprop.stan"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Compiliamo il codice
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cmdstan\_model}\NormalTok{(file)}
-\end{Highlighting}
-\end{Shaded}
-
-ed eseguiamo il campionamento MCMC con la chiamata
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fit1 }\OtherTok{\textless{}{-}}\NormalTok{ mod}\SpecialCharTok{$}\FunctionTok{sample}\NormalTok{(}
-  \AttributeTok{data =}\NormalTok{ data1\_list,}
-  \AttributeTok{iter\_sampling =}\NormalTok{ 4000L,}
-  \AttributeTok{iter\_warmup =}\NormalTok{ 2000L,}
-  \AttributeTok{seed =} \DecValTok{84735}\NormalTok{,}
-  \AttributeTok{chains =}\NormalTok{ 4L,}
-  \AttributeTok{parallel\_chains =}\NormalTok{ 4L,}
-  \AttributeTok{refresh =} \DecValTok{0}\NormalTok{,}
-  \AttributeTok{thin =} \DecValTok{1}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Avendo assunto una distribuzione a priori per il parametro \(\theta\), l'algoritmo procede in maniera ciclica, correggendo la distribuzione a priori di \(\theta\) condizionandola ai valori già generati. Dopo un certo numero di cicli, necessari per portare l'algoritmo a convergenza, i valori estratti possono essere assunti come campionati dalla distribuzione a posteriori di \(\theta\).
-
-Si noti che \texttt{\$sample()} richiede due tipi di informazioni. Innanzitutto, dobbiamo specificare le informazioni sul modello in base a:
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{mod} = la stringa di caratteri che definisce il modello (qui \texttt{oneprop.stan}),
-\item
-  \texttt{data} = i dati in formato lista (\texttt{data1\_list}).
-\end{itemize}
-
-Dobbiamo inoltre specificare le informazioni sul campionamento MCMC utilizzando tre argomenti aggiuntivi:
-
-\begin{itemize}
-\tightlist
-\item
-  L'argomento \texttt{chains} specifica quante catene di Markov parallele eseguire. Eseguiamo qui quattro catene, quindi otteniamo quattro campioni distinti di valori \(\pi\).
-\item
-  L'argomento \texttt{iter} specifica il numero desiderato di iterazioni o la lunghezza di ciascuna catena di Markov. Per impostazione predefinita, la prima metà di queste iterazioni è costituita da campioni ``burn-in'' o ``warm-up'' che verranno ignorati. La seconda metà è conservata e costituisce un campione della distribuzione a posteriori.
-\item
-  L'argomento \texttt{seed} per impostare il numero casuale che genera il seme per una simulazione \texttt{cmdstanr}.
-\end{itemize}
-
-\hypertarget{burn-in}{%
-\subsection{Burn-in}\label{burn-in}}
-
-Al crescere del numero di passi della catena, la distribuzione di target viene sempre meglio approssimata. All'inizio del campionamento, però, la distribuzione può essere significativamente lontana da quella stazionaria, e ci vuole un certo tempo prima di raggiungere la distribuzione stazionaria di equilibrio, detto, appunto, periodo di \emph{burn-in}. I campioni provenienti da tale parte iniziale della catena vanno tipicamente scartati perché possono non rappresentare accuratamente la distribuzione a posteriori
-
-\hypertarget{inferenza}{%
-\subsection{Inferenza}\label{inferenza}}
-
-Un sommario della distribuzione a posteriori si ottiene con:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fit1}\SpecialCharTok{$}\FunctionTok{summary}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"theta"}\NormalTok{))}
-\CommentTok{\#\textgreater{} \# A tibble: 1 x 10}
-\CommentTok{\#\textgreater{}   variable  mean median     sd    mad    q5   q95  rhat}
-\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}    \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1 theta    0.798  0.808 0.0876 0.0872 0.638 0.924  1.00}
-\CommentTok{\#\textgreater{} \# ... with 2 more variables: ess\_bulk \textless{}dbl\textgreater{},}
-\CommentTok{\#\textgreater{} \#   ess\_tail \textless{}dbl\textgreater{}}
-\end{Highlighting}
-\end{Shaded}
-
-Creiamo un oggetto di classe \texttt{stanfit}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{stanfit1 }\OtherTok{\textless{}{-}}\NormalTok{ rstan}\SpecialCharTok{::}\FunctionTok{read\_stan\_csv}\NormalTok{(fit1}\SpecialCharTok{$}\FunctionTok{output\_files}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-di dimensioni
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dim}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(stanfit1, }\AttributeTok{pars =} \StringTok{"theta"}\NormalTok{))}
-\CommentTok{\#\textgreater{} [1] 16000     1}
-\end{Highlighting}
-\end{Shaded}
-
-I primi 10 valori sono presentati qui di seguito
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{as.matrix}\NormalTok{(stanfit1, }\AttributeTok{pars =} \StringTok{"theta"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{head}\NormalTok{(}\DecValTok{10}\NormalTok{)}
-\CommentTok{\#\textgreater{}           parameters}
-\CommentTok{\#\textgreater{} iterations  theta}
-\CommentTok{\#\textgreater{}       [1,] 0.8521}
-\CommentTok{\#\textgreater{}       [2,] 0.7845}
-\CommentTok{\#\textgreater{}       [3,] 0.7845}
-\CommentTok{\#\textgreater{}       [4,] 0.7551}
-\CommentTok{\#\textgreater{}       [5,] 0.7256}
-\CommentTok{\#\textgreater{}       [6,] 0.7744}
-\CommentTok{\#\textgreater{}       [7,] 0.7744}
-\CommentTok{\#\textgreater{}       [8,] 0.8062}
-\CommentTok{\#\textgreater{}       [9,] 0.8266}
-\CommentTok{\#\textgreater{}      [10,] 0.8499}
-\end{Highlighting}
-\end{Shaded}
-
-La matrice precedente include i valori assunti dalla catena di Markov, ovvero un insieme di valori plausibili \(\theta\) estratti dalla distribuzione a posteriori. Un tracciato della catena di Markov illustra questa esplorazione rappresentando il valore \(\theta\) sulle ordinate e l'indice progressivo di in ogni iterazione sull'ascissa. Usiamo la funzione \texttt{mcmc\_trace()} del pacchetto \texttt{bayesplot} (Gabry et al.~2019) per costruire il grafico che include tutte e quattro le catene di Markov:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{stanfit1 }\SpecialCharTok{\%\textgreater{}\%} 
-  \FunctionTok{mcmc\_trace}\NormalTok{(}\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta"}\NormalTok{), }\AttributeTok{size =} \FloatTok{0.1}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+Combinando i due risultati precedenti, vediamo che il test dà un risultato positivo per 9 donne che hanno effettivamente il cancro al seno e per 99 donne che non ce l'hanno, per un totale di 108 risultati positivi. Dunque, la probabilità di ottenere un risultato positivo al test è \(\frac{108}{1000}\) = 11\%. Ma delle 108 donne che hanno ottenuto un risultato positivo al test, solo 9 hanno il cancro al seno. Dunque, la probabilità di avere il cancro, dato un risultato positivo al test, è pari a \(\frac{9}{108}\) = 8\%.
 
 \begin{figure}[h]
 
-{\centering \includegraphics{ds4psy_files/figure-latex/trace-plot-gautret-1} 
+{\centering \includegraphics[width=0.67\linewidth]{images/mammografia} 
 
 }
 
-\caption{Trace-plot per il parametro $\theta$ nel modello Beta-Binomiale.}\label{fig:trace-plot-gautret}
+\caption{Rappresentazione ad albero che riporta le frequenze attese dei risultati di una mammografia in un campione di 1,000 donne.}\label{fig:mammografia}
 \end{figure}
 
-La figura \ref{fig:trace-plot-gautret} mostra che le catene esplorano uno spazio compreso approssimativamenre tra 0.7 e 0.9; tale figura descrive il comportamento \emph{longitudinale} delle catene di Markov.
+\end{exercise}
 
-Possiamo anche esaminare la distribuzione degli stati della catena di Markov, ovvero, dei valori che queste catene visitano lungo il loro percorso, ignorando l'ordine di queste visite. L'istogramma della figura \ref{fig:hist-post-gautret} fornisce una rappresentazione grafica di questa distribuzione per i 16000 valori complessivi delle quattro catene, ovvero per 4000 valori provienienti da ciascuna catena.
+Nell'esercizio precedente, la probabilità dell'evento ``ottenere un risultato positivo al test'' è una probabilità non condizionata, mentre la probabilità dell'evento ``avere il cancro al seno, dato che il test ha prodotto un risultato positivo'' è una probabilità condizionata. In termini generali, la probabilità condizionata \(P(A \mid B)\) rappresenta la probabilità che si verifichi l'evento \(A\) sapendo che si è verificato l'evento \(B\) (oppure: la probabilità di \(A\) in una prova valida solo se si verifica anche \(B\)). Ciò ci conduce alla seguente definizione.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{mcmc\_hist}\NormalTok{(stanfit1, }\AttributeTok{pars =} \StringTok{"theta"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{yaxis\_text}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"count"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{definition}
+Dato un qualsiasi evento \(A\), si chiama \emph{probabilità condizionata} di \(A\) dato \(B\) il numero
 
-\begin{figure}[h]
+\begin{equation}
+P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{con}\, P(B) > 0,
+\label{eq:probcond}
+\end{equation}
 
-{\centering \includegraphics{ds4psy_files/figure-latex/hist-post-gautret-1} 
+dove \(P(A\cap B)\) è la probabilità congiunta dei due eventi, ovvero la probabilità che si verifichino entrambi.
+\end{definition}
 
-}
+Nella \eqref{eq:probcond} possiamo distinguere tra la probabilità congiunta \(P(A \cap B)\), la probabilità condizionata \(P(A \mid B)\) e la probabilità marginale \(P(B)\).
 
-\caption{Istogramma che illustra l'approssimazione della distribuzione a posteriori per il parametro $\theta$ nel modello Beta-Binomiale.}\label{fig:hist-post-gautret}
-\end{figure}
+\begin{exercise}
+Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
 
-Nel modello Beta-Binomiale in cui la verosimiglianza è binomiale con 14 successi su 16 prove e in cui assumiamo una distribuzione a priori di tipo \(\mbox{Beta}(2, 2)\) sul parametro \(\theta\), la distribuzione a posteriori è ancora una distribuzione Beta di parametri \(\alpha\) = 2 + 14 e \(\beta\) = 2 + 16 - 14. La figura \ref{fig:hist-post-gautret-plus-correct} riporta un kernel density plot per i valori delle quattro catene di Markov con sovrapposta in nero la densità \(\mbox{Beta}(16, 4)\). Il punto importante è che la distribuzione dei valori delle catene di Markov produce un'eccellente approssimazione alla distribuzione bersaglio.\footnote{Nel caso presente, il risultato è poco utile dato che è disponibile una soluzione analitica. Tuttavia, questo esercizio mette in evidenza il fatto cruciale che, nei casi in cui possiamo verificarne la soluzione, il campionamento Monte Carlo a catena di Markov è in grado di trovare la risposta corretta. Di conseguenza, possiamo anche essere sicuri che fornirà un'approssimazione alla distribuzione a posteriori anche in quei casi in cui una soluzione analitica non è disponibile.}
+Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4. Per rispondere alla seconda domanda consideriamo solo le 13 carte di cuori; la probabilità cercata è dunque 3/13.
+\end{exercise}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{mcmc\_dens}\NormalTok{(stanfit1, }\AttributeTok{pars =} \StringTok{"theta"}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{yaxis\_text}\NormalTok{(}\ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+} 
-  \FunctionTok{ylab}\NormalTok{(}\StringTok{"density"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dbeta, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{shape1 =} \DecValTok{16}\NormalTok{, }\AttributeTok{shape2=}\DecValTok{4}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
+\hypertarget{la-fallacia-del-condizionale-trasposto}{%
+\subsection{La fallacia del condizionale trasposto}\label{la-fallacia-del-condizionale-trasposto}}
 
-\begin{figure}[h]
+Un errore comune che si commette è quello di credere che \(P(A \mid B)\) sia uguale a \(P(B \mid A)\). Tale fallacia ha particolare risalto in ambito forense tanto che è conosciuta con il nome di ``fallacia del procuratore''. In essa, una piccola probabilità dell'evidenza, data l'innocenza, viene erroneamente interpretata come la probabilità dell'innocenza, data l'evidenza.
 
-{\centering \includegraphics{ds4psy_files/figure-latex/hist-post-gautret-plus-correct-1} 
+Consideriamo il caso di un esame del DNA. Un esperto forense potrebbe affermare, ad esempio, che ``se l'imputato è innocente, c'è solo una possibilità su un miliardo che vi sia una corrispondenza tra il suo DNA e il DNA trovato sulla scena del crimine''. Ma talvolta questa probabilità è erroneamente interpretata come avesse il seguente significato: ``date le prove del DNA, c'è solo una possibilità su un miliardo che l'imputato sia innocente''.
 
-}
+Le considerazioni precedenti risultano più chiare se facciamo nuovamente riferimento all'esercizio sul tumore mammario descritto sopra. In tale esercizio abbiamo visto come la probabilità di cancro dato un risultato positivo al test sia uguale a 0.08. Tale probabilità è molto diversa dalla probabilità di un risultato positivo al test data la presenza del cancro. Infatti, questa seconda probabilità è uguale a 0.90 ed è descritta nel problema come una delle caratteristiche del test in questione.
 
-\caption{Istogramma che illustra l'approssimazione della distribuzione a posteriori per il parametro $\theta$ nel modello Beta-Binomiale. La curva nera rappresenta la corretta distribuzione a posteriori Beta(16, 4).}\label{fig:hist-post-gautret-plus-correct}
-\end{figure}
+\hypertarget{legge-delle-probabilituxe0-composte}{%
+\section{Legge delle probabilità composte}\label{legge-delle-probabilituxe0-composte}}
 
-Un intervallo di credibilità al 95\% per \(\theta\) si ottiene con la seguente chiamata:
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta come prodotto di due probabilità, una condizionata e una marginale. La legge delle probabilità composte afferma che la probabilità che si verifichino due eventi \(A\) e \(B\) è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo. Per esempio se conosciamo la probabilità marginale \(P(B)\) e la probabilità condizionata \(P(A \mid B)\) otteniamo
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{posterior1 }\OtherTok{\textless{}{-}} \FunctionTok{extract}\NormalTok{(stanfit1)}
-\NormalTok{rstantools}\SpecialCharTok{::}\FunctionTok{posterior\_interval}\NormalTok{(}\FunctionTok{as.matrix}\NormalTok{(stanfit1), }\AttributeTok{prob =} \FloatTok{0.95}\NormalTok{)}
-\CommentTok{\#\textgreater{}          2.5\%    97.5\%}
-\CommentTok{\#\textgreater{} theta   0.599   0.9376}
-\CommentTok{\#\textgreater{} lp\_\_  {-}12.582 {-}10.0086}
-\end{Highlighting}
-\end{Shaded}
+\begin{equation}
+P(A \cap B) = P(B)P(A \mid B),
+\label{eq:probcondinv}
+\end{equation}
 
-Svolgendo un'analisi bayesiana simile a questa, \citet{Gautret_2020} hanno trovato che gli intervalli di credibilità del gruppo di controllo e del gruppo sperimentale non si sovrappongono. Questo fatto viene interpretato dicendo che il parametro \(\theta\) è diverso nei due gruppi. Sulla base di queste evidenza, \citet{Gautret_2020} hanno concluso, con un grado di certezza soggettiva del 95\%, che nel gruppo sperimentale vi è una probabilità più bassa di risultare positivi al SARS-CoV-2 rispetto al gruppo di controllo. In altri termini, questa analisi dei dati suggerisce che l'idrossiclorochina sia efficace come terapia per il Covid-19.
-
-\hypertarget{la-critica-di-hulme_2020}{%
-\section{\texorpdfstring{La critica di \citet{Hulme_2020}}{La critica di @Hulme\_2020}}\label{la-critica-di-hulme_2020}}
-
-Un articolo pubblicato da \citet{Hulme_2020} si è posto il problema di rianalizzare i dati di \citet{Gautret_2020}.\footnote{Si veda \url{https://osf.io/5dgmx/}.} Tra gli autori di questo articolo figura anche Eric-Jan Wagenmakers, uno psicologo molto conosciuto per i suoi contributi metodologici. \citet{Hulme_2020} hanno osservato che, nelle analisi statistiche riportate, \citet{Gautret_2020} hanno escluso alcuni dati. Nel gruppo sperimentale, infatti, vi erano alcuni pazienti i quali, anziché migliorare, sono in realtà peggiorati. L'analisi statistica di \citet{Gautret_2020} ha escluso i dati di questi pazienti. Se consideriamo tutti i pazienti --- non solo quelli selezionati da \citet{Gautret_2020} --- la situazione diventa la seguente:
-
-\begin{itemize}
-\tightlist
-\item
-  gruppo sperimentale: 10 positivi su 18;
-\item
-  gruppo di controllo: 14 positivi su 16.
-\end{itemize}
-
-L'analisi dei dati proposta da \citet{Hulme_2020} richiede l'uso di alcuni strumenti statistici che, in queste dispense, non verranno discussi. Ma possiamo giungere alle stesse conclusioni raggiunte da questi ricercatori anche usando le procedure statistiche descritte nel Paragrafo successivo.
-
-\hypertarget{due-proporzioni}{%
-\section{Due proporzioni}\label{due-proporzioni}}
-
-Svolgiamo ora l'analisi considerando tutti i dati, come suggerito da \citet{Hulme_2020}. Per fare questo verrà creato un modello bayesiano per fare inferenza sulla differenza tra due proporzioni. Una volta generate le distribuzioni a posteriori per le proporzioni di ``successi'' nei due gruppi, verrà anche generata la quantità
+mentre se conosciamo la probabilità marginale \(P(A)\) e la probabilità condizionata \(P(B \mid A)\) otteniamo
 
 \[
-\omega = \frac{\theta_2 / (1-\theta_2)}{\theta_1 / (1-\theta_1)},
+P(A \cap B) = P(A)P(B \mid A).
 \]
 
-ovvero il rapporto tra gli Odds di positività tra i pazienti del gruppo di controllo e gli Odds di positività tra i pazienti del gruppo sperimentale. Se il valore dell'OR è uguale a 1, significa che l'Odds di positività nel gruppo di controllo è uguale all'odds di positività nel gruppo sperimentale, cioè il fattore in esame (somministrazione dell'idrossiclorochina) è ininfluente sulla comparsa della malattia. L'inferenza statistica sull'efficacia dell'idrossiclorochina come terapia per il Covid-19 può dunque essere effettuata esaminando l'intervallo di credibilità al 95\% per l'OR: se tale intervallo include il valore 1, allora non vi è evidenza che l'idrossiclorochina sia efficace come terapia per il Covid-19.
+L'equazione \eqref{eq:probcondinv} si estende al caso di \(n\) eventi \(A_1, \dots, A_n\) nella forma seguente:
 
-Nell'implementazione di questo modello, la quantità di interesse è dunque l'odds ratio; tale quantità viene calcolata nel blocco \texttt{generated\ quantities} del programma Stan. In questo esempio useremo delle distribuzioni a priori vagamente informative per i parametri \(\theta_1\) e \(\theta_1\).
+\begin{equation}
+P\left( \bigcap_{k=1}^n A_k \right) = \prod_{k=1}^n \left(  A_k  \ \Biggl\lvert \ \bigcap_{j=1}^{k-1} A_j \right)
+\label{eq:probcomposte}
+\end{equation}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
-  \AttributeTok{N1 =} \DecValTok{18}\NormalTok{, }
-  \AttributeTok{y1 =} \DecValTok{10}\NormalTok{, }
-  \AttributeTok{N2 =} \DecValTok{16}\NormalTok{, }
-  \AttributeTok{y2 =} \DecValTok{14}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+Per esempio, nel caso di quattro eventi abbiamo
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{modelString }\OtherTok{=} \StringTok{"}
-\StringTok{//  Comparison of two groups with Binomial}
-\StringTok{data \{}
-\StringTok{  int\textless{}lower=0\textgreater{} N1;              // number of experiments in group 1}
-\StringTok{  int\textless{}lower=0\textgreater{} y1;              // number of deaths in group 1}
-\StringTok{  int\textless{}lower=0\textgreater{} N2;              // number of experiments in group 2}
-\StringTok{  int\textless{}lower=0\textgreater{} y2;              // number of deaths in group 2}
-\StringTok{\}}
-\StringTok{parameters \{}
-\StringTok{  real\textless{}lower=0,upper=1\textgreater{} theta1; // probability of death in group 1}
-\StringTok{  real\textless{}lower=0,upper=1\textgreater{} theta2; // probability of death in group 2}
-\StringTok{\}}
-\StringTok{model \{}
-\StringTok{  theta1 \textasciitilde{} beta(2, 2);          // prior}
-\StringTok{  theta2 \textasciitilde{} beta(2, 2);          // prior}
-\StringTok{  y1 \textasciitilde{} binomial(N1, theta1);    // observation model / likelihood}
-\StringTok{  y2 \textasciitilde{} binomial(N2, theta2);    // observation model / likelihood}
-\StringTok{\}}
-\StringTok{generated quantities \{}
-\StringTok{  // generated quantities are computed after sampling}
-\StringTok{  real oddsratio = (theta2/(1{-}theta2))/(theta1/(1{-}theta1));}
-\StringTok{\}}
-\StringTok{"}
-\FunctionTok{writeLines}\NormalTok{(modelString, }\AttributeTok{con =} \StringTok{"code/twoprop1.stan"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{equation}
+\begin{split}
+P(A_1 \cap A_2 \cap A_3 \cap A_4) = {}& P(A_1) \cdot P(A_2 \mid A_1) \cdot  P(A_3 \mid A_1 \cap A_2) \cdot \\
+ & P(A_4 \mid A_1 \cap A_2 \cap A_{3}).\notag
+\end{split}
+\end{equation}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{file }\OtherTok{\textless{}{-}} \FunctionTok{file.path}\NormalTok{(}\StringTok{"code"}\NormalTok{, }\StringTok{"twoprop1.stan"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\begin{exercise}
+Da un'urna contenente 6 palline bianche e 4 nere si estrae una pallina per volta, senza reintrodurla nell'urna. Indichiamo con \(B_i\) l'evento: ``esce una pallina bianca alla \(i\)-esima estrazione'' e con \(N_i\) l'estrazione di una pallina nera. L'evento: ``escono due palline bianche nelle prime due estrazioni'' è rappresentato dalla intersezione \(\{B_1 \cap B_2\}\) e la sua probabilità vale, per la \eqref{eq:probcondinv}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cmdstan\_model}\NormalTok{(file)}
-\end{Highlighting}
-\end{Shaded}
+\[
+P(B_1 \cap B_2) = P(B_1)P(B_2 \mid B_1).
+\]
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ mod}\SpecialCharTok{$}\FunctionTok{sample}\NormalTok{(}
-  \AttributeTok{data =}\NormalTok{ data\_list,}
-  \AttributeTok{iter\_sampling =}\NormalTok{ 4000L,}
-  \AttributeTok{iter\_warmup =}\NormalTok{ 2000L,}
-  \AttributeTok{seed =}\NormalTok{ SEED,}
-  \AttributeTok{chains =}\NormalTok{ 4L,}
-  \AttributeTok{parallel\_chains =}\NormalTok{ 4L,}
-  \AttributeTok{refresh =} \DecValTok{0}\NormalTok{,}
-  \AttributeTok{thin =} \DecValTok{1}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
+\(P(B_1)\) vale 6/10, perché nella prima estrazione \(\Omega\) è costituito da 10 elementi: 6 palline bianche e 4 nere. La probabilità condizionata \(P(B_2 \mid B_1)\) vale 5/9, perché nella seconda estrazione, se è verificato l'evento \(B_1\), lo spazio campionario consiste di 5 palline bianche e 4 nere. Si ricava pertanto:
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{stanfit }\OtherTok{\textless{}{-}}\NormalTok{ rstan}\SpecialCharTok{::}\FunctionTok{read\_stan\_csv}\NormalTok{(fit}\SpecialCharTok{$}\FunctionTok{output\_files}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
+\[
+P(B_1 \cap B_2) = \frac{6}{10} \cdot \frac{5}{9} = \frac{1}{3}.
+\]
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}
-\NormalTok{  stanfit,}
-  \AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta1"}\NormalTok{, }\StringTok{"theta2"}\NormalTok{, }\StringTok{"oddsratio"}\NormalTok{),}
-  \AttributeTok{digits\_summary =}\NormalTok{ 3L}
-\NormalTok{)}
-\CommentTok{\#\textgreater{} Inference for Stan model: twoprop1{-}202201270929{-}1{-}5c8c8b.}
-\CommentTok{\#\textgreater{} 4 chains, each with iter=6000; warmup=2000; thin=1; }
-\CommentTok{\#\textgreater{} post{-}warmup draws per chain=4000, total post{-}warmup draws=16000.}
-\CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{}            mean se\_mean    sd  2.5\%   25\%   50\%   75\%}
-\CommentTok{\#\textgreater{} theta1    0.546   0.001 0.103 0.344 0.475 0.546 0.620}
-\CommentTok{\#\textgreater{} theta2    0.798   0.001 0.087 0.601 0.744 0.808 0.862}
-\CommentTok{\#\textgreater{} oddsratio 4.721   0.043 4.411 0.906 2.166 3.514 5.698}
-\CommentTok{\#\textgreater{}            97.5\% n\_eff Rhat}
-\CommentTok{\#\textgreater{} theta1     0.740 12795    1}
-\CommentTok{\#\textgreater{} theta2     0.937 14193    1}
-\CommentTok{\#\textgreater{} oddsratio 15.558 10400    1}
-\CommentTok{\#\textgreater{} }
-\CommentTok{\#\textgreater{} Samples were drawn using NUTS(diag\_e) at Gio Gen 27 09:29:15 2022.}
-\CommentTok{\#\textgreater{} For each parameter, n\_eff is a crude measure of effective sample size,}
-\CommentTok{\#\textgreater{} and Rhat is the potential scale reduction factor on split chains (at }
-\CommentTok{\#\textgreater{} convergence, Rhat=1).}
-\end{Highlighting}
-\end{Shaded}
+In modo analogo si ha che
 
-L'intervallo di credibilità del 95\% per l'OR include il valore di 1.0 (ovvero, il valore che indica che gli odds di positività sono uguali nei due gruppi). In base agli standard correnti, un risultato di questo tipo non viene considerato come evidenza sufficiente per potere concludere che il parametro \(\theta\) assume un valore diverso nei due gruppi. In altri termini, se consideriamo tutti i dati, e non solo quelli selezionati dagli autori della ricerca originaria, non vi è evidenza alcuna che l'idrossiclorochina sia efficace come terapia per il Covid-19.
+\[
+P(N_1 \cap N_2) = P(N_1)P(N_2 \mid N_1) = \frac{4}{10} \cdot \frac{3}{9} = \frac{4}{30}.
+\]
+
+Se l'esperimento consiste nell'estrazione successiva di 3 palline, la probabilità che queste siano tutte bianche vale, per la \eqref{eq:probcomposte}:
+
+\[
+P(B_1 \cap B_2 \cap B_3)=P(B_1)P(B_2 \mid B_1)P(B_3 \mid B_1 \cap B_2),
+\]
+
+dove la probabilità \(P(B_3 \mid B_1 \cap B_2)\) si calcola supponendo che si sia verificato l'evento condizionante \(\{B_1 \cap B_2\}\). Lo spazio campionario per questa probabilità condizionata è costituito da 4 palline bianche e 4 nere, per cui \(P(B_3 \mid B_1 \cap B_2) = 1/2\) e quindi:
+
+\[
+P (B_1 \cap B_2 \cap B_3) = \frac{6}{10}\cdot\frac{5}{9} \cdot\frac{4}{8}  = \frac{1}{6}.
+\]
+
+La probabilità dell'estrazione di tre palline nere è invece:
+
+\[
+\begin{aligned}
+P(N_1 \cap N_2 \cap N_3) &= P(N_1)P(N_2 \mid N_1)P(N_3 \mid N_1 \cap N_2)\notag\\ 
+&= \frac{4}{10} \cdot \frac{3}{9} \cdot \frac{2}{8} = \frac{1}{30}.\notag
+\end{aligned}
+\]
+\end{exercise}
+
+\hypertarget{lindipendendenza-stocastica}{%
+\section{L'indipendendenza stocastica}\label{lindipendendenza-stocastica}}
+
+Un concetto molto importante per le applicazioni statistiche della probabilità è quello dell'indipendenza stocastica. La definizione \eqref{eq:probcond} esprime il concetto intuitivo di indipendenza di un evento da un altro, nel senso che il verificarsi di \(A\) non influisce sulla probabilità del verificarsi di \(B\), ovvero non la condiziona. Infatti, per la definizione \eqref{eq:probcond} di probabilità condizionata, si ha che, se \(A\) e \(B\) sono due eventi indipendenti, risulta:
+
+\[
+P(A \mid B) = \frac{P(A)P(B)}{P(B)} = P(A).\notag
+\]
+
+Possiamo dunque dire che due eventi \(A\) e \(B\) sono indipendenti se
+
+\begin{equation}
+\begin{split}
+P(A \mid B) &= P(A), \\
+P(B \mid A) &= P(B).
+\end{split}
+\end{equation}
+
+Si noti inoltre che, se due eventi con probabilità non nulla sono statisticamente indipendenti, la legge delle probabilità totali espressa dalla \eqref{eq:probunione} \begin{equation}
+P(A \cup B) = P(A) + P(B) - P(A \cap B)
+\label{eq:probunione}
+\end{equation}
+
+si modifica nella relazione seguente:
+
+\begin{equation}
+P(A \cup B) = P(A) + P(B) - P(A)P(B).
+\end{equation}
+
+\begin{exercise}
+Nel lancio di due dadi non truccati, si considerino gli eventi: \emph{A} = \{esce un 1 o un 2 nel primo lancio\} e \emph{B} = \{il punteggio totale è 8\}. Gli eventi \emph{A} e \emph{B} sono indipendenti?
+
+Rappresentiamo qui sotto lo spazio campionario dell'esperimento casuale.
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=0.7\linewidth]{images/sampling-space-dice} 
+
+}
+
+\caption{Rappresentazione dello spazio campionario dei risultati dell'esperimento casuale corrispondente al lancio di due dadi bilanciati. Sono evidenziati gli eventi elementari che costituiscono l'evento A: esce un 1 o un 2 nel primo lancio.}\label{fig:sampling-space-dice}
+\end{figure}
+
+Gli eventi \emph{A} e \emph{B} non sono statisticamente indipendenti. Infatti, le loro probabilità valgono \emph{P}(A) = 12/36 e \emph{P}(B) = 5/36 e la probabilità della loro intersezione è
+
+\[
+P(A \cap B) = 1/36 = 3/108 \neq P(A)P(B) = 5/108.
+\]
+\end{exercise}
+
+\begin{remark}
+Il concetto di indipendenza è del tutto differente da quello di incompatibilità. Si noti infatti che due eventi \emph{A} e \emph{B} incompatibili (per i quali si ha \(A \cap B = \emptyset\)) sono statisticamente dipendenti, poiché il verificarsi dell'uno esclude il verificarsi dell'altro: \(P(A \cap B)=0 \neq P(A)P(B)\).
+\end{remark}
 
 \hypertarget{commenti-e-considerazioni-finali-1}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-1}}
 
 
-Concludiamo questa discussione dicendo che ciò che è stato presentato in questo capitolo è un esercizio didattico: la ricerca di \citet{Gautret_2020} include tante altre informazioni che non sono state qui considerate. Tuttavia, notiamo che la semplice analisi statistica che abbiamo qui descritto è stata in grado di replicare le conclusioni a cui sono giunti (per altra via) \citet{Hulme_2020}.
+La probabilità condizionata è importante perché ci fornisce uno strumento per precisare il concetto di indipendenza statistica. Una delle domande più importanti delle analisi statistiche è infatti quella che si chiede se due variabili sono associate tra loro oppure no. In questo Capitolo abbiamo discusso il concetto di indipendenza (come contrapposto al concetto di associazione -- si veda il Capitolo \ref{chapter-descript}). In seguito vedremo come sia possibile fare inferenza sull'associazione tra variabili.
+
+\hypertarget{chapter-teo-bayes}{%
+\chapter{Il teorema di Bayes}\label{chapter-teo-bayes}}
+
+Il teorema di Bayes deriva da due teoremi fondamentali delle probabilità: il \emph{teorema della probabilità composta}, ovvero \(\ {\mbox{P}}(A\cap B)={\mbox{P}}(B){\mbox{P}}(A \mid B)={\mbox{P}}(A){\mbox{P}}(B \mid A)\), e il \emph{teorema della probabilità assoluta} (detto anche \emph{teorema delle partizioni}), ovvero \({\mbox{P}}(B)=\sum _{{i=1}}^{n}{\mbox{P}}(A_{i}\cap B)=\sum _{{i=1}}^{n}{\mbox{P}}(A_{i}){\mbox{P}}(B \mid A_{i})\). Iniziamo con il teorema della probabilità assoluta.
+
+\hypertarget{il-teorema-della-probabilituxe0-assoluta}{%
+\section{Il teorema della probabilità assoluta}\label{il-teorema-della-probabilituxe0-assoluta}}
+
+Il teorema della probabilità assoluta verrà qui presentato considerando una partizione dello spazio campionario in tre sottoinsiemi, ma è facile estendere tale discussione al caso di una partizione in un qualunque numero di sottoinsiemi.
+
+\begin{theorem}
+Sia \(\{F_1, F_2, F_3\}\) una partizione dello spazio campionario \(\Omega\). Se \(E\) è un qualunque altro evento, \(E \subset \Omega\), con \(p(E) > 0\), allora:
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \cap F_1) + {\mbox{P}}(E \cap F_2) + {\mbox{P}}(E \cap F_3) \notag
+\label{eq:prob-total-1a}
+\end{equation}
+
+ovvero
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \mid F_1) {\mbox{P}}(F_1) + {\mbox{P}}(E \mid F_2) {\mbox{P}}(F_2) + {\mbox{P}}(E \mid F_3) {\mbox{P}}(F_3).
+\label{eq:prob-total-1b}
+\end{equation}
+\end{theorem}
+
+Il teorema della probabilità assoluta afferma che, se l'evento \(E\) è costituito da tutti gli eventi elementari in \(E \cap F_1\), \(E \cap F_2\) e \(E \cap F_3\), allora la probabilità \({\mbox{P}}(E)\) è data dalla somma delle probabilità di questi tre eventi (figura \ref{fig:tikz-prob-tot}). La \eqref{eq:prob-total-1b} costituisce il denominatore del teorema di Bayes.
+
+\begin{figure}[h]
+
+{\centering \includegraphics{ds4psy_files/figure-latex/tikz-prob-tot-1} 
+
+}
+
+\caption{Partizione dello spazio campionario $\Omega$.}\label{fig:tikz-prob-tot}
+\end{figure}
+
+\begin{exercise}
+Si considerino tre urne, ciascuna delle quali contiene 100 palline:
+
+\begin{itemize}
+\tightlist
+\item
+  Urna 1: 75 palline rosse e 25 palline blu,
+\item
+  Urna 2: 60 palline rosse e 40 palline blu,
+\item
+  Urna 3: 45 palline rosse e 55 palline blu.
+\end{itemize}
+
+\noindent Una pallina viene estratta a caso da un'urna anch'essa scelta a caso. Qual è la probabilità che la pallina estratta sia di colore rosso?
+
+Sia \(R\) l'evento ``la pallina estratta è rossa'' e sia \(U_i\) l'evento che corrisponde alla scelta dell'\(i\)-esima urna. Sappiamo che
+
+\[
+{\mbox{P}}(R \mid U_1) = 0.75, \quad {\mbox{P}}(R \mid U_2) = 0.60, \quad {\mbox{P}}(R \mid U_3) = 0.45.
+\]
+
+Gli eventi \(U_1\), \(U_2\) e \(U_3\) costituiscono una partizione dello spazio campionario in quanto \(U_1\), \(U_2\) e \(U_3\) sono eventi mutualmente esclusivi ed esaustivi, \({\mbox{P}}(U_1 \cup U_2 \cup U_3) = 1.0\). In base al teorema della probabilità assoluta, la probabilità di estrarre una pallina rossa è dunque
+
+\[
+\begin{split}
+{\mbox{P}}(R) &= {\mbox{P}}(R \mid U_1){\mbox{P}}(U_1)+{\mbox{P}}(R \mid U_2){\mbox{P}}(U_2)+{\mbox{P}}(R \mid U_3){\mbox{P}}(U_3) \\
+&= 0.75 \cdot \frac{1}{3}+0.60 \cdot \frac{1}{3}+0.45 \cdot \frac{1}{3} \\
+&=0.60.
+\end{split}
+\]
+\end{exercise}
+
+\hypertarget{il-teorema-di-bayes}{%
+\section{Il teorema di Bayes}\label{il-teorema-di-bayes}}
+
+Introduciamo ora il teorema di Bayes considerando un caso specifico per poi esaminarlo nella sua forma più generale. Sia \(\{F_1, F_2\}\) una partizione dello spazio campionario \(\Omega\). Consideriamo un terzo evento \(E \subset \Omega\) con probabilità non nulla di cui si conoscono le probabilità condizionate rispetto ad \(F_1\) e a \(F_2\), ovvero \({\mbox{P}}(E \mid F_1)\) e \(P(E \mid F_2)\). È chiaro per le ipotesi fatte che se si verifica \(E\) deve anche essersi verificato almeno uno degli eventi \(F_1\) e \(F_2\). Supponendo che si sia verificato l'evento \(E\), ci chiediamo: qual è la probabilità che si sia verificato \(F_1\) piuttosto che \(F_2\)?
+
+\begin{figure}[h]
+
+{\centering \includegraphics[width=0.45\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-17-1} 
+
+}
+
+\end{figure}
+
+Per rispondere alla domanda precedente scriviamo:
+
+\[
+\begin{split}
+{\mbox{P}}(F_1 \mid E) &= \frac{{\mbox{P}}(E \cap F_1)}{{\mbox{P}}(E)}\notag\\
+              &= \frac{{\mbox{P}}(E \mid F_1){\mbox{P}}(F_1)}{{\mbox{P}}(E)}.
+\end{split}
+\]
+
+Sapendo che \(E = (E \cap F_1) \cup (E \cap F_2)\) e che \(F_1\) e \(F_2\) sono eventi disgiunti, ovvero \(F_1 \cap F_2 = \emptyset\), ne segue che possiamo calcolare \({\mbox{P}}(E)\) utilizzando il teorema della probabilità assoluta:
+
+\[
+\begin{split}
+{\mbox{P}}(E) &= {\mbox{P}}(E \cap F_1) + {\mbox{P}}(E \cap F_2)\notag\\
+     &= {\mbox{P}}(E \mid F_1)P(F_1) + {\mbox{P}}(E \mid F_2){\mbox{P}}(F_2).
+\end{split}
+\]
+
+\noindent Sostituendo il risultato precedente nella formula della probabilità condizionata \(P(F_1 \mid E)\) otteniamo:
+
+\begin{equation}
+{\mbox{P}}(F_1 \mid E) = \frac{{\mbox{P}}(E \mid F_1){\mbox{P}}(F_1)}{{\mbox{P}}(E \mid F_1){\mbox{P}}(F_1) + {\mbox{P}}(E \mid F_2)P(F_2)}.
+\label{eq:bayes1}
+\end{equation}
+
+\noindent La \eqref{eq:bayes1} si generalizza facilmente al caso di più di due eventi disgiunti, come indicato di seguito.
+
+\begin{theorem}
+Sia \(E\) un evento contenuto in \(F_1 \cup \dots \cup F_k\), dove gli eventi \(F_j, j=1, \dots, k\) sono a due a due incompatibili e necessari. Allora per ognuno dei suddetti eventi \(F_j\) vale la seguente formula:
+
+\begin{equation}
+{\mbox{P}}(F_j \mid E) = \frac{{\mbox{P}}(E \mid F_j){\mbox{P}}(F_j)}{\sum_{j=1}^{k}{\mbox{P}}(F_j)P(E \mid F_j)}.
+\label{eq:bayes2}
+\end{equation}
+\end{theorem}
+
+\noindent La \eqref{eq:bayes2} prende il nome di \emph{teorema di Bayes} e mostra che la conoscenza del verificarsi dell'evento \(E\) modifica la probabilità che avevamo attribuito all'evento \(F_j\). Nella \eqref{eq:bayes2} la probabilità condizionata \({\mbox{P}}(F_j \mid E)\) prende il nome di probabilità \emph{a posteriori} dell'evento \(F_j\): il termine ``a posteriori'' sta a significare ``dopo che è noto che si è verificato l'evento \(E\)''.
+
+Nel capitolo \ref{chapter-intro-bayes-inference} estenderemo questa discussione mostrando come la \eqref{eq:bayes2} possa essere formulata nel caso delle variabili casuali continue.
+
+\begin{exercise}
+Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes, quando abbiamo risolto l'esercizio riportato nella Sezione \ref{sec:bayes-cancer}. Svolgiamo nuovamente lo stesso esercizio applicando ora la \eqref{eq:bayes2} che, per convenienza, riscriviamo come:
+
+\begin{align}
+{\mbox{P}}(M \mid +) &= \frac{{\mbox{P}}(+ \mid M) {\mbox{P}}(M)}{{\mbox{P}}(+ \mid M) {\mbox{P}}(M) + {\mbox{P}}(+ \mid M^\complement) {\mbox{P}}(M^\complement)}\notag\\ 
+&= \frac{0.9 \cdot 10/1000}{0.9 \cdot 10/1000 + 99 / 990 \cdot 990 / 1000} \notag\\
+&= \frac{9}{108}.\notag
+\end{align}
+\end{exercise}
+
+\hypertarget{commenti-e-considerazioni-finali-2}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-2}}
+
+
+Il teorema di Bayes rende esplicito il motivo per cui la probabilità non possa essere pensata come uno stato oggettivo, quanto piuttosto come un'inferenza soggettiva e condizionata. Il denominatore del membro di destra della \eqref{eq:bayes2} è un semplice fattore di normalizzazione. Nel numeratore compaiono invece due quantità: \({\mbox{P}}(F_j\)) e \({\mbox{P}}(E \mid F_j)\). La probabilità \({\mbox{P}}(F_j\)) è la probabilità \emph{probabilità a priori} (\emph{prior}) dell'evento \(F_j\) e rappresenta l'informazione che l'agente bayesiano possiede a proposito dell'evento \(F_j\). Diremo che \({\mbox{P}}(F_j)\) codifica il grado di fiducia che l'agente ripone in \(F_j\) prima di avere osservato i dati. Nell'interpretazione bayesiana, \({\mbox{P}}(F_j)\) rappresenta un giudizio personale dell'agente e non esistono criteri esterni che possano determinare se tale giudizio sia coretto o meno. La probabilità condizionata \({\mbox{P}}(E \mid F_j)\) rappresenta invece la verosimiglianza di \(F_j\) e ci dice quant'è plausibile che si verifichi l'evento \(E\) condizionatemente al fatto che si sia verificato \(F_j\). Il teorema di Bayes descrive la regola che l'agente deve seguire per aggiornare il suo grado di fiducia in \(F_j\) alla luce di un ulteriore evento \(E\). La \({\mbox{P}}(F_j \mid E)\) è chiamata probabilità a posteriori dato che rappresenta la nuova probabilità che l'agente assegna ad \(F_j\) affinché rimanga consistente con le nuove informazioni fornitegli da \(E\).
+
+La probabilità a posteriori dipende sia da \(E\), sia dalla conoscenza a priori dell'agente \({\mbox{P}}(F_j)\). In questo senso è chiaro come non abbia senso parlare di una probabilità oggettiva: per il teorema di Bayes la probabilità è definita condizionatamente alla probabilità a priori, la quale a sua volta, per definizione, è un'assegnazione soggettiva. Ne segue pertanto che ogni probabilità debba essere considerata come una rappresentazione del grado di fiducia soggettiva dell'agente. Dato che ogni assegnazione probabilistica rappresenta uno stato di conoscenza e che ciascun particolare stato di conoscenza è arbitrario, un accordo tra agenti diversi non è richiesto. Tuttavia, la teoria delle probabilità ci fornisce uno strumento che, alla luce di nuove informazioni, consente l'aggiornamento dello stato di conoscenza in un modo razionale.
+
+Il teorema di Bayes consente di modificare una credenza a priori in maniera dinamica, via via che nuove evidenze vengono raccolte, in modo tale da formulare una credenza a posteriori la quale non è mai definitiva, ma possa sempre essere aggiornata in base alle nuove evidenze disponibili. Questo processo si chiama \emph{aggiornamento bayesiano}.
+
+\begin{remark}
+Qual è la pronuncia di ``Bayesian''? Per saperlo possiamo seguire \href{https://bayes-rules.github.io/posts/fun/}{questo link}.
+\end{remark}
+
+\hypertarget{chapter-prob-congiunta}{%
+\chapter{Probabilità congiunta}\label{chapter-prob-congiunta}}
+
+La probabilità congiunta è la probabilità che due o più eventi si verifichino contemporaneamente. In questo Capitolo verrà esaminato in dettaglio il caso discreto.
+
+\hypertarget{funzione-di-probabilituxe0-congiunta}{%
+\section{Funzione di probabilità congiunta}\label{funzione-di-probabilituxe0-congiunta}}
+
+Dopo aver trattato della distribuzione di probabilità di una variabile casuale, la quale associa ad ogni evento elementare dello spazio campionario uno ed un solo numero reale, è naturale estendere questo concetto al caso di due o più variabili casuali.
+
+Iniziamo a descrivere il caso discreto con un esempio. Consideriamo l'esperimento casuale corrispondente al lancio di tre monete equilibrate. Lo spazio campionario è
+
+\[
+\Omega = \{TTT, TTC, TCT, CTT, CCT, CTC, TCC, CCC\}.
+\]
+
+Dato che i tre lanci sono tra loro indipendenti, non c'è ragione di aspettarsi che uno degli otto risultati possibili dell'esperimento sia più probabile degli altri, dunque possiamo associare a ciascuno degli otto eventi elementari dello spazio campionario la stessa probabilità, ovvero 1/8.
+
+Siano \(X \in \{0, 1, 2, 3\}\) = ``numero di realizzazioni con il risultato testa nei tre lanci'' e \(Y \in \{0, 1\}\) = ``numero di realizzazioni con il risultato testa nel primo lancio'' due variabili casuali definite sullo spazio campionario \(\Omega\). Indicando con T = `testa' e C = `croce', si ottiene la situazione riportata nella tabella \ref{tab:tre-monete-distr-cong-1}.
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{\label{tab:tre-monete-distr-cong-1} Spazio campionario dell'esperimento consistente nel lancio di tre monete equilibrate su cui sono state definite le variabili aleatorie \(X\) e \(Y\).}\tabularnewline
+\toprule
+\(\omega\) & \(X\) & \(Y\) & \(P(\omega)\) \\
+\midrule
+\endfirsthead
+\toprule
+\(\omega\) & \(X\) & \(Y\) & \(P(\omega)\) \\
+\midrule
+\endhead
+\(\omega_1\) = TTT & 3 & 1 & 1/8 \\
+\(\omega_2\) = TTC & 2 & 1 & 1/8 \\
+\(\omega_3\) = TCT & 2 & 1 & 1/8 \\
+\(\omega_4\) = CTT & 2 & 0 & 1/8 \\
+\(\omega_5\) = CCT & 1 & 0 & 1/8 \\
+\(\omega_6\) = CTC & 1 & 0 & 1/8 \\
+\(\omega_7\) = TCC & 1 & 1 & 1/8 \\
+\(\omega_8\) = CCC & 0 & 0 & 1/8 \\
+\bottomrule
+\end{longtable}
+
+Ci poniamo il problema di associare un livello di probabilità ad ogni coppia \((x, y)\) definita su \(\Omega\). La coppia \((X = 0, Y = 0)\) si realizza in corrispondenza di un solo evento elementare, ovvero CCC; avrà dunque una probabilità pari a \(P(X=0, Y=0) = P(CCC) = 1/8\). Nel caso della coppia \((X = 1, Y = 0)\) ci sono due eventi elementari che danno luogo al risultato considerato, ovvero, CCT e CTC; la probabilità \(P(X=1, Y=0)\) sarà dunque data dalla probabilità dell'unione dei due eventi elementari, cioé \(P(X=1, Y=0) = P(CCT \:\cup\: CTC) = 1/8 + 1/8 = 1/4\). Sono riportati qui sotto i calcoli per tutti i possibili valori di \(X\) e \(Y\).
+
+\begin{align}
+P(X = 0, Y = 0) &= P(\omega_8 = CCC) = 1/8; \notag\\
+P(X = 1, Y = 0) &= P(\omega_5 = CCT) + P(\omega_6 = CTC) = 2/8; \notag\\
+P(X = 1, Y = 1) &= P(\omega_7 = TCC) = 1/8; \notag\\
+P(X = 2, Y = 0) &= P(\omega_4 = CTT) = 1/8; \notag\\
+P(X = 2, Y = 1) &= P(\omega_3 = TCT) + P(\omega_2 = TTC) = 2/8; \notag\\
+P(X = 3, Y = 1) &= P(\omega_1 = TTT) = 1/8; \notag
+\end{align}
+
+Le probabilità così trovate sono riportate nella tabella \ref{tab:ditr-cong-biv-1} la quale descrive la distribuzione di probabilità congiunta delle variabili casuali \(X\) = ``numero di realizzazioni con il risultato testa nei tre lanci'' e \(Y\) = ``numero di realizzazioni con il risultato testa nel primo lancio'' per l'esperimento casuale consistente nel lancio di tre monete equilibrate.
+
+\begin{longtable}[]{@{}ccc@{}}
+\caption{\label{tab:ditr-cong-biv-1} Distribuzione di probabilità congiunta per i risultati dell'esperimento consistente nel lancio di tre monete equilibrate.}\tabularnewline
+\toprule
+\(x / y\) & 0 & 1 \\
+\midrule
+\endfirsthead
+\toprule
+\(x / y\) & 0 & 1 \\
+\midrule
+\endhead
+0 & 1/8 & 0 \\
+1 & 2/8 & 1/8 \\
+2 & 1/8 & 2/8 \\
+3 & 0 & 1/8 \\
+\bottomrule
+\end{longtable}
+
+In generale, possiamo dire che, dato uno spazio campionario discreto \(\Omega\), è possibile associare ad ogni evento elementare \(\omega_i\) dello spazio campionario una coppia di numeri reali \((x, y)\), essendo \(x = X(\omega)\) e \(y = Y(\omega)\), il che ci conduce alla seguente definizione.
+
+\begin{definition}
+Siano \(X\) e \(Y\) due variabili casuali. La funzione che associa ad ogni coppia \((x, y)\) un livello di probabilità prende il nome di funzione di probabilità congiunta:
+
+\[
+P(x, y) = P(X = x, Y = y).
+\]
+\end{definition}
+
+Il termine ``congiunta'' deriva dal fatto che questa probabilità è legata al verificarsi di una coppia di valori, il primo associato alla variabile casuale \(X\) ed il secondo alla variabile casuale \(Y\). Nel caso di due sole variabili casuali si parla di distribuzione bivariata, mentre nel caso di più variabili casuali si parla di distribuzione multivariata.
+
+La regola della catena, \(P(A \cap B) = P(A)P(B \mid A)\), permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate. Nel caso di 4 eventi, per esempio, la regola della catena diventa
+
+\[
+P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3).
+\]
+
+\hypertarget{proprietuxe0}{%
+\subsection{Proprietà}\label{proprietuxe0}}
+
+Una distribuzione di massa di probabilità congiunta bivariata deve soddisfare due proprietà:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  \(0 \leq P(x_i, y_j) \leq 1\);
+\item
+  la probabilità totale deve essere uguale a \(1.0\). Tale proprietà può essere espressa nel modo seguente
+\end{enumerate}
+
+\[
+\sum_{i} \sum_{j} P(x_i, y_j) = 1.0.
+\]
+
+\hypertarget{eventi}{%
+\subsection{Eventi}\label{eventi}}
+
+Si noti che dalla probabilità congiunta possiamo calcolare la probabilità di qualsiasi evento definito in base alle variabili aleatorie \(X\) e \(Y\). Per capire come questo possa essere fatto, consideriamo nuovamente l'esperimento casuale discusso in precedenza.
+
+\begin{exercise}
+Per la distribuzione di massa di probabilità congiunta riportata nella tabella precedente si trovi la probabilità dell'evento \(X+Y \leq 1\).
+
+Per trovare la probabilità richiesta dobbiamo semplicemente sommare le probabilità associate a tutte le coppie \((x,y)\) che soddisfano la condizione \(X+Y \leq 1\), ovvero
+
+\begin{equation}
+P_{XY}(X+Y \leq 1) = P_{XY}(0, 0) + P_{XY}(1, 0)= 3/8.\notag
+\end{equation}
+\end{exercise}
+
+\hypertarget{sec:marg-distr-discr}{%
+\subsection{Funzioni di probabilità marginali}\label{sec:marg-distr-discr}}
+
+Nel caso di due variabili casuali discrete \(X\) e \(Y\) di cui conosciamo la distribuzione congiunta, la distribuzione marginale di \(X\) è calcolata sommando la distribuzione di probabilità congiunta sopra la variabile da ``scartare'', in questo caso la \(Y\). La funzione di massa di probabilità marginale \(P(X=x)\) è
+
+\begin{equation}
+P(X = x) = \sum_y P(X, Y = y) = \sum_y P(X \mid Y = y) P(Y = y),
+\end{equation}
+
+dove \(P(X = x,Y = y)\) è la distribuzione congiunta di \(X, Y\), mentre \(P(X = x \mid Y = y)\) è la distribuzione condizionata di \(X\) dato \(Y\). Se esaminiamo \(P(X=x)\), diciamo che la variabile \(Y\) è stata marginalizzata. Le probabilità bivariate marginali e congiunte per variabili casuali discrete sono spesso mostrate come tabelle di contingenza.
+
+Si noti che \(P(X = x)\) e \(P(Y = y)\) sono normalizzate:
+
+\[
+\sum_x P(X=x) = 1.0, \quad \sum_y P(Y=y) = 1.0.
+\]
+
+Nel caso continuo si sostituisce l'integrazione alla somma -- si veda la Sezione \ref{sec:margin-vc-cont}.
+
+\begin{exercise}
+
+Per l'esperimento casuale consistente nel lancio di tre monete equilibrate, si calcolino le probabilità marginali di \(X\) e \(Y\).
+
+Nell'ultima colonna a destra e nell'ultima riga in basso della tabella \ref{tab:ditr-cong-biv} sono riportate le distribuzioni di probabilità marginali di \(X\) e \(Y\). \(P_X\) si ottiene sommando su ciascuna riga fissata la colonna \(j\), \(P_X(X = j) = \sum_y p_{xy}(x = j, y)\). \(P_Y\) si trova sommando su ciascuna colonna fissata la riga \(i,\) \(P_Y (Y = i) = \sum_x p_{xy}(x, y = i)\).
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{\label{tab:ditr-cong-biv} Distribuzione di probabilità congiunta \(p(x,y)\) per i risultati dell'esperimento consistente nel lancio di tre monete equilibrate e probabilità marginali \(P(x)\) e \(P(y)\).}\tabularnewline
+\toprule
+\(x / y\) & 0 & 1 & \(P(x)\) \\
+\midrule
+\endfirsthead
+\toprule
+\(x / y\) & 0 & 1 & \(P(x)\) \\
+\midrule
+\endhead
+0 & 1/8 & 0 & 1/8 \\
+1 & 2/8 & 1/8 & 3/8 \\
+2 & 1/8 & 2/8 & 3/8 \\
+3 & 0 & 1/8 & 1/8 \\
+\(P(y)\) & 4/8 & 4/8 & 1.0 \\
+\bottomrule
+\end{longtable}
+
+\end{exercise}
+
+\hypertarget{indipendenza-stocastica-incondizionata}{%
+\section{Indipendenza stocastica incondizionata}\label{indipendenza-stocastica-incondizionata}}
+
+In precedenza abbiamo visto come l'indipendenza stocastica di due eventi \(A\) e \(B\) si ha quando il verificarsi di uno non modifica la probabilità di verificarsi dell'altro, ovvero quando \(P(A \mid B = P(A)\) e \(P(B \mid A) = P(B)\). Queste due condizioni si possono sintetizzare con la formula \(P(A \cap B) = P(A) P(B)\).
+
+Analogamente, quando si afferma che due variabili casuali \(X\) e \(Y\) definite sullo stesso spazio campionario \(\Omega\) sono indipendenti si afferma che conoscere qualcosa riguardo al valore di una di esse non apporta alcuna informazione circa il valore dell'altra. Formalmente, questo si verifica quando
+
+\begin{equation}
+P(X, Y)\, = P_X(x)P_Y(y).
+\end{equation}
+
+Nel caso discreto, dunque, l'indipendenza implica che la probabilità riportata in ciascuna cella della tabella di probabilità congiunta deve essere uguale al prodotto delle probabilità marginali di riga e di colonna:
+
+\[
+P(x_i, y_i)\, = P_X(x_i) P_Y(y_i).
+\]
+
+\begin{exercise}
+Per la situazione rappresentata nella tabella \ref{tab:ditr-cong-biv} le variabili casuali \(X\) e \(Y\) sono indipendenti?
+
+Nella tabella le variabili casuali \(X\) e \(Y\) non sono indipendenti: le probabilità congiunte non sono ricavabili dal prodotto delle marginali. Per esempio, nessuna delle probabilità marginali è uguale a \(0\) per cui nessuno dei valori dentro la tabella (probabilità congiunte) che risulta essere uguale a \(0\) può essere il prodotto delle probabilità marginali.
+\end{exercise}
+
+\hypertarget{indipendenza-condizionata-tra-eventi}{%
+\section{Indipendenza condizionata tra eventi}\label{indipendenza-condizionata-tra-eventi}}
+
+Sebbene l'indipendenza incondizionata sia una proprietà utile, non capita spesso di incontrare due eventi indipendenti. Una situazione più comune è quando due eventi sono indipendenti dato un terzo evento. Ad esempio, supponiamo di voler ragionare sulla possibilità che uno studente che è in possesso di un titolo di laurea triennale venga accettato al Corso di Laurea Magistrale (CdL) \(A\) o al CdL Magistrale \(B\). Nella maggior parte dei casi, questi due eventi non sono indipendenti. Se apprendiamo che lo studente è stato accettato al CdL \(A\), la nostra stima della sua probabilità che venga accettato al CdL \(B\) è ora più alta, poiché è aumentata la nostra credenza che lo studente in questione sia uno studente ``promettente''.
+
+Ora, supponiamo che entrambi i CdL basino le loro decisioni unicamente sul voto di laurea triennale (chiamiamolo \(C\)) dello studente e supponiamo di sapere che, per lo studente in questione, \(C = 105/110\). In questo caso, apprendere che lo studente è stato ammesso al CdL \(A\) non cambia la probabilità che venga ammesso al CdL \(B\): il suo voto di laurea \(V\) fornisce tutte le informazioni rilevanti circa la possibilità che lo studente venga ammesso al CdL \(A\); sapere che è stato ammesso al CdL \(B\) non aggiunge niente a tutto ciò. Formalmente, possiamo scrivere
+
+\begin{equation}
+P(A \mid B \cap C) = P(A \mid B)
+\end{equation}
+
+Se la condizione precedente si verifica, gli eventi \(A\) e \(B\) si dicono condizionatamente indipendenti dall'evento \(C\).
+
+Alternativamente, possiamo dire che gli eventi \(A\) e \(B\) sono condizionatamente indipendenti dall'evento \(C\) se e solo se
+
+\begin{equation}
+P(A \mid B \cap C) = P(A \mid C) P(B \mid C),
+\end{equation}
+
+oppure, maniera equivalente se
+
+\[
+P(A \mid B, C)= P(A \mid C).
+\]
+
+Poiché la probabilità di \(A\) dato \(C\) è uguale alla probabilità di \(A\) dati sia \(B\) che \(C\), questa uguaglianza esprime il fatto che \(B\) non aggiunge nulla alla nostra conoscenza della probabilità di \(A\).
+
+Solitamente, l'indipendenza condizionata viene indicata utilizzando la notazione \((A \indep B \mid C)\).
+
+\hypertarget{indipendenza-di-variabili-casuali}{%
+\section{Indipendenza di variabili casuali}\label{indipendenza-di-variabili-casuali}}
+
+Siano \(X, Y, Z\) tre variabili casuali. Diciamo che \(X\) è condizionatamente indipendente da \(Y\) data \(Z\) in una distribuzione \(P\) se \(P\) soddisfa \((X=x \indep Y=y \mid Z=z)\) per tutti i valori \(x \in X\), \(y \in Y\) e \(z \in Z\). Se l'insieme \(Z\) è vuoto, invece di scrivere \((X \indep Y \mid \emptyset)\), scriviamo \((X \mid Y)\) e diciamo che \(X\) e \(Y\) sono \emph{marginalmente indipendenti}.
+
+Da ciò segue la seguente definizione alternativa di indipendenza condizionata.
+
+\begin{definition}
+La distribuzione \(P\) soddisfa \((X \indep Y \mid Z)\) se e solo se
+
+\[
+P(X, Y \mid Z) = (X \mid Z)P(Y \mid Z).
+\]
+\end{definition}
+
+\hypertarget{sec:margin-vc-cont}{%
+\section{Marginalizzazione di variabili casuali continue}\label{sec:margin-vc-cont}}
+
+Nella trattazione della statistca bayesiana useremo spesso il concetto di ``marginalizzazione'' e vedremo equazioni come la seguente:
+
+\begin{equation}
+p(y) = \int_{\theta} p(y, \theta) = \int_{\theta} p(y \mid \theta) p(\theta),
+\label{eq:ex-marg-cont}
+\end{equation}
+
+laddove \(y\) e \(\theta\) sono due variabili casuali continue -- nello specifico, con \(y\) denoteremo i dati e con \(\theta\) i parametri di un modello statistico. Per ora, possiamo pensare a \(y\) e \(\theta\) come a due variabili casuali qualsiasi. La \eqref{eq:ex-marg-cont} descrive la distribuzione marginale di \(y\).
+
+Per meglio comprendere la \eqref{eq:ex-marg-cont} possiamo esaminare il corrispondente caso discreto nel quale sostituiamo semplicemente l'integrale con una somma, il che ci riporta alla situazione descritta nella Sezione \ref{sec:marg-distr-discr}. Possiamo dunque scrivere:
+
+\begin{equation}
+p(y) = \sum_{\theta} p(y, \theta) = \sum_{\theta} p(y \mid \theta) p(\theta).
+\label{eq:ex-marginalization}
+\end{equation}
+
+Esaminiamo un semplice esempio numerico. Siano \(y\) e \(\theta\) due variabili discrete aventi la distribuzione di massa di probabilità congiunta riportata nella tabella \ref{tab:ex-marg}.
+
+\begin{longtable}[]{@{}cccl@{}}
+\caption{\label{tab:ex-marg} Distribuzione di probabilità congiunta \(p(y, \theta)\) per due variabili casuali discrete.}\tabularnewline
+\toprule
+\(y / \theta\) & 0 & 1 & \(p(y)\) \\
+\midrule
+\endfirsthead
+\toprule
+\(y / \theta\) & 0 & 1 & \(p(y)\) \\
+\midrule
+\endhead
+0 & 0.1 & 0.2 & 0.3 \\
+1 & 0.3 & 0.4 & 0.7 \\
+\(p(\theta)\) & 0.4 & 0.6 & 1.0 \\
+\bottomrule
+\end{longtable}
+
+Applicando la \eqref{eq:ex-marginalization}, la distribuzione marginale \(p(y) = \{0.3, 0.7\}\) può essere trovata nel modo seguente:
+
+\[
+\begin{pmatrix}
+    0.1 / 0.4 \\
+    0.3 / 0.4
+\end{pmatrix} \cdot 0.4 +
+\begin{pmatrix}
+    0.2 / 0.6 \\
+    0.4 / 0.6
+\end{pmatrix} \cdot 0.6 =
+\begin{pmatrix}
+    0.3 \\
+   0.7
+\end{pmatrix}.
+\]
+
+È possibiile pensare al caso continuo indicato nella \eqref{eq:ex-marg-cont} come all'estensione dell'esempio presente ad un numero infinito di valori \(\theta\).
+
+\hypertarget{commenti-e-considerazioni-finali-3}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-3}}
+
+
+La funzione di probabilità congiunta tiene simultaneamente conto del comportamento di due variabili casuali \(X\) e \(Y\) e di come esse si influenzano reciprocamente. In particolare, si osserva che se le due variabili discrete \(X\) e \(Y\) non si influenzano, cioè se sono statisticamente indipendenti, allora la distribuzione di massa di probabilità congiunta si ottiene come prodotto delle funzioni di probabilità marginali di \(X\) e \(Y\): \(P_{X, Y}(x, y) = P_X(x) P_Y(y)\).
 
 \mainmatter
 
@@ -1084,347 +1458,6 @@ Concludiamo questa discussione dicendo che ciò che è stato presentato in quest
 \hypertarget{appendix-appendici}{%
 \appendix \addcontentsline{toc}{chapter}{\appendixname}}
 
-
-\hypertarget{appendix:intro-stan}{%
-\chapter{Programmare in Stan}\label{appendix:intro-stan}}
-
-\hypertarget{interfacce-e-pacchetti}{%
-\section{Interfacce e pacchetti}\label{interfacce-e-pacchetti}}
-
-È possibile accedere al linguaggio Stan tramite diverse interfacce:
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{CmdStan}: eseguibile da riga di comando,
-\item
-  \texttt{RStan} - integrazione con il linguaggio \(\R\);
-\item
-  \texttt{PyStan} - integrazione con il linguaggio di programmazione Python;
-\item
-  \texttt{MatlabStan} - integrazione con MATLAB;
-\item
-  \texttt{Stan.jl} - integrazione con il linguaggio di programmazione Julia;
-\item
-  \texttt{StataStan} - integrazione con Stata.
-\end{itemize}
-
-Inoltre, vengono fornite interfacce di livello superiore con i pacchetti che utilizzano Stan come backend, principalmente in Linguaggio \R:
-
-\begin{itemize}
-\tightlist
-\item
-  \texttt{shinystan}: interfaccia grafica interattiva per l'analisi della distribuzione a posteriori e le diagnostiche MCMC;
-\item
-  \texttt{bayesplot}: insieme di funzioni utilizzabili per creare grafici relativi all'analisi della distribuzione a posteriori, ai test del modello e alle diagnostiche MCMC;
-\item
-  \texttt{brms}: fornisce un'ampia gamma di modelli lineari e non lineari specificando i modelli statistici mediante la sintassi usata in \R;
-\item
-  \texttt{rstanarm}: fornisce un sostituto per i modelli frequentisti forniti da base \(\R\) e \texttt{lme4} utilizzando la sintassi usata in \(\R\) per la specificazione dei modelli statistici;
-\item
-  \texttt{edstan}: modelli Stan per la Item Response Theory;
-\item
-  \texttt{cmdstanr}, un'interfaccia \(\R\) per \texttt{CmdStan}.
-\end{itemize}
-
-\hypertarget{interfaccia-cmdstanr}{%
-\section{\texorpdfstring{Interfaccia \texttt{cmdstanr}}{Interfaccia cmdstanr}}\label{interfaccia-cmdstanr}}
-
-Negli esempi di questa dispensa verrà usata l'interfaccia \texttt{cmdstanr}. Il pacchetto \texttt{cmdstanr} non è ancora disponibile su CRAN, ma può essere installato come indicato su questo \href{https://mc-stan.org/docs/2_27/cmdstan-guide/cmdstan-installation.html}{link}. Una volta che è stato installato, il pacchetto \texttt{cmdstanr} può essere caricato come un qualsiasi altro pacchetto R.
-
-Si noti che \texttt{cmdstanr} richiede un'installazione funzionante di \texttt{CmdStan}, l'interfaccia shell per Stan. Se \texttt{CmdStan} non è installato, \texttt{cmdstanr} lo installerà automaticamente se il computer dispone di una \emph{Toolchain} adatta. Stan richiede infatti che sul computer su cui viene installato siano presenti alcuni strumenti necessari per gestire i file C++. Tra le altre ragioni, questo è dovuto al fatto che il codice Stan viene tradotto in codice C++ e compilato. Il modo migliore per ottenere il software necessario per un computer Windows o Mac è quello di installare \texttt{RTools}. Per un computer Linux, è necessario installare \texttt{build-essential} e una versione recente dei compilatori g++ o clang++. I requisiti sono descritti nella \href{https://mc-stan.org/docs/cmdstan-guide/cmdstan-installation.html}{Guida di CmdStan}.
-
-Per verificare che la Toolchain sia configurata correttamente è possibile utilizzare la funzione \texttt{check\_cmdstan\_toolchain()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{check\_cmdstan\_toolchain}\NormalTok{()}
-\end{Highlighting}
-\end{Shaded}
-
-Se la toolchain è configurata correttamente, \texttt{CmdStan} può essere installato mediante la funzione \texttt{install\_cmdstan()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# do not run!}
-\CommentTok{\# install\_cmdstan(cores = 2)}
-\end{Highlighting}
-\end{Shaded}
-
-La versione installata di \texttt{CmdStan} si ottiene con:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{cmdstan\_version}\NormalTok{()}
-\CommentTok{\#\textgreater{} [1] "2.28.2"}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{codice-stan}{%
-\section{Codice Stan}\label{codice-stan}}
-
-Qualunque sia l'interfaccia che viene usata, i modelli sottostanti sono sempre scritti nel linguaggio Stan, il che significa che lo stesso codice Stan è valido per tutte le interfacce possibili. Il codice Stan è costituito da una serie di blocchi che vengono usati per specificare un modello statistico. In ordine, questi blocchi sono: \texttt{data}, \texttt{transformed\ data}, \texttt{parameters}, \texttt{transformed\ parameters}, \texttt{model}, e \texttt{generated\ quantities}.
-
-\hypertarget{hello-world-stan}{%
-\subsection{``Hello, world'' -- Stan}\label{hello-world-stan}}
-
-Quando si studia un nuovo linguaggio di programmazione si utilizza spesso un programma ``Hello, world''. Questo è un modo semplice, spesso minimo, per dimostrare alcune delle sintassi di base del linguaggio. In Python, il programme ``Hello, world'' program è:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\BuiltInTok{print}\NormalTok{(}\StringTok{"Hello, world."}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Qui presentiamo Stan e scriviamo un programma ``Hello, world'' per Stan.
-
-Prima di scrivere il nostro primo programma ``Hello, world'' per Stan (che estrarrà campioni dalla distribuzione a posteriori di un modello gaussiano) spendiamo due parole per spiegare cosa fa Stan. Un utente scrive un modello usando il linguaggio Stan. Questo è solitamente memorizzato in un file di testo \texttt{.stan}. Il modello viene compilato in due passaggi. Innanzitutto, Stan traduce il modello nel file \texttt{.stan} in codice C++. Quindi, quel codice C++ viene compilato in codice macchina. Una volta creato il codice macchina, l'utente può, tramite l'interfaccia CmdStan, campionare la distribuzione definita dal modello ed eseguire altri calcoli con il modello. I risultati del campionamento vengono scritti su disco come file CSV e txt. Come mostrato di seguito, l'utente accede a questi file utilizzando varie funzioni \(\R\), senza interagire direttamente con loro.
-
-Per iniziare, possiamo dire che un programma Stan contiene tre ``blocchi'' obbligatori: blocco \texttt{data}, blocco \texttt{parameters}, blocco \texttt{model}.
-
-\hypertarget{blocco-data}{%
-\subsection{\texorpdfstring{Blocco \texttt{data}}{Blocco data}}\label{blocco-data}}
-
-Qui vengono dichiarate le variabili che saranno passate a Stan. Devono essere elencati i nomi delle variabili che saranno utilizzate nel programma, il \emph{tipo di dati} da registrare per ciascuna variabile, per esempio:
-
-\begin{itemize}
-\tightlist
-\item
-  \emph{int} = intero,
-\item
-  \emph{real} = numeri reali (ovvero, numeri con cifre decimali),
-\item
-  \emph{vector} = sequenze ordinate di numeri reali unidimensionali,
-\item
-  \emph{matrix} = matrici bidimensionali di numeri reali,
-\item
-  \emph{array} = sequenze ordinate di dati multidimensionali.
-\end{itemize}
-
-Devono anche essere dichiarate le dimensioni delle variabili e le eventuali restrizioni sulle variabili (es. \texttt{upper\ =\ 1} \texttt{lower\ =\ 0}, che fungono da controlli per Stan). Tutti i nomi delle variabili assegnate qui saranno anche usati negli altri blocchi del programma.
-
-Per esempio, l'istruzione seguente dichiaria la variabile \texttt{Y} -- la quale rappresenta, ad esempio, l'altezza di 10 persone -- come una variabile di tipo \texttt{real{[}10{]}}. Ciò significa che specifichiamo un array di lunghezza 10, i cui elementi sono variabili continue definite sull'intervallo dei numeri reali \([-\infty, +\infty]\).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data \{}
-\NormalTok{  real Y[}\DecValTok{10}\NormalTok{]; }\SpecialCharTok{/}\ErrorTok{/}\NormalTok{ heights }\ControlFlowTok{for} \DecValTok{10}\NormalTok{ people}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Invece, con l'istruzione
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data \{}
-\NormalTok{  int Y[}\DecValTok{10}\NormalTok{]; }\SpecialCharTok{/}\ErrorTok{/}\NormalTok{ qi }\ControlFlowTok{for} \DecValTok{10}\NormalTok{ people}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-dichiariamo la variabile \texttt{Y} -- la quale rappresenta, ad esempio, il QI di 10 persone -- come una variabile di tipo \texttt{int{[}10{]}}, ovvero un array di lunghezza 10, i cui elementi sono numeri naturali, cioè numeri interi non negativi \(\{0, +1, +2, +3, +4, \dots\}\).
-
-Un altro esempio è
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{data \{}
-\NormalTok{  real}\SpecialCharTok{\textless{}}\NormalTok{lower}\OtherTok{=}\DecValTok{0}\NormalTok{, upper}\OtherTok{=}\DecValTok{1}\SpecialCharTok{\textgreater{}}\NormalTok{ Y[}\DecValTok{10}\NormalTok{]; }\SpecialCharTok{/}\ErrorTok{/} \DecValTok{10}\NormalTok{ proportions}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-nel quale viene specificato un array di lunghezza 10, i cui elementi sono delle variabili continue definite sull'intervallo dei numeri reali \([0, 1]\) --- per esempio, delle proporzioni.
-
-Si noti che i tipi \texttt{vector} e \texttt{matrix} contengono solo elementi di tipo \texttt{real}, ovvero variabili continue, mentre gli \texttt{array} possono contenere dati di qualsiasi tipo. I dati passati a Stan devono essere contenuti in un oggetto del tipo \texttt{list}.
-
-\hypertarget{blocco-parameters}{%
-\subsection{\texorpdfstring{Blocco \texttt{parameters}}{Blocco parameters}}\label{blocco-parameters}}
-
-I parametri che vengono stimati sono dichiarati nel blocco \texttt{parameters}. Per esempio, l'istruzione
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{parameters \{}
-\NormalTok{  real mu; }\SpecialCharTok{/}\ErrorTok{/}\NormalTok{ mean height }\ControlFlowTok{in}\NormalTok{ population}
-\NormalTok{  real}\SpecialCharTok{\textless{}}\NormalTok{lower}\OtherTok{=}\DecValTok{0}\SpecialCharTok{\textgreater{}}\NormalTok{ sigma; }\SpecialCharTok{/}\ErrorTok{/}\NormalTok{ sd of height distribution}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-dichiaria la variabile \texttt{mu} che codifica l'altezza media nella popolazione, che è una variabile continua in un intervallo illimitato di valori, e la deviazione standard \texttt{sigma}, che è una variabile continua non negativa. Avremmo anche potuto specificare un limite inferiore di zero su \texttt{mu} perché deve essere non negativo.
-
-Per una regressione lineare semplice, ad esempio, devono essere dichiarate le variabili corrispondenti all'intercetta (\texttt{alpha}), alla pendenza (\texttt{beta}) e alla deviazione standard degli errori attorno alla linea di regressione (\texttt{sigma}). In altri termini, nel blocco \texttt{parameters} devono essere elencati tutti i parametri che dovranno essere stimati dal modello. Si noti che parametri discreti non sono possibili. Infatti, Stan attualmente non supporta i parametri con valori interi, almeno non direttamente.
-
-\hypertarget{blocco-model}{%
-\subsection{\texorpdfstring{Blocco \texttt{model}}{Blocco model}}\label{blocco-model}}
-
-Nel blocco \texttt{model} vengono elencate le dichiarazioni relative alla verosimiglianza dei dati e alle distribuzioni a priori dei parametri, come ad esempio, nelle istruzioni seguenti.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{model \{}
-  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
-\NormalTok{    Y[i] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{normal}\NormalTok{(mu, sigma);}
-\NormalTok{  \}}
-\NormalTok{  mu }\SpecialCharTok{\textasciitilde{}} \FunctionTok{normal}\NormalTok{(}\DecValTok{170}\NormalTok{, }\DecValTok{15}\NormalTok{); }\SpecialCharTok{/}\ErrorTok{/}\NormalTok{ prior }\ControlFlowTok{for}\NormalTok{ mu}
-\NormalTok{  sigma }\SpecialCharTok{\textasciitilde{}} \FunctionTok{cauchy}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{20}\NormalTok{); }\SpecialCharTok{/}\ErrorTok{/}\NormalTok{ prior }\ControlFlowTok{for}\NormalTok{ sigma}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Mediante l'istruzione all'interno del ciclo \texttt{for}, ciascun valore dell'altezza viene concepito come una variable casuale proveniente da una distribuzione Normale di parametri \(\mu\) e \(\sigma\) (i parametri di interesse nell'inferenza). Il ciclo \texttt{for} viene ripetuto 10 volte perché i dati sono costituiti da un array di 10 elementi (ovvero, il campione è costituito da 10 osservazioni).
-
-Le due righe che seguno il ciclo \texttt{for} specificano le distribuzioni a priori dei parametri su cui vogliamo effettuare l'inferenza. Per \(\mu\) assumiamo una distribuzione a priori Normale di parametri \(\mu = 170\) e \(\sigma = 15\); per \(\sigma\) assumiamo una distribuzione a priori Cauchy(0, 20).
-
-Se non viene definita alcuna distribuzione a priori, Stan utilizzerà la distribuzione a priori predefinita \(Unif(-\infty, +\infty)\). Raccomandazioni sulle distribuzioni a priori sono fornite in questo \href{https://github.com/stan-dev/stan/wiki/Prior-Choice-Recommendations}{link}.
-
-La precedente notazione di campionamento può anche essere espressa usando la seguente notazione alternativa:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-  \ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
-\NormalTok{    target }\SpecialCharTok{+}\ErrorTok{=} \FunctionTok{normal\_lpdf}\NormalTok{(Y[i] }\SpecialCharTok{|}\NormalTok{ mu, sigma);}
-\NormalTok{  \}}
-\end{Highlighting}
-\end{Shaded}
-
-Questa notazione rende trasparente il fatto che, in pratica, Stan esegue un campionamento nello spazio
-
-\[
-\log p(\theta \mid y) \propto \log p(y \mid \theta) + \log p(\theta) = \sum_{i=1}^n \log p(y_i \mid \theta) + \log p(\theta).
-\]
-
-Per ogni passo MCMC, viene ottenuto un nuovo valore di \(\mu\) e \(\sigma\) eviene valutata la log densità a posteriori non normalizzata. Ad ogni passo MCMC, Stan calcola un nuovo valore della densità a posteriori su scala logaritmica partendo da un valore di 0 e incrementandola ogni volta che incontra un'istruzione \texttt{\textasciitilde{}}. Quindi, le istruzioni precedenti aumentano la log-densità di una quantità pari a \(\log (p(Y[i])) \propto -\frac{1}{2} \log(\sigma^2) - (Y[i]-\mu)^2 / 2\sigma^2\) per le altezze si ciascuno degli \(i=1 \dots, 10\) individui -- laddove la formula esprime, in termini logaritmici, la densità Normale da cui sono stati esclusi i termini costanti.
-
-Oppure, in termini vettorializzati, il modello descritto sopra può essere espresso come
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{model \{}
-\NormalTok{  Y }\SpecialCharTok{\textasciitilde{}} \FunctionTok{normal}\NormalTok{(mu, sigma);}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-dove il termine a sinistra di \(\sim\) è un array. Questa notazione più compatta è anche la più efficiente.
-
-\hypertarget{blocchi-opzionali}{%
-\subsection{Blocchi opzionali}\label{blocchi-opzionali}}
-
-Ci sono inoltre tre blocchi opzionali:
-
-\begin{itemize}
-\tightlist
-\item
-  Il blocco \texttt{transformed\ data} consente il pre-processing dei dati. È possibile trasformare i parametri del modello; solitamente ciò viene fatto nel caso dei modelli più avanzati per consentire un campionamento MCMC più efficiente.
-\item
-  Il blocco \texttt{transformed\ parameters} consente la manipolazione dei parametri prima del calcolo della distribuzione a posteriori.
-\item
-  Il blocco \texttt{generated\ quantities} consente il post-processing riguardante qualsiasi quantità che non fa parte del modello ma può essere calcolata a partire dai parametri del modello, per ogni iterazione dell'algoritmo. Esempi includono la generazione dei campioni a posteriori e le dimensioni degli effetti.
-\end{itemize}
-
-\hypertarget{sintassi}{%
-\subsection{Sintassi}\label{sintassi}}
-
-Si noti che il codice Stan richiede i punti e virgola (;) alla fine di ogni istruzione di assegnazione. Questo accade per le dichiarazioni dei dati, per le dichiarazioni dei parametri e ovunque si acceda ad un elemento di un tipo \texttt{data} e lo si assegni a qualcos'altro. I punti e virgola non sono invece richiesti all'inizio di un ciclo o di un'istruzione condizionale, dove non viene assegnato nulla.
-
-In STAN, qualsiasi stringa che segue \texttt{//} denota un commento e viene ignorata dal programma.
-
-Stan è un linguaggio estremamente potente e consente di implementare quasi tutti i modelli statistici, ma al prezzo di un certo sforzo di programmazione. Anche l'adattamento di semplici modelli statistici mediante il linguaggio STAN a volte può essere laborioso. Per molti modelli comunemente usati, come i modelli di regressione e multilivello, tale processo può essere semplificato usando le funzioni del pacchetto \texttt{brms}. D'altra parte, per modelli veramente complessi, non ci sono molte alternative all'uso di STAN. Per chi è curioso, il manuale del linguaggio Stan è accessibile al seguente \href{https://mc-stan.org/docs/2_27/stan-users-guide/index.html}{link}.
-
-\hypertarget{workflow}{%
-\section{Workflow}\label{workflow}}
-
-Se usiamo \texttt{cmdstanr}, dobbiamo prima scrivere il codice con il modello statistico in un file in formato Stan. È necessario poi ``transpile'' quel file, ovvero tradurre il file in C++ e compilarlo. Ciò viene fatto mediante la funzione \texttt{cmdstan\_model()}. Possiamo poi eseguire il campionamento MCMC con il metodo \texttt{\$sample()}. Infine è possibile creare un sommario dei risultati usando, per esempio, usando il metodo \texttt{\$summary()}.
-
-\hypertarget{ciao-stan}{%
-\section{Ciao, Stan}\label{ciao-stan}}
-
-Scriviamo ora il nostro programma Stan ``Hello, world'' per generare campioni da una distribuzione Normale standard (con media zero e varianza unitaria).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{modelString }\OtherTok{=} \StringTok{"}
-\StringTok{parameters \{}
-\StringTok{  real x;}
-\StringTok{\}}
-\StringTok{model \{}
-\StringTok{  x \textasciitilde{} normal(0, 1);}
-\StringTok{\}}
-\StringTok{"}
-\FunctionTok{writeLines}\NormalTok{(modelString, }\AttributeTok{con =} \StringTok{"code/hello\_world.stan"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Si noti che ci sono solo due blocchi in questo particolare codice Stan, il blocco parametri e il blocco modello. Questi sono due dei sette blocchi possibili in un codice Stan. Nel blocco parametri, abbiamo i nomi e i tipi di parametri per i quali vogliamo ottenere i campioni. In questo caso, vogliamo ottenere campioni di numeri reale che chiamiamo \texttt{x}. Nel blocco modello, abbiamo il nostro modello statistico. Specifichiamo che x, il parametro di cui vogliamo ottenere i campioni, è normalmente distribuito con media zero e deviazione standard unitaria. Ora che abbiamo il nostro codice (che è stato memorizzato in un file chiamato \texttt{hello\_world.stan}), possiamo usare CmdStan per compilarlo e ottenere \texttt{mod}, che è un oggetto \(\R\) che fornisce l'accesso all'eseguibile Stan compilato.
-
-Leggiamo il file in cui abbiamo salvato il codice Stan
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{file }\OtherTok{\textless{}{-}} \FunctionTok{file.path}\NormalTok{(}\StringTok{"code"}\NormalTok{, }\StringTok{"hello\_world.stan"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-compiliamo il modello
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cmdstan\_model}\NormalTok{(file)}
-\end{Highlighting}
-\end{Shaded}
-
-ed eseguiamo il campionamento MCMC:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ mod}\SpecialCharTok{$}\FunctionTok{sample}\NormalTok{(}
-  \AttributeTok{iter\_sampling =}\NormalTok{ 4000L,}
-  \AttributeTok{iter\_warmup =}\NormalTok{ 2000L,}
-  \AttributeTok{seed =}\NormalTok{ SEED,}
-  \AttributeTok{chains =}\NormalTok{ 4L,}
-  \AttributeTok{refresh =} \DecValTok{0}\NormalTok{,}
-  \AttributeTok{thin =} \DecValTok{1}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Tasformiamo l'oggetto \texttt{fit} nel formato \texttt{stanfit} per manipolarlo più facilmente:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{stanfit }\OtherTok{\textless{}{-}}\NormalTok{ rstan}\SpecialCharTok{::}\FunctionTok{read\_stan\_csv}\NormalTok{(fit}\SpecialCharTok{$}\FunctionTok{output\_files}\NormalTok{())}
-\end{Highlighting}
-\end{Shaded}
-
-Lo esaminiamo
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{length}\NormalTok{(stanfit}\SpecialCharTok{@}\NormalTok{sim}\SpecialCharTok{$}\NormalTok{samples)}
-\CommentTok{\#\textgreater{} [1] 4}
-\end{Highlighting}
-\end{Shaded}
-
-Quello che abbiamo ottenuto sono 4 catene di 4000 osservazioni ciascuna, le quali contengono valori casuali estratti dalla gaussiana standardizzata:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{head}\NormalTok{(stanfit}\SpecialCharTok{@}\NormalTok{sim}\SpecialCharTok{$}\NormalTok{samples[[}\DecValTok{1}\NormalTok{]])}
-\end{Highlighting}
-\end{Shaded}
-
-Verifichiamo
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{hist}\NormalTok{(stanfit}\SpecialCharTok{@}\NormalTok{sim}\SpecialCharTok{$}\NormalTok{samples[[}\DecValTok{1}\NormalTok{]][, }\DecValTok{1}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
   \bibliography{refs.bib,book.bib,packages.bib}
 

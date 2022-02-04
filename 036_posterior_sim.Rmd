@@ -16,7 +16,7 @@ Se vogliamo trovare la distribuzione a posteriori con metodi analitici è necess
 \mathbb{E}(\theta \mid y) = \frac{\int \theta p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}{\int p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}.\notag
 \end{equation}
 
-Il calcolo del valore atteso a posteriori richiede dunque la valutazione di due integrali, ciascuno dei quali non esprimibile in forma chiusa. Per questa ragione, la strada principale che viene seguita nella modellistica bayesiana è quella che porta a determinare la distribuzione a posteriori non per via analitica, ma bensì mediante metodi numerici. La simulazione fornisce dunque la strategia generale del calcolo bayesiano. A questo fine vengono principalmente usati i metodi di campionamento  Monte Carlo basati su Catena di Markov (MCMC). Tali metodi costituiscono una potente e praticabile alternativa per la costruzione della distribuzione a posteriori per modelli complessi e consentono di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza dovere preoccuparsi di altri vincoli. 
+Il calcolo del valore atteso a posteriori richiede dunque il computo di due integrali, quello a denominatore e quello a numeratore dell'espressione, ciascuno dei quali non esprimibile in forma chiusa. Per questa ragione, la strada principale che viene seguita nella modellistica bayesiana è quella che porta a determinare la distribuzione a posteriori non per via analitica, ma bensì mediante metodi numerici. La simulazione fornisce dunque la strategia generale del calcolo bayesiano. A questo fine vengono principalmente usati i metodi di campionamento  Monte Carlo basati su Catena di Markov (MCMC). Tali metodi costituiscono una potente e praticabile alternativa per la costruzione della distribuzione a posteriori per modelli complessi e consentono di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza dovere preoccuparsi di altri vincoli. 
 
 Dato che è basata su metodi computazionalmente intensivi, la stima numerica della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è ora alla portata di tutti. Questo non era vero solo pochi decenni fa. 
 
@@ -24,7 +24,6 @@ In questo Capitolo verranno presentati due metodi di simulazione iterativa^[Si v
 
 - **metodi basati su griglia:** dove, sebbene non sia disponibile alcuna formula algebrica in forma chiusa, le proprietà della distribuzione a posteriori possono  essere calcolate con una precisione arbitraria;
 - **metodi Monte Carlo:** dove, utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto. 
-
 
 <!-- La distribuzione a posteriori non sempre può essere trattata analiticamente come una distribuzione nota in forma chiusa. In questo Capitolo verranno presentate tre tecniche numeriche di simulazione iterativa che consentono di generare dalle distribuzioni a posteriori campioni dei parametri del modello: -->
 
@@ -240,7 +239,7 @@ $$
 
 Presentiamo qui l'integrazione di Monte Carlo perché può essere usata per approssimare la distribuzione a posteriori richiesta da un'analisi Bayesiana: una stima di $p(\theta \mid y)$ viene infatti ottenuta mediante un grande numero di campioni casuali estratti dalla distribuzionea a posteriori.
 
-### Un esempio concreto
+### Un'applicazione empirica
 
 Per introdurre i metodi MCMC consideriamo nuovamente i dati di @zetschefuture2019 (23 "successi" in 30 prove Bernoulliane) che possono essere analizzati mediante lo schema beta-binomiale. In questo caso, la distribuzione a posteriori può essere ottenuta analiticamente ed è uguale ad una $\mbox{Beta}(25, 17)$. Se vogliamo trovare il valore della media a posteriori di $\theta$, il risultato esatto è
 
@@ -446,7 +445,7 @@ Si noti che, essendo un rapporto, la \@ref(eq:ratio-metropolis) cancella la cost
 
 L'algoritmo di Metropolis prende come input il numero $M$ di passi da simulare, la deviazione standard $\sigma$ della distribuzione proposta e la densità a priori, e ritorna come output la sequenza $\theta^{(1)}, \theta^{(2)}, \dots, \theta^{(M)}$. La chiave del successo dell'algoritmo di Metropolis è il numero di passi fino a che la catena approssima la stazionarietà. Tipicamente i primi da 1000 a 5000 elementi sono scartati. Dopo un certo periodo $k$ (detto di _burn-in_), la catena di Markov converge  ad una variabile casuale che è distribuita secondo la distribuzione a posteriori. In altre parole, i campioni del vettore $\left(\theta^{(k+1)}, \theta^{(k+2)}, \dots, \theta^{(M)}\right)$ diventano campioni di $p(\theta \mid y)$.
 
-### Un esempio concreto 
+### Un'applicazione empirica 
 
 Consideriamo nuovamente i 30 pazienti esaminati da @zetschefuture2019. Di essi, 23 hanno manifestato aspettative distorte negativamente sul loro stato d'animo futuro. Utilizzando l'algoritmo di Metropolis, ci poniamo il problema di ottenere la stima a posteriori di $\theta$ (probabilità di manifestare un'aspettativa distorta negativamente), dati 23 "successi" in 30 prove, e imponendo su $\theta$ la stessa distribuzione a priori usata nel Capitolo \@ref(chapter-distr-coniugate), ovvero $\mbox{Beta}(2, 10)$.^[L'Appendice \@ref(es-pratico-zetsche-funzioni) mostra come un'approssimazione della distribuzione a posteriori $p(\theta \mid y)$ per questi dati possa essere ottenuta mediante il metodo basato su griglia.]
 

@@ -108,7 +108,6 @@ temperatura, oltre a poter essere ordinati secondo l'intensità del
 fenomeno, godono della proprietà che le differenze tra loro sono
 direttamente confrontabili e quantificabili.
 
-
 Il limite della scala ad intervalli è quello di non consentire il
 calcolo del rapporto tra coppie di misure. Ad esempio, una temperatura
 di 80$^\circ$C non è il doppio di una di 40$^\circ$C. Se infatti
@@ -212,15 +211,9 @@ aumentare a piacimento il livello di precisione della misurazione.
 Il numero di biciclette possedute da una persona è una variabile discreta poiché tale variabile può assumere come modalità solo i numeri interi non negativi. Frazioni di bicicletta non hanno senso.
 :::
 
-
 ## Alcune misure sono migliori di altre
 
-In psicologia, ciò che vogliamo misurare non è una caratteristica fisica, ma invece è un concetto teorico inosservabile, ovvero un costrutto.
-
-> Un costrutto rappresenta il risultato di una fondata riflessione scientifica, non è per definizione accessibile all'osservazione diretta, ma viene inferito dall'osservazione di opportuni indicatori (Sartori, 2005).
-
-Ad esempio, supponiamo che un docente voglia valutare quanto bene uno studente comprenda la distinzione tra le quattro diverse scale di misura che sono state descritte sopra. Il docente potrebbe predisporre un test costituito da un insieme di domande e potrebbe
-contare a quante domande lo studente risponde correttamente. Questo
+In psicologia, ciò che vogliamo misurare non è una caratteristica fisica, ma invece è un concetto teorico inosservabile, ovvero un costrutto. _Un costrutto rappresenta il risultato di una fondata riflessione scientifica, non è per definizione accessibile all'osservazione diretta, ma viene inferito dall'osservazione di opportuni indicatori_ (Sartori, 2005). Ad esempio, supponiamo che un docente voglia valutare quanto bene uno studente comprenda la distinzione tra le quattro diverse scale di misura che sono state descritte sopra. Il docente potrebbe predisporre un test costituito da un insieme di domande e potrebbe contare a quante domande lo studente risponde correttamente. Questo
 test, però, può o può non essere una buona misura del costrutto relativo
 alla conoscenza effettiva delle quattro scale di misura. Per esempio, se
 il docente scrive le domande del test in modo ambiguo o se usa una
@@ -230,12 +223,7 @@ materia in questione anche se in realtà questo non è vero. D'altra
 parte, se il docente prepara un test a scelta multipla con risposte
 errate molto ovvie, allora lo studente può ottenere dei buoni risultati
 al test anche senza essere in grado di comprendere adeguatamente le
-proprietà delle quattro scale di misura.
-
-In generale non è possibile misurare un costrutto senza una certa
-quantità di errore. Poniamoci dunque il problema di determinare in che
-modo una misurazione possa dirsi adeguata.
-
+proprietà delle quattro scale di misura. In generale non è possibile misurare un costrutto senza una certa quantità di errore. Poniamoci dunque il problema di determinare in che modo una misurazione possa dirsi adeguata.
 
 ### Tipologie di errori
 
