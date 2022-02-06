@@ -8,7 +8,6 @@ suppressPackageStartupMessages({
   library("ggExtra")
   library("ggpubr")
   library("viridis")
-
   library("ggokabeito")
 })
 
@@ -21,19 +20,21 @@ bayesplot::color_scheme_set("gray")
 # knitr chunk options ----------------------------------------------------------
 
 knitr::opts_chunk$set(
-  comment = "#>",
-  collapse = TRUE,
+  # comment = "#>",
+  # collapse = TRUE,
   message = FALSE,
   warning = FALSE,
   error = FALSE,
   fig.align = "center",
+  fig.width = 6,
   fig.asp = 0.618, # 1 / phi
-  fig.show = "hold",
-  dpi = 300,
-  fig.pos = "h",
-  cache.extra = knitr::rand_seed,
-  tidy.opts = list(width.cutoff = 70),
-  tidy = "styler"
+  # fig.show = "hold",
+  # dpi = 300,
+  fig.pos = "h", # pdf mode
+  # cache.extra = knitr::rand_seed,
+  # tidy.opts = list(width.cutoff = 70),
+  # tidy = "styler"
+  tidy = TRUE
 )
 
 # dplyr options ----------------------------------------------------------------

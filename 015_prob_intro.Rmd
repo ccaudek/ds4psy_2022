@@ -13,7 +13,6 @@ L'*inferenza statistica* è un tipo di inferenza induttiva. L'inferenza statisti
 ## Che cos'è la probabilità?
 
 La definizione della probabilità è un problema estremamente dibattuto ed aperto. Sono state fornite due possibili soluzioni al problema di definire il concetto di probabilità. 
-
 (a) La natura della probabilità è "ontologica" (ovvero, basata sulla metafisica): la probabilità è una proprietà della della realtà, del mondo, di come sono le cose, indipendentemente dalla nostra esperienza. È una visione che qualcuno chiama "oggettiva".
 
 (b) La natura della probabilità è "epistemica" (ovvero, basata sulla conoscenza): la probabilità si riferisce alla conoscenza che abbiamo del mondo, non al mondo in sé. Di conseguenza è detta, in contrapposizione alla precedente definizione, "soggettiva".
@@ -76,9 +75,7 @@ Il lancio di un dado ci fornisce l'esempio di un altro esperimento casuale. Supp
 
 ### Variabili casuali
 
-Sia $Y$ il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, $Y$ è una _variabile casuale_, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50% che il lancio della moneta dia come risultato "testa" e una probabilità del 50% che dia come risultato "croce". 
-
-Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale $Y$ assume il valore 1 se esce testa e il valore 0 se esce croce.
+Sia $Y$ il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, $Y$ è una _variabile casuale_, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50% che il lancio della moneta dia come risultato "testa" e una probabilità del 50% che dia come risultato "croce". Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale $Y$ assume il valore 1 se esce testa e il valore 0 se esce croce.
 
 Una variabile casuale può essere _discreta_ o _continua_. Una variabile casuale discreta può assumere un numero finito di valori $x_1, \dots ,x_n$, in corrispondenza degli eventi $E_i, \dots, E_n$ che si verificano con le rispettive probabilità $p_1, \dots, p_n$. Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'intervallo dei valori che può assumere la variabile casuale è detto _supporto_ della sua distribuzione di probabilità, che può essere finito (come nel caso di una variabile casuale uniforme di supporto $[a, b]$) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale).
 

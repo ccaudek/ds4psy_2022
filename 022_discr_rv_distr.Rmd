@@ -8,7 +8,7 @@
 source("_common.R")
 ```
 
-In questo Capitolo verranno esaminate le principali distribuzioni di probabilità delle variabili casuali discrete. Un esperimento casuale che può dare luogo a solo due possibili esiti (successo, insuccesso) è modellabile con una variabile casuale di Bernoulli. Una sequenza di prove di Bernoulli costituisce un processo Bernoulliano. Il numero di successi dopo $n$ prove di Bernoulli corrisponde ad una variabile casuale che segue la legge binomiale. La distribuzione binomiale risulta da un insieme di prove di Bernoulli solo se il numero totale $n$ è fisso per disegno. Se il numero di prove è esso stesso una variabile casuale, allora il numero di successi nella corrispondente sequenza di prove bernoulliane segue al distribuzione di Poisson.
+In questo Capitolo verranno esaminate le principali distribuzioni di probabilità delle variabili casuali discrete. Un esperimento casuale che può dare luogo a solo due possibili esiti (successo, insuccesso) è modellabile con una variabile casuale di Bernoulli. Una sequenza di prove di Bernoulli costituisce un processo Bernoulliano. Il numero di successi dopo $n$ prove di Bernoulli corrisponde ad una variabile casuale che segue la legge binomiale. La distribuzione binomiale risulta da un insieme di prove di Bernoulli solo se il numero totale $n$ è fisso per disegno. Se il numero di prove è esso stesso una variabile casuale, allora il numero di successi nella corrispondente sequenza di prove bernoulliane segue al distribuzione di Poisson. Concluderemo con la distribuzione discreta uniforme.
 
 ## Una prova Bernoulliana
 
@@ -361,13 +361,51 @@ dpois(x = 2, lambda = 3)
 ```
 :::
 
-## Alcune proprietà della variabile di Poisson
+### Alcune proprietà della variabile di Poisson
 
 - Il valore atteso, la moda e la varianza della variabile di Poisson sono uguali a $\lambda$.
 
 - La somma $Y_1 + \dots + Y_n$ di $n$ variabili casuali indipendenti con distribuzioni di Poisson di parametri $\lambda_{1},\dots,\lambda_{n}$ segue una distribuzione di Poisson di parametro $\lambda = \lambda_{1}+\dots+\lambda_{n}$. 
 
 - La differenze di due variabili di Poisson non è una variabile di Poisson. Basti infatti pensare che può assumere valori negativi.
+
+
+## Distribuzione discreta uniforme
+
+Una distribuzione discreta uniforme è una distribuzione di probabilità discreta che è uniforme su un insieme, ovvero che attribuisce ad ogni elemento dell'insieme discreto $S$ su cui è definita la stessa probabilità $p$ di verificarsi (in particolare l'insieme dev'essere finito).
+
+Consideriamo la variabile casuale $X$ con supporto $1, 2, \dots, m$. Un esperimento casuale in cui si verifica questa distribuzione è la scelta di un intero casuale compreso tra 1 e $m$ inclusi. Sia $X$ il numero scelto. Allora
+
+$$
+P(X = x) = \frac{1}{m}, \quad x = 1, \dots, m.
+$$
+
+Il valore atteso è
+
+$$
+\E(X) = \sum_{x=1}^m x f_X(x) = \sum_{x=1}^m x \frac{1}{m} = \frac{1}{m} (1 + 2 + \dots + m) = \frac{m+1}{2},
+$$
+dove abbiamo utilizzato l'identità $1+2+···+m = m(m+1)/2$.
+
+Per trovare la varianza, prima calcoliamo 
+
+$$
+\E(X^2) = \frac{1}{m} \sum_{x=1}^m x^2,
+$$
+e poi troviamo 
+
+$$
+\V(X) = E(X^2) - \left[E(X)\right]^2.
+$$
+
+### Usiamo $\textsf{R}$
+
+La sintassi generale per simulare una variabile casuale uniforme discreta è `sample(x, size, replace = TRUE)`. L'argomento `x` identifica i numeri da cui campionare casualmente. Se `x` è un numero, il campionamento viene eseguito da 1 a `x`. L'argomento `size` indica quanto dovrebbe essere grande la dimensione del campione e `replace` indica se i numeri devono essere reintrodotti o meno nell'urna dopo essere stati estratti. L'opzione di default è `replace = FALSE` ma per le uniformi discrete i valori estratti devono essere sostituiti. Seguono alcuni esempi.
+
+- Per lanciare un dado equilibrato 3000 volte:  `sample(6, size = 3000, replace = TRUE)`;
+- per scegliere 27 numeri casuali da 30 a 70: `sample(30:70, size = 27, replace = TRUE)`;
+- per lanciare una moneta equa 1000 volte: `sample(c("H","T"), size = 1000, replace = TRUE)`.
+
 
 ## Commenti e considerazioni finali {-}
 
