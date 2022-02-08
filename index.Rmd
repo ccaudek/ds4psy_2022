@@ -11,14 +11,11 @@ graphics: yes
 lot: yes
 lof: yes
 fontsize: 11pt
-# mainfont: "Palatino nova W1G"
 monofont: "MesloLGS NF"
 monofontoptions: "Scale=0.775"
 site: bookdown::bookdown_site
 description: "This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy."
-# url: 'https\://bookdown.org/yihui/rmarkdown/'
 github-repo: ccaudek/ds4psy
-# cover-image: images/cover.png
 ---
 
 ```{r setup, include=FALSE}
