@@ -235,7 +235,7 @@
 
 \title{Data Science per psicologi}
 \author{Corrado Caudek}
-\date{2022-02-04}
+\date{2022-02-08}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -339,19 +339,72 @@ Marzo 2022 \end{flushright}
 \part{Il calcolo delle probabilità}\label{part-il-calcolo-delle-probabilituxe0}}
 
 \hypertarget{intro-prob-1}{%
-\chapter{Nozioni di base}\label{intro-prob-1}}
+\chapter{Il ragionamento scientifico: deduzione e induzione}\label{intro-prob-1}}
 
-L'\emph{inferenza statistica} è un tipo di inferenza induttiva. L'inferenza statistica è un insieme di procedure che hanno lo scopo di quantificare quanto più plausibile sia la proposizione \(A\) dopo aver osservato l'evento \(B\). Per svolgere l'inferenza statistica è necessario quantificare tale plausibilità e lo strumento che consente di fare ciò è la teoria delle probabilità. Una discussione dell'inferenza statistica richiede dunque la conoscenze delle nozioni di base della teoria delle probabilità.
+In questa parte della dispensa verrà introdotta la teoria delle probabilità. Prima di entrare nei dettagli, cerchiamo di capire perché la probabilità sia cruciale per la ricerca scientifica. Ingenuamente, potremmo pensare che la logica deduttiva (aristotelica) fornisca il modo migliore di procedere alla ricerca scientifica -- con un tale metodo, infatti, non si commettono errori. Un esempio di tale logica è il sillogismo, come ad esempio,
+
+\begin{itemize}
+\tightlist
+\item
+  tutti gli uomini sono mortali,
+\item
+  Socrate è un uomo,
+\item
+  quindi, Socrate è mortale.
+\end{itemize}
+
+La logica deduttiva, però, non può essere utilizzata in psicologia, né in alcun'altra scienza empirica. Nel sillogismo, la correttezza del ragionamento dipende dalla sua struttura e non dal significato delle parole (come uomo, mortale, ecc.). Nelle scienze empiriche, però, il ``significato delle parole'' è cruciale. Le ``parole'' usate nel sillogismo corrispondono ai ``concetti teorici'' (detti, in psicologia, costrutti) delle teorie scientifiche. Il problema è che la \emph{corrispondenza} tra le relazioni tra costrutti teorici, da una parte, e le relazioni tra i fenomeni empirici, dall'altra, dipende dalla validità delle teorie. In fisica, ad esempio, i concetti teorici di massa (\(m\)), peso (\(P\)) e forza di gravità (\(g\)) consentono di descrivere accuratamente ciò che si osserva nel mondo empirico: \(P = m \cdot g\). Non è così, invece, nelle scienze sociali, dove le relazioni tra costrutti sono in grado di descrivere \emph{solo in parte} le relazioni tra i corrispondenti fenomeni empirici. Nelle scienze sociali, dunque, la ricerca procede mediante l'inferenza induttiva. Non siamo mai completamente sicuri della verità di una proposizione: al valore di verità di una proposizione possiamo solo assegnare un giudizio probabilistico. L'approccio bayesiano è una scuola di pensiero che usa la probabilità per quantificare il grado di credenza che viene attribuito al valore di verità di una proposizione. L'inferenza statistica bayesiana è dunque un tipo di inferenza induttiva, ovvero è un insieme di procedure che hanno lo scopo di quantificare quanto sia plausibile la proposizione \(A\) dopo aver osservato l'evento \(B\). Per svolgere l'inferenza statistica bayesiana è dunque necessario quantificare la plausibilità che viene attribuita ad una proposizione e lo strumento che consente di fare questo è la teoria delle probabilità. Una discussione dell'inferenza statistica bayesiana richiede dunque, preliminarmente, la conoscenze della teoria delle probabilità.
+
+\hypertarget{proposizioni-e-modelli-statistici}{%
+\section{Proposizioni e modelli statistici}\label{proposizioni-e-modelli-statistici}}
+
+Vedremo che, nell'inferenza bayesiana, le proposizioni di una teoria scientifica sono espresse nella forma di un modello statistico, ovvero mediante una legge generale che descrive il modo in cui un fenomeno si manifesta. Tale legge generale viene anche detta \emph{processo generativo dei dati}, o modello statistico. Ma che cos'è un modello generativo dei dati? Per fare un esempio, consideriamo il quoziente d'intelligenza. Sappiamo che il punteggio totale della \emph{Wechsler Adult Intelligence Scale} ha, nella popolazione, media 100 e deviazione standard 15 (dato che il test WAIS è stato costruito in modo da avere una tale proprietà). Quindi, se prendiamo un campione abbastanza grande di persone, i valori del QI di tali persone avranno, circa, media uguale a 100 e deviazione standard uguale a 15. Se con tali dati costruiamo un istogramma, sappiamo anche che il profilo di tale istogramma sarà ben descritto da una funzione matematica che va sotto il nome di \emph{legge gaussiana}. La rappresentazione grafica della funzione gaussiana è la classica curva a campana che avrete visto tante volte in passato. La funzione gaussiana dipende da due parametri: la media (solitamente indicata con \(\mu\)) e la deviazione standard (\(\sigma\)). Se cambiamo questi parametri, ma usiamo sempre la stessa formula, otteniamo una curva diversa. Per esempio, se consideriamo solo la sotto-popolazione dei bambini plus-dotati, la distribuzione dei punteggi QI sarà una gaussiana centrata su 130, con una qualche deviazione standard. In questo esempio, la gaussiana è il modello generatore dei dati e i parametri sono \(\mu\) e \(\sigma\). Per altri fenomeni, come ad esempio i tempi di reazione nel compito Stroop, o la gravità della sintomatologia ansiosa negli adulti misurata attraverso il test \emph{Beck Anxiety Inventory}, il modello gaussiano non è più appropriato ed è necessario \emph{ipotizzare} un diverso processo generatore dei dati.
+
+In generale, l'inferenza induttiva bayesiana procede \emph{ipotizzando} un modello generatore dei dati per poi, sulla base dei dati osservati in un campione e sulla base delle nostre credenze a priori, \emph{inferire} i valori plausibili dei parametri del modello. In questo processo inferenziale, possiamo individuare cinque fonti di incertezza:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  incertezza sui parametri dei modelli;
+\item
+  incertezza su quale sia il modello migliore;
+\item
+  incertezza su cosa fare con l'output dei (migliori) modelli;
+\item
+  incertezza sul funzionamento del software che produce i risultati;
+\item
+  incertezza sul fatto che il/i modello/i (migliore/i) siano coerenti con altri campioni di dati.
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  L'approccio bayesiano usa la teoria delle probabilità per descrivere l'incertezza relativa ai punti (1) e (2);
+\item
+  l'approccio bayesiano si collega alla teoria delle decisioni, che prescrive come affrontare il problema descritto nel punto (3);
+\item
+  il software utilizzato (nel nostro caso, Stan) fa tutto ciò che è possibile per mitigare la preoccupazione (4);
+\item
+  l'approccio bayesiano consente di quantificare l'incertezza descritta al punto (5).
+\end{itemize}
+
+\hypertarget{oggettivituxe0-e-soggettivituxe0}{%
+\section{Oggettività e soggettività}\label{oggettivituxe0-e-soggettivituxe0}}
+
+Facendo delle assunzioni non controverse, l'inferenza bayesiana consente di aggiornare le credenze precedenti sui valori (sconosciuti) dei parametri \(\theta\) di un modello statistico alla luce di nuovi dati \(y_1, y_2, \dots, y_N\) che vengono osservati. L'approccio bayesiano è etichettato come ``soggettivo'' perché non ci dice quale valore dovrebbe essere assegnato ai parametri prima di avere osservato i dati \(y_1, y_2, \dots, y_N\). In realtà, l'aggiornamento bayesiano è il modo più razionale di procedere: se, prima di avere osservato i dati, il ricercatore ha una credenza assurda relativamente al valore di \(\theta\), dopo avere osservato \(y_1, y_2, \dots, y_N\) le sue credenze su \(\theta\) aggiornate secondo i principi bayesiani saranno meno assurde. Il problema di questo modo di procedere non è che, a priori, i ricercatori (o chiunque) possono avere delle credenze sbagliate, ma bensì il fatto che, quando osservano \(y_1, y_2, \dots, y_N\), non aggiornano le loro credenze su \(\theta\) secondo i principi bayesiani. Infatti, in alcune situazioni, l'osservazione di dati che contraddicono le credenze precedenti non fa altro che rafforzare tali convinzioni errate -- il problema, dunque, non nasce dalla ``soggettività'' dell'approccio bayesiano, ma quanto dal fatto che non si segue un tale modo di procedere!
+
+Lo scopo delle prossime sezioni della dispensa è quello di introdurre i concetti base della teoria delle probabilità che sono necessari per discutere l'inferenza induttiva bayesiana.
 
 \hypertarget{che-cosuxe8-la-probabilituxe0}{%
 \section{Che cos'è la probabilità?}\label{che-cosuxe8-la-probabilituxe0}}
 
-La definizione della probabilità è un problema estremamente dibattuto ed aperto. Sono state fornite due possibili soluzioni al problema di definire il concetto di probabilità.
+La definizione della probabilità è un problema estremamente dibattuto ed aperto. Sono state fornite due possibili soluzioni al problema di definire il concetto di probabilità. (a) La natura della probabilità è ``ontologica'' (ovvero, basata sulla metafisica): la probabilità è una proprietà della della realtà, del mondo, di come sono le cose, indipendentemente dalla nostra esperienza. È una visione che qualcuno chiama ``oggettiva''.
 
 \begin{enumerate}
 \def\labelenumi{(\alph{enumi})}
-\item
-  La natura della probabilità è ``ontologica'' (ovvero, basata sulla metafisica): la probabilità è una proprietà della della realtà, del mondo, di come sono le cose, indipendentemente dalla nostra esperienza. È una visione che qualcuno chiama ``oggettiva''.
+\setcounter{enumi}{1}
+\tightlist
 \item
   La natura della probabilità è ``epistemica'' (ovvero, basata sulla conoscenza): la probabilità si riferisce alla conoscenza che abbiamo del mondo, non al mondo in sé. Di conseguenza è detta, in contrapposizione alla precedente definizione, ``soggettiva''.
 \end{enumerate}
@@ -422,9 +475,7 @@ Il lancio di un dado ci fornisce l'esempio di un altro esperimento casuale. Supp
 \hypertarget{variabili-casuali}{%
 \subsection{Variabili casuali}\label{variabili-casuali}}
 
-Sia \(Y\) il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, \(Y\) è una \emph{variabile casuale}, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50\% che il lancio della moneta dia come risultato ``testa'' e una probabilità del 50\% che dia come risultato ``croce''.
-
-Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale \(Y\) assume il valore 1 se esce testa e il valore 0 se esce croce.
+Sia \(Y\) il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, \(Y\) è una \emph{variabile casuale}, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50\% che il lancio della moneta dia come risultato ``testa'' e una probabilità del 50\% che dia come risultato ``croce''. Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale \(Y\) assume il valore 1 se esce testa e il valore 0 se esce croce.
 
 Una variabile casuale può essere \emph{discreta} o \emph{continua}. Una variabile casuale discreta può assumere un numero finito di valori \(x_1, \dots ,x_n\), in corrispondenza degli eventi \(E_i, \dots, E_n\) che si verificano con le rispettive probabilità \(p_1, \dots, p_n\). Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'intervallo dei valori che può assumere la variabile casuale è detto \emph{supporto} della sua distribuzione di probabilità, che può essere finito (come nel caso di una variabile casuale uniforme di supporto \([a, b]\)) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale).
 
@@ -464,9 +515,9 @@ Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i ri
 \NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{100}
 \NormalTok{y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
 \ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
-\NormalTok{  y[m] }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{  y[m] }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{\}}
-\NormalTok{estimate }\OtherTok{=} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ M}
+\NormalTok{estimate }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ M}
 
 \FunctionTok{cat}\NormalTok{(}\StringTok{"estimated Pr[Y = 1] ="}\NormalTok{, estimate)}
 \CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.53}
@@ -480,7 +531,7 @@ Ripetiamo questa procedura 10 volte.
 \NormalTok{flip\_coin }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(M) \{}
 \NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
   \ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
-\NormalTok{    y[m] }\OtherTok{=} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+\NormalTok{    y[m] }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{  \}}
 \NormalTok{  estimate }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ M}
   \FunctionTok{cat}\NormalTok{(}\StringTok{"estimated Pr[Y = 1] ="}\NormalTok{, estimate, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
@@ -490,7 +541,7 @@ Ripetiamo questa procedura 10 volte.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
   \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{100}\NormalTok{)}
 \NormalTok{\}}
 \CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.44 }
@@ -510,7 +561,7 @@ Dato che la moneta è equilibrata, la stima delle probabilità dell'evento \(Pr[
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
   \FunctionTok{flip\_coin}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
 \NormalTok{\}}
 \CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.497 }
@@ -530,7 +581,7 @@ In questo secondo caso, gli errori tendono ad essere più piccoli della simulazi
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
   \FunctionTok{flip\_coin}\NormalTok{(}\FloatTok{1e4}\NormalTok{)}
 \NormalTok{\}}
 \CommentTok{\#\textgreater{} estimated Pr[Y = 1] = 0.4885 }
@@ -562,23 +613,23 @@ La visualizzazione mediante grafici contribuisce alla comprensione dei concetti 
 \NormalTok{  phat }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y) }\SpecialCharTok{/}\NormalTok{ m}
 \NormalTok{  phat}
 \NormalTok{\}}
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nrep) \{}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nrep) \{}
 \NormalTok{  estimate[i] }\OtherTok{\textless{}{-}} \FunctionTok{flip\_coin}\NormalTok{(i)}
 \NormalTok{\}}
 \NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
-  \AttributeTok{n =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nrep, }
+  \AttributeTok{n =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{nrep,}
 \NormalTok{  estimate}
 \NormalTok{)}
-\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}
     \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ n, }\AttributeTok{y =}\NormalTok{ estimate)}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Numero di lanci della moneta"}\NormalTok{, }
+    \AttributeTok{x =} \StringTok{"Numero di lanci della moneta"}\NormalTok{,}
     \AttributeTok{y =} \StringTok{"Stima Pr[Y = 1]"}
-\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -595,20 +646,22 @@ Dato che il grafico \ref{fig:legge-grandi-n-1} espresso su una scala lineare non
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%} 
+\NormalTok{d }\SpecialCharTok{\%\textgreater{}\%}
   \FunctionTok{ggplot}\NormalTok{(}
     \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ n, }\AttributeTok{y =}\NormalTok{ estimate)}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
   \FunctionTok{scale\_x\_log10}\NormalTok{(}
-    \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{200}\NormalTok{, }
-               \DecValTok{700}\NormalTok{, }\DecValTok{2500}\NormalTok{, }\DecValTok{10000}\NormalTok{)}
+    \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}
+      \DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{50}\NormalTok{, }\DecValTok{200}\NormalTok{,}
+      \DecValTok{700}\NormalTok{, }\DecValTok{2500}\NormalTok{, }\DecValTok{10000}
+\NormalTok{    )}
 \NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Numero di lanci della moneta"}\NormalTok{, }
+    \AttributeTok{x =} \StringTok{"Numero di lanci della moneta"}\NormalTok{,}
     \AttributeTok{y =} \StringTok{"Stima Pr[Y = 1]"}
-\NormalTok{)}
+\NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
@@ -684,7 +737,7 @@ Possiamo ripetere questa simulazione \(M = 1e5\) volte:
 \begin{Highlighting}[]
 \NormalTok{M }\OtherTok{\textless{}{-}} \FloatTok{1e5}
 \NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
 \NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{  z[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
 \NormalTok{\}}
@@ -708,7 +761,7 @@ Nel caso di 4 monete equilibrate, avremo:
 \begin{Highlighting}[]
 \NormalTok{M }\OtherTok{\textless{}{-}} \FloatTok{1e5}
 \NormalTok{z }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, M)}
-\ControlFlowTok{for}\NormalTok{(i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{M) \{}
 \NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{4}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
 \NormalTok{  z[i] }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(y)}
 \NormalTok{\}}
@@ -1154,301 +1207,6 @@ Il teorema di Bayes consente di modificare una credenza a priori in maniera dina
 \begin{remark}
 Qual è la pronuncia di ``Bayesian''? Per saperlo possiamo seguire \href{https://bayes-rules.github.io/posts/fun/}{questo link}.
 \end{remark}
-
-\hypertarget{chapter-prob-congiunta}{%
-\chapter{Probabilità congiunta}\label{chapter-prob-congiunta}}
-
-La probabilità congiunta è la probabilità che due o più eventi si verifichino contemporaneamente. In questo Capitolo verrà esaminato in dettaglio il caso discreto.
-
-\hypertarget{funzione-di-probabilituxe0-congiunta}{%
-\section{Funzione di probabilità congiunta}\label{funzione-di-probabilituxe0-congiunta}}
-
-Dopo aver trattato della distribuzione di probabilità di una variabile casuale, la quale associa ad ogni evento elementare dello spazio campionario uno ed un solo numero reale, è naturale estendere questo concetto al caso di due o più variabili casuali.
-
-Iniziamo a descrivere il caso discreto con un esempio. Consideriamo l'esperimento casuale corrispondente al lancio di tre monete equilibrate. Lo spazio campionario è
-
-\[
-\Omega = \{TTT, TTC, TCT, CTT, CCT, CTC, TCC, CCC\}.
-\]
-
-Dato che i tre lanci sono tra loro indipendenti, non c'è ragione di aspettarsi che uno degli otto risultati possibili dell'esperimento sia più probabile degli altri, dunque possiamo associare a ciascuno degli otto eventi elementari dello spazio campionario la stessa probabilità, ovvero 1/8.
-
-Siano \(X \in \{0, 1, 2, 3\}\) = ``numero di realizzazioni con il risultato testa nei tre lanci'' e \(Y \in \{0, 1\}\) = ``numero di realizzazioni con il risultato testa nel primo lancio'' due variabili casuali definite sullo spazio campionario \(\Omega\). Indicando con T = `testa' e C = `croce', si ottiene la situazione riportata nella tabella \ref{tab:tre-monete-distr-cong-1}.
-
-\begin{longtable}[]{@{}cccc@{}}
-\caption{\label{tab:tre-monete-distr-cong-1} Spazio campionario dell'esperimento consistente nel lancio di tre monete equilibrate su cui sono state definite le variabili aleatorie \(X\) e \(Y\).}\tabularnewline
-\toprule
-\(\omega\) & \(X\) & \(Y\) & \(P(\omega)\) \\
-\midrule
-\endfirsthead
-\toprule
-\(\omega\) & \(X\) & \(Y\) & \(P(\omega)\) \\
-\midrule
-\endhead
-\(\omega_1\) = TTT & 3 & 1 & 1/8 \\
-\(\omega_2\) = TTC & 2 & 1 & 1/8 \\
-\(\omega_3\) = TCT & 2 & 1 & 1/8 \\
-\(\omega_4\) = CTT & 2 & 0 & 1/8 \\
-\(\omega_5\) = CCT & 1 & 0 & 1/8 \\
-\(\omega_6\) = CTC & 1 & 0 & 1/8 \\
-\(\omega_7\) = TCC & 1 & 1 & 1/8 \\
-\(\omega_8\) = CCC & 0 & 0 & 1/8 \\
-\bottomrule
-\end{longtable}
-
-Ci poniamo il problema di associare un livello di probabilità ad ogni coppia \((x, y)\) definita su \(\Omega\). La coppia \((X = 0, Y = 0)\) si realizza in corrispondenza di un solo evento elementare, ovvero CCC; avrà dunque una probabilità pari a \(P(X=0, Y=0) = P(CCC) = 1/8\). Nel caso della coppia \((X = 1, Y = 0)\) ci sono due eventi elementari che danno luogo al risultato considerato, ovvero, CCT e CTC; la probabilità \(P(X=1, Y=0)\) sarà dunque data dalla probabilità dell'unione dei due eventi elementari, cioé \(P(X=1, Y=0) = P(CCT \:\cup\: CTC) = 1/8 + 1/8 = 1/4\). Sono riportati qui sotto i calcoli per tutti i possibili valori di \(X\) e \(Y\).
-
-\begin{align}
-P(X = 0, Y = 0) &= P(\omega_8 = CCC) = 1/8; \notag\\
-P(X = 1, Y = 0) &= P(\omega_5 = CCT) + P(\omega_6 = CTC) = 2/8; \notag\\
-P(X = 1, Y = 1) &= P(\omega_7 = TCC) = 1/8; \notag\\
-P(X = 2, Y = 0) &= P(\omega_4 = CTT) = 1/8; \notag\\
-P(X = 2, Y = 1) &= P(\omega_3 = TCT) + P(\omega_2 = TTC) = 2/8; \notag\\
-P(X = 3, Y = 1) &= P(\omega_1 = TTT) = 1/8; \notag
-\end{align}
-
-Le probabilità così trovate sono riportate nella tabella \ref{tab:ditr-cong-biv-1} la quale descrive la distribuzione di probabilità congiunta delle variabili casuali \(X\) = ``numero di realizzazioni con il risultato testa nei tre lanci'' e \(Y\) = ``numero di realizzazioni con il risultato testa nel primo lancio'' per l'esperimento casuale consistente nel lancio di tre monete equilibrate.
-
-\begin{longtable}[]{@{}ccc@{}}
-\caption{\label{tab:ditr-cong-biv-1} Distribuzione di probabilità congiunta per i risultati dell'esperimento consistente nel lancio di tre monete equilibrate.}\tabularnewline
-\toprule
-\(x / y\) & 0 & 1 \\
-\midrule
-\endfirsthead
-\toprule
-\(x / y\) & 0 & 1 \\
-\midrule
-\endhead
-0 & 1/8 & 0 \\
-1 & 2/8 & 1/8 \\
-2 & 1/8 & 2/8 \\
-3 & 0 & 1/8 \\
-\bottomrule
-\end{longtable}
-
-In generale, possiamo dire che, dato uno spazio campionario discreto \(\Omega\), è possibile associare ad ogni evento elementare \(\omega_i\) dello spazio campionario una coppia di numeri reali \((x, y)\), essendo \(x = X(\omega)\) e \(y = Y(\omega)\), il che ci conduce alla seguente definizione.
-
-\begin{definition}
-Siano \(X\) e \(Y\) due variabili casuali. La funzione che associa ad ogni coppia \((x, y)\) un livello di probabilità prende il nome di funzione di probabilità congiunta:
-
-\[
-P(x, y) = P(X = x, Y = y).
-\]
-\end{definition}
-
-Il termine ``congiunta'' deriva dal fatto che questa probabilità è legata al verificarsi di una coppia di valori, il primo associato alla variabile casuale \(X\) ed il secondo alla variabile casuale \(Y\). Nel caso di due sole variabili casuali si parla di distribuzione bivariata, mentre nel caso di più variabili casuali si parla di distribuzione multivariata.
-
-La regola della catena, \(P(A \cap B) = P(A)P(B \mid A)\), permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate. Nel caso di 4 eventi, per esempio, la regola della catena diventa
-
-\[
-P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3).
-\]
-
-\hypertarget{proprietuxe0}{%
-\subsection{Proprietà}\label{proprietuxe0}}
-
-Una distribuzione di massa di probabilità congiunta bivariata deve soddisfare due proprietà:
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\item
-  \(0 \leq P(x_i, y_j) \leq 1\);
-\item
-  la probabilità totale deve essere uguale a \(1.0\). Tale proprietà può essere espressa nel modo seguente
-\end{enumerate}
-
-\[
-\sum_{i} \sum_{j} P(x_i, y_j) = 1.0.
-\]
-
-\hypertarget{eventi}{%
-\subsection{Eventi}\label{eventi}}
-
-Si noti che dalla probabilità congiunta possiamo calcolare la probabilità di qualsiasi evento definito in base alle variabili aleatorie \(X\) e \(Y\). Per capire come questo possa essere fatto, consideriamo nuovamente l'esperimento casuale discusso in precedenza.
-
-\begin{exercise}
-Per la distribuzione di massa di probabilità congiunta riportata nella tabella precedente si trovi la probabilità dell'evento \(X+Y \leq 1\).
-
-Per trovare la probabilità richiesta dobbiamo semplicemente sommare le probabilità associate a tutte le coppie \((x,y)\) che soddisfano la condizione \(X+Y \leq 1\), ovvero
-
-\begin{equation}
-P_{XY}(X+Y \leq 1) = P_{XY}(0, 0) + P_{XY}(1, 0)= 3/8.\notag
-\end{equation}
-\end{exercise}
-
-\hypertarget{sec:marg-distr-discr}{%
-\subsection{Funzioni di probabilità marginali}\label{sec:marg-distr-discr}}
-
-Nel caso di due variabili casuali discrete \(X\) e \(Y\) di cui conosciamo la distribuzione congiunta, la distribuzione marginale di \(X\) è calcolata sommando la distribuzione di probabilità congiunta sopra la variabile da ``scartare'', in questo caso la \(Y\). La funzione di massa di probabilità marginale \(P(X=x)\) è
-
-\begin{equation}
-P(X = x) = \sum_y P(X, Y = y) = \sum_y P(X \mid Y = y) P(Y = y),
-\end{equation}
-
-dove \(P(X = x,Y = y)\) è la distribuzione congiunta di \(X, Y\), mentre \(P(X = x \mid Y = y)\) è la distribuzione condizionata di \(X\) dato \(Y\). Se esaminiamo \(P(X=x)\), diciamo che la variabile \(Y\) è stata marginalizzata. Le probabilità bivariate marginali e congiunte per variabili casuali discrete sono spesso mostrate come tabelle di contingenza.
-
-Si noti che \(P(X = x)\) e \(P(Y = y)\) sono normalizzate:
-
-\[
-\sum_x P(X=x) = 1.0, \quad \sum_y P(Y=y) = 1.0.
-\]
-
-Nel caso continuo si sostituisce l'integrazione alla somma -- si veda la Sezione \ref{sec:margin-vc-cont}.
-
-\begin{exercise}
-
-Per l'esperimento casuale consistente nel lancio di tre monete equilibrate, si calcolino le probabilità marginali di \(X\) e \(Y\).
-
-Nell'ultima colonna a destra e nell'ultima riga in basso della tabella \ref{tab:ditr-cong-biv} sono riportate le distribuzioni di probabilità marginali di \(X\) e \(Y\). \(P_X\) si ottiene sommando su ciascuna riga fissata la colonna \(j\), \(P_X(X = j) = \sum_y p_{xy}(x = j, y)\). \(P_Y\) si trova sommando su ciascuna colonna fissata la riga \(i,\) \(P_Y (Y = i) = \sum_x p_{xy}(x, y = i)\).
-
-\begin{longtable}[]{@{}cccc@{}}
-\caption{\label{tab:ditr-cong-biv} Distribuzione di probabilità congiunta \(p(x,y)\) per i risultati dell'esperimento consistente nel lancio di tre monete equilibrate e probabilità marginali \(P(x)\) e \(P(y)\).}\tabularnewline
-\toprule
-\(x / y\) & 0 & 1 & \(P(x)\) \\
-\midrule
-\endfirsthead
-\toprule
-\(x / y\) & 0 & 1 & \(P(x)\) \\
-\midrule
-\endhead
-0 & 1/8 & 0 & 1/8 \\
-1 & 2/8 & 1/8 & 3/8 \\
-2 & 1/8 & 2/8 & 3/8 \\
-3 & 0 & 1/8 & 1/8 \\
-\(P(y)\) & 4/8 & 4/8 & 1.0 \\
-\bottomrule
-\end{longtable}
-
-\end{exercise}
-
-\hypertarget{indipendenza-stocastica-incondizionata}{%
-\section{Indipendenza stocastica incondizionata}\label{indipendenza-stocastica-incondizionata}}
-
-In precedenza abbiamo visto come l'indipendenza stocastica di due eventi \(A\) e \(B\) si ha quando il verificarsi di uno non modifica la probabilità di verificarsi dell'altro, ovvero quando \(P(A \mid B = P(A)\) e \(P(B \mid A) = P(B)\). Queste due condizioni si possono sintetizzare con la formula \(P(A \cap B) = P(A) P(B)\).
-
-Analogamente, quando si afferma che due variabili casuali \(X\) e \(Y\) definite sullo stesso spazio campionario \(\Omega\) sono indipendenti si afferma che conoscere qualcosa riguardo al valore di una di esse non apporta alcuna informazione circa il valore dell'altra. Formalmente, questo si verifica quando
-
-\begin{equation}
-P(X, Y)\, = P_X(x)P_Y(y).
-\end{equation}
-
-Nel caso discreto, dunque, l'indipendenza implica che la probabilità riportata in ciascuna cella della tabella di probabilità congiunta deve essere uguale al prodotto delle probabilità marginali di riga e di colonna:
-
-\[
-P(x_i, y_i)\, = P_X(x_i) P_Y(y_i).
-\]
-
-\begin{exercise}
-Per la situazione rappresentata nella tabella \ref{tab:ditr-cong-biv} le variabili casuali \(X\) e \(Y\) sono indipendenti?
-
-Nella tabella le variabili casuali \(X\) e \(Y\) non sono indipendenti: le probabilità congiunte non sono ricavabili dal prodotto delle marginali. Per esempio, nessuna delle probabilità marginali è uguale a \(0\) per cui nessuno dei valori dentro la tabella (probabilità congiunte) che risulta essere uguale a \(0\) può essere il prodotto delle probabilità marginali.
-\end{exercise}
-
-\hypertarget{indipendenza-condizionata-tra-eventi}{%
-\section{Indipendenza condizionata tra eventi}\label{indipendenza-condizionata-tra-eventi}}
-
-Sebbene l'indipendenza incondizionata sia una proprietà utile, non capita spesso di incontrare due eventi indipendenti. Una situazione più comune è quando due eventi sono indipendenti dato un terzo evento. Ad esempio, supponiamo di voler ragionare sulla possibilità che uno studente che è in possesso di un titolo di laurea triennale venga accettato al Corso di Laurea Magistrale (CdL) \(A\) o al CdL Magistrale \(B\). Nella maggior parte dei casi, questi due eventi non sono indipendenti. Se apprendiamo che lo studente è stato accettato al CdL \(A\), la nostra stima della sua probabilità che venga accettato al CdL \(B\) è ora più alta, poiché è aumentata la nostra credenza che lo studente in questione sia uno studente ``promettente''.
-
-Ora, supponiamo che entrambi i CdL basino le loro decisioni unicamente sul voto di laurea triennale (chiamiamolo \(C\)) dello studente e supponiamo di sapere che, per lo studente in questione, \(C = 105/110\). In questo caso, apprendere che lo studente è stato ammesso al CdL \(A\) non cambia la probabilità che venga ammesso al CdL \(B\): il suo voto di laurea \(V\) fornisce tutte le informazioni rilevanti circa la possibilità che lo studente venga ammesso al CdL \(A\); sapere che è stato ammesso al CdL \(B\) non aggiunge niente a tutto ciò. Formalmente, possiamo scrivere
-
-\begin{equation}
-P(A \mid B \cap C) = P(A \mid B)
-\end{equation}
-
-Se la condizione precedente si verifica, gli eventi \(A\) e \(B\) si dicono condizionatamente indipendenti dall'evento \(C\).
-
-Alternativamente, possiamo dire che gli eventi \(A\) e \(B\) sono condizionatamente indipendenti dall'evento \(C\) se e solo se
-
-\begin{equation}
-P(A \mid B \cap C) = P(A \mid C) P(B \mid C),
-\end{equation}
-
-oppure, maniera equivalente se
-
-\[
-P(A \mid B, C)= P(A \mid C).
-\]
-
-Poiché la probabilità di \(A\) dato \(C\) è uguale alla probabilità di \(A\) dati sia \(B\) che \(C\), questa uguaglianza esprime il fatto che \(B\) non aggiunge nulla alla nostra conoscenza della probabilità di \(A\).
-
-Solitamente, l'indipendenza condizionata viene indicata utilizzando la notazione \((A \indep B \mid C)\).
-
-\hypertarget{indipendenza-di-variabili-casuali}{%
-\section{Indipendenza di variabili casuali}\label{indipendenza-di-variabili-casuali}}
-
-Siano \(X, Y, Z\) tre variabili casuali. Diciamo che \(X\) è condizionatamente indipendente da \(Y\) data \(Z\) in una distribuzione \(P\) se \(P\) soddisfa \((X=x \indep Y=y \mid Z=z)\) per tutti i valori \(x \in X\), \(y \in Y\) e \(z \in Z\). Se l'insieme \(Z\) è vuoto, invece di scrivere \((X \indep Y \mid \emptyset)\), scriviamo \((X \mid Y)\) e diciamo che \(X\) e \(Y\) sono \emph{marginalmente indipendenti}.
-
-Da ciò segue la seguente definizione alternativa di indipendenza condizionata.
-
-\begin{definition}
-La distribuzione \(P\) soddisfa \((X \indep Y \mid Z)\) se e solo se
-
-\[
-P(X, Y \mid Z) = (X \mid Z)P(Y \mid Z).
-\]
-\end{definition}
-
-\hypertarget{sec:margin-vc-cont}{%
-\section{Marginalizzazione di variabili casuali continue}\label{sec:margin-vc-cont}}
-
-Nella trattazione della statistca bayesiana useremo spesso il concetto di ``marginalizzazione'' e vedremo equazioni come la seguente:
-
-\begin{equation}
-p(y) = \int_{\theta} p(y, \theta) = \int_{\theta} p(y \mid \theta) p(\theta),
-\label{eq:ex-marg-cont}
-\end{equation}
-
-laddove \(y\) e \(\theta\) sono due variabili casuali continue -- nello specifico, con \(y\) denoteremo i dati e con \(\theta\) i parametri di un modello statistico. Per ora, possiamo pensare a \(y\) e \(\theta\) come a due variabili casuali qualsiasi. La \eqref{eq:ex-marg-cont} descrive la distribuzione marginale di \(y\).
-
-Per meglio comprendere la \eqref{eq:ex-marg-cont} possiamo esaminare il corrispondente caso discreto nel quale sostituiamo semplicemente l'integrale con una somma, il che ci riporta alla situazione descritta nella Sezione \ref{sec:marg-distr-discr}. Possiamo dunque scrivere:
-
-\begin{equation}
-p(y) = \sum_{\theta} p(y, \theta) = \sum_{\theta} p(y \mid \theta) p(\theta).
-\label{eq:ex-marginalization}
-\end{equation}
-
-Esaminiamo un semplice esempio numerico. Siano \(y\) e \(\theta\) due variabili discrete aventi la distribuzione di massa di probabilità congiunta riportata nella tabella \ref{tab:ex-marg}.
-
-\begin{longtable}[]{@{}cccl@{}}
-\caption{\label{tab:ex-marg} Distribuzione di probabilità congiunta \(p(y, \theta)\) per due variabili casuali discrete.}\tabularnewline
-\toprule
-\(y / \theta\) & 0 & 1 & \(p(y)\) \\
-\midrule
-\endfirsthead
-\toprule
-\(y / \theta\) & 0 & 1 & \(p(y)\) \\
-\midrule
-\endhead
-0 & 0.1 & 0.2 & 0.3 \\
-1 & 0.3 & 0.4 & 0.7 \\
-\(p(\theta)\) & 0.4 & 0.6 & 1.0 \\
-\bottomrule
-\end{longtable}
-
-Applicando la \eqref{eq:ex-marginalization}, la distribuzione marginale \(p(y) = \{0.3, 0.7\}\) può essere trovata nel modo seguente:
-
-\[
-\begin{pmatrix}
-    0.1 / 0.4 \\
-    0.3 / 0.4
-\end{pmatrix} \cdot 0.4 +
-\begin{pmatrix}
-    0.2 / 0.6 \\
-    0.4 / 0.6
-\end{pmatrix} \cdot 0.6 =
-\begin{pmatrix}
-    0.3 \\
-   0.7
-\end{pmatrix}.
-\]
-
-È possibiile pensare al caso continuo indicato nella \eqref{eq:ex-marg-cont} come all'estensione dell'esempio presente ad un numero infinito di valori \(\theta\).
-
-\hypertarget{commenti-e-considerazioni-finali-3}{%
-\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-3}}
-
-
-La funzione di probabilità congiunta tiene simultaneamente conto del comportamento di due variabili casuali \(X\) e \(Y\) e di come esse si influenzano reciprocamente. In particolare, si osserva che se le due variabili discrete \(X\) e \(Y\) non si influenzano, cioè se sono statisticamente indipendenti, allora la distribuzione di massa di probabilità congiunta si ottiene come prodotto delle funzioni di probabilità marginali di \(X\) e \(Y\): \(P_{X, Y}(x, y) = P_X(x) P_Y(y)\).
 
 \mainmatter
 

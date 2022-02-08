@@ -20,8 +20,8 @@ bayesplot::color_scheme_set("gray")
 # knitr chunk options ----------------------------------------------------------
 
 knitr::opts_chunk$set(
-  # comment = "#>",
-  # collapse = TRUE,
+  comment = "#>",
+  collapse = TRUE,
   message = FALSE,
   warning = FALSE,
   error = FALSE,
@@ -32,9 +32,8 @@ knitr::opts_chunk$set(
   # dpi = 300,
   fig.pos = "h", # pdf mode
   # cache.extra = knitr::rand_seed,
-  # tidy.opts = list(width.cutoff = 70),
-  # tidy = "styler"
-  tidy = TRUE
+  # tidy.opts = list(width.cutoff = 76),
+  tidy = "styler"
 )
 
 # dplyr options ----------------------------------------------------------------
