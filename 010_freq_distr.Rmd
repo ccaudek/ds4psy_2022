@@ -473,7 +473,7 @@ Si noti che i box plot non sono necessariamente la rappresentazione migliore del
 Nella figura \@ref(fig:sina-zetsche) viene presentato un cosiddetto "sina plot". In tale rappresentazione grafica vengono mostrate le singole osservazioni divise in classi. Ai punti viene aggiunto un jitter, così da evitare sovrapposizioni. L'ampiezza del jitter lungo l'asse $x$ è determinata dalla distribuzione della densità dei dati all'interno di ciascuna classe; quindi il grafico mostra lo stesso contorno di un _violin plot_, ma trasmette informazioni sia sul numero di punti dati, sia sulla distribuzione della densità, sui valori anomali e sulla distribuzione dei dati in un formato molto semplice, comprensibile e sintetico.
 
 ::: {.exercise}
-Si generi un sina plot per i dati della figura \@ref(fig:violin-zetsche). Si aggiunga alla figura una rappresentazione della mediana.
+Si generi un sina plot per i dati della figura \@ref(fig:violin-zetsche). Si aggiunga alla figura una rappresentazione della mediana. 
 
 ```{r sina-zetsche, fig.cap = "Sina plot per i valori BDI-II di ciascuno dei due gruppi di soggetti esaminati da Zetsche et al. (2019) con l'indicazione della mediana per ciascun gruppo."}
 zetsche_summary <- bysubj %>%
@@ -502,6 +502,8 @@ bysubj %>%
   theme(legend.position = "none") +
   scale_colour_grey(start = 0.7, end = 0)
 ```
+
+Per un esempio in una recente pubblicazione, possiamo considerare le figure 3 e 6 di @lazic2020determining.
 :::
 
 ### L'eccellenza grafica

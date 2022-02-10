@@ -396,40 +396,4 @@ msleep %>%
 
 Uno stile di programmazione è un insieme di regole per la gestione dell'indentazione dei blocchi di codice, per la creazione dei nomi dei file e delle variabili e per le convenzioni tipografiche che vengono usate. Scrivere il codice in `R` con stile consente di creare listati più leggibili e semplici da modificare, minimizza la possibilità di errore, e consente correzioni e modifiche più rapide. Vi sono molteplici stili di programmazione che possono essere utilizzati dall'utente, anche se è bene attenersi a quelle che sono le convenzioni maggiormente diffuse, allo scopo di favorire la comunicazione. In ogni caso, l'importante è di essere coerenti, ovvero di adottare le stesse convenzioni in tutte le parti del codice che si scrive. Ad esempio, se si sceglie di usare lo stile `snake_case` per il nome composto di una variabile (es., `personality_trait`), non è appropriato usare lo stile *lower Camel case* per un'altra variabile (es., `socialStatus`). Dato che questo argomento è stato trattato ampiamente in varie sedi, mi limito qui a rimandare ad uno [stile di programmazione](http://style.tidyverse.org/) molto popolare, quello proposto da Hadley Wickham, il creatore di `tidyverse`. La soluzione più semplice è quella installare `stiler`, che è uno RStudio Addin, e formattare il codice in maniera automatica utilizzando lo stile proposto da Hadley Wickham.  Si possono ottenere informazioni su `stiler` seguendo questo [link](https://github.com/r-lib/styler). 
 
-## Ottenere informazioni sulle funzioni $\R$
-
-Oltre a `?help <funzione>`, è possibile ricorrere al pacchetto `introverse`:
-
-```{r}
-remotes::install_github("spielmanlab/introverse")
-```
-
-\noindent
-Il pacchetto `introverse` fornisce documentazione alternativa per funzioni e concetti comunemente usati in Base $\R$ e nel `tidyverse`. Istruzioni relative all'uso delle funzioni disponibili vengono fornite quando si carica il pacchetto:
-
-```{r, eval=FALSE}
-library("introverse")
-```
-
-```{r, eval=FALSE}
-Welcome to the {introverse}!
-
-Not sure where to start? You can...
-
-- Run show_topics() to see all the different functions 
-  and topics you can ask for help with.
-  
-- Run show_topics("library or category of interest") to see 
-  all the different functions within a certain library/category 
-  of interest. For example, to see all help topics for {dplyr}
-  functions, run: show_topics("dplyr").
-
-- Run get_help("carnivores") and get_help("msleep") to learn 
-  about the datasets used in examples.
-    
-- Run the function get_help() to see the {introverse} docs
-  for a function or topic. For example, to get help using 
-  the `length()` function, run: get_help("length").
-  Don't forget quotation marks around the argument to get_help()!
-```
 
