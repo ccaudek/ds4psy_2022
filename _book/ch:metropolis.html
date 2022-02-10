@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capitolo 5 Approssimazione della distribuzione a posteriori | Data Science per psicologi</title>
+  <title>Capitolo 2 Approssimazione della distribuzione a posteriori | Data Science per psicologi</title>
   <meta name="description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capitolo 5 Approssimazione della distribuzione a posteriori | Data Science per psicologi" />
+  <meta property="og:title" content="Capitolo 2 Approssimazione della distribuzione a posteriori | Data Science per psicologi" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="ccaudek/ds4psy" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capitolo 5 Approssimazione della distribuzione a posteriori | Data Science per psicologi" />
+  <meta name="twitter:title" content="Capitolo 2 Approssimazione della distribuzione a posteriori | Data Science per psicologi" />
   
   <meta name="twitter:description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Corrado Caudek" />
 
 
-<meta name="date" content="2022-01-27" />
+<meta name="date" content="2022-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="commenti-e-considerazioni-finali-2.html"/>
-<link rel="next" href="stima-della-distribuzione-a-posteriori.html"/>
+<link rel="prev" href="commenti-e-considerazioni-finali.html"/>
+<link rel="next" href="metodo-basato-su-griglia.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -159,82 +159,62 @@ div.csl-indent {
 <li><a href="./">Data Science per psicologi</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> mainfont: “Palatino nova W1G”</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefazione</a>
 <ul>
 <li class="chapter" data-level="" data-path="la-psicologia-e-la-data-science.html"><a href="la-psicologia-e-la-data-science.html"><i class="fa fa-check"></i>La psicologia e la Data science</a></li>
 <li class="chapter" data-level="" data-path="come-studiare.html"><a href="come-studiare.html"><i class="fa fa-check"></i>Come studiare</a></li>
 <li class="chapter" data-level="" data-path="sviluppare-un-metodo-di-studio-efficace.html"><a href="sviluppare-un-metodo-di-studio-efficace.html"><i class="fa fa-check"></i>Sviluppare un metodo di studio efficace</a></li>
 </ul></li>
 <li class="part"><span><b>I Inferenza bayesiana</b></span></li>
-<li class="chapter" data-level="2" data-path="ch:intro-bayes-inference.html"><a href="ch:intro-bayes-inference.html"><i class="fa fa-check"></i><b>2</b> Flusso di lavoro bayesiano</a>
+<li class="chapter" data-level="1" data-path="ch:intro-bayes-inference.html"><a href="ch:intro-bayes-inference.html"><i class="fa fa-check"></i><b>1</b> Flusso di lavoro bayesiano</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html"><i class="fa fa-check"></i><b>2.1</b> Modellizzazione bayesiana</a>
+<li class="chapter" data-level="1.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html"><i class="fa fa-check"></i><b>1.1</b> Modellizzazione bayesiana</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html#notazione"><i class="fa fa-check"></i><b>2.1.1</b> Notazione</a></li>
+<li class="chapter" data-level="1.1.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html#notazione"><i class="fa fa-check"></i><b>1.1.1</b> Notazione</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>2.2</b> Distribuzioni a priori</a>
+<li class="chapter" data-level="1.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>1.2</b> Distribuzioni a priori</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#tipologie-di-distribuzioni-a-priori"><i class="fa fa-check"></i><b>2.2.1</b> Tipologie di distribuzioni a priori</a></li>
-<li class="chapter" data-level="2.2.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#selezione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>2.2.2</b> Selezione della distribuzione a priori</a></li>
-<li class="chapter" data-level="2.2.3" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#un-esempio-concreto"><i class="fa fa-check"></i><b>2.2.3</b> Un esempio concreto</a></li>
+<li class="chapter" data-level="1.2.1" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#tipologie-di-distribuzioni-a-priori"><i class="fa fa-check"></i><b>1.2.1</b> Tipologie di distribuzioni a priori</a></li>
+<li class="chapter" data-level="1.2.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#selezione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>1.2.2</b> Selezione della distribuzione a priori</a></li>
+<li class="chapter" data-level="1.2.3" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#unapplicazione-empirica"><i class="fa fa-check"></i><b>1.2.3</b> Un’applicazione empirica</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html"><i class="fa fa-check"></i><b>2.3</b> La funzione di verosimiglianza</a>
+<li class="chapter" data-level="1.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html"><i class="fa fa-check"></i><b>1.3</b> La funzione di verosimiglianza</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#notazione-1"><i class="fa fa-check"></i><b>2.3.1</b> Notazione</a></li>
-<li class="chapter" data-level="2.3.2" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#la-log-verosimiglianza"><i class="fa fa-check"></i><b>2.3.2</b> La log-verosimiglianza</a></li>
-<li class="chapter" data-level="2.3.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#un-esempio-concreto-1"><i class="fa fa-check"></i><b>2.3.3</b> Un esempio concreto</a></li>
+<li class="chapter" data-level="1.3.1" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#notazione-1"><i class="fa fa-check"></i><b>1.3.1</b> Notazione</a></li>
+<li class="chapter" data-level="1.3.2" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#la-log-verosimiglianza"><i class="fa fa-check"></i><b>1.3.2</b> La log-verosimiglianza</a></li>
+<li class="chapter" data-level="1.3.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#unapplicazione-empirica-1"><i class="fa fa-check"></i><b>1.3.3</b> Un’applicazione empirica</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html"><i class="fa fa-check"></i><b>2.4</b> La verosimiglianza marginale</a>
+<li class="chapter" data-level="1.4" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html"><i class="fa fa-check"></i><b>1.4</b> La verosimiglianza marginale</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html#un-esempio-concreto-2"><i class="fa fa-check"></i><b>2.4.1</b> Un esempio concreto</a></li>
+<li class="chapter" data-level="1.4.1" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html#unapplicazione-empirica-2"><i class="fa fa-check"></i><b>1.4.1</b> Un’applicazione empirica</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="distribuzione-a-posteriori.html"><a href="distribuzione-a-posteriori.html"><i class="fa fa-check"></i><b>2.5</b> Distribuzione a posteriori</a></li>
-<li class="chapter" data-level="2.6" data-path="distribuzione-predittiva-a-priori.html"><a href="distribuzione-predittiva-a-priori.html"><i class="fa fa-check"></i><b>2.6</b> Distribuzione predittiva a priori</a></li>
-<li class="chapter" data-level="2.7" data-path="distribuzione-predittiva-a-posteriori.html"><a href="distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>2.7</b> Distribuzione predittiva a posteriori</a></li>
+<li class="chapter" data-level="1.5" data-path="distribuzione-a-posteriori.html"><a href="distribuzione-a-posteriori.html"><i class="fa fa-check"></i><b>1.5</b> Distribuzione a posteriori</a></li>
+<li class="chapter" data-level="1.6" data-path="distribuzione-predittiva-a-priori.html"><a href="distribuzione-predittiva-a-priori.html"><i class="fa fa-check"></i><b>1.6</b> Distribuzione predittiva a priori</a></li>
+<li class="chapter" data-level="1.7" data-path="distribuzione-predittiva-a-posteriori.html"><a href="distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>1.7</b> Distribuzione predittiva a posteriori</a></li>
 <li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali.html"><a href="commenti-e-considerazioni-finali.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="chapter-distr-coniugate.html"><a href="chapter-distr-coniugate.html"><i class="fa fa-check"></i><b>3</b> Distribuzioni a priori coniugate</a>
+<li class="chapter" data-level="2" data-path="ch:metropolis.html"><a href="ch:metropolis.html"><i class="fa fa-check"></i><b>2</b> Approssimazione della distribuzione a posteriori</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="chapter-distr-priori-coniugate.html"><a href="chapter-distr-priori-coniugate.html"><i class="fa fa-check"></i><b>3.1</b> Lo schema beta-binomiale</a>
+<li class="chapter" data-level="2.1" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html"><i class="fa fa-check"></i><b>2.1</b> Metodo basato su griglia</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="chapter-distr-priori-coniugate.html"><a href="chapter-distr-priori-coniugate.html#la-specificazione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>3.1.1</b> La specificazione della distribuzione a priori</a></li>
-<li class="chapter" data-level="3.1.2" data-path="chapter-distr-priori-coniugate.html"><a href="chapter-distr-priori-coniugate.html#la-specificazione-della-distribuzione-a-posteriori"><i class="fa fa-check"></i><b>3.1.2</b> La specificazione della distribuzione a posteriori</a></li>
+<li class="chapter" data-level="2.1.1" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html#modello-beta-binomiale"><i class="fa fa-check"></i><b>2.1.1</b> Modello Beta-Binomiale</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="principali-distribuzioni-coniugate.html"><a href="principali-distribuzioni-coniugate.html"><i class="fa fa-check"></i><b>3.2</b> Principali distribuzioni coniugate</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html"><i class="fa fa-check"></i><b>2.2</b> Metodo Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#integration-mc"><i class="fa fa-check"></i><b>2.2.1</b> Integrazione di Monte Carlo</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#descrizione-intuitiva"><i class="fa fa-check"></i><b>2.2.2</b> Descrizione intuitiva</a></li>
+<li class="chapter" data-level="2.2.3" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#unapplicazione-empirica-3"><i class="fa fa-check"></i><b>2.2.3</b> Un’applicazione empirica</a></li>
+<li class="chapter" data-level="2.2.4" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#una-passeggiata-casuale-sui-numeri-naturali"><i class="fa fa-check"></i><b>2.2.4</b> Una passeggiata casuale sui numeri naturali</a></li>
+<li class="chapter" data-level="2.2.5" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#lalgoritmo-di-metropolis"><i class="fa fa-check"></i><b>2.2.5</b> L’algoritmo di Metropolis</a></li>
+<li class="chapter" data-level="2.2.6" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#unapplicazione-empirica-4"><i class="fa fa-check"></i><b>2.2.6</b> Un’applicazione empirica</a></li>
+<li class="chapter" data-level="2.2.7" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#input"><i class="fa fa-check"></i><b>2.2.7</b> Input</a></li>
+<li class="chapter" data-level="2.2.8" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#stazionarietà"><i class="fa fa-check"></i><b>2.2.8</b> Stazionarietà</a></li>
+<li class="chapter" data-level="2.2.9" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#test-di-convergenza"><i class="fa fa-check"></i><b>2.2.9</b> Test di convergenza</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-1.html"><a href="commenti-e-considerazioni-finali-1.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="chapter-balance.html"><a href="chapter-balance.html"><i class="fa fa-check"></i><b>4</b> L’influenza della distribuzione a priori</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="il-test-di-benchdel.html"><a href="il-test-di-benchdel.html"><i class="fa fa-check"></i><b>4.1</b> Il test di Benchdel</a></li>
-<li class="chapter" data-level="4.2" data-path="stessi-dati-ma-diverse-distribuzioni-a-priori.html"><a href="stessi-dati-ma-diverse-distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>4.2</b> Stessi dati ma diverse distribuzioni a priori</a></li>
-<li class="chapter" data-level="4.3" data-path="dati-diversi-ma-la-stessa-distribuzione-a-priori.html"><a href="dati-diversi-ma-la-stessa-distribuzione-a-priori.html"><i class="fa fa-check"></i><b>4.3</b> Dati diversi ma la stessa distribuzione a priori</a></li>
-<li class="chapter" data-level="4.4" data-path="dati-diversi-e-diverse-distribuzioni-a-priori.html"><a href="dati-diversi-e-diverse-distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>4.4</b> Dati diversi e diverse distribuzioni a priori</a></li>
-<li class="chapter" data-level="4.5" data-path="collegare-le-intuizioni-alla-teoria.html"><a href="collegare-le-intuizioni-alla-teoria.html"><i class="fa fa-check"></i><b>4.5</b> Collegare le intuizioni alla teoria</a></li>
-<li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-2.html"><a href="commenti-e-considerazioni-finali-2.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="ch:metropolis.html"><a href="ch:metropolis.html"><i class="fa fa-check"></i><b>5</b> Approssimazione della distribuzione a posteriori</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="stima-della-distribuzione-a-posteriori.html"><a href="stima-della-distribuzione-a-posteriori.html"><i class="fa fa-check"></i><b>5.1</b> Stima della distribuzione a posteriori</a></li>
-<li class="chapter" data-level="5.2" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html"><i class="fa fa-check"></i><b>5.2</b> Metodo basato su griglia</a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html#modello-beta-binomiale"><i class="fa fa-check"></i><b>5.2.1</b> Modello Beta-Binomiale</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="approssimazione-quadratica.html"><a href="approssimazione-quadratica.html"><i class="fa fa-check"></i><b>5.3</b> Approssimazione quadratica</a></li>
-<li class="chapter" data-level="5.4" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html"><i class="fa fa-check"></i><b>5.4</b> Metodo Monte Carlo</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#integration-mc"><i class="fa fa-check"></i><b>5.4.1</b> Integrazione di Monte Carlo</a></li>
-<li class="chapter" data-level="5.4.2" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#un-esempio-concreto-3"><i class="fa fa-check"></i><b>5.4.2</b> Un esempio concreto</a></li>
-<li class="chapter" data-level="5.4.3" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#metodi-mc-basati-su-catena-di-markov"><i class="fa fa-check"></i><b>5.4.3</b> Metodi MC basati su Catena di Markov</a></li>
-<li class="chapter" data-level="5.4.4" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#campionamento-mediante-algoritmi-mcmc"><i class="fa fa-check"></i><b>5.4.4</b> Campionamento mediante algoritmi MCMC</a></li>
-<li class="chapter" data-level="5.4.5" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#una-passeggiata-casuale-sui-numeri-naturali"><i class="fa fa-check"></i><b>5.4.5</b> Una passeggiata casuale sui numeri naturali</a></li>
-<li class="chapter" data-level="5.4.6" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#lalgoritmo-di-metropolis"><i class="fa fa-check"></i><b>5.4.6</b> L’algoritmo di Metropolis</a></li>
-<li class="chapter" data-level="5.4.7" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#un-esempio-concreto-4"><i class="fa fa-check"></i><b>5.4.7</b> Un esempio concreto</a></li>
-<li class="chapter" data-level="5.4.8" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#input"><i class="fa fa-check"></i><b>5.4.8</b> Input</a></li>
-<li class="chapter" data-level="5.4.9" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#stazionarietà"><i class="fa fa-check"></i><b>5.4.9</b> Stazionarietà</a></li>
-<li class="chapter" data-level="5.4.10" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#test-di-convergenza"><i class="fa fa-check"></i><b>5.4.10</b> Test di convergenza</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-3.html"><a href="commenti-e-considerazioni-finali-3.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
-</ul></li>
+<li class="part"><span><b>II Appendici</b></span></li>
+<li class="appendix"><span><b>Appendici</b></span></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 
@@ -255,13 +235,39 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ch:metropolis" class="section level1" number="5">
-<h1><span class="header-section-number">Capitolo 5</span> Approssimazione della distribuzione a posteriori</h1>
-<p>In questo Capitolo ci focalizzeremo su tre tecniche numeriche per il calcolo della distribuzione a posteriori:</p>
-<ol style="list-style-type: decimal">
-<li>il metodo basato su griglia;</li>
-<li>il metodo dell’approssimazione quadratica,</li>
-<li>il metodo basato su simulazione di Monte Carlo basato su Catena di Markov (<em>Markov Chain Monte Carlo</em>, MCMC).</li>
+<div id="ch:metropolis" class="section level1" number="2">
+<h1><span class="header-section-number">Capitolo 2</span> Approssimazione della distribuzione a posteriori</h1>
+<p>In generale, in un problema bayesiano i dati <span class="math inline">\(y\)</span> provengono da una densità <span class="math inline">\(p(y \mid \theta)\)</span> e al parametro <span class="math inline">\(\theta\)</span> viene assegnata una densità a priori <span class="math inline">\(p(\theta)\)</span>. Dopo avere osservato i dati <span class="math inline">\(Y = y\)</span>, la funzione di verosimiglianza è uguale a <span class="math inline">\(\mathcal{L}(\theta) = p(y \mid \theta)\)</span> e la densità a posteriori diventa</p>
+<p><span class="math display">\[\begin{equation}
+p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}. \notag
+\end{equation}\]</span></p>
+<p>Se vogliamo trovare la distribuzione a posteriori con metodi analitici è necessario ricorrere all’impiego di distribuzioni a priori coniugate, come nello schema beta-binomiale. Per quanto “semplice” in termini formali, la scelta di distribuzioni a priori coniugate limita di molto le possibili scelte del ricercatore. Inoltre, non è sempre sensato, dal punto di vista teorico, utilizzare tali distribuzioni per la stima dei parametri di interesse. Il mancato ricorso all’impiego delle distribuzioni a priori coniugate richiede necessariamente il computo dell’espressione a denominatore della formula di Bayes che solo in rare occasioni può essere ottenuta per via analitica. In altre parole, è possibile ottenere analiticamenre la distribuzione a posteriori solo per alcune specifiche combinazioni di distribuzioni a priori e verosimiglianza, il che limita considerevolmente la flessibilità della modellizzazione. Inoltre, i sommari della distribuzione a posteriori sono espressi come rapporto di integrali. Ad esempio, la media a posteriori di <span class="math inline">\(\theta\)</span> è data da</p>
+<p><span class="math display">\[\begin{equation}
+\mathbb{E}(\theta \mid y) = \frac{\int \theta p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}{\int p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}.\notag
+\end{equation}\]</span></p>
+<p>Il calcolo del valore atteso a posteriori richiede dunque il computo di due integrali, quello a denominatore e quello a numeratore dell’espressione, ciascuno dei quali non esprimibile in forma chiusa. Per questa ragione, la strada principale che viene seguita nella modellistica bayesiana è quella che porta a determinare la distribuzione a posteriori non per via analitica, ma bensì mediante metodi numerici. La simulazione fornisce dunque la strategia generale del calcolo bayesiano. A questo fine vengono principalmente usati i metodi di campionamento Monte Carlo basati su Catena di Markov (MCMC). Tali metodi costituiscono una potente e praticabile alternativa per la costruzione della distribuzione a posteriori per modelli complessi e consentono di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza dovere preoccuparsi di altri vincoli.</p>
+<p>Dato che è basata su metodi computazionalmente intensivi, la stima numerica della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è ora alla portata di tutti. Questo non era vero solo pochi decenni fa.</p>
+<p>In questo Capitolo verranno presentati due metodi di simulazione iterativa<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> che consentono di generare dalle distribuzioni a posteriori campioni dei parametri del modello:</p>
+<ul>
+<li><strong>metodi basati su griglia:</strong> dove, sebbene non sia disponibile alcuna formula algebrica in forma chiusa, le proprietà della distribuzione a posteriori possono essere calcolate con una precisione arbitraria;</li>
+<li><strong>metodi Monte Carlo:</strong> dove, utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto.</li>
+</ul>
+<!-- La distribuzione a posteriori non sempre può essere trattata analiticamente come una distribuzione nota in forma chiusa. In questo Capitolo verranno presentate tre tecniche numeriche di simulazione iterativa che consentono di generare dalle distribuzioni a posteriori campioni dei parametri del modello: -->
+<!-- 1. il metodo basato su griglia; -->
+<!-- 2. il metodo dell'approssimazione quadratica, -->
+<!-- 3. il metodo basato su simulazione di Monte Carlo basato su Catena di Markov (_Markov Chain Monte Carlo_, MCMC). -->
+<!-- In generale, possiamo distinguere cinque metodi per calcolare le proprietà di una distribuzione [@lunn2013bugs]. -->
+<!-- 1. **Metodi analitici esatti:** per esempio, nel caso delle famiglie coniugate, quando disponiamo di una forma analitica della distribuzione a posteriori. -->
+<!-- 2. **Metodi numerici esatti:** dove, sebbene non sia disponibile alcuna formula algebrica in forma chiusa, le proprietà della distribuzione a posteriori possono  essere calcolate con una precisione arbitraria -- vedremo un esempio di come questo possa essere fatto nella seguente discussione sui metodi basati su griglia. -->
+<!-- 3. **Metodi analitici approssimati:** per esempio, nel caso di approssimazioni normali alle distribuzioni di variabili casuali -- in questo Capitolo verrà discussa l'approssimazione quadratica della distribuzione a posteriori che è un esempio di questo approccio. -->
+<!-- 4. **Sperimentazione fisica:** ad esempio, quando un esperimento viene fisicamente ripetuto molte volte per determinare la proporzione empirica dei "successi". -->
+<!-- 5. **Simulazione al computer:** utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto. Questa tecnica è conosciuta come metodo di Monte Carlo ed è il metodo che verrà utilizzato nella seconda parte di questa dispensa. -->
+<!-- In questo Capitolo verranno discussi i metodi di simulazione iterativa 2, 3 e 5 per generare dalle distribuzioni a posteriori campioni dei parametri del modello.  -->
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Si veda anche l’Appendice <a href="#appendix:quadratic-approx"><strong>??</strong></a>.<a href="ch:metropolis.html#fnref1" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -269,8 +275,8 @@ div.csl-indent {
           </div>
         </div>
       </div>
-<a href="commenti-e-considerazioni-finali-2.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="stima-della-distribuzione-a-posteriori.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="commenti-e-considerazioni-finali.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="metodo-basato-su-griglia.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

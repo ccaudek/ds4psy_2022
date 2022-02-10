@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>5.2 Metodo basato su griglia | Data Science per psicologi</title>
+  <title>2.1 Metodo basato su griglia | Data Science per psicologi</title>
   <meta name="description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="5.2 Metodo basato su griglia | Data Science per psicologi" />
+  <meta property="og:title" content="2.1 Metodo basato su griglia | Data Science per psicologi" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="ccaudek/ds4psy" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="5.2 Metodo basato su griglia | Data Science per psicologi" />
+  <meta name="twitter:title" content="2.1 Metodo basato su griglia | Data Science per psicologi" />
   
   <meta name="twitter:description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   
@@ -24,15 +24,15 @@
 <meta name="author" content="Corrado Caudek" />
 
 
-<meta name="date" content="2022-01-27" />
+<meta name="date" content="2022-02-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="stima-della-distribuzione-a-posteriori.html"/>
-<link rel="next" href="approssimazione-quadratica.html"/>
+<link rel="prev" href="ch:metropolis.html"/>
+<link rel="next" href="chapter-simulazioneMC.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -159,82 +159,62 @@ div.csl-indent {
 <li><a href="./">Data Science per psicologi</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> mainfont: “Palatino nova W1G”</a>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Prefazione</a>
 <ul>
 <li class="chapter" data-level="" data-path="la-psicologia-e-la-data-science.html"><a href="la-psicologia-e-la-data-science.html"><i class="fa fa-check"></i>La psicologia e la Data science</a></li>
 <li class="chapter" data-level="" data-path="come-studiare.html"><a href="come-studiare.html"><i class="fa fa-check"></i>Come studiare</a></li>
 <li class="chapter" data-level="" data-path="sviluppare-un-metodo-di-studio-efficace.html"><a href="sviluppare-un-metodo-di-studio-efficace.html"><i class="fa fa-check"></i>Sviluppare un metodo di studio efficace</a></li>
 </ul></li>
 <li class="part"><span><b>I Inferenza bayesiana</b></span></li>
-<li class="chapter" data-level="2" data-path="ch:intro-bayes-inference.html"><a href="ch:intro-bayes-inference.html"><i class="fa fa-check"></i><b>2</b> Flusso di lavoro bayesiano</a>
+<li class="chapter" data-level="1" data-path="ch:intro-bayes-inference.html"><a href="ch:intro-bayes-inference.html"><i class="fa fa-check"></i><b>1</b> Flusso di lavoro bayesiano</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html"><i class="fa fa-check"></i><b>2.1</b> Modellizzazione bayesiana</a>
+<li class="chapter" data-level="1.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html"><i class="fa fa-check"></i><b>1.1</b> Modellizzazione bayesiana</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html#notazione"><i class="fa fa-check"></i><b>2.1.1</b> Notazione</a></li>
+<li class="chapter" data-level="1.1.1" data-path="modellizzazione-bayesiana.html"><a href="modellizzazione-bayesiana.html#notazione"><i class="fa fa-check"></i><b>1.1.1</b> Notazione</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>2.2</b> Distribuzioni a priori</a>
+<li class="chapter" data-level="1.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>1.2</b> Distribuzioni a priori</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#tipologie-di-distribuzioni-a-priori"><i class="fa fa-check"></i><b>2.2.1</b> Tipologie di distribuzioni a priori</a></li>
-<li class="chapter" data-level="2.2.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#selezione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>2.2.2</b> Selezione della distribuzione a priori</a></li>
-<li class="chapter" data-level="2.2.3" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#un-esempio-concreto"><i class="fa fa-check"></i><b>2.2.3</b> Un esempio concreto</a></li>
+<li class="chapter" data-level="1.2.1" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#tipologie-di-distribuzioni-a-priori"><i class="fa fa-check"></i><b>1.2.1</b> Tipologie di distribuzioni a priori</a></li>
+<li class="chapter" data-level="1.2.2" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#selezione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>1.2.2</b> Selezione della distribuzione a priori</a></li>
+<li class="chapter" data-level="1.2.3" data-path="distribuzioni-a-priori.html"><a href="distribuzioni-a-priori.html#unapplicazione-empirica"><i class="fa fa-check"></i><b>1.2.3</b> Un’applicazione empirica</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html"><i class="fa fa-check"></i><b>2.3</b> La funzione di verosimiglianza</a>
+<li class="chapter" data-level="1.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html"><i class="fa fa-check"></i><b>1.3</b> La funzione di verosimiglianza</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#notazione-1"><i class="fa fa-check"></i><b>2.3.1</b> Notazione</a></li>
-<li class="chapter" data-level="2.3.2" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#la-log-verosimiglianza"><i class="fa fa-check"></i><b>2.3.2</b> La log-verosimiglianza</a></li>
-<li class="chapter" data-level="2.3.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#un-esempio-concreto-1"><i class="fa fa-check"></i><b>2.3.3</b> Un esempio concreto</a></li>
+<li class="chapter" data-level="1.3.1" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#notazione-1"><i class="fa fa-check"></i><b>1.3.1</b> Notazione</a></li>
+<li class="chapter" data-level="1.3.2" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#la-log-verosimiglianza"><i class="fa fa-check"></i><b>1.3.2</b> La log-verosimiglianza</a></li>
+<li class="chapter" data-level="1.3.3" data-path="la-funzione-di-verosimiglianza.html"><a href="la-funzione-di-verosimiglianza.html#unapplicazione-empirica-1"><i class="fa fa-check"></i><b>1.3.3</b> Un’applicazione empirica</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html"><i class="fa fa-check"></i><b>2.4</b> La verosimiglianza marginale</a>
+<li class="chapter" data-level="1.4" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html"><i class="fa fa-check"></i><b>1.4</b> La verosimiglianza marginale</a>
 <ul>
-<li class="chapter" data-level="2.4.1" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html#un-esempio-concreto-2"><i class="fa fa-check"></i><b>2.4.1</b> Un esempio concreto</a></li>
+<li class="chapter" data-level="1.4.1" data-path="sec:const-normaliz-bino23.html"><a href="sec:const-normaliz-bino23.html#unapplicazione-empirica-2"><i class="fa fa-check"></i><b>1.4.1</b> Un’applicazione empirica</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="distribuzione-a-posteriori.html"><a href="distribuzione-a-posteriori.html"><i class="fa fa-check"></i><b>2.5</b> Distribuzione a posteriori</a></li>
-<li class="chapter" data-level="2.6" data-path="distribuzione-predittiva-a-priori.html"><a href="distribuzione-predittiva-a-priori.html"><i class="fa fa-check"></i><b>2.6</b> Distribuzione predittiva a priori</a></li>
-<li class="chapter" data-level="2.7" data-path="distribuzione-predittiva-a-posteriori.html"><a href="distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>2.7</b> Distribuzione predittiva a posteriori</a></li>
+<li class="chapter" data-level="1.5" data-path="distribuzione-a-posteriori.html"><a href="distribuzione-a-posteriori.html"><i class="fa fa-check"></i><b>1.5</b> Distribuzione a posteriori</a></li>
+<li class="chapter" data-level="1.6" data-path="distribuzione-predittiva-a-priori.html"><a href="distribuzione-predittiva-a-priori.html"><i class="fa fa-check"></i><b>1.6</b> Distribuzione predittiva a priori</a></li>
+<li class="chapter" data-level="1.7" data-path="distribuzione-predittiva-a-posteriori.html"><a href="distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>1.7</b> Distribuzione predittiva a posteriori</a></li>
 <li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali.html"><a href="commenti-e-considerazioni-finali.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="chapter-distr-coniugate.html"><a href="chapter-distr-coniugate.html"><i class="fa fa-check"></i><b>3</b> Distribuzioni a priori coniugate</a>
+<li class="chapter" data-level="2" data-path="ch:metropolis.html"><a href="ch:metropolis.html"><i class="fa fa-check"></i><b>2</b> Approssimazione della distribuzione a posteriori</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="chapter-distr-priori-coniugate.html"><a href="chapter-distr-priori-coniugate.html"><i class="fa fa-check"></i><b>3.1</b> Lo schema beta-binomiale</a>
+<li class="chapter" data-level="2.1" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html"><i class="fa fa-check"></i><b>2.1</b> Metodo basato su griglia</a>
 <ul>
-<li class="chapter" data-level="3.1.1" data-path="chapter-distr-priori-coniugate.html"><a href="chapter-distr-priori-coniugate.html#la-specificazione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>3.1.1</b> La specificazione della distribuzione a priori</a></li>
-<li class="chapter" data-level="3.1.2" data-path="chapter-distr-priori-coniugate.html"><a href="chapter-distr-priori-coniugate.html#la-specificazione-della-distribuzione-a-posteriori"><i class="fa fa-check"></i><b>3.1.2</b> La specificazione della distribuzione a posteriori</a></li>
+<li class="chapter" data-level="2.1.1" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html#modello-beta-binomiale"><i class="fa fa-check"></i><b>2.1.1</b> Modello Beta-Binomiale</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="principali-distribuzioni-coniugate.html"><a href="principali-distribuzioni-coniugate.html"><i class="fa fa-check"></i><b>3.2</b> Principali distribuzioni coniugate</a></li>
+<li class="chapter" data-level="2.2" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html"><i class="fa fa-check"></i><b>2.2</b> Metodo Monte Carlo</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#integration-mc"><i class="fa fa-check"></i><b>2.2.1</b> Integrazione di Monte Carlo</a></li>
+<li class="chapter" data-level="2.2.2" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#descrizione-intuitiva"><i class="fa fa-check"></i><b>2.2.2</b> Descrizione intuitiva</a></li>
+<li class="chapter" data-level="2.2.3" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#unapplicazione-empirica-3"><i class="fa fa-check"></i><b>2.2.3</b> Un’applicazione empirica</a></li>
+<li class="chapter" data-level="2.2.4" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#una-passeggiata-casuale-sui-numeri-naturali"><i class="fa fa-check"></i><b>2.2.4</b> Una passeggiata casuale sui numeri naturali</a></li>
+<li class="chapter" data-level="2.2.5" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#lalgoritmo-di-metropolis"><i class="fa fa-check"></i><b>2.2.5</b> L’algoritmo di Metropolis</a></li>
+<li class="chapter" data-level="2.2.6" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#unapplicazione-empirica-4"><i class="fa fa-check"></i><b>2.2.6</b> Un’applicazione empirica</a></li>
+<li class="chapter" data-level="2.2.7" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#input"><i class="fa fa-check"></i><b>2.2.7</b> Input</a></li>
+<li class="chapter" data-level="2.2.8" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#stazionarietà"><i class="fa fa-check"></i><b>2.2.8</b> Stazionarietà</a></li>
+<li class="chapter" data-level="2.2.9" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#test-di-convergenza"><i class="fa fa-check"></i><b>2.2.9</b> Test di convergenza</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-1.html"><a href="commenti-e-considerazioni-finali-1.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="chapter-balance.html"><a href="chapter-balance.html"><i class="fa fa-check"></i><b>4</b> L’influenza della distribuzione a priori</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="il-test-di-benchdel.html"><a href="il-test-di-benchdel.html"><i class="fa fa-check"></i><b>4.1</b> Il test di Benchdel</a></li>
-<li class="chapter" data-level="4.2" data-path="stessi-dati-ma-diverse-distribuzioni-a-priori.html"><a href="stessi-dati-ma-diverse-distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>4.2</b> Stessi dati ma diverse distribuzioni a priori</a></li>
-<li class="chapter" data-level="4.3" data-path="dati-diversi-ma-la-stessa-distribuzione-a-priori.html"><a href="dati-diversi-ma-la-stessa-distribuzione-a-priori.html"><i class="fa fa-check"></i><b>4.3</b> Dati diversi ma la stessa distribuzione a priori</a></li>
-<li class="chapter" data-level="4.4" data-path="dati-diversi-e-diverse-distribuzioni-a-priori.html"><a href="dati-diversi-e-diverse-distribuzioni-a-priori.html"><i class="fa fa-check"></i><b>4.4</b> Dati diversi e diverse distribuzioni a priori</a></li>
-<li class="chapter" data-level="4.5" data-path="collegare-le-intuizioni-alla-teoria.html"><a href="collegare-le-intuizioni-alla-teoria.html"><i class="fa fa-check"></i><b>4.5</b> Collegare le intuizioni alla teoria</a></li>
-<li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-2.html"><a href="commenti-e-considerazioni-finali-2.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="ch:metropolis.html"><a href="ch:metropolis.html"><i class="fa fa-check"></i><b>5</b> Approssimazione della distribuzione a posteriori</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="stima-della-distribuzione-a-posteriori.html"><a href="stima-della-distribuzione-a-posteriori.html"><i class="fa fa-check"></i><b>5.1</b> Stima della distribuzione a posteriori</a></li>
-<li class="chapter" data-level="5.2" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html"><i class="fa fa-check"></i><b>5.2</b> Metodo basato su griglia</a>
-<ul>
-<li class="chapter" data-level="5.2.1" data-path="metodo-basato-su-griglia.html"><a href="metodo-basato-su-griglia.html#modello-beta-binomiale"><i class="fa fa-check"></i><b>5.2.1</b> Modello Beta-Binomiale</a></li>
-</ul></li>
-<li class="chapter" data-level="5.3" data-path="approssimazione-quadratica.html"><a href="approssimazione-quadratica.html"><i class="fa fa-check"></i><b>5.3</b> Approssimazione quadratica</a></li>
-<li class="chapter" data-level="5.4" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html"><i class="fa fa-check"></i><b>5.4</b> Metodo Monte Carlo</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#integration-mc"><i class="fa fa-check"></i><b>5.4.1</b> Integrazione di Monte Carlo</a></li>
-<li class="chapter" data-level="5.4.2" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#un-esempio-concreto-3"><i class="fa fa-check"></i><b>5.4.2</b> Un esempio concreto</a></li>
-<li class="chapter" data-level="5.4.3" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#metodi-mc-basati-su-catena-di-markov"><i class="fa fa-check"></i><b>5.4.3</b> Metodi MC basati su Catena di Markov</a></li>
-<li class="chapter" data-level="5.4.4" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#campionamento-mediante-algoritmi-mcmc"><i class="fa fa-check"></i><b>5.4.4</b> Campionamento mediante algoritmi MCMC</a></li>
-<li class="chapter" data-level="5.4.5" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#una-passeggiata-casuale-sui-numeri-naturali"><i class="fa fa-check"></i><b>5.4.5</b> Una passeggiata casuale sui numeri naturali</a></li>
-<li class="chapter" data-level="5.4.6" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#lalgoritmo-di-metropolis"><i class="fa fa-check"></i><b>5.4.6</b> L’algoritmo di Metropolis</a></li>
-<li class="chapter" data-level="5.4.7" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#un-esempio-concreto-4"><i class="fa fa-check"></i><b>5.4.7</b> Un esempio concreto</a></li>
-<li class="chapter" data-level="5.4.8" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#input"><i class="fa fa-check"></i><b>5.4.8</b> Input</a></li>
-<li class="chapter" data-level="5.4.9" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#stazionarietà"><i class="fa fa-check"></i><b>5.4.9</b> Stazionarietà</a></li>
-<li class="chapter" data-level="5.4.10" data-path="chapter-simulazioneMC.html"><a href="chapter-simulazioneMC.html#test-di-convergenza"><i class="fa fa-check"></i><b>5.4.10</b> Test di convergenza</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-3.html"><a href="commenti-e-considerazioni-finali-3.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
-</ul></li>
+<li class="part"><span><b>II Appendici</b></span></li>
+<li class="appendix"><span><b>Appendici</b></span></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
 
@@ -255,8 +235,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="metodo-basato-su-griglia" class="section level2" number="5.2">
-<h2><span class="header-section-number">5.2</span> Metodo basato su griglia</h2>
+<div id="metodo-basato-su-griglia" class="section level2" number="2.1">
+<h2><span class="header-section-number">2.1</span> Metodo basato su griglia</h2>
 <p>Il metodo basato su griglia (<em>grid-based</em>) è un metodo numerico esatto basato su una griglia di punti uniformemente spaziati. Anche se la maggior parte dei parametri è continua (ovvero, in linea di principio ciascun parametro può assumere un numero infinito di valori), possiamo ottenere un’eccellente approssimazione della distribuzione a posteriori considerando solo una griglia finita di valori dei parametri. In un tale metodo, la densità di probabilità a posteriori può dunque essere approssimata tramite le densità di probabilità calcolate in ciascuna cella della griglia.</p>
 <p>Il metodo basato su griglia si sviluppa in quattro fasi:</p>
 <ul>
@@ -270,9 +250,9 @@ div.csl-indent {
 <li>selezionare <span class="math inline">\(N\)</span> valori casuali della griglia in modo tale da ottenere un campione casuale delle densità a posteriori normalizzate.</li>
 </ul>
 <p>Possiamo migliorare l’approssimazione aumentando il numero di punti della griglia. Infatti utilizzando un numero infinito di punti si otterrebbe la descrizione esatta della distribuzione a posteriori, dovendo però pagare il costo dell’utilizzo di infinite risorse di calcolo. Il limite maggiore dell’approccio basato su griglia è che, al crescere della dimensionalità <span class="math inline">\(N\)</span> dello spazio dei parametri, i punti della griglia necessari per avere una buona stima crescerebbero esponenzialmente con <span class="math inline">\(N\)</span>, rendendo questo metodo inattuabile.</p>
-<div id="modello-beta-binomiale" class="section level3" number="5.2.1">
-<h3><span class="header-section-number">5.2.1</span> Modello Beta-Binomiale</h3>
-<p>Per fare un esempio, consideriamo lo schema beta-binomiale di cui conosciamo la soluzione esatta. Utilizziamo nuovamente i dati di <span class="citation">Zetsche, Bürkner, and Renneberg (<a href="#ref-zetschefuture2019" role="doc-biblioref">2019</a>)</span>: 23 “successi” in 30 prove Bernoulliane indipendenti.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Imponiamo alla distribuzione a priori su <span class="math inline">\(\theta\)</span> (probabilità di successo in una singola prova, laddove per “successo” si intende una aspettativa distorta negativamente dell’umore futuro) una <span class="math inline">\(\mbox{Beta}(2, 10)\)</span> per descrivere la nostra incertezza sul parametro prima di avere osservato i dati. Dunque, il modello diventa:</p>
+<div id="modello-beta-binomiale" class="section level3" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Modello Beta-Binomiale</h3>
+<p>Per fare un esempio, consideriamo lo schema beta-binomiale di cui conosciamo la soluzione esatta. Utilizziamo nuovamente i dati di <span class="citation">Zetsche, Bürkner, and Renneberg (<a href="#ref-zetschefuture2019" role="doc-biblioref">2019</a>)</span>: 23 “successi” in 30 prove Bernoulliane indipendenti.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Imponiamo alla distribuzione a priori su <span class="math inline">\(\theta\)</span> (probabilità di successo in una singola prova, laddove per “successo” si intende una aspettativa distorta negativamente dell’umore futuro) una <span class="math inline">\(\mbox{Beta}(2, 10)\)</span> per descrivere la nostra incertezza sul parametro prima di avere osservato i dati. Dunque, il modello diventa:</p>
 <p><span class="math display">\[\begin{align}
 Y \mid \theta &amp; \sim \mbox{Bin}(n = 30, \theta), \notag\\
 \theta &amp; \sim \mbox{Beta}(2, 10).\notag
@@ -334,23 +314,24 @@ Y \mid \theta &amp; \sim \mbox{Bin}(n = 30, \theta), \notag\\
 <span id="cb5-11"><a href="metodo-basato-su-griglia.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 7        0.6  0.02       0.03            0      0.52</span></span>
 <span id="cb5-12"><a href="metodo-basato-su-griglia.html#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 8        0.7  0          0.12            0      0.21</span></span>
 <span id="cb5-13"><a href="metodo-basato-su-griglia.html#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # … with 3 more rows</span></span></code></pre></div>
-<p>La figura <a href="metodo-basato-su-griglia.html#fig:grid-method-6points-posterior-plot">5.1</a> mostra un grafico della distribuzione a posteriori discretizzata così ottenuta:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="metodo-basato-su-griglia.html#cb6-1" aria-hidden="true" tabindex="-1"></a>grid_data <span class="sc">%&gt;%</span> </span>
+<p>La figura <a href="metodo-basato-su-griglia.html#fig:grid-method-6points-posterior-plot">2.1</a> mostra un grafico della distribuzione a posteriori discretizzata così ottenuta:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="metodo-basato-su-griglia.html#cb6-1" aria-hidden="true" tabindex="-1"></a>grid_data <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="metodo-basato-su-griglia.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(</span>
 <span id="cb6-3"><a href="metodo-basato-su-griglia.html#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> theta_grid, <span class="at">y =</span> posterior)</span>
 <span id="cb6-4"><a href="metodo-basato-su-griglia.html#cb6-4" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb6-5"><a href="metodo-basato-su-griglia.html#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb6-6"><a href="metodo-basato-su-griglia.html#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
 <span id="cb6-7"><a href="metodo-basato-su-griglia.html#cb6-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(</span>
-<span id="cb6-8"><a href="metodo-basato-su-griglia.html#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> theta_grid, </span>
-<span id="cb6-9"><a href="metodo-basato-su-griglia.html#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">xend =</span> theta_grid, </span>
-<span id="cb6-10"><a href="metodo-basato-su-griglia.html#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">0</span>, </span>
-<span id="cb6-11"><a href="metodo-basato-su-griglia.html#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">yend =</span> posterior)</span>
-<span id="cb6-12"><a href="metodo-basato-su-griglia.html#cb6-12" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb6-8"><a href="metodo-basato-su-griglia.html#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> theta_grid,</span>
+<span id="cb6-9"><a href="metodo-basato-su-griglia.html#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="at">xend =</span> theta_grid,</span>
+<span id="cb6-10"><a href="metodo-basato-su-griglia.html#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">0</span>,</span>
+<span id="cb6-11"><a href="metodo-basato-su-griglia.html#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="at">yend =</span> posterior</span>
+<span id="cb6-12"><a href="metodo-basato-su-griglia.html#cb6-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb6-13"><a href="metodo-basato-su-griglia.html#cb6-13" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grid-method-6points-posterior-plot"></span>
-<img src="ds4psy_files/figure-html/grid-method-6points-posterior-plot-1.png" alt="Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di solo $n$ = 11 punti." width="2100" />
+<img src="ds4psy_files/figure-html/grid-method-6points-posterior-plot-1.png" alt="Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di solo $n$ = 11 punti." width="576" />
 <p class="caption">
-FIGURA 5.1: Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di solo <span class="math inline">\(n\)</span> = 11 punti.
+FIGURA 2.1: Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di solo <span class="math inline">\(n\)</span> = 11 punti.
 </p>
 </div>
 <p>L’ultimo passo della simulazione è il campionamento dalla distribuzione a posteriori discretizzata:</p>
@@ -361,18 +342,18 @@ FIGURA 5.1: Distribuzione a posteriori discretizzata ottenuta con il metodo grid
 <span id="cb7-5"><a href="metodo-basato-su-griglia.html#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">weight =</span> posterior,</span>
 <span id="cb7-6"><a href="metodo-basato-su-griglia.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">TRUE</span></span>
 <span id="cb7-7"><a href="metodo-basato-su-griglia.html#cb7-7" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>La figura <a href="metodo-basato-su-griglia.html#fig:grid-method-6points-posterior-plot-sampling">5.2</a> mostra che, con una griglia così sparsa abbiamo ottenuto una versione approssimata della vera distribuzione a posteriori (all’istogramma è stata sovrapposta l’esatta distribuzione a posteriori <span class="math inline">\(\mbox{Beta}(25, 17)\)</span>).</p>
+<p>La figura <a href="metodo-basato-su-griglia.html#fig:grid-method-6points-posterior-plot-sampling">2.2</a> mostra che, con una griglia così sparsa abbiamo ottenuto una versione approssimata della vera distribuzione a posteriori (all’istogramma è stata sovrapposta l’esatta distribuzione a posteriori <span class="math inline">\(\mbox{Beta}(25, 17)\)</span>).</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="metodo-basato-su-griglia.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(post_sample, <span class="fu">aes</span>(<span class="at">x =</span> theta_grid)) <span class="sc">+</span></span>
 <span id="cb8-2"><a href="metodo-basato-su-griglia.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..), <span class="at">color =</span> <span class="st">&quot;white&quot;</span>) <span class="sc">+</span></span>
 <span id="cb8-3"><a href="metodo-basato-su-griglia.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dbeta, <span class="at">args =</span> <span class="fu">list</span>(<span class="dv">25</span>, <span class="dv">17</span>)) <span class="sc">+</span></span>
 <span id="cb8-4"><a href="metodo-basato-su-griglia.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grid-method-6points-posterior-plot-sampling"></span>
-<img src="ds4psy_files/figure-html/grid-method-6points-posterior-plot-sampling-1.png" alt="Campionamento dalla  distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di solo $n$ = 11 punti." width="2100" />
+<img src="ds4psy_files/figure-html/grid-method-6points-posterior-plot-sampling-1.png" alt="Campionamento dalla  distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di solo $n$ = 11 punti." width="576" />
 <p class="caption">
-FIGURA 5.2: Campionamento dalla distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di solo <span class="math inline">\(n\)</span> = 11 punti.
+FIGURA 2.2: Campionamento dalla distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di solo <span class="math inline">\(n\)</span> = 11 punti.
 </p>
 </div>
-<p>Possiamo ottenere un risultato migliore con una griglia più fine, come indicato nella figura <a href="metodo-basato-su-griglia.html#fig:grid-method-100points-posterior-plot-sampling">5.3</a>:</p>
+<p>Possiamo ottenere un risultato migliore con una griglia più fine, come indicato nella figura <a href="metodo-basato-su-griglia.html#fig:grid-method-100points-posterior-plot-sampling">2.3</a>:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="metodo-basato-su-griglia.html#cb9-1" aria-hidden="true" tabindex="-1"></a>grid_data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
 <span id="cb9-2"><a href="metodo-basato-su-griglia.html#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta_grid =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">1</span>, <span class="at">length.out =</span> <span class="dv">100</span>)</span>
 <span id="cb9-3"><a href="metodo-basato-su-griglia.html#cb9-3" aria-hidden="true" tabindex="-1"></a>)</span>
@@ -400,9 +381,9 @@ FIGURA 5.2: Campionamento dalla distribuzione a posteriori discretizzata ottenut
 <span id="cb9-25"><a href="metodo-basato-su-griglia.html#cb9-25" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb9-26"><a href="metodo-basato-su-griglia.html#cb9-26" aria-hidden="true" tabindex="-1"></a>  )</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grid-method-100points-posterior-plot-sampling"></span>
-<img src="ds4psy_files/figure-html/grid-method-100points-posterior-plot-sampling-1.png" alt="Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di $n$ = 100 punti." width="2100" />
+<img src="ds4psy_files/figure-html/grid-method-100points-posterior-plot-sampling-1.png" alt="Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di $n$ = 100 punti." width="576" />
 <p class="caption">
-FIGURA 5.3: Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di <span class="math inline">\(n\)</span> = 100 punti.
+FIGURA 2.3: Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di <span class="math inline">\(n\)</span> = 100 punti.
 </p>
 </div>
 <p>Campioniamo ora 10000 punti:</p>
@@ -414,23 +395,23 @@ FIGURA 5.3: Distribuzione a posteriori discretizzata ottenuta con il metodo grid
 <span id="cb10-6"><a href="metodo-basato-su-griglia.html#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">weight =</span> posterior,</span>
 <span id="cb10-7"><a href="metodo-basato-su-griglia.html#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">TRUE</span></span>
 <span id="cb10-8"><a href="metodo-basato-su-griglia.html#cb10-8" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
-<p>Con il campionamento dalla distribuzione a posteriori discretizzata costruita mediante una griglia più densa (<span class="math inline">\(n = 100\)</span>) otteniamo un risultato soddisfacente (figura <a href="metodo-basato-su-griglia.html#fig:grid-method-100points-posterior-plot-and-correct-posterior">5.4</a>): ora la distribuzione dei valori prodotti dalla simulazione approssima molto bene la corretta distribuzione a posteriori <span class="math inline">\(p(\theta \mid y) = \mbox{Beta}(25, 17)\)</span>.</p>
+<p>Con il campionamento dalla distribuzione a posteriori discretizzata costruita mediante una griglia più densa (<span class="math inline">\(n = 100\)</span>) otteniamo un risultato soddisfacente (figura <a href="metodo-basato-su-griglia.html#fig:grid-method-100points-posterior-plot-and-correct-posterior">2.4</a>): ora la distribuzione dei valori prodotti dalla simulazione approssima molto bene la corretta distribuzione a posteriori <span class="math inline">\(p(\theta \mid y) = \mbox{Beta}(25, 17)\)</span>.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="metodo-basato-su-griglia.html#cb11-1" aria-hidden="true" tabindex="-1"></a>post_sample <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="metodo-basato-su-griglia.html#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> theta_grid)) <span class="sc">+</span></span>
 <span id="cb11-3"><a href="metodo-basato-su-griglia.html#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(</span>
 <span id="cb11-4"><a href="metodo-basato-su-griglia.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
 <span id="cb11-5"><a href="metodo-basato-su-griglia.html#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb11-6"><a href="metodo-basato-su-griglia.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins=</span><span class="dv">50</span></span>
+<span id="cb11-6"><a href="metodo-basato-su-griglia.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span></span>
 <span id="cb11-7"><a href="metodo-basato-su-griglia.html#cb11-7" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
 <span id="cb11-8"><a href="metodo-basato-su-griglia.html#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_function</span>(<span class="at">fun =</span> dbeta, <span class="at">args =</span> <span class="fu">list</span>(<span class="dv">25</span>, <span class="dv">17</span>)) <span class="sc">+</span></span>
 <span id="cb11-9"><a href="metodo-basato-su-griglia.html#cb11-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lims</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>))</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grid-method-100points-posterior-plot-and-correct-posterior"></span>
-<img src="ds4psy_files/figure-html/grid-method-100points-posterior-plot-and-correct-posterior-1.png" alt="Campionamento dalla  distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di $n$ = 100 punti. All'istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero la densità $\mbox{Beta}(25, 17)$." width="2100" />
+<img src="ds4psy_files/figure-html/grid-method-100points-posterior-plot-and-correct-posterior-1.png" alt="Campionamento dalla  distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di $n$ = 100 punti. All'istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero la densità $\mbox{Beta}(25, 17)$." width="576" />
 <p class="caption">
-FIGURA 5.4: Campionamento dalla distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di <span class="math inline">\(n\)</span> = 100 punti. All’istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero la densità <span class="math inline">\(\mbox{Beta}(25, 17)\)</span>.
+FIGURA 2.4: Campionamento dalla distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per <span class="math inline">\(y\)</span> = 23 successi in 30 prove Bernoulliane, con distribuzione a priori <span class="math inline">\(\mbox{Beta}(2, 10)\)</span>. È stata utilizzata una griglia di <span class="math inline">\(n\)</span> = 100 punti. All’istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero la densità <span class="math inline">\(\mbox{Beta}(25, 17)\)</span>.
 </p>
 </div>
-<p>In conclusione, il metodo basato su griglia è molto intuitivo e non richiede particolari competenze di programmazione per essere implementato. Inoltre, fornisce un risultato che, per tutti gli scopi pratici, può essere considerato come un campione casuale estratto da <span class="math inline">\(p(\theta \mid y)\)</span>. Tuttavia, anche se tale metodo fornisce risultati accuratissimi, esso ha un uso limitato. A causa della <em>maledizione della dimensionalità</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a>, tale metodo può solo essere solo nel caso di semplici modelli statistici, con non più di due parametri. Nella pratica concreta tale metodo viene dunque sostituito da altre tecniche più efficienti in quanto, anche nei più comuni modelli utilizzati in psicologia, vengono solitamente stimati centinaia se non migliaia di parametri.</p>
+<p>In conclusione, il metodo basato su griglia è molto intuitivo e non richiede particolari competenze di programmazione per essere implementato. Inoltre, fornisce un risultato che, per tutti gli scopi pratici, può essere considerato come un campione casuale estratto da <span class="math inline">\(p(\theta \mid y)\)</span>. Tuttavia, anche se tale metodo fornisce risultati accuratissimi, esso ha un uso limitato. A causa della <em>maledizione della dimensionalità</em><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, tale metodo può solo essere solo nel caso di semplici modelli statistici, con non più di due parametri. Nella pratica concreta tale metodo viene dunque sostituito da altre tecniche più efficienti in quanto, anche nei più comuni modelli utilizzati in psicologia, vengono solitamente stimati centinaia se non migliaia di parametri.</p>
 </div>
 </div>
 <h3>References</h3>
@@ -444,9 +425,9 @@ Zetsche, Ulrike, Paul-Christian Bürkner, and Babette Renneberg. 2019. <span>“
 </div>
 <div class="footnotes">
 <hr />
-<ol start="1">
-<li id="fn1"><p>Nel presente esempio useremo lo stesso codice <span class="math inline">\(\R\)</span> utilizzato da <span class="citation">Johnson, Ott, and Dogucu (<a href="#ref-Johnson2022bayesrules" role="doc-biblioref">2022</a>)</span>.<a href="metodo-basato-su-griglia.html#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p>Per capire cosa sia la maledizione della dimensionalità, supponiamo di utilizzare una griglia di 100 punti equispaziati. Nel caso di un solo parametro, è necessario calcolare 100 valori. Per due parametri devono essere calcolari <span class="math inline">\(100^2\)</span> valori. Ma già per 10 parametri è necessario calcolare <span class="math inline">\(10^{10}\)</span> valori – è facile capire che una tale quantità di calcoli è troppo grande anche per un computer molto potente. Per modelli che richiedono la stima di un numero non piccolo di parametri è dunque necessario procedere in un altro modo.<a href="metodo-basato-su-griglia.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<ol start="2">
+<li id="fn2"><p>Nel presente esempio useremo lo stesso codice <span class="math inline">\(\R\)</span> utilizzato da <span class="citation">Johnson, Ott, and Dogucu (<a href="#ref-Johnson2022bayesrules" role="doc-biblioref">2022</a>)</span>.<a href="metodo-basato-su-griglia.html#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Per capire cosa sia la maledizione della dimensionalità, supponiamo di utilizzare una griglia di 100 punti equispaziati. Nel caso di un solo parametro, è necessario calcolare 100 valori. Per due parametri devono essere calcolari <span class="math inline">\(100^2\)</span> valori. Ma già per 10 parametri è necessario calcolare <span class="math inline">\(10^{10}\)</span> valori – è facile capire che una tale quantità di calcoli è troppo grande anche per un computer molto potente. Per modelli che richiedono la stima di un numero non piccolo di parametri è dunque necessario procedere in un altro modo.<a href="metodo-basato-su-griglia.html#fnref3" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>
@@ -454,8 +435,8 @@ Zetsche, Ulrike, Paul-Christian Bürkner, and Babette Renneberg. 2019. <span>“
           </div>
         </div>
       </div>
-<a href="stima-della-distribuzione-a-posteriori.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="approssimazione-quadratica.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ch:metropolis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="chapter-simulazioneMC.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
