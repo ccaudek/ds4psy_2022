@@ -49,6 +49,8 @@ Il rasoio di Ockham, però, non consente sempre di scegliere tra modelli alterna
 
 In questo Capitolo ci chiederemo come sia possibile misurare l'accuratezza predittiva di un modello. Ciò ci consentirà, in seguito, di usare il rasoio di Ockham: a parità di accuratezza, sarà possibile scegliere il modello più semplice. Ma nella pratica scientifica non si sacrifica mai l'accuratezza per la semplicità: il criterio prioritario è sempre l'accuratezza.
 
+### Sovra-adattamento e sotto-adattamento
+
 Secondo @McElreath_rethinking, la selezione tra modelli deve evitare due opposti errori: il sovra-adattamento e il sotto-adattamento. Tale problema va sotto il nome di _bias-variance trade-off_: il sotto-adattamento, infatti, porta a distorsioni (_bias_) nella stima dei parametri, mentre il sovra-adattamento porta a previsioni scadenti in campioni futuri. Spesso l'incertezza relativa alla scelta del modello (sotto-adattamento versus sovra-adattamento) passa inosservata ma il suo impatto può essere drammatico. Secondo @hoeting1999bayesian, *"Standard statistical practice ignores model uncertainty. Data analysts typically select a model from some class of models and then proceed as if the selected model had generated the data. This approach ignores the uncertainty in model selection, leading to over-confident inferences and decisions that are more risky than one thinks they are.* 
 
 In questo Capitolo esamineremo alcune tecniche bayesiane che possono essere utilizzate per operare una selezione tra modelli alternativi, tenendo sotto controllo i pericoli del sovra-adattamento e del sotto-adattamento. In particolare, ci chiederemo quale, tra due o più modelli, sia quello da preferire in base al criterio della capacità predittiva.
@@ -72,7 +74,7 @@ Il concetto di entropia può essere usato per descrivere la quantità di informa
 - un evento a bassa probabilità è sorprendente e fornisce molta informazione;
 - un evento ad alta probabilità è poco o per niente sorprendente e fornisce poca (o nessuna) informazione.
 
-È possibile quantificare l'informazione fornita dal verificarsi di un evento mediante la probabilità di quell'evento. Una tale quantità di informazione è chiamata "informazione di Shannon", "auto-informazione" o semplicemente "informazione" e, per un evento discreto $x$, può essere calcolata come:
+È dunque possibile quantificare l'informazione fornita dal verificarsi di un evento usando la probabilità di quell'evento. Una tale _quantità di informazione_ è chiamata "informazione di Shannon", "auto-informazione" o semplicemente "informazione" e, per un evento discreto $x$, può essere calcolata come:
 
 $$
 \text{informazione}(x) = -\log_2 p(x),
@@ -101,13 +103,11 @@ Per rappresentare questo evento abbiamo bisogno di 1 bit di informazione. Se la 
 -log2(0.1)
 ```
 
-Consideriamo ora il lancio di un dado. Ci possiamo chiedere quanta informazione sia fornita, ad esempio, dall'evento "esce il valore 6". Dato che la probabilità di ottenere un 6 è più piccola della probabilità di ottenere "testa" nel lancio di una moneta, ci possiamo aspettare, nel lancio del dado, una maggiore sorpresa, ovvero una maggiore quantità di informazione. La quantità di informazione dell'evento "esce un 6" nel lancio di un dado
+Consideriamo ora il lancio di un dado. Quanta informazione viene fornita, ad esempio, dall'evento "esce il numero 6"? Dato che la probabilità di ottenere un 6 nel lancio di un dado è più piccola della probabilità di ottenere "testa" nel lancio di una moneta, il risultato del lancio di un dado deve produrre una sorpresa maggiore del risultato del lancio di una moneta. Per cui, la quantità di informazione associata all'evento "è uscito 6", dovrà essere maggiore di quella associata all'evento "testa". Infatti, la quantità di informazione dell'evento "è uscito un 6" è più che doppia rispetto alla quantità di informazione dell'evento "testa":
 
 ```{r}
 -log2(1/6)
 ```
-
-è infatti più del doppio della quantità di informazione dell'evento "esce testa" nel lancio di una moneta.
 :::
 
 ::: {.example}
@@ -129,7 +129,7 @@ La figura mostra che questa relazione non è lineare, è infatti leggermente sub
 
 ### Entropia di una variabile casuale
 
-Possiamo estendere questa discussione pensando ad un insieme di eventi, ovvero ad una distribuzione. Nella teoria della probabilità, per fare riferimento ad un insieme di eventi e alle associate probabilità, usiamo la nozione di variabile casuale. L'entropia quantifica l'informazione che viene fornita da una variabile casuale.
+Possiamo estendere questa discussione pensando ad un insieme di eventi, ovvero ad una distribuzione. Nella teoria della probabilità usiamo la nozione di variabile casuale per fare riferimento ad un insieme di eventi e alle probabilità associate a tali eventi.   L'entropia quantifica l'informazione che viene fornita da una variabile casuale.
 
 :::{.definition}
 Sia $Y = y_1, \dots, y_n$ una variabile casuale e $p_t(y)$ una distribuzione di probabilità su $Y$. Si definisce la sua entropia (detta di Shannon) come:
@@ -146,60 +146,28 @@ Per interpretare la \@ref(eq:entropy), consideriamo un esempio discusso da @mart
 knitr::include_graphics("images/entropy_example.pdf")
 ```
 
-Nella figura \@ref(fig:entropy-example) sono rappresentate sei distribuzioni. viene anche riportato il valore di entropia di ciascuna distribuzione. La distribuzione con il picco più pronunciato o con la dispersione minore è `q`, e questa è la distribuzione con il valore di entropia più basso tra le sei distribuzioni considerate. La distribuzione `q ~ binom(n = 10, p = 0.75)`, e quindi ci sono 11 possibili eventi. `qu` è una distribuzione uniforme con gli stessi 11 possibili eventi. Possiamo vedere che l'entropia di `qu` è maggiore di quella di `q`. Infatti, se calcoliamo l'entropia di distribuzioni binomiali con $n = 10$ e valori diversi di $p$ ci possiamo rendere conto che nessuno di tali valori ha un'entropia maggiore di `qu`. Abbiamo bisogno di aumentare $n ≈ 3$ volte per trovare la prima distribuzione binomiale con entropia maggiore di `qu`. Passiamo alla riga successiva. Generiamo la distribuzione `r` prendendo `q` e spostandolo a destra e quindi normalizzando (per garantire che la somma di tutte le probabilità sia 1). Poiché `r` ha una dispersione maggiore di `q`, la sua entropia è maggiore. `ru` è la distribuzione uniforme con lo stesso numero di possibili eventi di `r` (22) -- si noti che sono stati inclusi come possibili valori anche quelli nella valle tra i due picchi. Ancora una volta l'entropia della versione uniforme è quella con l'entropia più grande. 
+Nella figura \@ref(fig:entropy-example) sono rappresentate sei distribuzioni. viene anche riportato il valore di entropia di ciascuna distribuzione. La distribuzione con il picco più pronunciato o con la dispersione minore è `q`, e questa è la distribuzione con il valore di entropia più basso tra le sei distribuzioni considerate. Per `q` la distribuzione è `q ~ binom(n = 10, p = 0.75)`; quindi ci sono 11 possibili eventi. `qu` ha una distribuzione uniforme sugli stessi 11 possibili eventi. L'entropia di `qu` è maggiore dell'entropia di `q`. Infatti, se calcoliamo l'entropia di distribuzioni binomiali con $n = 10$ (con valori diversi di $p$) ci rendiamo conto che nessuna di tali distribuzioni ha un'entropia maggiore di `qu`. Dobbiamo aumentare $n ≈ 3$ volte per trovare la prima distribuzione binomiale con entropia maggiore di `qu`. Passiamo alla riga successiva. Generiamo la distribuzione `r` spostando a destra `q` e normalizzando (per garantire che la somma di tutte le probabilità sia 1). Poiché `r` ha una dispersione maggiore di `q`, la sua entropia è maggiore. `ru` è una distribuzione uniforme con lo stesso numero di eventi possibili come `r` (ovvero 22) -- si noti che sono stati inclusi come valori possibili anche quelli nella "valle" tra i due picchi. Ancora una volta, la distribuzione uniforme ha l'entropia più grande. 
 
-Gli esempi discussi finora sembrano suggerire che l'entropia sia proporzionale alla varianza di una distribuzione. Verifichiamo questa intuizione esaminiamo le ultime due distribuzioni della figura \@ref(fig:entropy-example). La distribuzione `s` è simile a `r` ma è presente una maggiore separazione tra i due picchi della distribuzione -- dunque, la dispersione aumenta. Ciò nonostante, l'entropia resta invariata. Quindi la relazione tra entropia e varianza non è così semplice come sembrava. Il risultato che abbiamo trovato può essere spiegato dicendo che, nel calcolo dell'entropia, non vengono considerati gli eventi con probabilità nulla (quindi, nell'esempio, è stato possibile aumentare la varianza della distribuzione senza cambiare l'entropia). La distribuzione `su` è stata costruita sostituendo i due picchi in `s` con `qu` (e normalizzando). Possiamo vedere che `su` ha un'entropia minore di `ru`, anche se `su` ha una dispersione maggiore di `ru`. Questo è dovuto al fatto che `su` distribuisce la probabilità totale tra un numero minore di eventi (22) di `ru` (che ne conta 23); quindi è sensato che `su` abbia un'entropia minore di `ru`.
-
-Per chi fosse interessato, il codice Python usato per generare la figura \@ref(fig:entropy-example) è riportato qui sotto.
-
-```{python eval=FALSE}
-import scipy
-import numpy as np
-
-x = range(0, 26)
-q_pmf = scipy.stats.binom(10, 0.75).pmf(x)
-qu_pmf = scipy.stats.randint(0, np.max(np.nonzero(q_pmf))+1).pmf(x) 
-r_pmf = (q_pmf + np.roll(q_pmf, 12)) / 2
-ru_pmf = scipy.stats.randint(0, np.max(np.nonzero(r_pmf))+1).pmf(x) 
-s_pmf = (q_pmf + np.roll(q_pmf, 15)) / 2
-su_pmf = (qu_pmf + np.roll(qu_pmf, 15)) / 2
-
-_, ax = plt.subplots(3, 2, figsize=(12, 5), sharex=True, sharey=True,
-  constrained_layout=True)
-ax = np.ravel(ax)
-zipped = zip([q_pmf, qu_pmf, r_pmf, ru_pmf, s_pmf, su_pmf], 
-  ["q", "qu", "r", "ru", "s", "su"])
-for idx, (dist, label) in enumerate(zipped):
-    ax[idx].vlines(x, 0, dist, label=f"H = {scipy.stats.entropy(dist):.2f}") 
-    ax[idx].set_title(label)
-    ax[idx].legend(loc=1, handlelength=0)
-```
+Gli esempi discussi finora sembrano suggerire che l'entropia è proporzionale alla varianza della distribuzione. Verifichiamo questa intuizione esaminiamo le ultime due distribuzioni della figura \@ref(fig:entropy-example). La distribuzione `s` è simile a `r` ma presenta una separazione maggiore tra i due picchi della distribuzione -- dunque, ha una varianza più grande. Ciò nonostante, l'entropia non varia. Quindi la relazione tra entropia e varianza non è così semplice come ci sembrava. Il risultato che abbiamo trovato può essere spiegato dicendo che, nel calcolo dell'entropia, non vengono considerati gli eventi con probabilità nulla (per questa ragione, nell'esempio, è stato possibile aumentare la varianza senza cambiare l'entropia). La distribuzione `su` è stata costruita sostituendo i due picchi in `s` con `qu` (e normalizzando). Possiamo vedere che `su` ha un'entropia minore di `ru`, anche se `su` ha una dispersione maggiore di `ru`. Questo è dovuto al fatto che `su` distribuisce la probabilità totale tra un numero minore di eventi (22) di `ru` (che ne conta 23); quindi è sensato attribuire a `su` un'entropia minore di `ru`.
 
 ::: {.example}
-Consideriamo un esempio riguardante le previsioni del tempo. Supponiamo che le  probabilità di pioggia e sole siano, rispettivamente, $p_1 = 0.3$ e  $p_2 = 0.7$. Quindi
+Consideriamo ora un esempio riguardante le previsioni del tempo. Supponiamo che le  probabilità di pioggia e sole siano, rispettivamente, $p_1 = 0.3$ e  $p_2 = 0.7$. Quindi
 
 $$
 H(p) = − [p(y_1) \log_2 p(y_1) + p(y_2) \log_2 p(y_2)] \approx 0.61.
 $$
 
-Svolgendo i calcoli in $\R$ abbiamo:
-
-```{r}
-p <- c(0.3 , 0.7)
--sum(p*log(p))
-```
-
-Se però viviamo a Las Vegas, allora le probabilità di pioggia e sole saranno qualcosa come $p(y_1) = 0.01$ e  $p(y_2) = 0.99$. In questo secondo caso, l'entropia è 0.06, ovvero, molto minore di prima. Infatti, a Las Vegas non piove quasi mai, per cui quando abbiamo imparato che, in un certo giorno, non ha piovuto, abbiamo imparato molto poco rispetto a quello che già sapevamo in precedenza.
+Se però viviamo a Las Vegas, allora le probabilità di pioggia e sole saranno simili a $p(y_1) = 0.01$ e  $p(y_2) = 0.99$. In questo secondo caso, l'entropia è 0.06, ovvero, molto minore di prima. Infatti, a Las Vegas non piove quasi mai, per cui quando abbiamo imparato che, in un certo giorno, non ha piovuto, abbiamo imparato molto poco rispetto a quello che già sapevamo in precedenza.
 :::
 
 ::: {.example}
-Abbiamo visto in precedenza che, se gli esiti possibili sono pioggia o sole con $p(y_1) = 0.7$,  $p(y_2) = 0.3$, allora l'entropia è
+Nell'esempio precedente abbiamo visto che, se gli esiti possibili sono pioggia o sole con $p(y_1) = 0.7$,  $p(y_2) = 0.3$, allora l'entropia è
 
 ```{r}
 -(0.7 * log(0.7) + 0.3 * log(0.3))
 ```
 
-Se gli esiti possibili sono pioggia, neve o sole con $p(y_1) = 0.7$,  $p(y_2) = 0.15$ e $p(y_3) = 0.15$, rispettivamente, allora l'entropia sarà maggiore, ovvero  pari a 0.82.
+Ma se gli esiti possibili sono pioggia, neve o sole con $p(y_1) = 0.7$,  $p(y_2) = 0.15$ e $p(y_3) = 0.15$, rispettivamente, allora l'entropia cresce: 
 
 ```{r}
 -(0.7 * log(0.7) + 0.15 * log(0.15) + 0.15 * log(0.15))
@@ -208,6 +176,6 @@ Se gli esiti possibili sono pioggia, neve o sole con $p(y_1) = 0.7$,  $p(y_2) = 
 
 ## Commenti e considerazioni finali {-}
 
-In questo Capitolo abbiamo visto come sia possibile quantificare l'incertezza tramite l'entropia. Ma come è possibile usare l'entropia dell'informazione per specificare quanto differisce un modello dal vero meccanismo generatore dei dati? La risposta a questa domanda è fornita dalla divergenza di Kullback-Leibler (Capitolo \@ref(ch:kl-div)).
+In questo Capitolo abbiamo visto come sia possibile quantificare l'incertezza tramite l'entropia. Ma come è possibile usare l'entropia dell'informazione per specificare la "distanza" tra un modello e il vero meccanismo generatore dei dati? La risposta a questa domanda è fornita dalla divergenza di Kullback-Leibler che verrà discussa nel Capitolo \@ref(ch:kl-div).
 
 

@@ -5,21 +5,21 @@ source("_common.R")
 source("_stan_options.R")
 ```
 
-È comune in statistica utilizzare una distribuzione di probabilità $q$ per approssimare un'altra distribuzione $p$ -- generalmente, questo viene fatto se $p$ non è conosciuta o è troppo complessa. In questi casi possiamo chiederci quanta informazione viene perduta usando $q$ al posto di $p$, o equivalentemente quanta ulteriore incertezza stiamo introducendo nell'analisi statistica. La quantificazione di questo incremento di incertezza viene fornita dalla divergenza di Kullback-Leibler.
+È comune in statistica utilizzare una distribuzione di probabilità $q$ per approssimare un'altra distribuzione $p$ -- generalmente, questo viene fatto se $p$ non è conosciuta o è troppo complessa. In questi casi possiamo chiederci quanta informazione venga perduta usando $q$ al posto di $p$, o equivalentemente, quanta incertezza aggiuntiva viene introdotta nell'analisi statistica. La quantificazione di questo incremento di incertezza è fornita dalla divergenza di Kullback-Leibler.
 
 ## La perdita di informazione
 
-Intuitivamente, per quantificare la perdita di informazione quando una distribuzione approssimata $q$ viene usata per rappresentare la vera distribuzione $p$ è necessaria una quantità che ha valore zero quando $q$ è uguale a $p$, e un valore positivo altrimenti. Seguendo la definizione \@ref(eq:entropy) di entropia, possiamo quantificare una tale perdita di informazione calcolando il valore atteso della differenza tra $\log(p)$ e $\log(q)$. Questa quantità è chiamata _entropia relativa_ o _divergenza di Kullback-Leibler_:
+Intuitivamente, per quantificare l'informazione che si perde quando una distribuzione approssimata $q$ viene usata in luogo della distribuzione corretta $p$ sembra necessaria una quantità che ha valore zero quando $q = p$, e un valore positivo altrimenti. Seguendo la definizione \@ref(eq:entropy) di entropia, possiamo quantificare una tale perdita di informazione mediante il valore atteso della differenza tra $\log(p)$ e $\log(q)$. Questa quantità è chiamata _entropia relativa_ o _divergenza di Kullback-Leibler_:
 
 \begin{equation}
-\mathbb{KL} (p \mid\mid q) = \E (\log p - \log q)
+\mathbb{KL} (p \mid\mid q) = \E (\log p - \log q).
 (\#eq:kldivergence)
 \end{equation}
 
-La divergenza $\mathbb{KL} (p \mid\mid q)$ corrisponde alla differenza media nelle probabilità logaritmiche quando $q$ viene usato per approssimare $p$. Poiché gli eventi si manifestano secondo $p$, è necessario calcolare il valore atteso rispetto a $p$. Per distribuzioni discrete abbiamo:
+La divergenza $\mathbb{KL} (p \mid\mid q)$ corrisponde alla differenza media nelle probabilità logaritmiche quando $q$ viene usato per approssimare $p$. Poiché gli eventi si manifestano secondo $p$, è necessario calcolare il valore atteso rispetto a $p$. Per distribuzioni discrete dunque abbiamo:
 
 \begin{equation}
-\mathbb{KL} (p \mid\mid q) = \sum_i^n p_i (\log p_i - \log q_i) = \sum_i^n p_i \log \frac{p_i}{q_i}
+\mathbb{KL} (p \mid\mid q) = \sum_i^n p_i (\log p_i - \log q_i) = \sum_i^n p_i \log \frac{p_i}{q_i}.
 \end{equation}
 
 Riarrangiando i termini otteniamo:
@@ -31,18 +31,18 @@ Riarrangiando i termini otteniamo:
 ovvero,
 
 \begin{equation}
-\mathbb{KL} (p \mid\mid q) = \underbrace{-\sum_i^n p_i \log q_i}_{H(p, q)} - \underbrace{\left(-\sum_i^n p_i \log p_i\right)}_{H(p)},
+\mathbb{KL} (p \mid\mid q) = \underbrace{-\sum_i^n p_i \log q_i}_{h(p, q)} - \underbrace{\left(-\sum_i^n p_i \log p_i\right)}_{h(p)},
 \end{equation}
 
-laddove $H(p)$ è l'entropia di $p$ e $H(p, q) = −\E [\log q]$ può essere intesa come l'entropia di $q$, ma valutata secondo i valori di $p$.
+laddove $h(p)$ è l'entropia di $p$ e $h(p, q) = −\E [\log q]$ può essere intesa come l'entropia di $q$, ma valutata secondo i valori di probabilità $p$.
 
 Riarrangiando l'equazione precedente otteniamo:
 
 \begin{equation}
-H(p, q) = H(p) + \mathbb{KL} (p \mid\mid q),
+h(p, q) = h(p) + \mathbb{KL} (p \mid\mid q),
 \end{equation}
 
-il che mostra come la divergenza KL può essere interpretata come l'incremento di entropia rispetto a $H(p)$, quando si usa $q$ per rappresentare $p$.
+il che mostra come la divergenza $\mathbb{KL}$ possa essere interpretata come  l'incremento di entropia, rispetto a $h(p)$, quando $q$ viene usata per rappresentare $p$.
 
 ::: {.example}
 [da @McElreath_rethinking] Sia la distribuzione target $p = \{0.3, 0.7\}$. Supponiamo  che la distribuzione approssimata $q$ possa assumere valori da $q = \{0.01, 0.99\}$ a $q = \{0.99, 0.01\}$. Calcoliamo la divergenza KL.

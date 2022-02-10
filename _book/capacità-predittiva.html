@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Commenti e considerazioni finali | Data Science per psicologi</title>
+  <title>1.2 Capacità predittiva | Data Science per psicologi</title>
   <meta name="description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   <meta name="generator" content="bookdown 0.24.4 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Commenti e considerazioni finali | Data Science per psicologi" />
+  <meta property="og:title" content="1.2 Capacità predittiva | Data Science per psicologi" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   <meta name="github-repo" content="ccaudek/ds4psy" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Commenti e considerazioni finali | Data Science per psicologi" />
+  <meta name="twitter:title" content="1.2 Capacità predittiva | Data Science per psicologi" />
   
   <meta name="twitter:description" content="This document contains the materials of the lessons of Psicometria B000286 (2021/2022) aimed at students of the first year of the Degree Course in Psychological Sciences and Techniques of the University of Florence, Italy." />
   
@@ -31,8 +31,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="la-misura-del-disordine.html"/>
-
+<link rel="prev" href="la-generalizzabilità-dei-modelli.html"/>
+<link rel="next" href="il-rasoio-di-ockham.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -202,46 +202,22 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="commenti-e-considerazioni-finali" class="section level2 unnumbered">
-<h2>Commenti e considerazioni finali</h2>
-<p>In questo Capitolo abbiamo visto come sia possibile quantificare l’incertezza tramite l’entropia. Ma come è possibile usare l’entropia dell’informazione per specificare la “distanza” tra un modello e il vero meccanismo generatore dei dati? La risposta a questa domanda è fornita dalla divergenza di Kullback-Leibler che verrà spiegata nel Capitolo <a href="#ch:kl-div"><strong>??</strong></a>.</p>
-
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Hoeting, Jennifer A, David Madigan, Adrian E Raftery, and Chris T Volinsky. 1999. <span>“Bayesian Model Averaging: A Tutorial (with Comments by m. Clyde, David Draper and EI George, and a Rejoinder by the Authors.”</span> <em>Statistical Science</em> 14 (4): 382–417.
+<div id="capacità-predittiva" class="section level2" number="1.2">
+<h2><span class="header-section-number">1.2</span> Capacità predittiva</h2>
+<p>Nel framework bayesiano il problema della generalizzabilità di un modello viene affrontato valutando la capacità predittiva del modello, laddove per capacità predittiva si intende la capacità di un modello, i cui parametri sono stati stimati usando le informazioni di un campione, di ben adattarsi ad un campione di osservazioni future. In questo Capitolo cercheremo di rispondere a tre domande.</p>
+<ol style="list-style-type: decimal">
+<li>Quali criteri consentono di valutare la capacità predittiva di un modello?</li>
+<li>Come quantificare la capacità predittiva di un modello usando solo un campione di osservazioni?</li>
+<li>Come confrontare le capacità predittive di modelli diversi?</li>
+</ol>
 </div>
-<div class="csl-entry">
-Johnson, Alicia A., Miles Ott, and Mine Dogucu. 2022. <em><span class="nocase">Bayes Rules! An Introduction to Bayesian Modeling with R</span></em>. CRC Press.
-</div>
-<div class="csl-entry">
-Lord, Frederic M. 1950. <span>“Efficiency of Prediction When a Regression Equation from One Sample Is Used in a New Sample.”</span> <em>ETS Research Bulletin Series</em> 1950 (2): 1–6.
-</div>
-<div class="csl-entry">
-Martin, Osvaldo A, Ravin Kumar, and Junpeng Lao. 2022. <em>Bayesian Modeling and Computation in Python</em>. CRC Press.
-</div>
-<div class="csl-entry">
-McElreath, Richard. 2020. <em>Statistical Rethinking: <span>A</span> <span>Bayesian</span> Course with Examples in <span>R</span> and <span>Stan</span></em>. 2nd Edition. Boca Raton, Florida: CRC Press.
-</div>
-<div class="csl-entry">
-Song, Q Chelsea, Chen Tang, and Serena Wee. 2021. <span>“Making Sense of Model Generalizability: A Tutorial on Cross-Validation in r and Shiny.”</span> <em>Advances in Methods and Practices in Psychological Science</em> 4 (1): 2515245920947067.
-</div>
-</div>
-</div>
-<!-- </div> -->
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="la-misura-del-disordine.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="la-generalizzabilità-dei-modelli.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="il-rasoio-di-ockham.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
