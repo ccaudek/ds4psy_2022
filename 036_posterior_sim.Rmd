@@ -474,7 +474,7 @@ Possiamo ora utilizzare l'algoritmo di Metropolis per trovare, nel caso dei pazi
 
 #### Funzioni
 
-Definiamo la funzione `likelihood()`
+Definiamo la funzione `likelihood()`, considerati come fissi i dati di @zetschefuture2019, ritorna l'ordinata della verosimiglianza binomiale per ciascun valore `param` in input:
 
 ```{r}
 likelihood <- function(param, x = 23, N = 30) {
@@ -482,9 +482,7 @@ likelihood <- function(param, x = 23, N = 30) {
 }
 ```
 
-la quale, considerati come fissi i dati di @zetschefuture2019, ritorna l'ordinata della verosimiglianza binomiale per ciascun valore `param` in input.
-
-La funzione `prior()` 
+La funzione `prior()` ritorna l'ordinata della distribuzione a priori $\mbox{Beta}(2, 10)$ per ciascun valore `param` in input:
 
 ```{r}
 prior <- function(param, alpha = 2, beta = 10) {
@@ -492,17 +490,13 @@ prior <- function(param, alpha = 2, beta = 10) {
 }
 ```
 
-ritorna l'ordinata della distribuzione a priori $\mbox{Beta}(2, 10)$ per ciascun valore `param` in input.
-
-La funzione `posterior()` 
+La funzione `posterior()` ritorna, per ciascun valore `param` in input, il prodotto della densità a priori e della verosimiglianza:
 
 ```{r}
 posterior <- function(param) {
   likelihood(param) * prior(param)
 }
 ```
-
-ritorna, per ciascun valore `param` in input, il prodotto della densità a priori e della verosimiglianza.
 
 #### Implementazione
 
@@ -524,7 +518,7 @@ Ho inserito un controllo che impone al valore candidato di essere incluso nell'i
 L'algoritmo di Metropolis viene implementato nella seguente funzione:
 
 ```{r}
-run_metropolis_MCMC <- function(startvalue, iterations) {
+metropolis <- function(startvalue, iterations) {
   chain <- vector(length = iterations + 1)
   chain[1] <- startvalue
   for (i in 1:iterations) {
@@ -540,22 +534,22 @@ run_metropolis_MCMC <- function(startvalue, iterations) {
 }
 ```
 
-Possiamo dunque generare una catena di valori $\theta$:
+Mediante la funzione precedente, generiamo una catena di valori $\theta$:
 
 ```{r}
 set.seed(84735)
 startvalue <- runif(1, 0, 1)
 niter <- 1e4
-chain <- run_metropolis_MCMC(startvalue, niter)
+chain <- metropolis(startvalue, niter)
 ```
 
-Mediante le istruzioni precedenti otteniamo una catena di Markov costituita da 10,001 valori. Escludiamo i primi 5,000 valori considerati come burn-in. I restanti 5,001 valori verranno considerati come un campione casuale estratto dalla distribuzione a posteriori $p(\theta \mid y)$.
+In questo modo, abbiamo ottenuto una catena di Markov costituita da 10,001 valori. Escludiamo i primi 5,000 valori considerati come burn-in. Consideriamo i restanti 5,001 valori come un campione casuale estratto dalla distribuzione a posteriori $p(\theta \mid y)$.
 
 L'accettanza è pari a
 
 ```{r}
-burnIn <- niter / 2
-acceptance <- 1 - mean(duplicated(chain[-(1:burnIn)]))
+burnin <- niter / 2
+acceptance <- 1 - mean(duplicated(chain[-(1:burnin)]))
 acceptance
 ```
 \noindent
@@ -564,14 +558,14 @@ il che conferma la bontà della deviazione standard ($\sigma$ = 0.9) scelta per 
 Mediante i valori della catena così ottenuta è facile trovare una stima a posteriori del parametro $\theta$. Per esempio, la stima della media a posteriori è:
 
 ```{r}
-mean(chain[-(1:burnIn)])
+mean(chain[-(1:burnin)])
 ```
 
 Una figura che mostra l'approssimazione di $p(\theta \mid y)$ ottenuta con l'algoritmo di Metropolis, insieme ad un _trace plot_ dei valori della catena di Markov, è prodotta nel modo seguente:
 
 ```{r sim-markov-chain-zetsche, fig.cap="Sinistra. Stima della distribuzione a posteriori della probabilità di una aspettativa futura distorta negativamente per i dati di Zetsche et al. (2019). Destra. Trace plot dei valori della catena di Markov escludendo il periodo di burn-in."}
 p1 <- tibble(
-  x = chain[-(1:burnIn)]
+  x = chain[-(1:burnin)]
 ) %>%
   ggplot(aes(x)) +
   geom_histogram() +
@@ -581,14 +575,14 @@ p1 <- tibble(
     title = "Distribuzione a posteriori"
   ) +
   geom_vline(
-    xintercept = mean(chain[-(1:burnIn)])
+    xintercept = mean(chain[-(1:burnin)])
   ) +
   xlim(c(0.3, 0.85)) +
   coord_flip()
 
 p2 <- tibble(
-  x = 1:length(chain[-(1:burnIn)]),
-  y = chain[-(1:burnIn)]
+  x = 1:length(chain[-(1:burnin)]),
+  y = chain[-(1:burnin)]
 ) %>%
   ggplot(aes(x, y)) +
   geom_line() +
@@ -598,13 +592,41 @@ p2 <- tibble(
     title = "Valori della catena"
   ) +
   geom_hline(
-    yintercept = mean(chain[-(1:burnIn)]),
+    yintercept = mean(chain[-(1:burnin)]),
     colour = "gray"
   ) +
   ylim(c(0.3, 0.85)) 
 
 p1 + p2
 ```
+
+#### Animazione
+
+È facile creare un'animazione che illustra il progresso dell'algoritmo di Metropolis. In $\textsf{R}$, sono necessari i seguenti pacchetti:
+
+```{r, eval=FALSE}
+library("gganimate")
+library("magick")
+```
+
+Creiamo un DataFrame che contiene i primi 1000 valori della catena che è stata generata in precedenza:
+
+```{r, eval=FALSE}
+d <- tibble(
+  iter = 1:1000,
+  mcmc = chain[1:1000]
+)
+```
+
+L'animazione del trace plot si ottiene mediante la funzione `transition_reveal()`:
+
+```{r, eval=FALSE}
+ggplot(d, aes(x = iter, y = mcmc)) +
+  geom_line() +
+  transition_reveal(iter)
+```
+
+Ovviamente, è necessario fare tutto questo in RStudio: non ho inserito un GIF animato nel presente file pdf.
 
 ### Input
 

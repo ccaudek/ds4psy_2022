@@ -38,10 +38,11 @@ rmd_files:
     # - "020_expval_var.Rmd"
     # - "022_discr_rv_distr.Rmd"
     # - "023_cont_rv_distr.Rmd"
-    # ## PART III
-    # - "025_intro_bayes.Rmd"
-    # - "026_conjugate_families.Rmd"
-    # - "027_balance_prior_post.Rmd"
+    ## PART III
+    - "025_intro_bayes.Rmd"
+    - "026_subj_prop.Rmd"
+    - "029_conjugate_families.Rmd"
+    # - "030_balance_prior_post.Rmd"
     # - "036_posterior_sim.Rmd"
     # - "040_beta_binomial_mod.Rmd"
     # - "041_mcmc_diagnostics.Rmd"
@@ -59,7 +60,7 @@ rmd_files:
     # - "070_mod_hier.Rmd"
     # ## PART V
     # - "090_entropy.Rmd"
-    - "091_kl.Rmd"
+    # - "091_kl.Rmd"
     # - "092_info_criterion.Rmd"
     # - "093_projpred.Rmd"
     # ## APPENDIX
