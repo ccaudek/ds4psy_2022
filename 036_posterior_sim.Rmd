@@ -25,22 +25,6 @@ In questo Capitolo verranno presentati due metodi di simulazione iterativa^[Si v
 - **metodi basati su griglia:** dove, sebbene non sia disponibile alcuna formula algebrica in forma chiusa, le proprietà della distribuzione a posteriori possono  essere calcolate con una precisione arbitraria;
 - **metodi Monte Carlo:** dove, utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto. 
 
-<!-- La distribuzione a posteriori non sempre può essere trattata analiticamente come una distribuzione nota in forma chiusa. In questo Capitolo verranno presentate tre tecniche numeriche di simulazione iterativa che consentono di generare dalle distribuzioni a posteriori campioni dei parametri del modello: -->
-
-<!-- 1. il metodo basato su griglia; -->
-<!-- 2. il metodo dell'approssimazione quadratica, -->
-<!-- 3. il metodo basato su simulazione di Monte Carlo basato su Catena di Markov (_Markov Chain Monte Carlo_, MCMC). -->
-
-<!-- In generale, possiamo distinguere cinque metodi per calcolare le proprietà di una distribuzione [@lunn2013bugs]. -->
-
-<!-- 1. **Metodi analitici esatti:** per esempio, nel caso delle famiglie coniugate, quando disponiamo di una forma analitica della distribuzione a posteriori. -->
-<!-- 2. **Metodi numerici esatti:** dove, sebbene non sia disponibile alcuna formula algebrica in forma chiusa, le proprietà della distribuzione a posteriori possono  essere calcolate con una precisione arbitraria -- vedremo un esempio di come questo possa essere fatto nella seguente discussione sui metodi basati su griglia. -->
-<!-- 3. **Metodi analitici approssimati:** per esempio, nel caso di approssimazioni normali alle distribuzioni di variabili casuali -- in questo Capitolo verrà discussa l'approssimazione quadratica della distribuzione a posteriori che è un esempio di questo approccio. -->
-<!-- 4. **Sperimentazione fisica:** ad esempio, quando un esperimento viene fisicamente ripetuto molte volte per determinare la proporzione empirica dei "successi". -->
-<!-- 5. **Simulazione al computer:** utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto. Questa tecnica è conosciuta come metodo di Monte Carlo ed è il metodo che verrà utilizzato nella seconda parte di questa dispensa. -->
-
-<!-- In questo Capitolo verranno discussi i metodi di simulazione iterativa 2, 3 e 5 per generare dalle distribuzioni a posteriori campioni dei parametri del modello.  -->
-
 ## Metodo basato su griglia
 
 Il metodo basato su griglia (_grid-based_) è un metodo numerico esatto basato su una griglia di punti uniformemente spaziati. Anche se la maggior parte dei parametri è continua (ovvero, in linea di principio ciascun parametro può assumere un numero infinito di valori), possiamo ottenere un'eccellente approssimazione della distribuzione a posteriori considerando solo una griglia finita di valori dei parametri. In un tale metodo, la densità di probabilità a posteriori può dunque essere approssimata tramite le densità di probabilità calcolate in ciascuna cella della griglia.
@@ -214,7 +198,6 @@ post_sample %>%
 
 In conclusione, il metodo basato su griglia è molto intuitivo e non richiede particolari competenze di programmazione per essere implementato. Inoltre, fornisce un risultato che, per tutti gli scopi pratici, può essere considerato come un campione casuale estratto da $p(\theta \mid y)$. Tuttavia, anche se tale metodo fornisce risultati accuratissimi, esso ha un uso limitato. A causa della _maledizione della dimensionalità_^[Per capire cosa sia la maledizione della dimensionalità, supponiamo di utilizzare una griglia di 100 punti equispaziati. Nel caso di un solo parametro, è necessario calcolare 100 valori. Per due parametri devono essere calcolari $100^2$ valori. Ma già per 10 parametri è necessario calcolare $10^{10}$ valori -- è facile capire che una tale quantità di calcoli è troppo grande anche per un computer molto potente. Per modelli che richiedono la stima di un numero non piccolo di parametri è dunque necessario procedere in un altro modo.], tale metodo può solo essere solo nel caso di semplici modelli statistici, con non più di due parametri. Nella pratica concreta tale metodo viene dunque sostituito da altre tecniche più efficienti in quanto, anche nei più comuni modelli utilizzati in psicologia, vengono solitamente stimati centinaia se non migliaia di parametri.
 
-
 ## Metodo Monte Carlo {#chapter-simulazioneMC}
 
 I metodi più ampiamente adottati nell'analisi bayesiana per la costruzione della distribuzione a posteriori per modelli complessi sono i metodi di campionamento MCMC. Tali metodi consentono al ricercatore di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza doversi preoccupare di altri vincoli. Dato che è basata su metodi computazionalmente intensivi, la stima numerica MCMC della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è ora alla portata di tutti. Questo non era vero solo pochi decenni fa. 
@@ -261,16 +244,18 @@ L'algoritmo di Metropolis ci consente di ottenere una tale sequenza di valori, l
 - Se invece $p(\theta^* \mid y) < p(\theta^{(t)} \mid y)$, allora non dobbiamo necessariamente aggiungere $\theta^*$ alla sequenza.
 - La decisione di aggiungere o no $\theta^*$ alla sequenza dipenderà dal confronto tra $p(\theta^* \mid y)$ e $p(\theta^{(t)} \mid y)$. 
 
-  - Calcoliamo il rapporto 
+- Calcoliamo il rapporto 
 
-  $$
+$$
   r = \frac{p(\theta^* \mid y)}{p(\theta^{(t)} \mid y)} = \frac{p(y \mid \theta^*) p(\theta^*)}{p(y \mid p(\theta^{(t)}) p(p(\theta^{(t)})}.
-  $$
+$$
 
 - Se $r > 1$, accettiamo $\theta^*$ e lo aggiungiamo alla sequenza: $\theta^{(t+1)} = \theta^*$, in quanto $\theta^{(t)}$ è già presente nella sequenza e $\theta^*$ ha una probabilità maggiore di $\theta^{(t)}$.
 - Se $r < 1$, per ciasuna istanza di $\theta^{(t)}$, accettiamo $\theta^*$ solo una frazione di volte uguale a 
   
-  $$\frac{p(\theta^* \mid y)}{p(\theta^{(t)} \mid y)}$$ 
+$$
+\frac{p(\theta^* \mid y)}{p(\theta^{(t)} \mid y)}
+$$ 
   
 in quanto la frequenza relativa dei valori $\theta^{(t)}$ e $\theta^*$ nella sequenza deve essere uguale al rapporto precedente. Per ottenere questo risultato, poniamo $\theta^{(t+1)}$ uguale a $\theta^*$ o $\theta^{(t)}$ con probabilità rispettivamente uguali a $r$ o $1 - r$.
 
@@ -283,7 +268,6 @@ Poniamoci ora il problema di usare l'algoritmo di Metropolis per calcolare la di
 $$
 \bar{\theta}_{post} = \frac{\alpha}{\alpha + \beta} = \frac{25}{25 + 17} \approx 0.5952.
 $$
-
 
 È anche possibile ottenere il valore della media a posteriori per via numerica. Sapendo che la distribuzione a posteriori è una $\mbox{Beta}(25, 17)$, possiamo estrarre un campione di osservazioni da una tale distribuzione e calcolare la media. Con poche osservazioni (diciamo 10) otteniamo un risultato molto approssimato
 
@@ -299,11 +283,7 @@ print(mean(rbeta(1e4, shape1 = 25, shape2 = 17)), 6)
 print(mean(rbeta(1e6, shape1 = 25, shape2 = 17)), 6)
 ```
 
-Lo stesso si può dire delle altre statistiche descrittive: moda, varianza, eccetera. 
-
-<!-- La figura \@ref(fig:mcmc-chains-1) mostra come, all'aumentare del numero di repliche, la media, la mediana, la deviazione standard e l'asimmetria convergono ai veri valori della distribuzione a posteriori (linee rosse tratteggiate). -->
-
-Nel presente esempio, la simulazione Monte Carlo produce il risultato desiderato perché 
+Lo stesso si può dire delle altre statistiche descrittive: moda, varianza, eccetera. Nel presente esempio, la simulazione Monte Carlo produce il risultato desiderato perché 
 
 - sappiamo che la distribuzione a posteriori è una $\mbox{Beta}(25, 17)$,
 - è possibile usare le funzioni $\R$ per estrarre campioni casuali da una tale distribuzione. 
@@ -317,9 +297,6 @@ $$
 Una tale distribuzione non è implementata in $\R$ e dunque non possiamo ottenere dei campioni casuali da una tale distribuzione.
 
 In tali circostanze, però, è ancora possibile ottenere ottenere un campione causale dalla distribuzione a posteriori in un altro modo. Questo risultato si ottiene utilizzando i metodi Monte Carlo basati su Catena di Markov (MCMC). I metodi MCMC, di cui l'algoritmo di Metropolis è un caso particolare e ne rappresenta il primo esempio, sono una classe di algoritmi che consentono di ottenere campioni casuali da una distribuzione a posteriori _senza dovere conoscere la rappresentazione analitica di una tale distribuzione_.^[In termini più formali, si può dire che i metodi MCMC consentono di costruire sequenze di punti (detti catene di Markov) nello spazio dei parametri le cui densità sono proporzionali alla distribuzione a posteriori. In altre parole, dopo aver simulato un grande numero di passi della catena si possono usare i valori così generati come se fossero un campione casuale della distribuzione a posteriori. Un'introduzione alle catene di Markov è fornita nell'Appendice \@ref(markov-chains).] Le tecniche MCMC sono il metodo computazionale maggiormente usato per risolvere i problemi dell'inferenza bayesiana.
-
-
-<!-- L'algoritmo di Metropolis ci fornisce il metodo (computazionalmente) più semplice per ottenere una catena di Markov la cui distribuzione equivale alla distribuzione a posteriori $p(\theta \mid y)$. L'algoritmo di Metropolis è il primo algoritmo MCMC che è stato proposto ed è applicabile ad una grande varietà di problemi inferenziali di tipo bayesiano. Questo algoritmo è stato in seguito sviluppato allo scopo di renderlo via via più efficente.  -->
 
 ### Una passeggiata casuale sui numeri naturali
 
@@ -439,15 +416,6 @@ La figura \@ref(fig:metropolishistogramsim) confronta l'istogramma dei valori si
 ### L'algoritmo di Metropolis
 
 Dopo avere introdotto l'algoritmo di Metropolis con l'esempio proposto da @albert2019probability, consideriamo ora l'algoritmo nella sua forma più generale.^[Un'illustrazione visiva di come si svolge il processo di "esplorazione" dell'algoritmo di Metropolis è fornita in questo post: https://elevanth.org/blog/2017/11/28/build-a-better-markov-chain/.] Nelle iterazioni dell'algoritmo di Metropolis possiamo distinguere le seguenti fasi.
-
-<!-- esaminiamo nuovamente tale algoritmo considerando un caso più generale. Ci poniamo ora il problema di usare l'algoritmo di Metropolis per per generare una catena di Markov irriducibile e aperiodica la cui distribuzione stazionaria corrisponde alla distribuzione a posteriori di interesse.^[Una illustrazione visiva di come si svolge il processo di "esplorazione" dell'algoritmo di Metropolis è fornita in questo [post](https://elevanth.org/blog/2017/11/28/build-a-better-markov-chain/).] In termini generali, l'algoritmo di Metropolis include due fasi. -->
-
-<!-- - *Fase 1:* si estrae un valore candidato $\theta'$ dalla distribuzione proposta. -->
-<!-- - *Fase 2:* si decide se accettare il valore candidato $\theta^{(m+1)} = \theta'$ o se  mantenere il valore corrente $\theta^{(m+1)} = \theta$ usando il seguente criterio: -->
-<!--     - se $\mathcal{L}(\theta' \mid y)p(\theta') > \mathcal{L}(\theta \mid y)p(\theta)$ si accetta sempre il valore candidato; -->
-<!--     - se $\mathcal{L}(\theta' \mid y)p(\theta') < \mathcal{L}(\theta \mid y)p(\theta)$ il candidato viene accettato solo alcune volte. -->
-
-<!-- In maggiori dettagli, l'algoritmo di Metropolis può essere descritto nel modo seguente. -->
 
 1. Si inizia con un punto arbitrario $\theta^{(1)}$; quindi il primo valore della catena di Markov $\theta^{(1)}$ può corrispondere semplicemente ad un valore a caso tra i valori possibili del parametro. 
 
@@ -600,34 +568,6 @@ p2 <- tibble(
 p1 + p2
 ```
 
-#### Animazione
-
-È facile creare un'animazione che illustra il progresso dell'algoritmo di Metropolis. In $\textsf{R}$, sono necessari i seguenti pacchetti:
-
-```{r, eval=FALSE}
-library("gganimate")
-library("magick")
-```
-
-Creiamo un DataFrame che contiene i primi 1000 valori della catena che è stata generata in precedenza:
-
-```{r, eval=FALSE}
-d <- tibble(
-  iter = 1:1000,
-  mcmc = chain[1:1000]
-)
-```
-
-L'animazione del trace plot si ottiene mediante la funzione `transition_reveal()`:
-
-```{r, eval=FALSE}
-ggplot(d, aes(x = iter, y = mcmc)) +
-  geom_line() +
-  transition_reveal(iter)
-```
-
-Ovviamente, è necessario fare tutto questo in RStudio: non ho inserito un GIF animato nel presente file pdf.
-
 #### Funzione `metropolis()`
 
 I calcoli precedenti possono essere svolti anche mediante la funzione `metropolis()` del pacchetto `ProbBayes`. Per fare un esempio, consideriamo i dati corrispondenti a 23 successi in 30 prove, con una distribuzione a priori $\mbox{Beta}(2, 10)$. Le istruzioni sono le seguenti: 
@@ -720,5 +660,5 @@ Ci sono inoltre alcuni test che permettono di verificare la stazionarietà del c
 
 In generale, la distribuzione a posteriori dei parametri di un modello statistico non può essere determinata per via analitica. Tale problema viene invece affrontato facendo ricorso ad una classe di algoritmi per il campionamento da distribuzioni di probabilità che sono estremamente onerosi dal punto di vista computazionale e che possono essere utilizzati nelle applicazioni pratiche solo grazie alla potenza di calcolo dei moderni computer. Lo sviluppo di software che rendono sempre più semplice l'uso dei metodi MCMC, insieme all'incremento della potenza di calcolo dei computer, ha contribuito a rendere sempre più popolare il metodo dell'inferenza bayesiana che, in questo modo, può essere estesa a problemi di qualunque grado di complessità.
 
-<!-- Nel 1989 un gruppo di statistici nel Regno Unito si pose il problema di simulare le catene di Markov su un personal computer. Nel 1997 ci riuscirono con il primo rilascio pubblico di un'implementazione Windows dell'inferenza bayesiana basata su Gibbs sampling, detta BUGS. Il materiale presentato in questo capitolo descrive gli sviluppi contemporanei del percorso che è iniziato in quel periodo. -->
+
 

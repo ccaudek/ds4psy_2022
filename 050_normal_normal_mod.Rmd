@@ -1,9 +1,8 @@
 # Modello Normale-Normale {#normal-normal-mod-stan}
 
-```{r c050, echo=FALSE}
+```{r, echo=FALSE}
 source("_common.R")
 source("_stan_options.R")
-library("brms")
 ```
 
 Estendiamo ora la discussione precedente considerano un altro caso comune: quello in cui la verosimiglianza è Normale e la distribuzione a priori è Normale. Questa situazione definisce lo schema Normale-Normale. In queste circostanze, l'uso di famiglie di distribuzioni coniugate consente la derivazione analitica della distribuzione a posteriori. La trattazione matematica di tale derivazione, però, è piuttosto complessa e qui verrà solo accennata. Mostreremo invece come svolgere l'inferenza sul caso Normale-Normale mediante i metodi MCMC.
@@ -109,43 +108,6 @@ Y_i &\sim \mathcal{N}(\mu, \sigma) \notag\\
 
 In base al modello definito, la variabile casuale $Y$ segue la distribuzione Normale di parametri $\mu$ e $\sigma$. Il parametro $\mu$ è sconosciuto e abbiamo deciso di descrivere la nostra incertezza relativa ad esso mediante una distribuzione a priori Normale con media uguale a 25 e deviazione standard pari a 2. L'incertezza relativa a $\sigma$ è quantificata da una distribuzione a priori Normale di parametri $\mu = 5$ e $\sigma = 2.5$.
 
-
-<!-- ```{r} -->
-<!-- data.frame(x = c(0, 15)) %>% -->
-<!--   ggplot(aes(x)) + -->
-<!--   stat_function( -->
-<!--     fun = dnorm, -->
-<!--     n = 1e3, -->
-<!--     args = list(mean = 5, sd = 2.5) -->
-<!--   ) + -->
-<!--   ylab("P(x)") + -->
-<!--   theme(legend.position = "none") -->
-<!-- ``` -->
-
-<!-- Dato che il modello è Normale-Normale, è possibile una soluzione analitica, come descritto in precedenza per il caso in cui $\sigma$ è noto. La distribuzione a posteriori per $\mu$ può essere trovata con la funzione `bayesrules:::summarize_normal_normal()`: -->
-
-<!-- ```{r} -->
-<!-- bayesrules:::summarize_normal_normal( -->
-<!--   mean = 25,  -->
-<!--   sd = 2,  -->
-<!--   sigma = sd(df$y), -->
-<!--   y_bar = mean(df$y),  -->
-<!--   n = 30 -->
-<!-- ) -->
-<!-- ``` -->
-
-<!-- La rappresentazione grafica della funzione a priori, della verosimiglianza e della distribuzione a posteriori per $\mu$ si ottiene nel modo seguente: -->
-
-<!-- ```{r} -->
-<!-- bayesrules:::plot_normal_normal( -->
-<!--   mean = 25,  -->
-<!--   sd = 2,  -->
-<!--   sigma = sd(df$y),  -->
-<!--   y_bar = mean(df$y),  -->
-<!--   n = 30 -->
-<!-- ) -->
-<!-- ``` -->
-
 La procedura MCMC utilizzata da Stan è basata su un campionamento Monte Carlo Hamiltoniano che non richiede l'uso di distribuzioni a priori coniugate; pertanto per i parametri è possibile scegliere una qualunque distribuzione a priori arbitraria. Svolgiamo però qui l'inferenza implementando il modello descritto sopra. In Stan, il modello statistico può essere scritto com indicato di seguito: 
 
 ```{r}
@@ -228,39 +190,39 @@ out
 
 Possiamo dunque concludere, con un grado di certezza soggettiva del 95%, che la media della popolazione da cui abbiamo tratto i dati è compresa nell'intervallo [`r round(out[1, 1], 2)`, `r round(out[1, 2], 2)`]. 
 
-## Il modello normale con `brms::brm()`
+<!-- ## Il modello normale con `brms::brm()` -->
 
-Ripetiamo qui l'analisi precedente usando la funzione `brms::brm()`. In questo caso non è necessario scrivere il modello in forma esplicita, come abbiamo fatto in precedenza. La sintassi seguente viene trasformata in maniera automatica in linguaggio Stan prima di adattare il modello ai dati:
+<!-- Ripetiamo qui l'analisi precedente usando la funzione `brms::brm()`. In questo caso non è necessario scrivere il modello in forma esplicita, come abbiamo fatto in precedenza. La sintassi seguente viene trasformata in maniera automatica in linguaggio Stan prima di adattare il modello ai dati: -->
 
-```{r}
-fit <- brm(
-  data = df,
-  family = gaussian(),
-  y ~ 1,
-  prior = c(
-    prior(normal(25, 2), class = Intercept),
-    prior(normal(5, 2.5), class = sigma)
-  ),
-  iter = 4000,
-  refresh = 0,
-  chains = 4,
-  backend = "cmdstanr"
-)
-```
+<!-- ```{r} -->
+<!-- fit <- brm( -->
+<!--   data = df, -->
+<!--   family = gaussian(), -->
+<!--   y ~ 1, -->
+<!--   prior = c( -->
+<!--     prior(normal(25, 2), class = Intercept), -->
+<!--     prior(normal(5, 2.5), class = sigma) -->
+<!--   ), -->
+<!--   iter = 4000, -->
+<!--   refresh = 0, -->
+<!--   chains = 4, -->
+<!--   backend = "cmdstanr" -->
+<!-- ) -->
+<!-- ``` -->
 
-I trace-plot si ottengono nel modo seguente:
+<!-- I trace-plot si ottengono nel modo seguente: -->
 
-```{r}
-plot(fit)
-```
+<!-- ```{r} -->
+<!-- plot(fit) -->
+<!-- ``` -->
 
-La stima a posteriori di $\mu$ è fornita dalla funzione `fixef()`:
+<!-- La stima a posteriori di $\mu$ è fornita dalla funzione `fixef()`: -->
 
-```{r}
-fixef(fit)
-```
+<!-- ```{r} -->
+<!-- fixef(fit) -->
+<!-- ``` -->
 
-In conclusione, la funzione `brms::brm()` produce lo stesso risultato (considerate le fluttuazioni nella stima numerica MCMC) trovato in precedenza usando un modello scritto in Stan.
+<!-- In conclusione, la funzione `brms::brm()` produce lo stesso risultato (considerate le fluttuazioni nella stima numerica MCMC) trovato in precedenza usando un modello scritto in Stan. -->
 
 ## Commenti e considerazioni finali {-}
 

@@ -4,7 +4,6 @@
 source("_common.R")
 source("_stan_options.R")
 suppressPackageStartupMessages(library("rethinking")) 
-suppressPackageStartupMessages(library("brms")) 
 ```
 
 Come discusso nel Paragrafo \@ref(cmdstanr-gautret), le catene di Markov forniscono un'approssimazione che tende a convergere alla distribuzione a posteriori. "Approssimazione" e "convergenza" sono le parole chiave qui: il punto è che il campionamento MCMC non è perfetto. Questo solleva le seguenti domande:

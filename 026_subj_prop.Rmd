@@ -146,7 +146,7 @@ sum(theta^2 * post) - (sum(theta * post))^2
 
 Il calcolo della distribuzione a posteriori, nel caso di una distribuzione a priori discreta, è implementata nella funzione `bayesian_crank()` del pacchetto `ProbBayes`. Dato che `ProbBayes` non è su CRAN, può essere installato nel modo seguente:
 
-```{r}
+```{r, eval=FALSE}
 library("devtools")
 install_github("bayesball/ProbBayes")
 ```

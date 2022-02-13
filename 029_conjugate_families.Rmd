@@ -8,14 +8,6 @@ Obiettivo di questo Capitolo è fornire un esempio di derivazione della distribu
 
 ## Lo schema beta-binomiale 
 
-<!-- In un problema bayesiano i dati $y$ provengono da una distribuzione $p(y \mid \theta)$ e al parametro $\theta$ viene assegnata una distribuzione a priori $p(\theta)$. La scelta della distribuzione a priori ha importanti conseguenze di tipo computazionale. Infatti, a meno di non utilizzare particolari forme analitiche, risulta impossibile ottenere espressioni esplicite per la distribuzione a posteriori. Ciò dipende dall'espressione a denominatore della formula di Bayes -->
-
-<!-- \begin{equation} -->
-<!-- p(\theta \mid y) = \frac{p(\theta) p(y \mid \theta)}{\int p(\theta) p(y \mid \theta) \,\operatorname {d}\! \theta} \notag -->
-<!-- \end{equation} -->
-
-<!-- il cui calcolo, in generale, non è eseguibile in modo analitico in forma chiusa. Una soluzione analitica dell'integrale al denominatore della regola di Bayes è possibile solo se vengono usate distribuzioni provenienti da famiglie coniugate.  -->
-
 Iniziamo con una definizione.
 
 ::: {.definition}

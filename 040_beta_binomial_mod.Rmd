@@ -4,7 +4,6 @@
 source("_common.R")
 source("_stan_options.R")
 suppressPackageStartupMessages(library("rethinking")) 
-suppressPackageStartupMessages(library("brms"))
 ```
 
 In questo Capitolo introdurremo un linguaggio di programmazione probabilistica chiamato [Stan](http://mc-stan.org/) [@carpenter2017stan]. Stan consente di generare campioni da distribuzioni di probabilità basati sulla costruzione di una catena di Markov avente come distribuzione di equilibrio (o stazionaria) la distribuzione desiderata. Prende il nome da uno dei creatori del metodo Monte Carlo, Stanislaw Ulam [@Eckhardt1987stan]. Un'introduzione al linguaggio Stan è fornita nell'Appendice \@ref(appendix:intro-stan). In questo Capitolo useremo Stan per fare inferenza su una proporzione.
