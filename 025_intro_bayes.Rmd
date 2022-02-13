@@ -12,35 +12,28 @@ La moderna statistica bayesiana viene per lo più eseguita utilizzando un lingua
 
 ## Modellizzazione bayesiana
 
-L'analisi bayesiana corrisponde alla costruzione di un modello statistico che si può rappresentare con una quaterna
-
-\begin{equation}
-(\mathcal{Y}, p(y \mid \theta), p(\theta), \theta \in \Theta),
-\end{equation}
-
-dove $\mathcal{Y}$ è l'insieme di tutti i possibili risultati ottenuti dall'esperimento casuale e $p(y \mid \theta)$ è una famiglia di leggi di probabilità, indicizzata dal parametro $\theta \in \Theta$, che descrive l'incertezza sull'esito dell'esperimento. Secondo l'approccio bayesiano, il parametro incognito $\theta$ è considerato una variabile casuale che segue la legge di probabilità $p(\theta)$. L'incertezza su $\theta$ è la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima di avere osservato il risultato dell'esperimento e prende il nome di _distribuzione a priori_. La costruzione del modello statistico passa  attraverso la scelta di una densità $p(y \mid \theta)$ che rappresenta, in senso probabilistico, il fenomeno d'interesse, e attraverso la scelta di una distribuzione a priori $p(\theta)$. Le informazioni che si hanno a priori sul parametro di interesse $\theta$, contenute in $p(\theta)$, vengono aggiornate attraverso quelle provenienti dal campione osservato $y = (y_1, \dots, y_n)$ contenute nella funzione $p(y \mid \theta)$, che, osservata come funzione di $\theta$ per $y$, prende il nome di _funzione di verosimiglianza_. L'aggiornamento delle informazioni avviene attraverso la formula di Bayes
+Consideriamo nuovamente il teorema di Bayes per assegnarli ora, in modo più chiaro,  l'interpretazione che gli è propria nell'inferenza bayesiana moderna. In generale, diciamo che il teorema di Bayes è uno strumento di aggiornamento delle conoscenze a priori in relazione alle nuove evidenze. Se si prende in considerazione una variabile casuale $Y$, di cui si conosce la distribuzione a meno di un parametro $\theta$, secondo l'approccio bayesiano è possibile modellare l'incertezza su tale parametro mediante una variabile casuale continua $\Theta$ che può assumere tutti i valori ammissibili per il parametro cercato. La funzione di densità $p(\theta)$ di tale variabile casuale prende il nome di _distribuzione a priori_ e rappresenta la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima di avere osservato il risultato dell'esperimento. L'aggiornamento dell'incertezza su $\theta$ è determinata dal  verificarsi dell'evidenza $y$. Le informazioni provenienti dal campione osservato $y = (y_1, \dots, y_n)$ sono contenute nella funzione $p(y \mid \theta)$, che, osservata come funzione di $\theta$ per $y$, prende il nome di _funzione di verosimiglianza_. L'aggiornamento delle conoscenze a priori incorporate nella distribuzione iniziale $p(\theta)$ in base all'evidenza $y$ avviene attraverso il teorema di Bayes
 
 \begin{equation}
 p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int_{\Theta}p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta} \quad \theta \in \Theta,
  (\#eq:bayes-intro)
 \end{equation}
 
-in cui $p(\theta \mid y)$ prende il nome di _distribuzione a posteriori_.
+in cui $p(\theta \mid y)$ risulta proporzionale al prodotto di probabilità a priori e verosimiglianza e prende il nome di _distribuzione a posteriori_. Al denominatore troviamo una costante di normalizzazione che corrisponde alla densità marginale dei dati (o verosimiglianza marginale). L'integrale al denominatore della \@ref(eq:bayes-intro) è spesso di difficile risoluzione analitica per cui l'inferenza bayesiana procede solitamente attraverso metodi di ricampionamento e metodi iterativi, quali le Catene di Markov Monte Carlo (MCMC).
 
-Il denominatore del Teorema di Bayes \@ref(eq:bayes-intro), che costituisce la costante di normalizzazione, è la densità marginale dei dati (o verosimiglianza marginale). In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio la media a posteriori di $\theta$. 
+<!-- In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio la media a posteriori di $\theta$.  -->
 
-Possiamo descrivere la modellazione bayesiana distinguendo tre passaggi [@martin2022bayesian].
+@martin2022bayesian descrive la modellazione bayesiana distinguendo tre passaggi.
 
-1. Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, progettiamo un modello combinando e trasformando variabili casuali.
-2. Usiamo il teorema di Bayes per condizionare i nostri modelli ai dati disponibili. Chiamiamo questo processo "inferenza" e come risultato otteniamo una distribuzione a posteriori. 
-3. Critichiamo il modello verificando se il modello abbia senso utilizzando criteri diversi, inclusi i dati e la nostra conoscenza del dominio. Poiché generalmente siamo incerti sui modelli, a volte confrontiamo modelli diversi.
+1. Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, si progetta un modello statistico combinando e trasformando variabili casuali.
+2. Si usa il teorema di Bayes per condizionare il modello ai dati. Questo processo viene chiamato "inferenza" e come risultato si ottiene una distribuzione a posteriori. 
+3. Si critica il modello utilizzando criteri diversi, inclusi i dati e la nostra conoscenza del dominio, per verificare se abbia senso. Poiché in generale siamo incerti sul modello, a volte si confrontano modelli diversi.
 
 Questi tre passaggi vengono eseguiti in modo iterativo e danno luogo a quello che è chiamato "flusso di lavoro bayesiano" (_bayesian workflow_).
 
 ### Notazione
 
-Per fissare la notazione, nel seguito $y$ rappresenterà i dati e $\theta$ rappresenterà i parametri incogniti di un modello statistico. Sia $y$ che $\theta$ vengono concepiti come variabili casuali. Con $x$ vengono invece denotate le quantità note, come ad esempio i predittori del modello lineare. Per rappresentare in un modo conciso i modelli probabilistici viene usata una notazione particolare. Ad esempio, invece di scrivere $p(\theta) = \mbox{Beta}(1, 1)$
-scriviamo $\theta \sim \mbox{Beta}(1, 1)$. Il simbolo "$\sim$" viene spesso letto "è distribuito come". Possiamo anche pensare che significhi che $\theta$ costituisce un campione casuale estratto dalla distribuzione Beta(1, 1). Allo stesso modo, ad esempio, la verosimiglianza del modello binomiale può essere scritta come $y \sim \text{Bin}(n, \theta)$.
+Per fissare la notazione, nel seguito $y$ rappresenterà i dati e $\theta$ rappresenterà i parametri incogniti di un modello statistico. Sia $y$ che $\theta$ vengono concepiti come variabili casuali. Con $x$ vengono invece denotate le quantità note, come ad esempio i predittori del modello lineare. Per rappresentare in un modo conciso i modelli probabilistici viene usata una notazione particolare. Ad esempio, invece di scrivere $p(\theta) = \mbox{Beta}(1, 1)$ scriviamo $\theta \sim \mbox{Beta}(1, 1)$. Il simbolo "$\sim$" viene spesso letto "è distribuito come". Possiamo anche pensare che significhi che $\theta$ costituisce un campione casuale estratto dalla distribuzione Beta(1, 1). Allo stesso modo, ad esempio, la verosimiglianza del modello binomiale può essere scritta come $y \sim \text{Bin}(n, \theta)$.
 
 ## Distribuzioni a priori
 
@@ -119,8 +112,6 @@ Notiamo un punto importante: la funzione $\mathcal{L}(\theta \mid y)$ non è una
 
 ### Notazione
 
-<!-- Spesso per indicare la verosimiglianza si scrive $\mathcal{L}(\theta)$ se è chiaro a quali valori $y$ ci si riferisce.  -->
-<!-- La verosimiglianza $\mathcal{L}$ è una curva (in generale, una superficie) nello spazio $\Theta$ del parametro (in generale, dei parametri) che riflette la credibilità relativa dei valori $\theta$ alla luce dei dati osservati.  -->
 Seguendo una pratica comune, in questa dispensa spesso useremo la notazione $p(\cdot)$ per rappresentare due quantità differenti, ovvero la funzione di verosimiglianza e la distribuzione a priori. Questo piccolo abuso di notazione riflette il seguente punto di vista: anche se la verosimiglianza non è una funzione di densità di probabilità, noi non vogliamo stressare questo aspetto, ma vogliamo piuttosto pensare alla verosimiglianza e alla distribuzione a priori come a due elementi che sono egualmente necessari per calcolare la distribuzione a posteriori. In altri termini, per così dire, questa notazione assegna lo stesso status epistemologico alle due diverse quantità che si trovano al numeratore della regola di Bayes.
 
 ### La log-verosimiglianza
@@ -148,6 +139,7 @@ Si noti che non è necessario lavorare con i logaritmi, ma è fortemente consigl
 ### Un'applicazione empirica
 
 Se i dati di @zetschefuture2019 possono essere riassunti da una proporzione allora è sensato adottare un modello probabilistico binomiale quale meccanismo generatore dei dati: 
+
 \begin{equation}
 y  \sim \mbox{Bin}(n, \theta),
 (\#eq:binomialmodel)
@@ -246,7 +238,7 @@ $$
 \text{probabilità a posteriori} = \frac{\text{probabilità a priori} \cdot \text{verosimiglianza}}{\text{costante di normalizzazione}}
 $$
 
-Una volta trovata la distribuzione a posteriori, possiamo usarla per derivare altre quantità di interesse. Questo viene generalmente ottenuto calcolando il valore atteso: 
+Una volta trovata la distribuzione a posteriori, possiamo usarla per derivare altre quantità di interesse. Questo viene generalmente ottenuto calcolando il seguente valore atteso: 
 
 $$
 J = \int f(\theta) p(\theta \mid y) \,\operatorname {d}\!y

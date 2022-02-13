@@ -4,7 +4,7 @@
 source("_common.R")
 ```
 
-Obiettivo di questo Capitolo è introdurre l'inferenza bayesiana considerando il caso della verosimiglianza binomiale. Esamineremo prima il caso di una distribuzione a priori è discreta; poi considereremo una distribuzione a priori continua. Il materiale che presento qui è un semplice riassunto del capitolo 7 del testo di @albert2019probability.
+Obiettivo di questo Capitolo è introdurre l'inferenza bayesiana considerando il caso della verosimiglianza binomiale. Esamineremo prima il caso di una distribuzione a priori è discreta; poi considereremo una distribuzione a priori continua. Il materiale qui presentato segue molto da vicino il capitolo 7 del testo di @albert2019probability.
 
 ## Inferenza bayesiana con una distribuzione a priori discreta {#ch-prior-discr-binom}
 
