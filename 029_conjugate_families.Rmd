@@ -1,4 +1,4 @@
-# Distribuzioni a priori coniugate {#chapter-distr-coniugate}
+# Distribuzioni a priori coniugate {#ch-distr-coniugate}
 
 ```{r, include = FALSE}
 source("_common.R")
@@ -6,7 +6,7 @@ source("_common.R")
 
 Obiettivo di questo Capitolo è fornire un esempio di derivazione della distribuzione a posteriori scegliendo quale distribuzione a priori una distribuzione coniugata. Esamineremo qui il lo schema beta-binomiale.
 
-## Lo schema beta-binomiale {#chapter-distr-priori-coniugate}
+## Lo schema beta-binomiale 
 
 <!-- In un problema bayesiano i dati $y$ provengono da una distribuzione $p(y \mid \theta)$ e al parametro $\theta$ viene assegnata una distribuzione a priori $p(\theta)$. La scelta della distribuzione a priori ha importanti conseguenze di tipo computazionale. Infatti, a meno di non utilizzare particolari forme analitiche, risulta impossibile ottenere espressioni esplicite per la distribuzione a posteriori. Ciò dipende dall'espressione a denominatore della formula di Bayes -->
 

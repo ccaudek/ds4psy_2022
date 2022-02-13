@@ -40,14 +40,14 @@ rmd_files:
     # - "023_cont_rv_distr.Rmd"
     ## PART III
     - "025_intro_bayes.Rmd"
-    - "026_subj_prop.Rmd"
-    - "029_conjugate_families.Rmd"
+    # - "026_subj_prop.Rmd"
+    # - "029_conjugate_families.Rmd"
     # - "030_balance_prior_post.Rmd"
     # - "036_posterior_sim.Rmd"
     # - "040_beta_binomial_mod.Rmd"
     # - "041_mcmc_diagnostics.Rmd"
     # - "045_summarize_posterior.Rmd"
-    # - "046_ppc.Rmd"
+    - "046_bayesian_prediction.Rmd"
     # - "050_normal_normal_mod.Rmd"
     # # ## PART IV
     # - "051_reglin1.Rmd"

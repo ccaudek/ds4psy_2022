@@ -5,12 +5,7 @@ source("_common.R")
 source("_stan_options.R")
 ```
 
-La distribuzione a posteriori è un modo per descrivere il nostro grado
-di incertezza rispetto al parametro incognito (o rispetto ai parametri
-incogniti) oggetto dell'inferenza. La distribuzione a posteriori
-contiene tutte le informazioni disponibili sui possibili valori del
-parametro. Se il parametro esaminato è monodimensionale (o
-bidimensionale) è possibile fornire un grafico di tutta la distribuzione a posteriori $p(\theta \mid y)$. Tuttavia, spesso vogliamo anche giungere ad una sintesi numerica della distribuzione a posteriori, soprattutto se il vettore dei parametri ha più di due dimensioni. A a questo proposito è possibile utilizzare le consuete statistiche descrittive, come media, mediana, moda, varianza, deviazione standard e i quantili. In alcuni casi, queste statistiche descrittive sono più facili da presentare e interpretare rispetto alla rappresentazione grafica della distribuzione a posteriori.
+La distribuzione a posteriori è un modo per descrivere il nostro grado di incertezza rispetto al parametro incognito (o rispetto ai parametri incogniti) oggetto dell'inferenza. La distribuzione a posteriori contiene tutte le informazioni disponibili sui possibili valori del parametro. Se il parametro esaminato è monodimensionale (o bidimensionale) è possibile fornire un grafico di tutta la distribuzione a posteriori $p(\theta \mid y)$. Tuttavia, spesso vogliamo anche giungere ad una sintesi numerica della distribuzione a posteriori, soprattutto se il vettore dei parametri ha più di due dimensioni. A a questo proposito è possibile utilizzare le consuete statistiche descrittive, come media, mediana, moda, varianza, deviazione standard e i quantili. In alcuni casi, queste statistiche descrittive sono più facili da presentare e interpretare rispetto alla rappresentazione grafica della distribuzione a posteriori.
 
 La stima puntuale della tendenza centrale della distribuzione a posteriori fornisce informazioni su quello che può essere considerato come il "valore più plausibile" del parametro. L'intervallo di credibilità fornisce invece un'indicazione dell'ampiezza dell'intervallo che contiene una determinata quota della massa della distribuzione a posteriori del parametro.
 
@@ -33,7 +28,7 @@ Le procedure bayesiane basate sui metodi MCMC utilizzano un numero finito di cam
 
 ## Intervallo di credibilità 
 
-Molto spesso la stima puntuale è accompagnata da una stima intervallare. Nella statistica bayesiana, se il parametro $\theta \in \Theta$ è monodimensionale, si dice _intervallo di credibilità_ un intervallo di valori $I_{\alpha}$ che contiene la proporzione $1 - \alpha$ della massa di probabilità della funzione a posteriori:
+Molto spesso la stima puntuale è accompagnata da una stima intervallare (abbiamo già incontrato questo aspetto nel Capitolo \@ref(ch-distr-coniugate) discutendo lo schema beta-binomiale). Nella statistica bayesiana, se il parametro $\theta \in \Theta$ è monodimensionale, si dice _intervallo di credibilità_ un intervallo di valori $I_{\alpha}$ che contiene la proporzione $1 - \alpha$ della massa di probabilità della funzione a posteriori:
 
 \begin{equation}
 p(\Theta \in I_{\alpha} \mid y) = 1 - \alpha.
@@ -50,13 +45,17 @@ Esaminiamo due delle condizioni aggiuntive più comuni.
 
 ### Intervallo di credibilità a code uguali 
 
-Un intervallo di credibilità *a code uguali* a livello $\alpha$ è un
-intervallo $$I_{\alpha} = [q_{\alpha/2}, 1 - q_{\alpha/2}],$$ dove $q_z$ è un quantile $z$ della distribuzione a posteriori. Per esempio,
-l'intervallo di credibilità a code uguali al 95% è un intervallo
+Un intervallo di credibilità *a code uguali* a livello $\alpha$ è un intervallo
+
+$$
+I_{\alpha} = [q_{\alpha/2}, 1 - q_{\alpha/2}],
+$$ 
+
+dove $q_z$ è un quantile $z$ della distribuzione a posteriori. Per esempio, l'intervallo di credibilità a code uguali al 95% è un intervallo
 
 $$
 I_{0.05} = [q_{0.025}, q_{0.975}]
-$$ 
+$$
 
 che lascia il 2.5% della massa di densità a posteriori in ciascuna coda. 
 
@@ -128,6 +127,7 @@ Tuttavia talvolta una tale sintesi è richiesta. Diverse risposte sono allora po
 $$
 \E(\pi \mid y = 17) = \frac{\alpha}{\alpha + \beta} = \frac{25}{25+15} = 0.625.
 $$
+
 Una stima del massimo della probabilità a posteriori, o brevemente massimo a posteriori, MAP (da *maximum a posteriori probability*), è la moda della distribuzione a posteriori. Nel caso presente, una stima del MAP può essere ottenuta nel modo seguente:
 
 $$
@@ -195,7 +195,7 @@ L'intervallo HPD risulta più semplice da determinare quando la distribuzione a 
 
 ### Probabilità della distribuzione a posteriori
 
-Il test di ipotesi è un compito comune dell'analisi della distribuzione a posteriori. Supponiamo che si voglia conoscere la probabilità a posteriori che $\theta$ sia superiore a 0.5. Per sapere quanto credibile sia l'evento $\theta > 0.5$ possiamo calcolare il seguente integrale:
+Il test di ipotesi è un compito comune dell'analisi della distribuzione a posteriori (si veda anche il Capitolo \@ref(ch-distr-coniugate)). Supponiamo che si voglia conoscere la probabilità a posteriori che $\theta$ sia superiore a 0.5. Per sapere quanto credibile sia l'evento $\theta > 0.5$ possiamo calcolare il seguente integrale:
 
 $$
 P(\theta > 0.5 \; \mid \; y = 17) = \int_{0.5}^{1}f(\theta \mid y=17)d\theta \;,
@@ -284,12 +284,15 @@ In alre parole, in questo secondo esempio gli odds a posteriori della nostra ipo
 
 In generale, in un test di ipotesi che contrappone un'ipotesi sostantiva $H_a$ ad un'ipotesi nulla $H_0$ il BF è un rapporto di odds per l'ipotesi sostantiva:
 
+
 $$
 \text{Bayes Factor}
 = \frac{\text{posterior odds}}{\text{prior odds}}
 = \frac{P(H_a \mid Y) / P(H_0 \mid Y)}{P(H_a) / P(H_0)}
  \; .
 $$
+
+
 Essendo un rapporto, il BF deve esere valutato rispetto al valore di 1. Ci sono tre possibilità: 
 
 - BF = 1: La credibilità di $H_a$ non è cambiata dopo avere osservato i dati. 
@@ -313,7 +316,6 @@ Non ci sono delle soglie universalmente riconosciute per interpretare il BF. Per
 < 1/100	| Extreme evidence for $H_0$
 
 Tuttavia, è importante notare che l'opinione maggiormente diffusa nella comunità scientifica sia quella che incoraggia a non trarre conclusioni rigide  dai dati utilizzando dei criteri fissati una volta per tutte. Pertanto, non esiste una soglia univoca per il BF che consente di classificare le ipotesi dei ricercatori nelle due categorie "vero" o "falso". Invece, è più utile adottare una pratica più flessibile capace di tenere in considerazione il contesto e le potenziali implicazioni di ogni singolo test di ipotesi. Inoltre, è stato molte volte ripetuto che la distribuzione a posteriori è molto più informativa di una decisione binaria: la rappresentazione di tutta la distribuzione a posteriori fornisce una misura olistica del nostro livello di incertezza riguardo all'affermazione (il parametro, ovvero l'ipotesi) che viene valutata. 
-
 ## Commenti e considerazioni finali {-}
 
 Questo capitolo introduce le procedure di base per la manipolazione
