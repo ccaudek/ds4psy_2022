@@ -5,11 +5,11 @@ source("_common.R")
 source("_stan_options.R")
 ```
 
-Obiettivo di questo Capitolo è illustrare come svolgere l'analisi bayesiana del modello lineare usando il linguaggio Stan.^[Una descrizione dell'approccio frequentista è fornita nell'Appendice \@ref(regr-lin-frequentista).] 
+Benché sia possibile una trattazione formale del modello lineare (per un'introduzione, si vedano le Appendici \@ref(regr-ml) e \@ref(regr-lin-frequentista)), qui ci limiteremo ad esaminare l'uso del linguaggio probabilistico Stan per la stima dei parametri del modello. Vedremo anche come interpretare i risultati dell'analisi bayesiana.
 
-## Il modello lineare in linguaggio Stan
+## Linguaggio Stan
 
-Leggiamo in $\R$ il dataset `kidiq`:
+Leggiamo in $\textsf{R}$ il dataset `kidiq`:
 
 ```{r}
 library("rio")
@@ -23,7 +23,7 @@ Vogliamo descrivere l'associazione tra il QI dei figli e il QI delle madri media
 summary(lm(kid_score ~ mom_iq, data = df))
 ```
 
-La formulazione bayesiana del modello lineare è:
+Sulla base delle informazioni precedenti, giungiamo alla seguente formulazione bayesiana del modello lineare:
 
 $$
 \begin{aligned}
@@ -37,7 +37,7 @@ $$
 
 La prima riga definisce la funzione di verosimiglianza e le righe successive definiscono le distribuzioni a priori dei parametri. Il segno $\sim$ (tilde) si può leggere "si distribuisce come". La prima riga ci dice che ciascuna osservazione $y_i$ è una variabile casuale che segue la distribuzione gaussiana di parametri $\mu_i$ e $\sigma$. La seconda riga specifica, in maniera deterministica, che ciascun $\mu_i$ è una funzione lineare di $x_i$, con parametri $\beta_0$ e $\beta_1$. Le due righe successive specificano le distribuzioni a priori per $\beta_0$ e $\beta_1$. La distribuzione a priori di $\beta_0$ è una distribuzione gaussiana di parametri $\mu_{\alpha} = 25$ e deviazione standard $\sigma_{\alpha} = 10$; la distribuzione a priori di $\beta_1$ è una distribuzione gaussiana standardizzata. L'ultima riga definisce la distribuzione a priori di $\sigma$, ovvero una Cauchy di parametri 18 e 5.
 
-Poniamoci ora il problema di specificare il modello bayesiano descritto sopra in linguaggio Stan^[Nella discussione che segue ripeto pari pari ciò che è riportato nel manuale del linguaggio [Stan](https://mc-stan.org/docs/2_27/stan-users-guide/standardizing-predictors-and-outputs.html).]. Il codice Stan viene eseguito più velocemente se l'input è standardizzato così da avere una media pari a zero e una varianza unitaria.^[Si noti un punto importante. Il fatto di standardizzare i dati fa in modo che le distribuzioni a priori sui parametri vadano espresse sulla scala delle v.c. normali standardizzate. Se centriamo sullo 0 tali distribuzioni a priori, con una deviazione standard dell'ordine di grandezza dell'unità, i discorsi sull'arbitrarietà delle distribuzioni a priori perdono di significato: nel caso di dati standardizzati le distribuzioni a priori formulate come indicato sopra sono distribuzioni debolmente informative il cui unico scopo è la regolarizzazione dei dati, ovvero di mantenere le inferenze in una gamma ragionevole di valori; ciò contribuisce nel contempo a limitare l'influenza eccessiva delle osservazioni estreme (valori anomali) --- quello che è importante è che tali distribuzioni a priori non introducono alcuna distorsione sistematica nella stima a posteriori.] Ponendo $y = (y_1, \dots, y_n)$ e $x = (x_1, \dots, x_n)$, il modello lineare può essere scritto come 
+Dobbiamo ora specificare il modello bayesiano descritto sopra in linguaggio Stan^[Nella discussione che segue ripeto pari pari ciò che è riportato nel manuale del linguaggio [Stan](https://mc-stan.org/docs/2_27/stan-users-guide/standardizing-predictors-and-outputs.html).]. Il codice Stan viene eseguito più velocemente se l'input è standardizzato così da avere una media pari a zero e una varianza unitaria.^[Si noti un punto importante. Il fatto di standardizzare i dati fa in modo che le distribuzioni a priori sui parametri vadano espresse sulla scala delle v.c. normali standardizzate. Se centriamo sullo 0 tali distribuzioni a priori, con una deviazione standard dell'ordine di grandezza dell'unità, i discorsi sull'arbitrarietà delle distribuzioni a priori perdono di significato: nel caso di dati standardizzati le distribuzioni a priori formulate come indicato sopra sono distribuzioni debolmente informative il cui unico scopo è la regolarizzazione dei dati, ovvero di mantenere le inferenze in una gamma ragionevole di valori. L'uso di distribuzioni a priori debolmente informative contribuisce nel contempo a limitare l'influenza eccessiva delle osservazioni estreme (valori anomali). Il punto importante qui è che tali distribuzioni a priori non introducono alcuna distorsione sistematica nella stima a posteriori.] Ponendo $y = (y_1, \dots, y_n)$ e $x = (x_1, \dots, x_n)$, il modello lineare può essere scritto come 
 
 $$
 y_i = \alpha + \beta x_i + \varepsilon_i,
@@ -49,9 +49,7 @@ $$
 \varepsilon_i \sim \mathcal{N}(0, \sigma).
 $$
 
-Seguendo la notazione del manuale Stan, i parametri del modello lineare sono qui denotati da $\alpha$ e $\beta$. 
-
-È necessario prima centrare i dati, sottraendo da essi la media campionaria, per poi scalarli dividendo per la deviazione standard campionaria. Una singola osservazione $u$ viene standardizzata dalla funzione $z$ definita da
+Seguendo la notazione del manuale Stan, i parametri del modello lineare sono qui denotati da $\alpha$ e $\beta$. Per eseguire la standardizzazione dei dati, è necessario centrare i dati, sottraendo da essi la media campionaria, per poi scalarli dividendo per la deviazione standard campionaria. Una singola osservazione $u$ viene standardizzata dalla funzione $z$ definita da
 
 $$
 z_y(u) = \frac{u - \bar{y}}{\texttt{sd}(y)}
@@ -102,7 +100,6 @@ writeLines(modelString, con = "code/simpleregkidiq.stan")
 ```
 
 La funzione `modelString()` registra una stringa di testo mentre `writeLines()` crea un file nell'indirizzo specificato. Tale file deve avere l'estensione `.stan`. 
-
 
 Modificando il codice precedente otteniamo il modello Stan per dati standardizzati. Il blocco `data` è identico a quello del caso precedente. I predittori e la risposta standardizzati sono definiti nel blocco `transformed data`. Per semplificare la notazione (e velocizzare l'esecuzione), nel blocco `model` l'istruzione di campionamento è espressa in forma vettorializzata: `y_std ~ normal(alpha_std + beta_std * x_std, sigma_std);`.
 
@@ -244,7 +241,7 @@ fit$cmdstan_summary()
 
 Le statistiche diagnostiche sono fornite dal metodo `$cmdstan_diagnose()`:
 
-```{r}
+```{r, eval=FALSE}
 fit$cmdstan_diagnose()
 ```
 

@@ -20,8 +20,11 @@ github-repo: ccaudek/ds4psy
 
 ```{r setup, include=FALSE}
 options(
-  htmltools.dir.version = FALSE, formatR.indent = 2,
-  width = 55, digits = 4, warnPartialMatchAttr = FALSE, 
+  htmltools.dir.version = FALSE, 
+  formatR.indent = 2,
+  width = 55, 
+  digits = 4, 
+  warnPartialMatchAttr = FALSE, 
   warnPartialMatchDollar = FALSE
 )
 ```

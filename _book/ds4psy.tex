@@ -267,7 +267,7 @@
 
 \vskip20pt
 
-\includegraphics{images/confounding_variables.png}
+\includegraphics{images/frequentists_vs_bayesians.png}
 \end{center}
 
 \setlength{\abovedisplayskip}{-5pt}
@@ -336,1268 +336,1040 @@ Marzo 2022 \end{flushright}
 
 \mainmatter
 
-\hypertarget{part-inferenza-bayesiana}{%
-\part{Inferenza bayesiana}\label{part-inferenza-bayesiana}}
+\hypertarget{part-il-modello-lineare}{%
+\part{Il modello lineare}\label{part-il-modello-lineare}}
 
-\hypertarget{ch:intro-bayes-inference}{%
-\chapter{Flusso di lavoro bayesiano}\label{ch:intro-bayes-inference}}
+\hypertarget{regr-models-intro}{%
+\chapter{Introduzione}\label{regr-models-intro}}
 
-La moderna statistica bayesiana viene per lo più eseguita utilizzando un linguaggio di programmazione probabilistico implementato su computer. Ciò ha cambiato radicalmente il modo in cui venivano eseguite le statistiche bayesiane anche fin pochi decenni fa. La complessità dei modelli che possiamo costruire è aumentata e la barriera delle competenze matematiche e computazionali che sono richieste è diminuita. Inoltre, il processo di modellazione iterativa è diventato, sotto molti aspetti, molto più facile da eseguire. Anche se formulare modelli statistici complessi è diventato più facile che mai, la statistica è un campo pieno di sottigliezze che non scompaiono magicamente utilizzando potenti metodi computazionali. Pertanto, avere una buona preparazione sugli aspetti teorici, specialmente quelli rilevanti nella pratica, è estremamente utile per applicare efficacemente i metodi statistici.
+Lo scopo della ricerca è trovare le associazioni tra le variabili e fare confronti fra le condizioni sperimentali. Nel caso della psicologia, il ricercatore vuole scoprire le leggi generali che descrivono le relazioni tra i costrutti psicologici e le relazioni che intercorrono tra i fenomeni psicologici e quelli non psicologici (sociali, economici, storici, \ldots). Abbiamo già visto come la correlazione di Pearson sia uno strumento adatto a questo scopo. Infatti, essa ci informa sulla direzione e sull'intensità della relazione lineare tra due variabili. Tuttavia, la correlazione non è sufficiente, in quanto il ricercatore ha a disposizione solo i dati di un campione, mentre vorrebbe descrivere la relazione tra le variabili nella popolazione. A causa della variabilità campionaria, le proprietà dei campioni sono necessariamente diverse da quelle della popolazione: ciò che si può osservare nella popolazione potrebbe non emergere nel campione e, al contrario, il campione manifesta caratteristiche che non sono necessariamente presenti nella popolazione. È dunque necessario chiarire, dal punto di vista statistico, il legame che intercorre tra le proprietà del campione e le proprietà della popolazione da cui esso è stato estratto. Il modello lineare utilizza la funzione matematica più semplice per descrivere la relazione fra due variabili, ovvero la funzione lineare. In questo Capitolo vedremo come si possa fare inferenza sulla relazione tra due variabili mediante il modello lineare bayesiano. Inizieremo a descrivere le proprietà geometriche della funzione lineare per poi utilizzare questa semplice funzione per costruire un modello statistico secondo un approccio bayesiano.
 
-\hypertarget{modellizzazione-bayesiana}{%
-\section{Modellizzazione bayesiana}\label{modellizzazione-bayesiana}}
+\hypertarget{la-funzione-lineare}{%
+\section{La funzione lineare}\label{la-funzione-lineare}}
 
-L'analisi bayesiana corrisponde alla costruzione di un modello statistico che si può rappresentare con una quaterna
-
-\begin{equation}
-(\mathcal{Y}, p(y \mid \theta), p(\theta), \theta \in \Theta),
-\end{equation}
-
-dove \(\mathcal{Y}\) è l'insieme di tutti i possibili risultati ottenuti dall'esperimento casuale e \(p(y \mid \theta)\) è una famiglia di leggi di probabilità, indicizzata dal parametro \(\theta \in \Theta\), che descrive l'incertezza sull'esito dell'esperimento. Secondo l'approccio bayesiano, il parametro incognito \(\theta\) è considerato una variabile casuale che segue la legge di probabilità \(p(\theta)\). L'incertezza su \(\theta\) è la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima di avere osservato il risultato dell'esperimento e prende il nome di \emph{distribuzione a priori}. La costruzione del modello statistico passa attraverso la scelta di una densità \(p(y \mid \theta)\) che rappresenta, in senso probabilistico, il fenomeno d'interesse, e attraverso la scelta di una distribuzione a priori \(p(\theta)\). Le informazioni che si hanno a priori sul parametro di interesse \(\theta\), contenute in \(p(\theta)\), vengono aggiornate attraverso quelle provenienti dal campione osservato \(y = (y_1, \dots, y_n)\) contenute nella funzione \(p(y \mid \theta)\), che, osservata come funzione di \(\theta\) per \(y\), prende il nome di \emph{funzione di verosimiglianza}. L'aggiornamento delle informazioni avviene attraverso la formula di Bayes
+Iniziamo con un ripasso sulla funzione di lineare. Si chiama \emph{funzione lineare} una funzione del tipo
 
 \begin{equation}
-p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int_{\Theta}p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta} \quad \theta \in \Theta,
- \label{eq:bayes-intro}
+f(x) = a + b x,
 \end{equation}
 
-in cui \(p(\theta \mid y)\) prende il nome di \emph{distribuzione a posteriori}.
+dove \(a\) e \(b\) sono delle costanti. Il grafico di tale funzione è una retta di cui il parametro \(b\) è detto \emph{coefficiente angolare} e il parametro \(a\) è detto \emph{intercetta} con l'asse delle \(y\) {[}infatti, la retta interseca l'asse \(y\) nel punto \((0,a)\), se \(b \neq 0\){]}.
 
-Il denominatore del Teorema di Bayes \eqref{eq:bayes-intro}, che costituisce la costante di normalizzazione, è la densità marginale dei dati (o verosimiglianza marginale). In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio la media a posteriori di \(\theta\).
+Per assegnare un'interpretazione geometrica alle costanti \(a\) e \(b\) si consideri la funzione
 
-Possiamo descrivere la modellazione bayesiana distinguendo tre passaggi \citep{martin2022bayesian}.
+\begin{equation}
+y = b x.
+\end{equation}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, progettiamo un modello combinando e trasformando variabili casuali.
-\item
-  Usiamo il teorema di Bayes per condizionare i nostri modelli ai dati disponibili. Chiamiamo questo processo ``inferenza'' e come risultato otteniamo una distribuzione a posteriori.
-\item
-  Critichiamo il modello verificando se il modello abbia senso utilizzando criteri diversi, inclusi i dati e la nostra conoscenza del dominio. Poiché generalmente siamo incerti sui modelli, a volte confrontiamo modelli diversi.
-\end{enumerate}
+Tale funzione rappresenta un caso particolare, ovvero quello della \emph{proporzionalità diretta} tra \(x\) e \(y\). Il caso generale della linearità
 
-Questi tre passaggi vengono eseguiti in modo iterativo e danno luogo a quello che è chiamato ``flusso di lavoro bayesiano'' (\emph{bayesian workflow}).
+\begin{equation}
+y = a + b x
+\end{equation}
 
-\hypertarget{notazione}{%
-\subsection{Notazione}\label{notazione}}
+non fa altro che sommare una costante \(a\) a ciascuno dei valori \(y = b x\). Nella funzione lineare \(y = a + b x\), se \(b\) è positivo allora \(y\) aumenta al crescere di \(x\); se \(b\) è negativo allora \(y\) diminuisce al crescere di \(x\); se \(b=0\) la retta è orizzontale, ovvero \(y\) non muta al variare di \(x\).
 
-Per fissare la notazione, nel seguito \(y\) rappresenterà i dati e \(\theta\) rappresenterà i parametri incogniti di un modello statistico. Sia \(y\) che \(\theta\) vengono concepiti come variabili casuali. Con \(x\) vengono invece denotate le quantità note, come ad esempio i predittori del modello lineare. Per rappresentare in un modo conciso i modelli probabilistici viene usata una notazione particolare. Ad esempio, invece di scrivere \(p(\theta) = \mbox{Beta}(1, 1)\) scriviamo \(\theta \sim \mbox{Beta}(1, 1)\). Il simbolo ``\(\sim\)'' viene spesso letto ``è distribuito come''. Possiamo anche pensare che significhi che \(\theta\) costituisce un campione casuale estratto dalla distribuzione Beta(1, 1). Allo stesso modo, ad esempio, la verosimiglianza del modello binomiale può essere scritta come \(y \sim \text{Bin}(n, \theta)\).
+Consideriamo ora il coefficiente \(b\). Si consideri un punto \(x_0\) e un incremento arbitrario \(\varepsilon\) come indicato nella figura \ref{fig:linearfunction}. Le differenze \(\Delta x = (x_0 + \varepsilon) - x_0\) e \(\Delta y = f(x_0 + \varepsilon) - f(x_0)\) sono detti \emph{incrementi} di \(x\) e \(y\). Il coefficiente angolare \(b\) è uguale al rapporto
 
-\hypertarget{distribuzioni-a-priori}{%
-\section{Distribuzioni a priori}\label{distribuzioni-a-priori}}
+\begin{equation}
+    b = \frac{\Delta y}{\Delta x} = \frac{f(x_0 + \varepsilon) - f(x_0)}{(x_0 + \varepsilon) - x_0},
+\end{equation}
 
-Quando adottiamo un approccio bayesiano, i parametri della distribuzione di riferimento non venono considerati come delle costanti incognite ma bensì vengono trattati come variabili casuali; di conseguenza, i parametri assumono una particolare distribuzione che nelle statistica bayesiana viene definita ``a priori''. I parametri (o il parametro), che possiamo indicare con \(\theta\), possono assumere delle distribuzioni a priori differenti: a seconda delle informazioni disponibili bisogna selezionare una distribuzione di \(\theta\) in modo tale che venga assegnata una probabilità maggiore a quei valori che si ritengono più plausibili per \(\theta\). Idealmente, le credenze a priori che portano alla specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti.
-
-\hypertarget{tipologie-di-distribuzioni-a-priori}{%
-\subsection{Tipologie di distribuzioni a priori}\label{tipologie-di-distribuzioni-a-priori}}
-
-Possiamo distinguere tra diverse distribuzioni a priori in base a quanto fortemente impegnano il ricercatore a ritenere come plausibile un particolare intervallo di valori dei parametri. Il caso più estremo è quello che rivela una totale assenza di conoscenze a priori, il che conduce alle \emph{distribuzioni a priori non informative}, ovvero quelle che assegnano lo stesso livello di credibilità a tutti i valori dei parametri. Le distribuzioni a priori informative, d'altra parte, possono essere \emph{debolmente informative} o \emph{fortemente informative}, a seconda della forza della credenza che esprimono. Il caso più estremo di credenza a priori è quello che riassume il punto di vista del ricercatore nei termini di un \emph{unico valore} del parametro, il che assegna tutta la probabilità (massa o densità) ad di un singolo valore del parametro. Poiché questa non è più una distribuzione di probabilità, sebbene ne soddisfi la definizione, in questo caso si parla di una \emph{distribuzione a priori degenerata}. La figura seguente motra alcuni esempi di distribuzioni a priori per il modello Binomiale:
-
-\begin{itemize}
-\tightlist
-\item
-  distribuzione \emph{non informativa}: \(\theta_c \sim \mbox{Beta}(1,1)\);
-\item
-  distribuzione \emph{debolmente informativa}: \(\theta_c \sim \mbox{Beta}(5,2)\);
-\item
-  distribuzione \emph{fortemente informativa}: \(\theta_c \sim \mbox{Beta}(50,20)\);
-\item
-  \emph{valore puntuale}: \(\theta_c \sim \mbox{Beta}(\alpha, \beta)\) con \(\alpha, \beta \rightarrow \infty\) e \(\frac{\alpha}{\beta} = \frac{5}{2}\).
-\end{itemize}
+indipendentemente dalla grandezza degli incrementi \(\Delta x\) e \(\Delta y\). Il modo più semplice per assegnare un'interpretazione geometrica al coefficiente angolare (o pendenza) della retta è dunque quello di porre \(\Delta x = 1\). In tali circostanze infatti \(b = \Delta y\).
 
 \begin{figure}
 
-{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-3-1} 
+{\centering \includegraphics[width=0.75\linewidth]{images/linear_function} 
 
 }
 
-\caption{Esempi di distribuzioni a priori per il parametro $\theta_c$ nel Modello Binomiale.}\label{fig:unnamed-chunk-3}
+\caption{La funzione lineare $y = a + bx$.}\label{fig:linearfunction}
 \end{figure}
 
-\hypertarget{selezione-della-distribuzione-a-priori}{%
-\subsection{Selezione della distribuzione a priori}\label{selezione-della-distribuzione-a-priori}}
+\hypertarget{una-media-per-ciascuna-osservazione}{%
+\section{Una media per ciascuna osservazione}\label{una-media-per-ciascuna-osservazione}}
 
-La selezione delle distribuzioni a priori è stata spesso vista come una delle scelte più importanti che un ricercatore fa quando implementa un modello bayesiano in quanto può avere un impatto sostanziale sui risultati finali. La soggettività delle distribuzioni a priori è evidenziata dai critici come un potenziale svantaggio dei metodi bayesiani. A questa critica, \citet{vandeSchoot2021modelling} rispondono dicendo che, al di là della scelta delle distribuzioni a priori, ci sono molti elementi del processo di inferenza statistica che sono soggettivi, ovvero la scelta del modello statistico e le ipotesi sulla distribuzione degli errori. In secondo luogo, \citet{vandeSchoot2021modelling} notano come le distribuzioni a priori svolgono due importanti ruoli statistici: quello della ``regolarizzazione della stima'', ovvero, il processo che porta ad indebolire l'influenza indebita di osservazioni estreme, e quello del miglioramento dell'efficienza della stima, ovvero, la facilitazione dei processi di calcolo numerico di stima della distribuzione a posteriori. L'effetto della distribuzione a priori sulla distribuzione a posteriori verrà discusso in dettaglio nel Capitolo \ref{chapter-balance}.
-
-\hypertarget{unapplicazione-empirica}{%
-\subsection{Un'applicazione empirica}\label{unapplicazione-empirica}}
-
-Per introdurre la modelizzazione bayesiana useremo qui i dati riportati da \citet{zetschefuture2019} (si veda l'appendice \ref{appendix:future-exp}). Tali dati corrispondono a 23 ``successi'' in 30 prove e possono dunque essere considerati la manifestazione di una variabile casuale Bernoulliana.
-
-Se non abbiamo alcuna informazione a priori su \(\theta\) (ovvero, la probabilità che l'aspettativa dell'umore futuro del partecipante sia distorta negativamente), potremmo pensare di usare una distribuzione a priori uniforme, ovvero una Beta di parametri \(\alpha=1\) e \(\beta=1\). Una tale scelta, tuttavia, è sconsigliata in quanto è più vantaggioso usare una distribuzione debolmente informativa, come ad esempio \(\mbox{Beta}(2, 2)\), che ha come scopo la regolarizzazione, cioè quello di mantenere le inferenze in un intervallo ragionevole. Qui useremo una \(\mbox{Beta}(2, 10)\).
-
-\[
-p(\theta) = \frac{\Gamma(12)}{\Gamma(2)\Gamma(10)}\theta^{2-1} (1-\theta)^{10-1}.
-\]
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{bayesrules}\SpecialCharTok{::}\FunctionTok{plot\_beta}\NormalTok{(}\AttributeTok{alpha =} \DecValTok{2}\NormalTok{, }\AttributeTok{beta =} \DecValTok{10}\NormalTok{, }\AttributeTok{mean =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{mode =} \ConstantTok{TRUE}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-4-1} \end{center}
-
-La \(\mbox{Beta}(2, 10)\) esprime la credenza che \(\theta\) assume valori \(< 0.5\), con il valore più plausibile pari a circa 0.1. Questo è assolutamente implausibile per il caso dell'esempio in discussione: la \(\mbox{Beta}(2, 10)\) verrà usata solo per scopi didattici, ovvero, per esplorare le conseguenze di tale scelta sulla distribuzione a posteriori.
-
-\hypertarget{la-funzione-di-verosimiglianza}{%
-\section{La funzione di verosimiglianza}\label{la-funzione-di-verosimiglianza}}
-
-Iniziamo con una definizione.
-
-\begin{definition}
-La \emph{funzione di verosimiglianza} \(\mathcal{L}(\theta \mid y) = f(y \mid \theta), \theta \in \Theta,\) è la funzione di massa o di densità di probabilità dei dati \(y\) vista come una funzione del parametro sconosciuto (o dei parametri sconosciuti) \(\theta\).
-\end{definition}
-
-Detto in altre parole, le funzioni di verosimiglianza e di (massa o densità di) probabilità sono formalmente identiche, ma è completamente diversa la loro interpretazione. Nel caso della funzione di massa o di densità di probabilità la distribuzione del vettore casuale delle osservazioni campionarie \(y\) dipende dai valori assunti dal parametro (o dai parametri) \(\theta\); nel caso della la funzione di verosimiglianza la credibilità assegnata a ciascun possibile valore \(\theta\) viene determinata avendo acquisita l'informazione campionaria \(y\) che rappresenta l'elemento condizionante. In altri termini, la funzione di verosimiglianza descrive in termini relativi il sostegno empirico che \(\theta \in \Theta\) riceve da \(y\). Infatti, la funzione di verosimiglianza assume forme diverse al variare di \(y\). Possiamo dunque pensare alla funzione di verosimiglianza come alla risposta alla seguente domanda: avendo osservato i dati \(y\), quanto risultano (relativamente) credibili i diversi valori del parametro \(\theta\)? In termini più formali possiamo dire: sulla base dei dati, \(\theta_1 \in \Theta\) risulta più credibile di \(\theta_2 \in \Theta\) quale indice del modello probabilistico generatore dei dati se \(\mathcal{L}(\theta_1) > \mathcal{L}(\theta_1)\).
-
-Notiamo un punto importante: la funzione \(\mathcal{L}(\theta \mid y)\) non è una funzione di densità. Infatti, essa non racchiude un'area unitaria.
-
-\hypertarget{notazione-1}{%
-\subsection{Notazione}\label{notazione-1}}
-
-Seguendo una pratica comune, in questa dispensa spesso useremo la notazione \(p(\cdot)\) per rappresentare due quantità differenti, ovvero la funzione di verosimiglianza e la distribuzione a priori. Questo piccolo abuso di notazione riflette il seguente punto di vista: anche se la verosimiglianza non è una funzione di densità di probabilità, noi non vogliamo stressare questo aspetto, ma vogliamo piuttosto pensare alla verosimiglianza e alla distribuzione a priori come a due elementi che sono egualmente necessari per calcolare la distribuzione a posteriori. In altri termini, per così dire, questa notazione assegna lo stesso status epistemologico alle due diverse quantità che si trovano al numeratore della regola di Bayes.
-
-\hypertarget{la-log-verosimiglianza}{%
-\subsection{La log-verosimiglianza}\label{la-log-verosimiglianza}}
-
-Dal punto di vista pratico risulta più conveniente utilizzare, al posto della funzione di verosimiglianza, il suo logaritmo naturale, ovvero la funzione di log-verosimiglianza:
+In precedenza abbiamo visto come sia possibile stimare i parametri di un modello bayesiano nel quale le osservazioni sono indipendenti e identicamente distribuite secondo una densità gaussiana,
 
 \begin{equation}
-\ell(\theta) = \log \mathcal{L}(\theta).
+Y_i \stackrel{i.i.d.}{\sim} \mathcal{N}(\mu, \sigma), \quad i = 1, \dots, n.
+\label{eq:normalsamplingmodel}
 \end{equation}
 
-Poiché il logaritmo è una funzione strettamente crescente (usualmente si considera il logaritmo naturale), allora \(\mathcal{L}(\theta)\) e \(\ell(\theta)\) assumono il massimo (o i punti di massimo) in corrispondenza degli stessi valori di \(\theta\) (per un approfondimento, si veda l'Appendice \ref{appendix:max-like}):
+Il modello \eqref{eq:normalsamplingmodel} assume che ogni \(Y_i\) sia la realizzazione di una v.c. descritta da una \(\mathcal{N}(\mu, \sigma^2)\). Da un punto di vista bayesiano, si assegnano distribuzioni a priori ai parametri \(\mu\) e \(\sigma\), si genera la verosimiglianza in base ai dati osservati e, con queste informazioni, si generano le distribuzione a posteriori dei parametri \citep{gelman2020regression}:
 
-\[
-\hat{\theta} = \argmax_{\theta \in \Theta} \ell(\theta) = \argmax_{\theta \in \Theta} \mathcal{L}(\theta).
-\]
+\begin{align}
+Y_i \mid \mu, \sigma & \stackrel{iid}{\sim} \mathcal{N}(\mu, \sigma^2)\notag\\
+\mu       & \sim \mathcal{N}(\mu_0, \tau^2) \notag\\
+\sigma    & \sim \Cauchy(x_0, \gamma) \notag
+\end{align}
 
-Per le proprietà del logaritmo, si ha
+È comune però che vengano registrate altre variabili \(x_i\) che possono essere associate alla risposta di interesse \(y_i\). La variabile \(x_i\) viene chiamata \emph{predittore} (o variabile indipendente) in quanto il ricercatore è tipicamente interessato a predire il valore \(y_i\) a partire da \(x_i\). Come si può estende il modello \eqref{eq:normalsamplingmodel} per lo studio della possibile relazione tra \(y_i\) e \(x_i\)?
+
+Il modello \eqref{eq:normalsamplingmodel} assume una media \(\mu\) comune per ciascuna osservazione \(Y_i\). Dal momento che desideriamo introdurre una nuova variabile \(x_i\) che assume un diverso valore per ciascuna osservazione \(y_i\), il modello \eqref{eq:normalsamplingmodel} può essere modificato in modo che la media comune \(\mu\) venga sostituita da una media \(\mu_i\) specifica a ciascuna osservazione \(i\)-esima:
 
 \begin{equation}
-\ell(\theta) = \log \left( \prod_{i = 1}^n f(y \mid \theta) \right) = \sum_{i = 1}^n \log f(y \mid \theta).
+Y_i \mid \mu_i, \sigma \stackrel{ind}{\sim} \mathcal{N}(\mu_i, \sigma), \quad i = 1, \dots, n.
+\label{eq:normalsamplinglinearmodel}
 \end{equation}
 
-Si noti che non è necessario lavorare con i logaritmi, ma è fortemente consigliato. Il motivo è che i valori della verosimiglianza, in cui si moltiplicano valori di probabilità molto piccoli, possono diventare estremamente piccoli -- qualcosa come \(10^{-34}\). In tali circostanze, non è sorprendente che i programmi dei computer mostrino problemi di arrotondamento numerico. Le trasformazioni logaritmiche risolvono questo problema.
+Si noti che le osservazioni \(Y_1, \dots, Y_n\) non sono più identicamente distribuite poiché hanno medie diverse, ma sono ancora indipendenti come indicato dalla notazione \texttt{ind} posta sopra il simbolo \(\sim\) nella \eqref{eq:normalsamplinglinearmodel}.
 
-\hypertarget{unapplicazione-empirica-1}{%
-\subsection{Un'applicazione empirica}\label{unapplicazione-empirica-1}}
+\hypertarget{relazione-lineare-tra-la-media-y-mid-x-e-il-predittore}{%
+\subsection{\texorpdfstring{Relazione lineare tra la media \(y \mid x\) e il predittore}{Relazione lineare tra la media y \textbackslash mid x e il predittore}}\label{relazione-lineare-tra-la-media-y-mid-x-e-il-predittore}}
 
-Se i dati di \citet{zetschefuture2019} possono essere riassunti da una proporzione allora è sensato adottare un modello probabilistico binomiale quale meccanismo generatore dei dati: \begin{equation}
-y  \sim \mbox{Bin}(n, \theta),
-\label{eq:binomialmodel}
-\end{equation}
-
-laddove \(\theta\) è la probabiltà che una prova Bernoulliana assuma il valore 1 e \(n\) corrisponde al numero di prove Bernoulliane. Questo modello assume che le prove Bernoulliane \(y_i\) che costituiscono il campione \(y\) siano tra loro indipendenti e che ciascuna abbia la stessa probabilità \(\theta \in [0, 1]\) di essere un ``successo'' (valore 1). In altre parole, il modello generatore dei dati avrà una funzione di massa di probabilità
-
-\[
-p(y \mid \theta)
-\ = \
-\mbox{Bin}(y \mid n, \theta).
-\]
-
-Nei capitoli precedenti è stato mostrato come, sulla base del modello binomiale, sia possibile assegnare una probabilità a ciascun possibile valore \(y \in \{0, 1, \dots, n\}\) \emph{assumendo noto il valore del parametro} \(\theta\). Ma ora abbiamo il problema inverso, ovvero quello di fare inferenza su \(\theta\) alla luce dei dati campionari \(y\). In altre parole, riteniamo di conoscere il modello probabilistico che ha generato i dati, ma di tale modello non conosciamo i parametri: vogliamo dunque ottenere informazioni su \(\theta\) avendo osservato i dati \(y\).
-
-Per i dati di \citet{zetschefuture2019} la funzione di verosimiglianza corrisponde alla funzione binomiale di parametro \(\theta \in [0, 1]\) sconosciuto. Abbiamo osservato un ``successo'' 23 volte in 30 ``prove'', dunque, \(y = 23\) e \(n = 30\). La funzione di verosimiglianza diventa
+L'approccio che consente di mettere in relazione un predittore \(x_i\) con la risposta \(Y_i\) è quello di assumere che la media di ciascuna \(Y_i\), ovvero \(\mu_i\), sia una funzione lineare del predittore \(x_i\). Una tale relazione lineare è scritta come
 
 \begin{equation}
-\mathcal{L}(\theta \mid y) = \frac{(23 + 7)!}{23!7!} \theta^{23} + (1-\theta)^7.
-\label{eq:likebino23}
+\mu_i = \beta_0 + \beta_ 1 x_i, \quad i = 1, \dots, n.
+\label{eq:regmodel}
 \end{equation}
 
-Per costruire la funzione di verosimiglianza dobbiamo applicare la \eqref{eq:likebino23} tante volte, cambiando ogni volta il valore \(\theta\) ma \emph{tenendo sempre costante il valore dei dati}. Per esempio, se poniamo \(\theta = 0.1\)
+Nella \eqref{eq:regmodel}, ciascuna \(x_i\) è una costante nota (ecco perché viene usata una lettera minuscola per la \(x\)) e \(\beta_0\) e \(\beta_ 1\) sono parametri incogniti. Questi parametri rappresentano l'intercetta e la pendenza della retta di regressione e sono delle variabili casuali.\footnote{Una notazione alternativa per tali parametri è \(\alpha\), \(\beta\), anziché \(\beta_0\), \(\beta_ 1\).} L'inferenza bayesiana procede assegnando una distribuzione a priori a \(\beta_0\) e a \(\beta_ 1\) e si esegue l'inferenza riassumendo la distribuzione a posteriori di questi parametri.
 
-\[
-\mathcal{L}(\theta \mid y) = \frac{(23 + 7)!}{23!7!} 0.1^{23} + (1-0.1)^7
-\]
+Nel modello \eqref{eq:regmodel}, la funzione lineare \(\beta_0 + \beta_ 1 x_i\) è interpretata come il valore atteso della \(Y_i\) per ciascun valore \(x_i\), mentre l'intercetta \(\beta_0\) rappresenta il valore atteso della \(Y_i\) quando \(x_i = 0\). Il parametro \(\beta_ 1\) (pendenza) rappresenta invece l'aumento medio della \(Y_i\) quando \(x_i\) aumenta di un'unità. È importante notare che la relazione lineare \eqref{eq:normalsamplinglinearmodel} di parametri \(\beta_0\) e \(\beta_ 1\) descrive l'associazione tra \emph{la media} \(\mu_i\) e il predittore \(x_i\). In altri termini, tale relazione lineare ci fornisce una predizione sul valore medio \(\mu_i\), non sul valore \emph{effettivo} \(Y_i\).
 
-otteniamo
+\hypertarget{il-modello-lineare}{%
+\subsection{Il modello lineare}\label{il-modello-lineare}}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, }\FloatTok{0.1}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 9.737e{-}18}
-\end{Highlighting}
-\end{Shaded}
-
-Se poniamo \(\theta = 0.2\)
-
-\[
-\mathcal{L}(\theta \mid y) = \frac{(23 + 7)!}{23!7!} 0.2^{23} + (1-0.2)^7
-\]
-
-otteniamo
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, }\FloatTok{0.2}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 3.581e{-}11}
-\end{Highlighting}
-\end{Shaded}
-
-e così via. La figura \ref{fig:likefutexpect} --- costruita utilizzando 100 valori equispaziati \(\theta \in [0, 1]\) --- fornisce una rappresentazione grafica della funzione di verosimiglianza.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{30}
-\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{23}
-\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
-\NormalTok{like }\OtherTok{\textless{}{-}} \FunctionTok{choose}\NormalTok{(n, y) }\SpecialCharTok{*}\NormalTok{ theta}\SpecialCharTok{\^{}}\NormalTok{y }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ theta)}\SpecialCharTok{\^{}}\NormalTok{(n }\SpecialCharTok{{-}}\NormalTok{ y)}
-\FunctionTok{tibble}\NormalTok{(theta, like) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta, }\AttributeTok{y =}\NormalTok{ like)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(}\FunctionTok{L}\NormalTok{(theta)),}
-    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(}\StringTok{"Valori possibili di"} \SpecialCharTok{\textasciitilde{}}\NormalTok{ theta)}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/likefutexpect-1} 
-
-}
-
-\caption{Funzione di verosimiglianza nel caso di 23 successi in 30 prove.}\label{fig:likefutexpect}
-\end{figure}
-
-Come possiamo interpretare la curva che abbiamo ottenuto? Per alcuni valori \(\theta\) la funzione di verosimiglianza assume valori piccoli; per altri valori \(\theta\) la funzione di verosimiglianza assume valori più grandi. Questi ultimi sono i valori di \(\theta\) più credibili e il valore 23/30 (la moda della funzione di verosimiglianza) è il valore più credibile di tutti.
-
-\hypertarget{sec:const-normaliz-bino23}{%
-\section{La verosimiglianza marginale}\label{sec:const-normaliz-bino23}}
-
-Per il calcolo di \(p(\theta \mid y)\) è necessario dividere il prodotto tra la distribuzione a priori e la verosimiglianza per una costante di normalizzazione. Tale costante di normalizzazione, detta \emph{verosimiglianza marginale}, ha lo scopo di fare in modo che \(p(\theta \mid y)\) abbia area unitaria.
-
-Si noti che, nel caso di variabili continue, la verosimiglianza marginale è espressa nei termini di un integrale. Tranne in pochi casi particolari, tale integrale non ha una soluzione analitica. Per questa ragione, l'inferenza bayesiana procede calcolando una approssimazione della distribuzione a posteriori mediante metodi numerici.
-
-\hypertarget{unapplicazione-empirica-2}{%
-\subsection{Un'applicazione empirica}\label{unapplicazione-empirica-2}}
-
-Consideriamo nuovamente i dati di \citet{zetschefuture2019}. Supponiamo che nel numeratore bayesiano la verosimiglianza sia moltiplicata per una distribuzione uniforme, ovvero \(\mbox{Beta}(1, 1)\). In tali circostanze, il prodotto si riduce alla funzione di verosimiglianza. Per i dati di \citet{zetschefuture2019}, dunque, la costante di normalizzazione si ottiene marginalizzando la funzione di verosimiglianza \(p(y = 23, n = 30 \mid \theta)\) sopra \(\theta\), ovvero risolvendo l'integrale:
+Sostituendo la \eqref{eq:regmodel} nella \eqref{eq:normalsamplinglinearmodel} otteniamo il modello lineare:
 
 \begin{equation}
-p(y = 23, n = 30) = \int_0^1 \binom{30}{23} \theta^{23} (1-\theta)^{7} \,\operatorname {d}\!\theta.
-\label{eq:intlikebino23}
+Y_i \mid \beta_0, \beta_ 1, \sigma \stackrel{ind}{\sim} \mathcal{N}(\beta_0 + \beta_ 1 x_i, \sigma), \quad i = 1, \dots, n.
+\label{eq:samplinglinearmodel}
 \end{equation}
 
-Una soluzione numerica si trova facilmente usando \(\R\):
+Questo è un caso speciale del modello di campionamento Normale, dove le \(Y_i\) seguono indipendentemente una densità Normale con una media (\(\beta_0 + \beta_ 1 x_i\)) specifica per ciascuna osservazione e con una deviazione standard (\(\sigma\)) comune a tutte le osservazioni. Poiché include un solo predittore (\(x\)), questo modello è comunemente chiamato \emph{modello di regressione lineare semplice}.
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{like\_bin }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta) \{}
-  \FunctionTok{choose}\NormalTok{(}\DecValTok{30}\NormalTok{, }\DecValTok{23}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ theta}\SpecialCharTok{\^{}}\DecValTok{23} \SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ theta)}\SpecialCharTok{\^{}}\DecValTok{7}
-\NormalTok{\}}
-\FunctionTok{integrate}\NormalTok{(like\_bin, }\AttributeTok{lower =} \DecValTok{0}\NormalTok{, }\AttributeTok{upper =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{$}\NormalTok{value}
-\CommentTok{\#\textgreater{} [1] 0.03226}
-\end{Highlighting}
-\end{Shaded}
-
-La derivazione analitica è fornita nell'Appendice \ref{appendix:const-norm-bino23}.
-
-\hypertarget{distribuzione-a-posteriori}{%
-\section{Distribuzione a posteriori}\label{distribuzione-a-posteriori}}
-
-La distribuzione a postreriori si trova applicando il teorema di Bayes:
-
-\[
-\text{probabilità a posteriori} = \frac{\text{probabilità a priori} \cdot \text{verosimiglianza}}{\text{costante di normalizzazione}}
-\]
-
-Una volta trovata la distribuzione a posteriori, possiamo usarla per derivare altre quantità di interesse. Questo viene generalmente ottenuto calcolando il valore atteso:
-
-\[
-J = \int f(\theta) p(\theta \mid y) \,\operatorname {d}\!y
-\]
-
-Se \(f(\cdot)\) è la funzione identità, ad esempio, \(J\) risulta essere la media di \(\theta\):
-
-\[
-\bar{\theta} = \int_{\Theta} \theta p(\theta \mid y) \,\operatorname {d}\!\theta .
-\]
-
-Ripeto qui quanto detto sopra: le quantità di interesse della statistica bayesiana(costante di normalizzazione, valore atteso della distribuzione a posteriori, ecc.) contengono integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente. Per questo motivo, si ricorre a metodi di stima numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC). Questo argomento verrà discusso nel Capitolo \ref{ch:metropolis}.
-
-\hypertarget{distribuzione-predittiva-a-priori}{%
-\section{Distribuzione predittiva a priori}\label{distribuzione-predittiva-a-priori}}
-
-La distribuzione a posteriori è l'oggetto centrale nella statistica bayesiana, ma non è l'unico. Oltre a fare inferenze sui valori dei parametri, potremmo voler fare inferenze sui dati. Questo può essere fatto calcolando la \emph{distribuzione predittiva a priori}:
-
-\begin{equation}
-p(y^*) = \int_\Theta p(y^* \mid \theta) p(\theta) \,\operatorname {d}\!\theta .
-\label{eq:prior-pred-distr}
-\end{equation}
-
-La \eqref{eq:prior-pred-distr} descrive la distribuzione prevista dei dati in base al modello (che include la distribuzione a priori e la verosimiglianza), ovvero descrive i dati \(y^*\) che ci aspettiamo di osservare, dato il modello, prima di avere osservato i dati del campione.
-
-È possibile utilizzare campioni dalla distribuzione predittiva a priori per valutare e calibrare i modelli utilizzando le nostre conoscenze dominio-specifiche. Ad esempio, ci possiamo chiedere: ``È sensato che un modello dell'altezza umana preveda che un essere umano sia alto -1.5 metri?''. Già prima di misurare una singola persona, possiamo renderci conto dell'assurdità di questa domanda. Se la distribuzione prevista dei dati consente domande di questo tipo (ovvero, prevede di osservare dati che risultano insensati alla luce delle nostre conoscenze dominio-specifiche), è chiaro che il modello deve essere riformulato.
-
-\hypertarget{distribuzione-predittiva-a-posteriori}{%
-\section{Distribuzione predittiva a posteriori}\label{distribuzione-predittiva-a-posteriori}}
-
-Un'altra quantità utile da calcolare è la distribuzione predittiva a posteriori:
-
-\begin{equation}
-p(\tilde{y} \mid y) = \int_\Theta p(\tilde{y} \mid \theta) p(\theta \mid y) \,\operatorname {d}\!\theta .
-\label{eq:post-pred-distr}
-\end{equation}
-
-Questa è la distribuzione dei dati attesi futuri \(\tilde{y}\) alla luce della distribuzione a posteriori \(p(\theta \mid y)\), che a sua volta è una conseguenza del modello adottato (distribuzione a priori e verosimiglianza) e dei dati osservati. In altre parole, questi sono i dati che il modello si aspetta dopo aver osservato i dati de campione. Dalla \eqref{eq:post-pred-distr} possiamo vedere che le previsioni sui dati attesi futuri sono calcolate integrando (o marginalizzando) sulla distribuzione a posteriori dei parametri. Di conseguenza, le previsioni calcolate in questo modo incorporano l'incertezza relativa alla stima dei parametri del modello.
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-2-1} \end{center}
 
 \hypertarget{commenti-e-considerazioni-finali}{%
 \section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali}}
 
 
-Questo Capitolo ha brevemente passato in rassegna i concetti di base dell'inferenza statistica bayesiana. In base all'approccio bayesiano, invece di dire che il parametro di interesse di un modello statistico ha un valore vero ma sconosciuto, diciamo che, prima di eseguire l'esperimento, è possibile assegnare una distribuzione di probabilità, che chiamano stato di credenza, a quello che è il vero valore del parametro. Questa distribuzione a priori può essere nota (per esempio, sappiamo che la distribuzione dei punteggi del QI è normale con media 100 e deviazione standard 15) o può essere del tutto arbitraria. L'inferenza bayesiana procede poi nel modo seguente: si raccolgono alcuni dati e si calcola la probabilità dei possibili valori del parametro alla luce dei dati osservati e delle credenze a priori. Questa nuova distribuzione di probabilità è chiamata ``distribuzione a posteriori'' e riassume l'incertezza dell'inferenza.
+Il modello lineare semplice viene usato per descrivere la relazione tra due variabili e per determinare il segno e l'intensità di tale relazione. Inoltre, il modello lineare ci consente di prevedere il valore della variabile dipendente in base ai valori della variabile indipendente.
 
-\hypertarget{ch:metropolis}{%
-\chapter{Approssimazione della distribuzione a posteriori}\label{ch:metropolis}}
+\hypertarget{reg-lin-stan}{%
+\chapter{Modello lineare in Stan}\label{reg-lin-stan}}
 
-In generale, in un problema bayesiano i dati \(y\) provengono da una densità \(p(y \mid \theta)\) e al parametro \(\theta\) viene assegnata una densità a priori \(p(\theta)\). Dopo avere osservato i dati \(Y = y\), la funzione di verosimiglianza è uguale a \(\mathcal{L}(\theta) = p(y \mid \theta)\) e la densità a posteriori diventa
+Benché sia possibile una trattazione formale del modello lineare (per un'introduzione, si vedano le Appendici \ref{regr-ml} e \ref{regr-lin-frequentista}), qui ci limiteremo ad esaminare l'uso del linguaggio probabilistico Stan per la stima dei parametri del modello. Vedremo anche come interpretare i risultati dell'analisi bayesiana.
 
-\begin{equation}
-p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}. \notag
-\end{equation}
+\hypertarget{linguaggio-stan}{%
+\section{Linguaggio Stan}\label{linguaggio-stan}}
 
-Se vogliamo trovare la distribuzione a posteriori con metodi analitici è necessario ricorrere all'impiego di distribuzioni a priori coniugate, come nello schema beta-binomiale. Per quanto ``semplice'' in termini formali, la scelta di distribuzioni a priori coniugate limita di molto le possibili scelte del ricercatore. Inoltre, non è sempre sensato, dal punto di vista teorico, utilizzare tali distribuzioni per la stima dei parametri di interesse. Il mancato ricorso all'impiego delle distribuzioni a priori coniugate richiede necessariamente il computo dell'espressione a denominatore della formula di Bayes che solo in rare occasioni può essere ottenuta per via analitica. In altre parole, è possibile ottenere analiticamenre la distribuzione a posteriori solo per alcune specifiche combinazioni di distribuzioni a priori e verosimiglianza, il che limita considerevolmente la flessibilità della modellizzazione. Inoltre, i sommari della distribuzione a posteriori sono espressi come rapporto di integrali. Ad esempio, la media a posteriori di \(\theta\) è data da
+Leggiamo in \(\textsf{R}\) il dataset \texttt{kidiq}:
 
-\begin{equation}
-\mathbb{E}(\theta \mid y) = \frac{\int \theta p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}{\int p(y \mid \theta) p(\theta) \,\operatorname {d}\! \theta}.\notag
-\end{equation}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"rio"}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ rio}\SpecialCharTok{::}\FunctionTok{import}\NormalTok{(here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"kidiq.dta"}\NormalTok{))}
+\FunctionTok{head}\NormalTok{(df)}
+\CommentTok{\#\textgreater{}   kid\_score mom\_hs mom\_iq mom\_work mom\_age}
+\CommentTok{\#\textgreater{} 1        65      1 121.12        4      27}
+\CommentTok{\#\textgreater{} 2        98      1  89.36        4      25}
+\CommentTok{\#\textgreater{} 3        85      1 115.44        4      27}
+\CommentTok{\#\textgreater{} 4        83      1  99.45        3      25}
+\CommentTok{\#\textgreater{} 5       115      1  92.75        4      27}
+\CommentTok{\#\textgreater{} 6        98      0 107.90        1      18}
+\end{Highlighting}
+\end{Shaded}
 
-Il calcolo del valore atteso a posteriori richiede dunque il computo di due integrali, quello a denominatore e quello a numeratore dell'espressione, ciascuno dei quali non esprimibile in forma chiusa. Per questa ragione, la strada principale che viene seguita nella modellistica bayesiana è quella che porta a determinare la distribuzione a posteriori non per via analitica, ma bensì mediante metodi numerici. La simulazione fornisce dunque la strategia generale del calcolo bayesiano. A questo fine vengono principalmente usati i metodi di campionamento Monte Carlo basati su Catena di Markov (MCMC). Tali metodi costituiscono una potente e praticabile alternativa per la costruzione della distribuzione a posteriori per modelli complessi e consentono di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza dovere preoccuparsi di altri vincoli.
+Vogliamo descrivere l'associazione tra il QI dei figli e il QI delle madri mediante un modello lineare. Per farci un'idea del valore dei parametri, adattiamo il modello lineare ai dati mediante la procedura di massima verosimiglianza:
 
-Dato che è basata su metodi computazionalmente intensivi, la stima numerica della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è ora alla portata di tutti. Questo non era vero solo pochi decenni fa.
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(}\FunctionTok{lm}\NormalTok{(kid\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ mom\_iq, }\AttributeTok{data =}\NormalTok{ df))}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Call:}
+\CommentTok{\#\textgreater{} lm(formula = kid\_score \textasciitilde{} mom\_iq, data = df)}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Residuals:}
+\CommentTok{\#\textgreater{}    Min     1Q Median     3Q    Max }
+\CommentTok{\#\textgreater{} {-}56.75 {-}12.07   2.22  11.71  47.69 }
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Coefficients:}
+\CommentTok{\#\textgreater{}             Estimate Std. Error t value Pr(\textgreater{}|t|)    }
+\CommentTok{\#\textgreater{} (Intercept)  25.7998     5.9174    4.36  1.6e{-}05 ***}
+\CommentTok{\#\textgreater{} mom\_iq        0.6100     0.0585   10.42  \textless{} 2e{-}16 ***}
+\CommentTok{\#\textgreater{} {-}{-}{-}}
+\CommentTok{\#\textgreater{} Signif. codes:  }
+\CommentTok{\#\textgreater{} 0 \textquotesingle{}***\textquotesingle{} 0.001 \textquotesingle{}**\textquotesingle{} 0.01 \textquotesingle{}*\textquotesingle{} 0.05 \textquotesingle{}.\textquotesingle{} 0.1 \textquotesingle{} \textquotesingle{} 1}
+\CommentTok{\#\textgreater{} }
+\CommentTok{\#\textgreater{} Residual standard error: 18.3 on 432 degrees of freedom}
+\CommentTok{\#\textgreater{} Multiple R{-}squared:  0.201,  Adjusted R{-}squared:  0.199 }
+\CommentTok{\#\textgreater{} F{-}statistic:  109 on 1 and 432 DF,  p{-}value: \textless{}2e{-}16}
+\end{Highlighting}
+\end{Shaded}
 
-In questo Capitolo verranno presentati due metodi di simulazione iterativa\footnote{Si veda anche l'Appendice \ref{appendix:quadratic-approx}.} che consentono di generare dalle distribuzioni a posteriori campioni dei parametri del modello:
+Sulla base delle informazioni precedenti, giungiamo alla seguente formulazione bayesiana del modello lineare:
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{metodi basati su griglia:} dove, sebbene non sia disponibile alcuna formula algebrica in forma chiusa, le proprietà della distribuzione a posteriori possono essere calcolate con una precisione arbitraria;
-\item
-  \textbf{metodi Monte Carlo:} dove, utilizzando appropriate funzioni di numeri casuali, viene generato un ampio campione di casi della variabile casuale per poi stimare empiricamente la proprietà di interesse in base al campione così otttenuto.
-\end{itemize}
+\[
+\begin{aligned}
+y_i &\sim \mathcal{N}(\mu_i, \sigma) \\
+\mu_i &= \beta_0 + \beta_1 x_i \\
+\beta_0 &\sim \mathcal{N}(25, 10) \\
+\beta_1 &\sim \mathcal{N}(0, 1) \\
+\sigma &\sim \text{Cauchy}(18, 5) 
+\end{aligned}
+\]
 
-\hypertarget{metodo-basato-su-griglia}{%
-\section{Metodo basato su griglia}\label{metodo-basato-su-griglia}}
+La prima riga definisce la funzione di verosimiglianza e le righe successive definiscono le distribuzioni a priori dei parametri. Il segno \(\sim\) (tilde) si può leggere ``si distribuisce come''. La prima riga ci dice che ciascuna osservazione \(y_i\) è una variabile casuale che segue la distribuzione gaussiana di parametri \(\mu_i\) e \(\sigma\). La seconda riga specifica, in maniera deterministica, che ciascun \(\mu_i\) è una funzione lineare di \(x_i\), con parametri \(\beta_0\) e \(\beta_1\). Le due righe successive specificano le distribuzioni a priori per \(\beta_0\) e \(\beta_1\). La distribuzione a priori di \(\beta_0\) è una distribuzione gaussiana di parametri \(\mu_{\alpha} = 25\) e deviazione standard \(\sigma_{\alpha} = 10\); la distribuzione a priori di \(\beta_1\) è una distribuzione gaussiana standardizzata. L'ultima riga definisce la distribuzione a priori di \(\sigma\), ovvero una Cauchy di parametri 18 e 5.
 
-Il metodo basato su griglia (\emph{grid-based}) è un metodo numerico esatto basato su una griglia di punti uniformemente spaziati. Anche se la maggior parte dei parametri è continua (ovvero, in linea di principio ciascun parametro può assumere un numero infinito di valori), possiamo ottenere un'eccellente approssimazione della distribuzione a posteriori considerando solo una griglia finita di valori dei parametri. In un tale metodo, la densità di probabilità a posteriori può dunque essere approssimata tramite le densità di probabilità calcolate in ciascuna cella della griglia.
+Dobbiamo ora specificare il modello bayesiano descritto sopra in linguaggio Stan\footnote{Nella discussione che segue ripeto pari pari ciò che è riportato nel manuale del linguaggio \href{https://mc-stan.org/docs/2_27/stan-users-guide/standardizing-predictors-and-outputs.html}{Stan}.}. Il codice Stan viene eseguito più velocemente se l'input è standardizzato così da avere una media pari a zero e una varianza unitaria.\footnote{Si noti un punto importante. Il fatto di standardizzare i dati fa in modo che le distribuzioni a priori sui parametri vadano espresse sulla scala delle v.c. normali standardizzate. Se centriamo sullo 0 tali distribuzioni a priori, con una deviazione standard dell'ordine di grandezza dell'unità, i discorsi sull'arbitrarietà delle distribuzioni a priori perdono di significato: nel caso di dati standardizzati le distribuzioni a priori formulate come indicato sopra sono distribuzioni debolmente informative il cui unico scopo è la regolarizzazione dei dati, ovvero di mantenere le inferenze in una gamma ragionevole di valori. L'uso di distribuzioni a priori debolmente informative contribuisce nel contempo a limitare l'influenza eccessiva delle osservazioni estreme (valori anomali). Il punto importante qui è che tali distribuzioni a priori non introducono alcuna distorsione sistematica nella stima a posteriori.} Ponendo \(y = (y_1, \dots, y_n)\) e \(x = (x_1, \dots, x_n)\), il modello lineare può essere scritto come
 
-Il metodo basato su griglia si sviluppa in quattro fasi:
+\[
+y_i = \alpha + \beta x_i + \varepsilon_i,
+\]
 
-\begin{itemize}
-\tightlist
-\item
-  fissare una griglia discreta di possibili valori \(\theta\);
-\item
-  valutare la distribuzione a priori \(p(\theta)\) e la funzione di verosimiglianza \(p(y \mid \theta)\) in corrispondenza di ciascun valore \(\theta\) della griglia;
-\item
-  ottenere un'approssimazione discreta della densità a posteriori:
+dove
 
-  \begin{itemize}
-  \tightlist
-  \item
-    per ciascun valore \(\theta\) della griglia, calcolare il prodotto \(p(\theta) p(y \mid \theta)\);
-  \item
-    normalizzare i prodotti così ottenuti in modo tale che la loro somma sia 1;
-  \end{itemize}
-\item
-  selezionare \(N\) valori casuali della griglia in modo tale da ottenere un campione casuale delle densità a posteriori normalizzate.
-\end{itemize}
+\[
+\varepsilon_i \sim \mathcal{N}(0, \sigma).
+\]
 
-Possiamo migliorare l'approssimazione aumentando il numero di punti della griglia. Infatti utilizzando un numero infinito di punti si otterrebbe la descrizione esatta della distribuzione a posteriori, dovendo però pagare il costo dell'utilizzo di infinite risorse di calcolo. Il limite maggiore dell'approccio basato su griglia è che, al crescere della dimensionalità \(N\) dello spazio dei parametri, i punti della griglia necessari per avere una buona stima crescerebbero esponenzialmente con \(N\), rendendo questo metodo inattuabile.
+Seguendo la notazione del manuale Stan, i parametri del modello lineare sono qui denotati da \(\alpha\) e \(\beta\). Per eseguire la standardizzazione dei dati, è necessario centrare i dati, sottraendo da essi la media campionaria, per poi scalarli dividendo per la deviazione standard campionaria. Una singola osservazione \(u\) viene standardizzata dalla funzione \(z\) definita da
 
-\hypertarget{modello-beta-binomiale}{%
-\subsection{Modello Beta-Binomiale}\label{modello-beta-binomiale}}
+\[
+z_y(u) = \frac{u - \bar{y}}{\texttt{sd}(y)}
+\]
 
-Per fare un esempio, consideriamo lo schema beta-binomiale di cui conosciamo la soluzione esatta. Utilizziamo nuovamente i dati di \citet{zetschefuture2019}: 23 ``successi'' in 30 prove Bernoulliane indipendenti.\footnote{Nel presente esempio useremo lo stesso codice \(\R\) utilizzato da \citet{Johnson2022bayesrules}.} Imponiamo alla distribuzione a priori su \(\theta\) (probabilità di successo in una singola prova, laddove per ``successo'' si intende una aspettativa distorta negativamente dell'umore futuro) una \(\mbox{Beta}(2, 10)\) per descrivere la nostra incertezza sul parametro prima di avere osservato i dati. Dunque, il modello diventa:
+dove la media \(\bar{y}\) è
+
+\[
+\bar{y} = \frac{1}{n} \sum_{i=1}^n y_i,
+\] e la deviazione standard è
+
+\[
+\texttt{sd} = \left(\frac{1}{n}\sum_{i=1}^n(y_i - \bar{y})^2\right)^{-\frac{1}{2}}.
+\]
+
+La trasformata inversa è definita invertendo i due passaggi precedenti: la deviazione standard è usata per scalare i valori \(u\) e la media campionaria è usata per traslare la distribuzione dei valori \(u\) scalati:
+
+\[
+z_y^{-1}(u) = \texttt{sd}(y)u + \bar{y}.
+\]
+
+Consideriamo il seguente modello iniziale in linguaggio Stan:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelString }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{data \{}
+\StringTok{  int\textless{}lower=0\textgreater{} N;}
+\StringTok{  vector[N] y;}
+\StringTok{  vector[N] x;}
+\StringTok{\}}
+\StringTok{parameters \{}
+\StringTok{  real alpha;}
+\StringTok{  real beta;}
+\StringTok{  real\textless{}lower=0\textgreater{} sigma;}
+\StringTok{\}}
+\StringTok{model \{}
+\StringTok{  // priors}
+\StringTok{  alpha \textasciitilde{} normal(25, 10);}
+\StringTok{  beta \textasciitilde{} normal(0, 1);}
+\StringTok{  sigma \textasciitilde{} cauchy(18, 5);}
+\StringTok{  // likelihood}
+\StringTok{  for (n in 1:N)}
+\StringTok{    y[n] \textasciitilde{} normal(alpha + beta * x[n], sigma);}
+\StringTok{\}}
+\StringTok{"}
+\FunctionTok{writeLines}\NormalTok{(modelString, }\AttributeTok{con =} \StringTok{"code/simpleregkidiq.stan"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+La funzione \texttt{modelString()} registra una stringa di testo mentre \texttt{writeLines()} crea un file nell'indirizzo specificato. Tale file deve avere l'estensione \texttt{.stan}.
+
+Modificando il codice precedente otteniamo il modello Stan per dati standardizzati. Il blocco \texttt{data} è identico a quello del caso precedente. I predittori e la risposta standardizzati sono definiti nel blocco \texttt{transformed\ data}. Per semplificare la notazione (e velocizzare l'esecuzione), nel blocco \texttt{model} l'istruzione di campionamento è espressa in forma vettorializzata: \texttt{y\_std\ \textasciitilde{}\ normal(alpha\_std\ +\ beta\_std\ *\ x\_std,\ sigma\_std);}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelString }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{data \{}
+\StringTok{  int\textless{}lower=0\textgreater{} N;}
+\StringTok{  vector[N] y;}
+\StringTok{  vector[N] x;}
+\StringTok{\}}
+\StringTok{transformed data \{}
+\StringTok{  vector[N] x\_std;}
+\StringTok{  vector[N] y\_std;}
+\StringTok{  x\_std = (x {-} mean(x)) / sd(x);}
+\StringTok{  y\_std = (y {-} mean(y)) / sd(y);}
+\StringTok{\}}
+\StringTok{parameters \{}
+\StringTok{  real alpha\_std;}
+\StringTok{  real beta\_std;}
+\StringTok{  real\textless{}lower=0\textgreater{} sigma\_std;}
+\StringTok{\}}
+\StringTok{transformed parameters \{}
+\StringTok{  vector[N] mu\_std = alpha\_std + beta\_std * x\_std;}
+\StringTok{\}}
+\StringTok{model \{}
+\StringTok{  alpha\_std \textasciitilde{} normal(0, 1);}
+\StringTok{  beta\_std \textasciitilde{} normal(0, 1);}
+\StringTok{  sigma\_std \textasciitilde{} normal(0, 1);}
+\StringTok{  y\_std \textasciitilde{} normal(mu\_std, sigma\_std);}
+\StringTok{\}}
+\StringTok{generated quantities \{}
+\StringTok{  // transform to the original data scale}
+\StringTok{  real alpha;}
+\StringTok{  real beta;}
+\StringTok{  real\textless{}lower=0\textgreater{} sigma;}
+\StringTok{  alpha = sd(y) * (alpha\_std {-} beta\_std * mean(x) / sd(x)) + mean(y);}
+\StringTok{  beta = beta\_std * sd(y) / sd(x);}
+\StringTok{  sigma = sd(y) * sigma\_std;}
+\StringTok{\}}
+\StringTok{"}
+\FunctionTok{writeLines}\NormalTok{(modelString, }\AttributeTok{con =} \StringTok{"code/simpleregstd.stan"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Si noti che i parametri vengono rinominati per indicare che non sono i parametri ``naturali'', ma per il resto il modello è identico. Sono qui utilizzate distribuzioni a priori debolmente informative per i parametri \texttt{alpha} e \texttt{beta}.
+
+I valori dei parametri sulla scala originale dei dati vengono calcolati nel blocco \texttt{generated\ quantities} e possono essere recuperati con un po' di algebra.
 
 \begin{align}
-Y \mid \theta & \sim \mbox{Bin}(n = 30, \theta), \notag\\
-\theta & \sim \mbox{Beta}(2, 10).\notag
+y_n &= \textrm{z}_y^{-1}(\textrm{z}_y(y_n)) \notag\\
+    &= \textrm{z}_y^{-1}
+\left( \alpha' + \beta' \textrm{z}_x(x_n) + \epsilon_n' \right) \notag\\
+    &= \textrm{z}_y^{-1}
+\left( \alpha' + \beta' \left( \frac{x_n - \bar{x}}{\texttt{sd}(x)} \right) + \epsilon_n' \right) \notag\\
+    &= \texttt{sd}(y)
+\left( \alpha' + \beta' \left( \frac{x_n - \bar{x}}{\texttt{sd}(x)} \right) + \epsilon_n' \right) + \bar{y} \notag\\
+    &=
+\left( \texttt{sd}(y) \left( \alpha' - \beta' \frac{\bar{x}}{\texttt{sd}(x)} \right) + \bar{y} \right)
++ \left( \beta' \frac{\texttt{sd}(y)}{\texttt{sd}(x)} \right) x_n
++ \texttt{sd}(y) \epsilon'_n,
 \end{align}
 
-In queste circostanze, l'aggiornamento bayesiano produce una distribuzione a posteriori Beta di parametri 25 (\(y + \alpha\) = 23 + 2) e 17 (\(n - y + \beta\) = 30 - 23 + 10):
+da cui
 
-\begin{equation}
-\theta \mid (y = 23) \sim \mbox{Beta}(25, 17).\notag
-\end{equation}
+\[
+\alpha
+=
+\texttt{sd}(y)
+      \left(
+          \alpha'
+          - \beta' \frac{\bar{x}}{\texttt{sd}(x)}
+      \right)
+  + \bar{y};
+\qquad
+\beta = \beta' \frac{\texttt{sd}(y)}{\texttt{sd}(x)};
+\qquad
+\sigma = \texttt{sd}(y) \sigma'.
+\]
 
-Per approssimare la distribuzione a posteriori, fissiamo una griglia di \(n = 11\) valori equispaziati: \(\theta \in \{0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1\}\):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{grid\_data }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{theta\_grid =} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{0}\NormalTok{, }\AttributeTok{to =} \DecValTok{1}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{11}\NormalTok{)}
-\NormalTok{)}
-\NormalTok{grid\_data}
-\CommentTok{\#\textgreater{} \# A tibble: 11 x 1}
-\CommentTok{\#\textgreater{}   theta\_grid}
-\CommentTok{\#\textgreater{}        \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1        0  }
-\CommentTok{\#\textgreater{} 2        0.1}
-\CommentTok{\#\textgreater{} 3        0.2}
-\CommentTok{\#\textgreater{} 4        0.3}
-\CommentTok{\#\textgreater{} 5        0.4}
-\CommentTok{\#\textgreater{} 6        0.5}
-\CommentTok{\#\textgreater{} 7        0.6}
-\CommentTok{\#\textgreater{} 8        0.7}
-\CommentTok{\#\textgreater{} \# ... with 3 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-In corrispondenza di ciascun valore della griglia, valutiamo la distribuzione a priori \(\mbox{Beta}(2, 10)\) e la verosimiglianza \(\mbox{Bin}(y = 23, n = 30)\).
+Per svolgere l'analisi bayesiana sistemiamo i dati nel formato appropriato per Stan:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{grid\_data }\OtherTok{\textless{}{-}}\NormalTok{ grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{prior =} \FunctionTok{dbeta}\NormalTok{(theta\_grid, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-    \AttributeTok{likelihood =} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, theta\_grid)}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-In ciascuna cella della griglia calcoliamo poi il prodotto della verosimiglianza e della distribuzione a priori. Troviamo così un'approssimazione discreta e non normalizzata della distribuzione a posteriori (\texttt{unnormalized}). Normalizziamo questa approssimazione dividendo ciascun valore \texttt{unnormalized} per la somma di tutti i valori del vettore:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{grid\_data }\OtherTok{\textless{}{-}}\NormalTok{ grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{unnormalized =}\NormalTok{ likelihood }\SpecialCharTok{*}\NormalTok{ prior,}
-    \AttributeTok{posterior =}\NormalTok{ unnormalized }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(unnormalized)}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-Verifichiamo:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarize}\NormalTok{(}
-    \FunctionTok{sum}\NormalTok{(unnormalized),}
-    \FunctionTok{sum}\NormalTok{(posterior)}
-\NormalTok{  )}
-\CommentTok{\#\textgreater{} \# A tibble: 1 x 2}
-\CommentTok{\#\textgreater{}   \textasciigrave{}sum(unnormalized)\textasciigrave{} \textasciigrave{}sum(posterior)\textasciigrave{}}
-\CommentTok{\#\textgreater{}                 \textless{}dbl\textgreater{}            \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1            0.000869                1}
-\end{Highlighting}
-\end{Shaded}
-
-Abbiamo dunque ottenuto la seguente distribuzione a posteriori discretizzata \(p(\theta \mid y)\):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{round}\NormalTok{(grid\_data, }\DecValTok{2}\NormalTok{)}
-\CommentTok{\#\textgreater{} \# A tibble: 11 x 5}
-\CommentTok{\#\textgreater{}   theta\_grid prior likelihood unnormalized posterior}
-\CommentTok{\#\textgreater{}        \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}      \textless{}dbl\textgreater{}        \textless{}dbl\textgreater{}     \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1        0    0          0               0      0   }
-\CommentTok{\#\textgreater{} 2        0.1  4.26       0               0      0   }
-\CommentTok{\#\textgreater{} 3        0.2  2.95       0               0      0   }
-\CommentTok{\#\textgreater{} 4        0.3  1.33       0               0      0   }
-\CommentTok{\#\textgreater{} 5        0.4  0.44       0               0      0.02}
-\CommentTok{\#\textgreater{} 6        0.5  0.11       0               0      0.23}
-\CommentTok{\#\textgreater{} 7        0.6  0.02       0.03            0      0.52}
-\CommentTok{\#\textgreater{} 8        0.7  0          0.12            0      0.21}
-\CommentTok{\#\textgreater{} \# ... with 3 more rows}
-\end{Highlighting}
-\end{Shaded}
-
-La figura \ref{fig:grid-method-6points-posterior-plot} mostra un grafico della distribuzione a posteriori discretizzata così ottenuta:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}
-    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta\_grid, }\AttributeTok{y =}\NormalTok{ posterior)}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_segment}\NormalTok{(}
-    \FunctionTok{aes}\NormalTok{(}
-      \AttributeTok{x =}\NormalTok{ theta\_grid,}
-      \AttributeTok{xend =}\NormalTok{ theta\_grid,}
-      \AttributeTok{y =} \DecValTok{0}\NormalTok{,}
-      \AttributeTok{yend =}\NormalTok{ posterior}
-\NormalTok{    )}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/grid-method-6points-posterior-plot-1} 
-
-}
-
-\caption{Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di solo $n$ = 11 punti.}\label{fig:grid-method-6points-posterior-plot}
-\end{figure}
-
-L'ultimo passo della simulazione è il campionamento dalla distribuzione a posteriori discretizzata:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{84735}\NormalTok{)}
-\NormalTok{post\_sample }\OtherTok{\textless{}{-}} \FunctionTok{sample\_n}\NormalTok{(}
-\NormalTok{  grid\_data,}
-  \AttributeTok{size =} \FloatTok{1e5}\NormalTok{,}
-  \AttributeTok{weight =}\NormalTok{ posterior,}
-  \AttributeTok{replace =} \ConstantTok{TRUE}
+\NormalTok{data\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{N =} \FunctionTok{length}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{kid\_score),}
+  \AttributeTok{y =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{kid\_score,}
+  \AttributeTok{x =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{mom\_iq}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-La figura \ref{fig:grid-method-6points-posterior-plot-sampling} mostra che, con una griglia così sparsa abbiamo ottenuto una versione approssimata della vera distribuzione a posteriori (all'istogramma è stata sovrapposta l'esatta distribuzione a posteriori \(\mbox{Beta}(25, 17)\)).
+La funzione \texttt{file.path()} ritorna l'indirizzo del file con il codice Stan:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(post\_sample, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta\_grid)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ ..density..), }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dbeta, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\DecValTok{25}\NormalTok{, }\DecValTok{17}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{lims}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{file }\OtherTok{\textless{}{-}} \FunctionTok{file.path}\NormalTok{(}\StringTok{"code"}\NormalTok{, }\StringTok{"simpleregstd.stan"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/grid-method-6points-posterior-plot-sampling-1} 
-
-}
-
-\caption{Campionamento dalla  distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di solo $n$ = 11 punti.}\label{fig:grid-method-6points-posterior-plot-sampling}
-\end{figure}
-
-Possiamo ottenere un risultato migliore con una griglia più fine, come indicato nella figura \ref{fig:grid-method-100points-posterior-plot-sampling}:
+Il codice Stan può essere stampato usando il metodo \texttt{\$print()}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{grid\_data }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{theta\_grid =} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =} \DecValTok{0}\NormalTok{, }\AttributeTok{to =} \DecValTok{1}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{100}\NormalTok{)}
-\NormalTok{)}
-\NormalTok{grid\_data }\OtherTok{\textless{}{-}}\NormalTok{ grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{prior =} \FunctionTok{dbeta}\NormalTok{(theta\_grid, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{),}
-    \AttributeTok{likelihood =} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, theta\_grid)}
-\NormalTok{  )}
-\NormalTok{grid\_data }\OtherTok{\textless{}{-}}\NormalTok{ grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{unnormalized =}\NormalTok{ likelihood }\SpecialCharTok{*}\NormalTok{ prior,}
-    \AttributeTok{posterior =}\NormalTok{ unnormalized }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(unnormalized)}
-\NormalTok{  )}
-\NormalTok{grid\_data }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}
-    \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta\_grid, }\AttributeTok{y =}\NormalTok{ posterior)}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{geom\_segment}\NormalTok{(}
-    \FunctionTok{aes}\NormalTok{(}
-      \AttributeTok{x =}\NormalTok{ theta\_grid,}
-      \AttributeTok{xend =}\NormalTok{ theta\_grid,}
-      \AttributeTok{y =} \DecValTok{0}\NormalTok{,}
-      \AttributeTok{yend =}\NormalTok{ posterior}
-\NormalTok{    )}
-\NormalTok{  )}
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{print}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/grid-method-100points-posterior-plot-sampling-1} 
-
-}
-
-\caption{Distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di $n$ = 100 punti.}\label{fig:grid-method-100points-posterior-plot-sampling}
-\end{figure}
-
-Campioniamo ora 10000 punti:
+Prendendo come input un file contenente un programma Stan, la funzione \texttt{cmdstan\_model()} ritorna un oggetto di classe \texttt{CmdStanModel}. In pratica, \texttt{CmdStan} traduce un programma Stan in C++ e crea un eseguibile compilato.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Set the seed}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{84735}\NormalTok{)}
-\NormalTok{post\_sample }\OtherTok{\textless{}{-}} \FunctionTok{sample\_n}\NormalTok{(}
-\NormalTok{  grid\_data,}
-  \AttributeTok{size =} \FloatTok{1e4}\NormalTok{,}
-  \AttributeTok{weight =}\NormalTok{ posterior,}
-  \AttributeTok{replace =} \ConstantTok{TRUE}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cmdstan\_model}\NormalTok{(file)}
+\end{Highlighting}
+\end{Shaded}
+
+L'indirizzo dell'eseguibile compilato viene ritornato da \texttt{\$exe\_file()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod}\SpecialCharTok{$}\FunctionTok{exe\_file}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+Applicando il metodo \texttt{\$sample()} ad un oggetto \texttt{CmdStanModel} eseguiamo il campionamento MCMC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit }\OtherTok{\textless{}{-}}\NormalTok{ mod}\SpecialCharTok{$}\FunctionTok{sample}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ data\_list,}
+  \AttributeTok{iter\_sampling =}\NormalTok{ 4000L,}
+  \AttributeTok{iter\_warmup =}\NormalTok{ 2000L,}
+  \AttributeTok{seed =}\NormalTok{ SEED,}
+  \AttributeTok{chains =}\NormalTok{ 4L,}
+  \AttributeTok{parallel\_chains =}\NormalTok{ 2L,}
+  \AttributeTok{refresh =} \DecValTok{0}\NormalTok{,}
+  \AttributeTok{thin =} \DecValTok{1}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-Con il campionamento dalla distribuzione a posteriori discretizzata costruita mediante una griglia più densa (\(n = 100\)) otteniamo un risultato soddisfacente (figura \ref{fig:grid-method-100points-posterior-plot-and-correct-posterior}): ora la distribuzione dei valori prodotti dalla simulazione approssima molto bene la corretta distribuzione a posteriori \(p(\theta \mid y) = \mbox{Beta}(25, 17)\).
+Al metodo \texttt{\$sample()} possono essere passati molti argomenti. La pagina di documentazione è disponibile al seguente \href{https://mc-stan.org/cmdstanr/reference/model-method-sample.html}{link}.
+
+Un sommario della distribuzione a posteriori per i parametri stimati si ottiene con il metodo \texttt{\$summary()}, il quale chiama la funzione \texttt{summarise\_draws()} del pacchetto \texttt{posterior}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{post\_sample }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta\_grid)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{(}
-    \FunctionTok{aes}\NormalTok{(}\AttributeTok{y =}\NormalTok{ ..density..),}
-    \AttributeTok{color =} \StringTok{"white"}\NormalTok{,}
-    \AttributeTok{bins =} \DecValTok{50}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{stat\_function}\NormalTok{(}\AttributeTok{fun =}\NormalTok{ dbeta, }\AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\DecValTok{25}\NormalTok{, }\DecValTok{17}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{lims}\NormalTok{(}\AttributeTok{x =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{fit}\SpecialCharTok{$}\FunctionTok{summary}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"alpha"}\NormalTok{, }\StringTok{"beta"}\NormalTok{, }\StringTok{"sigma"}\NormalTok{))}
+\CommentTok{\#\textgreater{} \# A tibble: 3 x 10}
+\CommentTok{\#\textgreater{}   variable   mean median     sd    mad     q5    q95}
+\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}     \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 alpha    25.9   25.8   6.02   6.02   16.0   35.8  }
+\CommentTok{\#\textgreater{} 2 beta      0.609  0.609 0.0596 0.0603  0.511  0.707}
+\CommentTok{\#\textgreater{} 3 sigma    18.3   18.3   0.634  0.644  17.3   19.4  }
+\CommentTok{\#\textgreater{} \# ... with 3 more variables: rhat \textless{}dbl\textgreater{},}
+\CommentTok{\#\textgreater{} \#   ess\_bulk \textless{}dbl\textgreater{}, ess\_tail \textless{}dbl\textgreater{}}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
+Da questo output possiamo valutare rapidamente la convergenza del modello osservando i valori di Rhat per ciascun parametro. Quando questi sono pari o vicini a 1, le catene hanno realizzato la convergenza. Ci sono molti altri test diagnostici, ma questo test è importante per Stan. Oppure è possibile usare:
 
-{\centering \includegraphics{ds4psy_files/figure-latex/grid-method-100points-posterior-plot-and-correct-posterior-1} 
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit}\SpecialCharTok{$}\FunctionTok{cmdstan\_summary}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-}
+Le statistiche diagnostiche sono fornite dal metodo \texttt{\$cmdstan\_diagnose()}:
 
-\caption{Campionamento dalla  distribuzione a posteriori discretizzata ottenuta con il metodo grid-based per $y$ = 23 successi in 30 prove Bernoulliane, con distribuzione a priori $\mbox{Beta}(2, 10)$. È stata utilizzata una griglia di $n$ = 100 punti. All'istogramma è stata sovrapposta la corretta distribuzione a posteriori, ovvero la densità $\mbox{Beta}(25, 17)$.}\label{fig:grid-method-100points-posterior-plot-and-correct-posterior}
-\end{figure}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit}\SpecialCharTok{$}\FunctionTok{cmdstan\_diagnose}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
 
-In conclusione, il metodo basato su griglia è molto intuitivo e non richiede particolari competenze di programmazione per essere implementato. Inoltre, fornisce un risultato che, per tutti gli scopi pratici, può essere considerato come un campione casuale estratto da \(p(\theta \mid y)\). Tuttavia, anche se tale metodo fornisce risultati accuratissimi, esso ha un uso limitato. A causa della \emph{maledizione della dimensionalità}\footnote{Per capire cosa sia la maledizione della dimensionalità, supponiamo di utilizzare una griglia di 100 punti equispaziati. Nel caso di un solo parametro, è necessario calcolare 100 valori. Per due parametri devono essere calcolari \(100^2\) valori. Ma già per 10 parametri è necessario calcolare \(10^{10}\) valori -- è facile capire che una tale quantità di calcoli è troppo grande anche per un computer molto potente. Per modelli che richiedono la stima di un numero non piccolo di parametri è dunque necessario procedere in un altro modo.}, tale metodo può solo essere solo nel caso di semplici modelli statistici, con non più di due parametri. Nella pratica concreta tale metodo viene dunque sostituito da altre tecniche più efficienti in quanto, anche nei più comuni modelli utilizzati in psicologia, vengono solitamente stimati centinaia se non migliaia di parametri.
+È possibile creare un oggetto di classe \texttt{stanfit}
 
-\hypertarget{chapter-simulazioneMC}{%
-\section{Metodo Monte Carlo}\label{chapter-simulazioneMC}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stanfit }\OtherTok{\textless{}{-}}\NormalTok{ rstan}\SpecialCharTok{::}\FunctionTok{read\_stan\_csv}\NormalTok{(fit}\SpecialCharTok{$}\FunctionTok{output\_files}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
 
-I metodi più ampiamente adottati nell'analisi bayesiana per la costruzione della distribuzione a posteriori per modelli complessi sono i metodi di campionamento MCMC. Tali metodi consentono al ricercatore di decidere quali distribuzioni a priori e quali distribuzioni di verosimiglianza usare sulla base di considerazioni teoriche soltanto, senza doversi preoccupare di altri vincoli. Dato che è basata su metodi computazionalmente intensivi, la stima numerica MCMC della funzione a posteriori può essere svolta soltanto mediante software. In anni recenti i metodi Bayesiani di analisi dei dati sono diventati sempre più popolari proprio perché la potenza di calcolo necessaria per svolgere tali calcoli è ora alla portata di tutti. Questo non era vero solo pochi decenni fa.
+per poi utilizzare le funzioni del pacchetto \texttt{bayesplot}. Ad esempio:
 
-\hypertarget{integration-mc}{%
-\subsection{Integrazione di Monte Carlo}\label{integration-mc}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stanfit }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mcmc\_trace}\NormalTok{(}\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"alpha"}\NormalTok{, }\StringTok{"beta"}\NormalTok{, }\StringTok{"sigma"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
-Il termine Monte Carlo si riferisce al fatto che la computazione fa ricorso ad un ripetuto campionamento casuale attraverso la generazione di sequenze di numeri casuali. Una delle sue applicazioni più potenti è il calcolo degli integrali mediante simulazione numerica. Supponiamo di essere in grado di estrarre campioni casuali dalla distribuzione continua \(p(\theta \mid y)\) di media \(\mu\). Se possiamo ottenere una sequenza di realizzazioni indipendenti
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-17-1} \end{center}
 
-\[
-\theta^{(1)}, \theta^{(2)},\dots, \theta^{(T)} \overset{\text{iid}}{\sim} p(\theta \mid y)
-\]
+Infine, eseguendo la funzione \texttt{launch\_shinystan(fit)}, è possibile analizzare oggetti di classe \texttt{stanfit} mediante le funzionalità del pacchetto \texttt{ShinyStan}.
 
-allora diventa possibile calcolare
+\hypertarget{interpretazione-dei-parametri}{%
+\section{Interpretazione dei parametri}\label{interpretazione-dei-parametri}}
 
-\[
-\E(\theta \mid y) = \int \theta p(\theta \mid y) \,\operatorname {d}\!\theta \approx \frac{1}{T} \sum_{i=1}^T \theta^{(t)}.
-\]
-
-In altre parole, l'aspettazione teorica di \(\theta\) può essere approssimata dalla media campionaria di un insieme di realizzazioni indipendenti ricavate da \(p(\theta \mid y)\). Per la Legge Forte dei Grandi Numeri, l'approssimazione diventa arbitrariamente esatta per \(T \rightarrow \infty\).\footnote{L'integrazione Monte Carlo può essere utilizzata anche per la valutazione di integrali più complessi.}
-
-Quello che è stato detto sopra non è altro che un modo sofisticato per dire che, se vogliamo calcolare un'approssimazione del valore atteso di una variabile casuale, non dobbiamo fare altro che la media aritmetica di un grande numero di realizzazioni indipendenti della variabile casuale. Come è facile intuire, l'approssimazione migliora al crescere del numero di dati che abbiamo a disposizione.
-
-Un'altra importante funzione di \(\theta\) è la funzione indicatore, \(I(l < \theta < u)\), che assume valore 1 se \(\theta\) giace nell'intervallo \((l, u)\) e 0 altrimenti. Il valore di aspettazione di \(I(l < \theta < u)\) rispetto a \(p(\theta)\) dà la probabilità che \(\theta\) rientri nell'intervallo specificato, \(Pr(l < \theta < u)\), e può essere approssimato usando l'integrazione Monte Carlo, ovvero prendendo la media campionaria del valore della funzione indicatore per ogni realizzazione \(\theta^{(t)}\). È semplice vedere come
-
-\[
-Pr(l < \theta < u) \approx \frac{\text{numero di realizzazioni } \theta^{(t)} \in (l, u)}{T}.
-\]
-
-Presentiamo qui l'integrazione di Monte Carlo perché, nell'analisi bayesiana, il metodo Monte Carlo viene usato per ottenere un'approssimazione della distribuzione a posteriori, quando tale distribuzione non può essere calcolata con metodi analitici. In altre parole, il metodo Monte Carlo consente di ottenere un gran numero di valori \(\theta\) che, nelle circostanze ideali, avrà una distribuzione identica alla distribuzione a posteriori \(p(\theta \mid y)\).
-
-\hypertarget{descrizione-intuitiva}{%
-\subsection{Descrizione intuitiva}\label{descrizione-intuitiva}}
-
-Se la funzione di densità \(p(\theta \mid y)\) è conosciuta, è facile ottenere una sequenza di realizzazioni \emph{iid} della variabile casuale, per esempio, usando \(\textsf{R}\). Ma ora supponiamo di non conoscere \(p(\theta \mid y)\). Quello che vogliamo fare è ottenere comunque una sequenza di valori \(\theta\). Anche se tali valori non saranno \emph{iid}, per qualunque coppia di valori \(\theta_a\) e \(\theta_b\) nella sequenza vogliamo che sia soddisfatto il seguente vincolo:
-
-\[
-\frac{\#\theta'\text{ nella sequenza} = \theta_a}{\#\theta'\text{ nella sequenza} = \theta_b} \approx \frac{p(\theta_a \mid y)}{p(\theta_b \mid y)}.
-\]
-
-L'algoritmo di Metropolis ci consente di ottenere una tale sequenza di valori, la cui distribuzione sarà dunque uguale a \(p(\theta \mid y)\). In forma intuitiva, l'algoritmo di Metropolis può essere descritto come indicato di seguito.
+Assegnamo ai parametri la seguente interpretazione.
 
 \begin{itemize}
 \item
-  Data una sequenza di valori \(\{\theta^{(1)}, \theta^{(2)},\dots, \theta^{(t)}\}\), ci poniamo il problema di aggiungere un nuovo valore \(\theta^{t+1}\) alla sequenza.
+  L'intercetta pari a 25.9 indica il QI medio dei bamini la cui madre ha un QI = 0. Ovviamente questo non ha alcun significato. Vedremo nel modello successivo come trasformare il modello in modo da potere assegnare all'intercetta un'interpretazione sensata.
 \item
-  Consideriamo un valore \(\theta^*\) simile a \(\theta^{(t)}\); ci chiediamo se dobbiamo inserire un tale valore nella sequenza oppure no.
+  La pendenza di 0.61 indica che, all'aumentare di un punto del QI delle madri, il QI medio dei loro bambini aumenta di 0.61 unità. Se consideriamo la gamma di variazione del QI delle madri nel campione, il QI medio dei bambini cambia di 41 punti. Questo indica un sostanziale effetto del QI delle madri sul QI dei loro bambini: \((138.89 - 71.04) * 0.61 = 41.39\).
 \item
-  Se \(p(\theta^* \mid y) > p(\theta^{(t)} \mid y)\), allora sicuramente lo dobbiamo aggiungere alla sequenza perché, nella sequenza, il numero di valori \(\theta^*\) deve essere maggiore del numero dei valori \(\theta^{(t)}\).
-\item
-  Se invece \(p(\theta^* \mid y) < p(\theta^{(t)} \mid y)\), allora non dobbiamo necessariamente aggiungere \(\theta^*\) alla sequenza.
-\item
-  La decisione di aggiungere o no \(\theta^*\) alla sequenza dipenderà dal confronto tra \(p(\theta^* \mid y)\) e \(p(\theta^{(t)} \mid y)\).
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Calcoliamo il rapporto
-  \end{itemize}
-
-  \[
-  r = \frac{p(\theta^* \mid y)}{p(\theta^{(t)} \mid y)} = \frac{p(y \mid \theta^*) p(\theta^*)}{p(y \mid p(\theta^{(t)}) p(p(\theta^{(t)})}.
-  \]
-\item
-  Se \(r > 1\), accettiamo \(\theta^*\) e lo aggiungiamo alla sequenza: \(\theta^{(t+1)} = \theta^*\), in quanto \(\theta^{(t)}\) è già presente nella sequenza e \(\theta^*\) ha una probabilità maggiore di \(\theta^{(t)}\).
-\item
-  Se \(r < 1\), per ciasuna istanza di \(\theta^{(t)}\), accettiamo \(\theta^*\) solo una frazione di volte uguale a
-
-  \[\frac{p(\theta^* \mid y)}{p(\theta^{(t)} \mid y)}\]
+  Il parametro \(\sigma\) = 18.3 fornisce una stima della dispersione delle osservazioni attorno al valore predetto dal modello lineare, ovvero fornisce una stima della deviazione standard dei residui attorno al valore atteso del modello lineare.
 \end{itemize}
 
-in quanto la frequenza relativa dei valori \(\theta^{(t)}\) e \(\theta^*\) nella sequenza deve essere uguale al rapporto precedente. Per ottenere questo risultato, poniamo \(\theta^{(t+1)}\) uguale a \(\theta^*\) o \(\theta^{(t)}\) con probabilità rispettivamente uguali a \(r\) o \(1 - r\).
+\hypertarget{centrare-i-predittori}{%
+\subsection{Centrare i predittori}\label{centrare-i-predittori}}
 
-Questa è l'intuizione che sta alla base dell'algoritmo di \citet{metropolist_etal_1953}.
-
-\hypertarget{unapplicazione-empirica-3}{%
-\subsection{Un'applicazione empirica}\label{unapplicazione-empirica-3}}
-
-Poniamoci ora il problema di usare l'algoritmo di Metropolis per calcolare la distribuzione a posteriori di una proporzione \(\theta\). Usiamo nuovamente i dati di \citet{zetschefuture2019} (ovvero, 23 ``successi'' in 30 prove Bernoulliane) e, per rendere il problema più interessante, assumiamo per \(\theta\) una distribuzione a priori \(\mbox{Beta}(2, 10)\). Sappiamo che, in tali circostanze, la distribuzione a posteriori può essere ottenuta analiticamente tramite lo schema beta-binomiale ed è una \(\mbox{Beta}(25, 17)\). Se vogliamo il valore della media a posteriori di \(\theta\), il risultato esatto è dunque
-
-\[
-\bar{\theta}_{post} = \frac{\alpha}{\alpha + \beta} = \frac{25}{25 + 17} \approx 0.5952.
-\]
-
-È anche possibile ottenere il valore della media a posteriori per via numerica. Sapendo che la distribuzione a posteriori è una \(\mbox{Beta}(25, 17)\), possiamo estrarre un campione di osservazioni da una tale distribuzione e calcolare la media. Con poche osservazioni (diciamo 10) otteniamo un risultato molto approssimato
+Per migliorare l'interpretazione dell'intercetta possiamo ``centrare'' la \(x\), ovvero esprimere la \(x\) nei termini degli scarti dalla media: \(x - \bar{x}\). In tali circostanze, la pendenza della retta specificata dal modello lineare resta immutata, ma l'intercetta corrisponde a \(\E(y \mid x = \bar{x})\). Per ottenere questo risultato, modifichiamo i dati da passare a Stan:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{84735}\NormalTok{)}
-\FunctionTok{print}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{rbeta}\NormalTok{(}\FloatTok{1e2}\NormalTok{, }\AttributeTok{shape1 =} \DecValTok{25}\NormalTok{, }\AttributeTok{shape2 =} \DecValTok{17}\NormalTok{)), }\DecValTok{6}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 0.584251}
-\end{Highlighting}
-\end{Shaded}
-
-ma, per la legge dei grandi numeri, l'approssimazione migliora all'aumentare del numero di osservazioni:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{print}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{rbeta}\NormalTok{(}\FloatTok{1e4}\NormalTok{, }\AttributeTok{shape1 =} \DecValTok{25}\NormalTok{, }\AttributeTok{shape2 =} \DecValTok{17}\NormalTok{)), }\DecValTok{6}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 0.595492}
-\FunctionTok{print}\NormalTok{(}\FunctionTok{mean}\NormalTok{(}\FunctionTok{rbeta}\NormalTok{(}\FloatTok{1e6}\NormalTok{, }\AttributeTok{shape1 =} \DecValTok{25}\NormalTok{, }\AttributeTok{shape2 =} \DecValTok{17}\NormalTok{)), }\DecValTok{6}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 0.595192}
-\end{Highlighting}
-\end{Shaded}
-
-Lo stesso si può dire delle altre statistiche descrittive: moda, varianza, eccetera.
-
-Nel presente esempio, la simulazione Monte Carlo produce il risultato desiderato perché
-
-\begin{itemize}
-\tightlist
-\item
-  sappiamo che la distribuzione a posteriori è una \(\mbox{Beta}(25, 17)\),
-\item
-  è possibile usare le funzioni \(\R\) per estrarre campioni casuali da una tale distribuzione.
-\end{itemize}
-
-Tuttavia, capita raramente di usare una distribuzione a priori coniugata alla verosimiglianza. Quindi, in generale, le due condizioni descritte sopra non si applicano. Ad esempio, nel caso di una verosimiglianza binomiale e di una distribuzione a priori gaussiana, la distribuzione a posteriori di \(\theta\) è
-
-\[
-p(\theta \mid y) = \frac{\mathrm{e}^{-(\theta - 1 / 2)^2} \theta^y (1 - \theta)^{n - y}} {\int_0^1 \mathrm{e}^{-(t - 1 / 2)^2} t^y (1 - t)^{n - y} dt}.
-\]
-
-Una tale distribuzione non è implementata in \(\R\) e dunque non possiamo ottenere dei campioni casuali da una tale distribuzione.
-
-In tali circostanze, però, è ancora possibile ottenere ottenere un campione causale dalla distribuzione a posteriori in un altro modo. Questo risultato si ottiene utilizzando i metodi Monte Carlo basati su Catena di Markov (MCMC). I metodi MCMC, di cui l'algoritmo di Metropolis è un caso particolare e ne rappresenta il primo esempio, sono una classe di algoritmi che consentono di ottenere campioni casuali da una distribuzione a posteriori \emph{senza dovere conoscere la rappresentazione analitica di una tale distribuzione}.\footnote{In termini più formali, si può dire che i metodi MCMC consentono di costruire sequenze di punti (detti catene di Markov) nello spazio dei parametri le cui densità sono proporzionali alla distribuzione a posteriori. In altre parole, dopo aver simulato un grande numero di passi della catena si possono usare i valori così generati come se fossero un campione casuale della distribuzione a posteriori. Un'introduzione alle catene di Markov è fornita nell'Appendice \ref{markov-chains}.} Le tecniche MCMC sono il metodo computazionale maggiormente usato per risolvere i problemi dell'inferenza bayesiana.
-
-\hypertarget{una-passeggiata-casuale-sui-numeri-naturali}{%
-\subsection{Una passeggiata casuale sui numeri naturali}\label{una-passeggiata-casuale-sui-numeri-naturali}}
-
-Prima di applicare l'algoritmo di Metropolis ai dati di \citet{zetschefuture2019}, consideriamo un caso più semplice. In questo esempio preliminare useremo l'algoritmo di Metropolis per ottenere un campione casuale da una distribuzione di massa di probabilità; esamineremo il caso continuo in seguito.\footnote{Seguo qui la trattazione di \citet{albert2019probability}. Per una presentazione dell'idea che sta alla base dell'algoritmo di Metropolis, si possono anche consultare \citet{doing_bayesian_data_an} e \citet{McElreath_rethinking}.}
-
-Definiamo la distribuzione di probabilità discreta della variabile casuale \(X\) che assume valori nell'insieme dei numeri naturali \(1, 2, \dots, K\). Scriviamo in \(\R\) la funzione \texttt{pd()} che assegna a \(X = \{1, 2, \dots, 8\}\) valori di probabilità proporzionali agli interi 5, 10, 4, 4, 20, 20, 12 e 5:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{pd }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) \{}
-\NormalTok{  values }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{20}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DecValTok{5}\NormalTok{)}
-  \FunctionTok{ifelse}\NormalTok{(}
-\NormalTok{    x }\SpecialCharTok{\%in\%} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(values),}
-\NormalTok{    values[x] }\SpecialCharTok{/} \FunctionTok{sum}\NormalTok{(values),}
-    \DecValTok{0}
-\NormalTok{  )}
-\NormalTok{\}}
-\NormalTok{prob\_dist }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{x =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{,}
-  \AttributeTok{prob =} \FunctionTok{pd}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{8}\NormalTok{)}
+\NormalTok{data2\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{N =} \FunctionTok{length}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{kid\_score),}
+  \AttributeTok{y =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{kid\_score,}
+  \AttributeTok{x =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{mom\_iq }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{mom\_iq)}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-La figura \ref{fig:formetropolisdistr} illustra la distribuzione di massa di probabilità che è stata generata in questo modo.
+Adattiamo il modello:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{8}
-\NormalTok{prob\_dist }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ prob)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{, }\AttributeTok{width =} \FloatTok{0.06}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\StringTok{"x"}\NormalTok{, }\AttributeTok{labels =} \FunctionTok{as.character}\NormalTok{(x), }\AttributeTok{breaks =}\NormalTok{ x) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{y =} \StringTok{"Probabilità"}\NormalTok{,}
-    \AttributeTok{x =} \StringTok{"X"}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/formetropolisdistr-1} 
-
-}
-
-\caption{Distribuzione di massa di probabilità della variabile casuale discreta $X$ avente supporto $\{1, 2, ..., 8\}$.}\label{fig:formetropolisdistr}
-\end{figure}
-
-Per i dati di questo esempio, l'algoritmo di Metropolis corrisponde alla seguente passeggiata aleatoria.\footnote{Per passeggiata aleatoria si intende un processo stocastico a parametro discreto, nel quale si ipotizza che una variabile casuale \(X_t\) descriva la posizione assunta al tempo \(t\) da un punto in movimento. Inizialmente, il punto si trova nella posizione 0, cioè \(X_0\) = 0. Al tempo \(t = 1\) il punto compie un salto o in avanti, e raggiunge la posizione 1 con probabilità 1/2, o all'indietro, e raggiunge la posizione −1 con probabilità 1/2. Al tempo \(t = 2\) fa ancora un salto in avanti con probabilità 1/2, oppure all'indietro con probabilità 1/2. La probabilità di andare avanti o indietro ai diversi tempi rimane costante e non dipende dai risultati precedenti (Treccani: \emph{Enciclopedia della Matematica} online, \url{https://www.treccani.it/enciclopedia/}).}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  L'algoritmo inizia con un valore iniziale qualsiasi da 1 a \(K=8\) della variabile casuale.
-\item
-  Per simulare il valore successivo della sequenza, lanciamo una moneta equilibrata. Se esce testa, consideriamo come valore candidato il valore immediatamente precedente al valore corrente nella sequenza; se esce croce, il candidato è il valore nella sequenza immediatamente successivo a quello corrente.
-\item
-  Si calcola il rapporto \(r\) tra la probabilità del valore candidato e la probabilità del valore corrente:
-\end{enumerate}
-
-\[
-r = \frac{pd(\text{valore candidato})}{pd(\text{valore corrente})}.
-\]
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{3}
-\tightlist
-\item
-  Si estrae un numero a caso \(\in [0, 1]\). Se tale valore è minore di \(r\) si accetta il valore candidato come valore successivo della catena markoviana; altrimenti il valore successivo della catena rimane il valore corrente.
-\end{enumerate}
-
-In termini tecnici (si veda l'Appendice \ref{markov-chains}), i passi da 1 a 4 definiscono una catena di Markov irriducibile e aperiodica sui valori di stato \(\{1, 2,\dots, 8\}\), dove il passo 1 fornisce il valore iniziale della catena e i passi da 2 a 4 definiscono la matrice di transizione \(P\). Il campionamento dalla distribuzione di massa \texttt{pd} corrisponde ad una passeggiata aleatoria che inizia da una posizione qualsiasi e che ripete le fasi 2, 3 e 4 dell'algoritmo di Metropolis. Dopo un gran numero di passi, la distribuzione dei valori della catena markoviana approssimerà la distribuzione di probabilità \texttt{pd}.
-
-La funzione \texttt{random\_walk()} implementa l'algoritmo di Metropolis. Tale funzione prende in input la distribuzione di probabilità \texttt{pd}, la posizione di partenza \texttt{start} e il numero di passi dell'algoritmo \texttt{num\_steps}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{random\_walk }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(pd, start, num\_steps) \{}
-\NormalTok{  y }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, num\_steps)}
-\NormalTok{  current }\OtherTok{\textless{}{-}}\NormalTok{ start}
-  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_steps) \{}
-\NormalTok{    candidate }\OtherTok{\textless{}{-}}\NormalTok{ current }\SpecialCharTok{+} \FunctionTok{sample}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{), }\DecValTok{1}\NormalTok{)}
-\NormalTok{    prob }\OtherTok{\textless{}{-}} \FunctionTok{pd}\NormalTok{(candidate) }\SpecialCharTok{/} \FunctionTok{pd}\NormalTok{(current)}
-    \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textless{}}\NormalTok{ prob) \{}
-\NormalTok{      current }\OtherTok{\textless{}{-}}\NormalTok{ candidate}
-\NormalTok{    \}}
-\NormalTok{    y[j] }\OtherTok{\textless{}{-}}\NormalTok{ current}
-\NormalTok{  \}}
-  \FunctionTok{return}\NormalTok{(y)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Implementiamo ora l'algoritmo di Metropolis utilizzando, quale valore iniziale, \(X=4\). Ripetiamo la simulazione 10,000 volte.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{out }\OtherTok{\textless{}{-}} \FunctionTok{random\_walk}\NormalTok{(pd, }\DecValTok{4}\NormalTok{, }\FloatTok{1e4}\NormalTok{)}
-
-\NormalTok{S }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(out) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(out) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarize}\NormalTok{(}
-    \AttributeTok{N =} \FunctionTok{n}\NormalTok{(),}
-    \AttributeTok{Prob =}\NormalTok{ N }\SpecialCharTok{/} \DecValTok{10000}
-\NormalTok{  )}
-
-\NormalTok{prob\_dist2 }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
-\NormalTok{  prob\_dist,}
-  \FunctionTok{tibble}\NormalTok{(}
-    \AttributeTok{x =}\NormalTok{ S}\SpecialCharTok{$}\NormalTok{out,}
-    \AttributeTok{prob =}\NormalTok{ S}\SpecialCharTok{$}\NormalTok{Prob}
-\NormalTok{  )}
-\NormalTok{)}
-\NormalTok{prob\_dist2}\SpecialCharTok{$}\NormalTok{Type }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}
-  \FunctionTok{c}\NormalTok{(}\StringTok{"Prob. corrette"}\NormalTok{, }\StringTok{"Prob. simulate"}\NormalTok{),}
-  \AttributeTok{each =} \DecValTok{8}
+\NormalTok{fit2 }\OtherTok{\textless{}{-}}\NormalTok{ mod}\SpecialCharTok{$}\FunctionTok{sample}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ data2\_list,}
+  \AttributeTok{iter\_sampling =}\NormalTok{ 4000L,}
+  \AttributeTok{iter\_warmup =}\NormalTok{ 2000L,}
+  \AttributeTok{seed =}\NormalTok{ SEED,}
+  \AttributeTok{chains =}\NormalTok{ 4L,}
+  \AttributeTok{parallel\_chains =}\NormalTok{ 2L,}
+  \AttributeTok{refresh =} \DecValTok{0}\NormalTok{,}
+  \AttributeTok{thin =} \DecValTok{1}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
+Trasformiamo l'oggetto \texttt{fit} in un oggetto di classe \texttt{stanfit}:
+
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{8}
-\NormalTok{prob\_dist2 }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ x, }\AttributeTok{y =}\NormalTok{ prob, }\AttributeTok{fill =}\NormalTok{ Type)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_bar}\NormalTok{(}
-    \AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}
-    \AttributeTok{width =} \FloatTok{0.1}\NormalTok{,}
-    \AttributeTok{position =} \FunctionTok{position\_dodge}\NormalTok{(}\FloatTok{0.3}\NormalTok{)}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
-    \StringTok{"x"}\NormalTok{,}
-    \AttributeTok{labels =} \FunctionTok{as.character}\NormalTok{(x),}
-    \AttributeTok{breaks =}\NormalTok{ x}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{scale\_fill\_manual}\NormalTok{(}\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\StringTok{"gray80"}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{()) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{y =} \StringTok{"Probabilità"}\NormalTok{,}
-    \AttributeTok{x =} \StringTok{"X"}
-\NormalTok{  )}
+\NormalTok{stanfit }\OtherTok{\textless{}{-}}\NormalTok{ rstan}\SpecialCharTok{::}\FunctionTok{read\_stan\_csv}\NormalTok{(fit2}\SpecialCharTok{$}\FunctionTok{output\_files}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/metropolishistogramsim-1} 
-
-}
-
-\caption{L'istogramma confronta i valori prodotti dall'algoritmo di Metropolis con i valori corretti della distribuzione di massa di probabilità.}\label{fig:metropolishistogramsim}
-\end{figure}
-
-La figura \ref{fig:metropolishistogramsim} confronta l'istogramma dei valori simulati dalla passeggiata aleatoria con l'effettiva distribuzione di probabilità \texttt{pd}. Si noti che le due distribuzioni sono molto simili.
-
-\hypertarget{lalgoritmo-di-metropolis}{%
-\subsection{L'algoritmo di Metropolis}\label{lalgoritmo-di-metropolis}}
-
-Dopo avere introdotto l'algoritmo di Metropolis con l'esempio proposto da \citet{albert2019probability}, consideriamo ora l'algoritmo nella sua forma più generale.\footnote{Un'illustrazione visiva di come si svolge il processo di ``esplorazione'' dell'algoritmo di Metropolis è fornita in questo post: \url{https://elevanth.org/blog/2017/11/28/build-a-better-markov-chain/}.} Nelle iterazioni dell'algoritmo di Metropolis possiamo distinguere le seguenti fasi.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Si inizia con un punto arbitrario \(\theta^{(1)}\); quindi il primo valore della catena di Markov \(\theta^{(1)}\) può corrispondere semplicemente ad un valore a caso tra i valori possibili del parametro.
-\end{enumerate}
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{1}
-\item
-  Per ogni passo successivo della catena, \(m + 1\), si estrae un valore candidato \(\theta'\) da una distribuzione proposta: \(\theta' \sim \Pi(\theta)\). La distribuzione proposta può essere qualunque distribuzione, anche se, idealmente, è meglio che sia simile alla distribuzione a posteriori. In pratica, però, la distribuzione a posteriori è sconosciuta e quindi il valore \(\theta'\) viene estratto a caso da una qualche distribuzione simmetrica centrata sul valore corrente \(\theta^{(m)}\) del parametro. Nell'esempio presente useremo la gaussiana quale distribuzione proposta. La distribuzione proposta (gaussiana) sarà centrata sul valore corrente della catena e avrà una deviazione standard appropriata: \(\theta' \sim \mathcal{N}(\theta^{(m)}, \sigma)\). In pratica, questo significa che, se \(\sigma\) è piccola, il valore candidato \(\theta'\) sarà simile al valore corrente \(\theta^{(m)}\).
-\item
-  Si calcola il rapporto \(r\) tra la densità della distribuzione a posteriori non normalizzata calcolata nel punto \(\theta'\) e la densità nel punto \(\theta^{(m)}\):
-\end{enumerate}
-
-\begin{equation}
-r = \frac{p(y \mid \theta') p(\theta')}{p(y \mid \theta^{(m)}) p(\theta^{(m)})}.
-\label{eq:ratio-metropolis}
-\end{equation}
-
-Il numeratore della \eqref{eq:ratio-metropolis} contiene il prodotto tra la verosimiglianza \(p(y \mid \theta')\) e la densità a priori di \(\theta\), entrambe calcolate nel punto \(\theta'\). Il denominatore contiene il prodotto tra la verosimiglianza \(p(y \mid \theta^{(m)})\) e la densità a priori di \(\theta\), entrambe calcolate nel punto \(\theta^{(m)}\). Si noti che, essendo un rapporto, la \eqref{eq:ratio-metropolis} cancella la costante di normalizzazione.
-
-\begin{enumerate}
-\def\labelenumi{(\alph{enumi})}
-\setcounter{enumi}{3}
-\item
-  Si decide se accettare il candidato \(\theta'\) oppure se rigettarlo e estrarre un nuovo valore dalla distribuzione proposta. Possiamo pensare al rapporto \(r\) come alla risposta alla seguente domanda: alla luce dei dati, quale stima di \(\theta\) è più plausibile il valore candidato o il valore corrente? Se \(r\) è maggiore di 1, ciò significa che il candidato è più plausibile del valore corrente; dunque il candidato viene sempre accettato. Altrimenti, si decide di accettare il candidato con una probabilità minore di 1, ovvero non sempre, ma soltanto con una probabilità uguale ad \(r\). Se \(r\) è uguale a 0.10, ad esempio, questo significa che la credibilità a posteriori del valore candidato è 10 volte più piccola della credibilità a posteriori del valore corrente. Dunque, il valore candidato verrà accettato solo nel 10\% dei casi. Come conseguenza di questa strategia di scelta, l'algoritmo di Metropolis ottiene un campione casuale dalla distribuzione a posteriori, dato che la probabilità di accettare il valore candidato è proporzionale alla densità del candidato nella distribuzione a posteriori. Dal punto di vista algoritmico, la procedura descritta sopra viene implementata confrontando il rapporto \(r\) con un valore estratto a caso da una distribuzione uniforme \(\mbox{Unif}(0, 1)\). Se \(r > u \sim \mbox{Unif}(0, 1)\), allora il candidato \(\theta'\) viene accettato e la catena si muove in quella nuova posizione, ovvero \(\theta^{(m+1)} = \theta'\). Altrimenti \(\theta^{(m+1)} = \theta^{(m)}\) e si estrae un nuovo candidato dalla distribuzione proposta.
-\item
-  Il passaggio finale dell'algoritmo calcola l'\emph{accettanza} in una specifica esecuzione dell'algoritmo, ovvero la proporzione di candidati \(\theta'\) che sono stati accettati quali valori successivi della catena.
-\end{enumerate}
-
-L'algoritmo di Metropolis prende come input il numero \(T\) di passi da simulare, la deviazione standard \(\sigma\) della distribuzione proposta e la densità a priori, e ritorna come output la sequenza \(\theta^{(1)}, \theta^{(2)}, \dots, \theta^{(T)}\). La chiave del successo dell'algoritmo di Metropolis è il numero di passi fino a che la catena approssima la stazionarietà. Tipicamente i primi da 1000 a 5000 elementi sono scartati. Dopo un certo periodo \(k\) (detto di \emph{burn-in}), la catena di Markov converge ad una variabile casuale che è distribuita secondo la distribuzione a posteriori. In altre parole, i campioni del vettore \(\left(\theta^{(k+1)}, \theta^{(k+2)}, \dots, \theta^{(T)}\right)\) diventano campioni di \(p(\theta \mid y)\).
-
-\hypertarget{unapplicazione-empirica-4}{%
-\subsection{Un'applicazione empirica}\label{unapplicazione-empirica-4}}
-
-Possiamo ora utilizzare l'algoritmo di Metropolis per trovare, nel caso dei pazienti clinici depressi di \citet{zetschefuture2019}, la distribuzione a posteriori di \(\theta\), ovvero la probabilità che l'umore futuro atteso sia negativo. I dati di \citet{zetschefuture2019} ci dicono che, nel caso dei 30 pazienti che sono stati esaminati, 23 hanno manifestato aspettative distorte negativamente circa il loro stato d'animo futuro. A priori, abbiamo deciso di imporre su \(\theta\) una \(\mbox{Beta}(2, 10)\).\footnote{L'Appendice \ref{es-pratico-zetsche-funzioni} mostra come usare il metodo basato su griglia per trovare \(p(\theta \mid y)\) con questi dati.}
-
-\hypertarget{funzioni}{%
-\subsubsection{Funzioni}\label{funzioni}}
-
-Definiamo la funzione \texttt{likelihood()}, considerati come fissi i dati di \citet{zetschefuture2019}, ritorna l'ordinata della verosimiglianza binomiale per ciascun valore \texttt{param} in input:
+Le stime a posteriori dei parametri si ottengono con
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{likelihood }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(param, }\AttributeTok{x =} \DecValTok{23}\NormalTok{, }\AttributeTok{N =} \DecValTok{30}\NormalTok{) \{}
-  \FunctionTok{dbinom}\NormalTok{(x, N, param)}
-\NormalTok{\}}
+\NormalTok{fit2}\SpecialCharTok{$}\FunctionTok{summary}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"alpha"}\NormalTok{, }\StringTok{"beta"}\NormalTok{, }\StringTok{"sigma"}\NormalTok{))}
+\CommentTok{\#\textgreater{} \# A tibble: 3 x 10}
+\CommentTok{\#\textgreater{}   variable   mean median     sd    mad     q5    q95}
+\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}     \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 alpha    86.8   86.8   0.876  0.871  85.4   88.2  }
+\CommentTok{\#\textgreater{} 2 beta      0.609  0.609 0.0591 0.0589  0.513  0.707}
+\CommentTok{\#\textgreater{} 3 sigma    18.3   18.3   0.630  0.624  17.3   19.4  }
+\CommentTok{\#\textgreater{} \# ... with 3 more variables: rhat \textless{}dbl\textgreater{},}
+\CommentTok{\#\textgreater{} \#   ess\_bulk \textless{}dbl\textgreater{}, ess\_tail \textless{}dbl\textgreater{}}
 \end{Highlighting}
 \end{Shaded}
 
-La funzione \texttt{prior()} ritorna l'ordinata della distribuzione a priori \(\mbox{Beta}(2, 10)\) per ciascun valore \texttt{param} in input:
+Si noti la nuova intercetta, ovvero 86.8. Questo valore indica il QI medio dei bambini le cui madri hanno un QI pari alla media del campione. Centrare i dati consente dunque di assegnare all'intercetta un'interpretazione utile.
+
+\hypertarget{commenti-e-considerazioni-finali-1}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-1}}
+
+
+La presente discussione suggerisce che è conveniente standardizzare i dati prima di procedere con l'analisi. Ciò può essere fatto all'interno del codice Stan (come negli esempi di questo Capitolo), oppure prima di passare i dati a Stan. Se vengono usati dati standardizzati diventa poi facile utilizzare distribuzioni a priori debolmente informative per i parametri. Tali distribuzioni a priori hanno, come unico scopo, quello di regolarizzare i dati e di facilitare la stima dei parametri mediante MCMC.
+
+\hypertarget{inference-reg-lin-stan}{%
+\chapter{Inferenza sul modello lineare}\label{inference-reg-lin-stan}}
+
+\hypertarget{rappresentazione-grafica-dellincertezza-della-stima}{%
+\section{Rappresentazione grafica dell'incertezza della stima}\label{rappresentazione-grafica-dellincertezza-della-stima}}
+
+Un primo modo per rappresentare l'incertezza dell'inferenza in un ottica bayesiana è quella di rappresentare graficamente la retta specificata dal modello lineare. Continuando con l'esempio descritto nel Capitolo precedente (ovvero, i dati \texttt{kid\_score} e i valori \texttt{mom\_iq} centrati), usando la funzione \texttt{rstan::read\_stan\_csv} leggiamo i file CSV generati da \texttt{cmdstan} e trasformiamo le stime a posteriori dei parametri in formato \texttt{stanfit}:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{prior }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(param, }\AttributeTok{alpha =} \DecValTok{2}\NormalTok{, }\AttributeTok{beta =} \DecValTok{10}\NormalTok{) \{}
-  \FunctionTok{dbeta}\NormalTok{(param, alpha, beta)}
-\NormalTok{\}}
+\NormalTok{stanfit }\OtherTok{\textless{}{-}}\NormalTok{ rstan}\SpecialCharTok{::}\FunctionTok{read\_stan\_csv}\NormalTok{(fit2}\SpecialCharTok{$}\FunctionTok{output\_files}\NormalTok{())}
+\NormalTok{posterior }\OtherTok{\textless{}{-}} \FunctionTok{extract}\NormalTok{(stanfit)}
 \end{Highlighting}
 \end{Shaded}
 
-La funzione \texttt{posterior()} ritorna, per ciascun valore \texttt{param} in input, il prodotto della densità a priori e della verosimiglianza:
+Creiamo ora un diagramma a dispersione dei dati con sovrapposto il valore atteso della \(y\):
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{posterior }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(param) \{}
-  \FunctionTok{likelihood}\NormalTok{(param) }\SpecialCharTok{*} \FunctionTok{prior}\NormalTok{(param)}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{implementazione}{%
-\subsubsection{Implementazione}\label{implementazione}}
-
-Per implementare l'algoritmo di Metropolis utilizzeremo una distribuzione proposta gaussiana. Il valore candidato sarà dunque un valore selezionato a caso da una gaussiana di parametri \(\mu\) uguale al valore corrente nella catena e \(\sigma = 0.9\). In questo esempio, la deviazione standard \(\sigma\) è stata scelta empiricamente in modo tale da ottenere una accettanza adeguata. L'accettanza ottimale èpari a circa 0.20/0.30 --- se l'accettanza è troppo grande, l'algoritmo esplora uno spazio troppo ristretto della distribuzione a posteriori.\footnote{L'accettanza dipende dalla distribuzione proposta: in generale, tanto più la distribuzione proposta è simile alla distribuzione target, tanto più alta diventa l'accettanza.}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{proposal\_distribution }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(param) \{}
-  \ControlFlowTok{while}\NormalTok{ (}\DecValTok{1}\NormalTok{) \{}
-\NormalTok{    res }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{mean =}\NormalTok{ param, }\AttributeTok{sd =} \FloatTok{0.9}\NormalTok{)}
-    \ControlFlowTok{if}\NormalTok{ (res }\SpecialCharTok{\textgreater{}} \DecValTok{0} \SpecialCharTok{\&}\NormalTok{ res }\SpecialCharTok{\textless{}} \DecValTok{1}\NormalTok{) \{}
-      \ControlFlowTok{break}
-\NormalTok{    \}}
-\NormalTok{  \}}
-\NormalTok{  res}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Ho inserito un controllo che impone al valore candidato di essere incluso nell'intervallo {[}0, 1{]}, com'è necessario per il valore di una proporzione.\footnote{Si possono trovare implementazioni più eleganti di quella presentata qui. Il presente esercizio ha solo lo scopo di illustrare la logica soggiacente all'algoritmo di Metropolis; non ci preoccupiamo di trovare un'implementazione efficente dell'algoritmo.}
-
-L'algoritmo di Metropolis viene implementato nella seguente funzione:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{metropolis }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(startvalue, iterations) \{}
-\NormalTok{  chain }\OtherTok{\textless{}{-}} \FunctionTok{vector}\NormalTok{(}\AttributeTok{length =}\NormalTok{ iterations }\SpecialCharTok{+} \DecValTok{1}\NormalTok{)}
-\NormalTok{  chain[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ startvalue}
-  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{iterations) \{}
-\NormalTok{    proposal }\OtherTok{\textless{}{-}} \FunctionTok{proposal\_distribution}\NormalTok{(chain[i])}
-\NormalTok{    r }\OtherTok{\textless{}{-}} \FunctionTok{posterior}\NormalTok{(proposal) }\SpecialCharTok{/} \FunctionTok{posterior}\NormalTok{(chain[i])}
-    \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textless{}}\NormalTok{ r) \{}
-\NormalTok{      chain[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ proposal}
-\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
-\NormalTok{      chain[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ chain[i]}
-\NormalTok{    \}}
-\NormalTok{  \}}
-\NormalTok{  chain}
-\NormalTok{\}}
-\end{Highlighting}
-\end{Shaded}
-
-Mediante la funzione precedente, generiamo una catena di valori \(\theta\):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{84735}\NormalTok{)}
-\NormalTok{startvalue }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\NormalTok{niter }\OtherTok{\textless{}{-}} \FloatTok{1e4}
-\NormalTok{chain }\OtherTok{\textless{}{-}} \FunctionTok{metropolis}\NormalTok{(startvalue, niter)}
-\end{Highlighting}
-\end{Shaded}
-
-In questo modo, abbiamo ottenuto una catena di Markov costituita da 10,001 valori. Escludiamo i primi 5,000 valori considerati come burn-in. Consideriamo i restanti 5,001 valori come un campione casuale estratto dalla distribuzione a posteriori \(p(\theta \mid y)\).
-
-L'accettanza è pari a
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{burnin }\OtherTok{\textless{}{-}}\NormalTok{ niter }\SpecialCharTok{/} \DecValTok{2}
-\NormalTok{acceptance }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(}\FunctionTok{duplicated}\NormalTok{(chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)]))}
-\NormalTok{acceptance}
-\CommentTok{\#\textgreater{} [1] 0.2585}
-\end{Highlighting}
-\end{Shaded}
-
-\noindent il che conferma la bontà della deviazione standard (\(\sigma\) = 0.9) scelta per la distribuzione proposta.
-
-Mediante i valori della catena così ottenuta è facile trovare una stima a posteriori del parametro \(\theta\). Per esempio, la stima della media a posteriori è:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{mean}\NormalTok{(chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)])}
-\CommentTok{\#\textgreater{} [1] 0.5957}
-\end{Highlighting}
-\end{Shaded}
-
-Una figura che mostra l'approssimazione di \(p(\theta \mid y)\) ottenuta con l'algoritmo di Metropolis, insieme ad un \emph{trace plot} dei valori della catena di Markov, è prodotta nel modo seguente:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p1 }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{x =}\NormalTok{ chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)]}
-\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(theta),}
-    \AttributeTok{y =} \StringTok{"Frequenza"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"Distribuzione a posteriori"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_vline}\NormalTok{(}
-    \AttributeTok{xintercept =} \FunctionTok{mean}\NormalTok{(chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)])}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{xlim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{0.85}\NormalTok{)) }\SpecialCharTok{+}
-  \FunctionTok{coord\_flip}\NormalTok{()}
-
-\NormalTok{p2 }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{x =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)]),}
-  \AttributeTok{y =}\NormalTok{ chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)]}
-\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, y)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Numero di passi"}\NormalTok{,}
-    \AttributeTok{y =} \FunctionTok{expression}\NormalTok{(theta),}
-    \AttributeTok{title =} \StringTok{"Valori della catena"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{geom\_hline}\NormalTok{(}
-    \AttributeTok{yintercept =} \FunctionTok{mean}\NormalTok{(chain[}\SpecialCharTok{{-}}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{burnin)]),}
-    \AttributeTok{colour =} \StringTok{"gray"}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{ylim}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FloatTok{0.3}\NormalTok{, }\FloatTok{0.85}\NormalTok{))}
-
-\NormalTok{p1 }\SpecialCharTok{+}\NormalTok{ p2}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/sim-markov-chain-zetsche-1} 
-
-}
-
-\caption{Sinistra. Stima della distribuzione a posteriori della probabilità di una aspettativa futura distorta negativamente per i dati di Zetsche et al. (2019). Destra. Trace plot dei valori della catena di Markov escludendo il periodo di burn-in.}\label{fig:sim-markov-chain-zetsche}
-\end{figure}
-
-\hypertarget{animazione}{%
-\subsubsection{Animazione}\label{animazione}}
-
-È facile creare un'animazione che illustra il progresso dell'algoritmo di Metropolis. In \(\textsf{R}\), sono necessari i seguenti pacchetti:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(}\StringTok{"gganimate"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(}\StringTok{"magick"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-Creiamo un DataFrame che contiene i primi 1000 valori della catena che è stata generata in precedenza:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{iter =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{,}
-  \AttributeTok{mcmc =}\NormalTok{ chain[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{1000}\NormalTok{]}
-\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-L'animazione del trace plot si ottiene mediante la funzione \texttt{transition\_reveal()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{ggplot}\NormalTok{(d, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ iter, }\AttributeTok{y =}\NormalTok{ mcmc)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{transition\_reveal}\NormalTok{(iter)}
-\end{Highlighting}
-\end{Shaded}
-
-Ovviamente, è necessario fare tutto questo in RStudio: non ho inserito un GIF animato nel presente file pdf.
-
-\hypertarget{funzione-metropolis}{%
-\subsubsection{\texorpdfstring{Funzione \texttt{metropolis()}}{Funzione metropolis()}}\label{funzione-metropolis}}
-
-I calcoli precedenti possono anche essere svolti usando la funzione \texttt{metropolis()} del pacchetto \texttt{ProbBayes}. Per fare un esempio, usiamo i dati corrispondenti a 23 successi in 30 prove, con una distribuzione a priori \(\mbox{Beta}(2, 10)\). Le istruzioni sono le seguenti:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
-\NormalTok{lpost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, s) \{}
-  \FunctionTok{dbeta}\NormalTok{(theta, }\DecValTok{2}\NormalTok{, }\DecValTok{10}\NormalTok{, }\AttributeTok{log =} \ConstantTok{TRUE}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{dbinom}\NormalTok{(}\DecValTok{23}\NormalTok{, }\DecValTok{30}\NormalTok{, theta, }\AttributeTok{log =} \ConstantTok{TRUE}\NormalTok{)}
-\NormalTok{\}}
-\NormalTok{post }\OtherTok{\textless{}{-}}\NormalTok{ ProbBayes}\SpecialCharTok{::}\FunctionTok{metropolis}\NormalTok{(lpost, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.2}\NormalTok{, }\DecValTok{8000}\NormalTok{)}
-
 \FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{x =}\NormalTok{ post}\SpecialCharTok{$}\NormalTok{S[}\DecValTok{4001}\SpecialCharTok{:}\DecValTok{8000}\NormalTok{]}
+  \AttributeTok{kid\_score =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{kid\_score,}
+  \AttributeTok{mom\_iq =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{mom\_iq }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{mom\_iq)}
 \NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_histogram}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(mom\_iq, kid\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}
+    \AttributeTok{intercept =} \FunctionTok{mean}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{alpha),}
+    \AttributeTok{slope =} \FunctionTok{mean}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{beta)}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-24-1} \end{center}
+
+L'incertezza della stima della retta specifiata dal modello lineare può essere visualizzata tracciando molteplici rette, ciascuna delle quali definita da un diverso valore estratto a caso dalla distribuzione a posteriori dei parametri \(\alpha\) e \(\beta\). Per ottenere questo risultato dobbiamo estrarre le informazioni richieste dall'oggetto \texttt{stanfit} che abbiamo creato; usiamo, per esempio, le funzionalità di \texttt{tidybayes}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tidybayes}\SpecialCharTok{::}\FunctionTok{get\_variables}\NormalTok{(stanfit)}
+\CommentTok{\#\textgreater{}  [1] "alpha\_std"     "beta\_std"      "sigma\_std"    }
+\CommentTok{\#\textgreater{}  [4] "alpha"         "beta"          "sigma"        }
+\CommentTok{\#\textgreater{}  [7] "lp\_\_"          "accept\_stat\_\_" "treedepth\_\_"  }
+\CommentTok{\#\textgreater{} [10] "stepsize\_\_"    "divergent\_\_"   "n\_leapfrog\_\_" }
+\CommentTok{\#\textgreater{} [13] "energy\_\_"}
+\end{Highlighting}
+\end{Shaded}
+
+Creiamo un Dataframe in formato tidy (cioè, tale per cui le osservazioni stanno sulle righe e le variabili stanno sulle colonne) che contiene le stime a posteriori di \(\alpha\) e \(\beta\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{draws }\OtherTok{\textless{}{-}}\NormalTok{ stanfit }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{spread\_draws}\NormalTok{(beta, alpha)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{draws }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{head}\NormalTok{(}\DecValTok{10}\NormalTok{)}
+\CommentTok{\#\textgreater{} \# A tibble: 10 x 5}
+\CommentTok{\#\textgreater{}   .chain .iteration .draw  beta alpha}
+\CommentTok{\#\textgreater{}    \textless{}int\textgreater{}      \textless{}int\textgreater{} \textless{}int\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1      1          1     1 0.632  88.4}
+\CommentTok{\#\textgreater{} 2      1          2     2 0.491  87.5}
+\CommentTok{\#\textgreater{} 3      1          3     3 0.717  85.9}
+\CommentTok{\#\textgreater{} 4      1          4     4 0.478  87.5}
+\CommentTok{\#\textgreater{} 5      1          5     5 0.610  86.4}
+\CommentTok{\#\textgreater{} 6      1          6     6 0.570  86.7}
+\CommentTok{\#\textgreater{} 7      1          7     7 0.623  87.0}
+\CommentTok{\#\textgreater{} 8      1          8     8 0.616  87.2}
+\CommentTok{\#\textgreater{} \# ... with 2 more rows}
+\end{Highlighting}
+\end{Shaded}
+
+Possiamo ora generare un diagramma a dispersione con \texttt{ggplot()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{kid\_score =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{kid\_score,}
+  \AttributeTok{mom\_iq =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{mom\_iq }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{mom\_iq)}
+\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(mom\_iq, kid\_score)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}
+    \AttributeTok{data =}\NormalTok{ draws, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{intercept =}\NormalTok{ alpha, }\AttributeTok{slope =}\NormalTok{ beta),}
+    \AttributeTok{size =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.01}\NormalTok{, }\AttributeTok{color =} \StringTok{"darkgray"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_abline}\NormalTok{(}
+    \AttributeTok{intercept =} \FunctionTok{mean}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{alpha),}
+    \AttributeTok{slope =} \FunctionTok{mean}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{beta)}
+\NormalTok{  ) }\SpecialCharTok{+}
   \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \FunctionTok{expression}\NormalTok{(theta),}
-    \AttributeTok{y =} \StringTok{"Frequenza"}\NormalTok{,}
-    \AttributeTok{title =} \StringTok{"Distribuzione a posteriori"}
+    \AttributeTok{x =} \StringTok{"Quoziente di intelligenza della madre"}\NormalTok{,}
+    \AttributeTok{y =} \StringTok{"Quoziente di intelligenza del bambino"}
+\NormalTok{  )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-28-1} \end{center}
+
+Il grafico indica che le rette di regressione costruite estraendo a caso valori dalla distribuzione a posteriori dei parametri \(\beta_0\) e \(\beta_1\) tendono ad essere molto simili tra loro. Ciò significa che, relativamente alla dipendenza (lineare) del quoziente di intelligenza del bambino da quello della madra, la nostra incertezza è molto piccola.
+
+\hypertarget{intervalli-di-credibilituxe0}{%
+\section{Intervalli di credibilità}\label{intervalli-di-credibilituxe0}}
+
+L'incertezza inferenziale sui parametri può anche essere descritta mediante gli \emph{intervalli di credibilità}, ovvero gli intervalli che contengono la quota desiderata (es., il 95\%) della distribuzione a posteriori. Per l'esempio che stiamo discutendo, gli intervalli di credibilità al 95\% si ottengono nel modo seguente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rstantools}\SpecialCharTok{::}\FunctionTok{posterior\_interval}\NormalTok{(}
+  \FunctionTok{as.matrix}\NormalTok{(stanfit),}
+  \AttributeTok{prob =} \FloatTok{0.95}
+\NormalTok{)}
+\CommentTok{\#\textgreater{}                 2.5\%      97.5\%}
+\CommentTok{\#\textgreater{} alpha\_std   {-}0.08427    0.08442}
+\CommentTok{\#\textgreater{} beta\_std     0.36137    0.53165}
+\CommentTok{\#\textgreater{} sigma\_std    0.83903    0.96033}
+\CommentTok{\#\textgreater{} alpha       85.07713   88.52021}
+\CommentTok{\#\textgreater{} beta         0.49172    0.72343}
+\CommentTok{\#\textgreater{} sigma       17.12519   19.60111}
+\CommentTok{\#\textgreater{} lp\_\_      {-}173.15908 {-}168.54400}
+\end{Highlighting}
+\end{Shaded}
+
+Un grafico che, nel caso dei dati standardizzati, riporta l'intervallo di credibilità ai livelli di probabilità desiderati per i parametri \(\alpha\), \(\beta\) e \(\sigma\) si ottiene con l'istruzione
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_areas}\NormalTok{(}
+\NormalTok{  fit2}\SpecialCharTok{$}\FunctionTok{draws}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"alpha\_std"}\NormalTok{, }\StringTok{"beta\_std"}\NormalTok{, }\StringTok{"sigma\_std"}\NormalTok{)),}
+  \AttributeTok{prob =} \FloatTok{0.8}\NormalTok{,}
+  \AttributeTok{prob\_outer =} \FloatTok{0.95}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-30-1} \end{center}
+
+oppure nel modo nel modo seguente
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{stanfit }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mcmc\_intervals}\NormalTok{(}
+    \AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"alpha\_std"}\NormalTok{, }\StringTok{"beta\_std"}\NormalTok{, }\StringTok{"sigma\_std"}\NormalTok{),}
+    \AttributeTok{prob =} \FloatTok{0.8}\NormalTok{,}
+    \AttributeTok{prob\_outer =} \FloatTok{0.95}
 \NormalTok{  )}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-31-1} \end{center}
 
-Utilizzando un burn-in piuttosto lungo, la stima a posteriori di \(\theta\) diventa:
+\hypertarget{quale-soglia-usare}{%
+\subsection{Quale soglia usare?}\label{quale-soglia-usare}}
+
+Non c'è niente di ``magico'' o necessario relativamente al livello di 0.95: il valore 0.95 è arbitrario. Sono possibili tantissime altre soglie per quantificare la nostra incertezza: alcuni ricercatori usano il livello di 0.89, altri quello di 0.5. Se l'obiettivo è quello di descrivere il livello della nostra incertezza relativamente alla stima del parametro, allora dobbiamo riconoscere che la nostra incertezza è descritta dall'\emph{intera} distribuzione a posteriori. Per cui il metodo più semplice, più diretto e più completo per descrivere la nostra incertezza rispetto alla stima dei parametri è semplicemente quello di riportare graficamente \emph{tutta} la distribuzione a posteriori. Una rappresentazione della distribuzione a posteriori dei parametri del modello dell'esempio si ottiene nel modo seguente:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mean}\NormalTok{(post}\SpecialCharTok{$}\NormalTok{S[}\DecValTok{4001}\SpecialCharTok{:}\DecValTok{8000}\NormalTok{])}
-\CommentTok{\#\textgreater{} [1] 0.5948}
-\end{Highlighting}
-\end{Shaded}
-
-L'accettanza però non è ottimale:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{post}\SpecialCharTok{$}\NormalTok{accept\_rate}
-\CommentTok{\#\textgreater{} [1] 0.5464}
-\end{Highlighting}
-\end{Shaded}
-
-\hypertarget{input}{%
-\subsection{Input}\label{input}}
-
-Negli esempi discussi in questo Capitolo abbiamo illustrato l'esecuzione di una singola catena in cui si parte un unico valore iniziale e si raccolgono i valori simulati da molte iterazioni. È possibile però che i valori di una catena siano influenzati dalla scelta del valore iniziale. Quindi una raccomandazione generale è di eseguire l'algoritmo di Metropolis più volte utilizzando diversi valori di partenza. In questo caso, si avranno più catene di Markov. Confrontando le proprietà delle diverse catene si esplora la sensibilità dell'inferenza alla scelta del valore di partenza. I software MCMC consentono sempre all'utente di specificare diversi valori di partenza e di generare molteplici catene di Markov.
-
-\hypertarget{stazionarietuxe0}{%
-\subsection{Stazionarietà}\label{stazionarietuxe0}}
-
-Un punto importante da verificare è se il campionatore ha raggiunto la sua distribuzione stazionaria. La convergenza di una catena di Markov alla distribuzione stazionaria viene detta ``mixing''.
-
-\hypertarget{approx-post-autocor}{%
-\subsubsection{Autocorrelazione}\label{approx-post-autocor}}
-
-Informazioni sul ``mixing'' della catena di Markov sono fornite dall'autocorrelazione. L'autocorrelazione misura la correlazione tra i valori successivi di una catena di Markov. Il valore \(m\)-esimo della serie ordinata viene confrontato con un altro valore ritardato di una quantità \(k\) (dove \(k\) è l'entità del ritardo) per verificare quanto si correli al variare di \(k\). L'autocorrelazione di ordine 1 (\emph{lag 1}) misura la correlazione tra valori successivi della catena di Markow (cioè, la correlazione tra \(\theta^{(m)}\) e \(\theta^{(m-1)}\)); l'autocorrelazione di ordine 2 (\emph{lag 2}) misura la correlazione tra valori della catena di Markow separati da due ``passi'' (cioè, la correlazione tra \(\theta^{(m)}\) e \(\theta^{(m-2)}\)); e così via.
-
-L'autocorrelazione di ordine \(k\) è data da \(\rho_k\) e può essere stimata come:
-
-\begin{align}
-\rho_k &= \frac{\Cov(\theta_m, \theta_{m+k})}{\Var(\theta_m)}\notag\\
-&= \frac{\sum_{m=1}^{n-k}(\theta_m - \bar{\theta})(\theta_{m-k} - \bar{\theta})}{\sum_{m=1}^{n-k}(\theta_m - \bar{\theta})^2} \qquad\text{con }\quad \bar{\theta} = \frac{1}{n}\sum_{m=1}^{n}\theta_m.
-\label{eq:autocor}
-\end{align}
-
-Per fare un esempio pratico, simuliamo dei dati autocorrelati con la funzione R \texttt{colorednoise::colored\_noise()}:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{suppressPackageStartupMessages}\NormalTok{(}\FunctionTok{library}\NormalTok{(}\StringTok{"colorednoise"}\NormalTok{))}
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{34783859}\NormalTok{)}
-\NormalTok{rednoise }\OtherTok{\textless{}{-}} \FunctionTok{colored\_noise}\NormalTok{(}
-  \AttributeTok{timesteps =} \DecValTok{30}\NormalTok{, }\AttributeTok{mean =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{sd =} \FloatTok{0.05}\NormalTok{, }\AttributeTok{phi =} \FloatTok{0.3}
+\NormalTok{rstan}\SpecialCharTok{::}\FunctionTok{stan\_dens}\NormalTok{(}
+\NormalTok{  stanfit,}
+  \AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"alpha"}\NormalTok{, }\StringTok{"beta"}\NormalTok{, }\StringTok{"sigma"}\NormalTok{),}
+  \AttributeTok{fill =} \StringTok{"lightgray"}
 \NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-L'autocorrelazione di ordine 1 è semplicemente la correlazione tra ciascun elemento e quello successivo nella sequenza. Nell'esempio, il vettore \texttt{rednoise} è una sequenza temporale di 30 elementi. Il vettore \texttt{rednoise{[}-length(rednoise){]}} include gli elementi con gli indici da 1 a 29 nella sequenza originaria, mentre il vettore \texttt{rednoise{[}-1{]}} include gli elementi 2:30. Gli elementi delle coppie ordinate dei due vettori avranno dunque gli indici \((1, 2), (2, 3), \dots (29, 30)\) degli elementi della sequenza originaria. La correlazione di Pearson tra i vettori \texttt{rednoise{[}-length(rednoise){]}} e \texttt{rednoise{[}-1{]}} corrisponde all'autocorrelazione di ordine 1 della serie temporale.
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-32-1} \end{center}
+
+\hypertarget{test-di-ipotesi}{%
+\section{Test di ipotesi}\label{test-di-ipotesi}}
+
+È facile valutare ipotesi direzionali usando Stan. Per esempio, la probabilità \(Pr(\hat{\beta}_1 > 0)\) è
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{cor}\NormalTok{(rednoise[}\SpecialCharTok{{-}}\FunctionTok{length}\NormalTok{(rednoise)], rednoise[}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{])}
-\CommentTok{\#\textgreater{} [1] 0.3967}
+\FunctionTok{sum}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{beta }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{length}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{beta)}
+\CommentTok{\#\textgreater{} [1] 1}
 \end{Highlighting}
 \end{Shaded}
 
-Il Correlogramma è uno strumento grafico usato per la valutazione della tendenza di una catena di Markov nel tempo. Il correlogramma si costruisce a partire dall'autocorrelazione \(\rho_k\) di una catena di Markov in funzione del ritardo (\emph{lag}) \(k\) con cui l'autocorrelazione è calcolata: nel grafico ogni barretta verticale riporta il valore dell'autocorrelazione (sull'asse delle ordinate) in funzione del ritardo (sull'asse delle ascisse). In \(\R\), il correlogramma può essere prodotto con una chiamata a \texttt{acf()}:
+ovvero, la probabilità \(Pr(\hat{\beta}_1 < 0)\) è
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{acf}\NormalTok{(rednoise)}
+\FunctionTok{sum}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{beta }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{) }\SpecialCharTok{/} \FunctionTok{length}\NormalTok{(posterior}\SpecialCharTok{$}\NormalTok{beta)}
+\CommentTok{\#\textgreater{} [1] 0}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-36-1} \end{center}
+\hypertarget{modello-lineare-robusto}{%
+\section{Modello lineare robusto}\label{modello-lineare-robusto}}
 
-Nel correlogramma precedente vediamo che l'autocorrelazione di ordine 1 è circa pari a 0.4 e diminuisce per lag maggiori; per lag di 4, l'autocorrelazione diventa negativa e aumenta progressivamente fino ad un lag di 8; eccetera.
+Spesso i ricercatori devono affrontare il problema degli outlier: in presenza di outlier, un modello statistico basato sulla distribuzione gaussiana produrrà delle stime distorte dei parametri, ovvero stime che non si generalizzano ad altri campioni di dati. Il metodo tradizionale per affrontare questo problema è quello di eliminare gli outlier prima di eseguire l'analisi statistica. Il problema di questo approccio, però, è che il criterio utilizzato per eliminare gli outlier, quale esso sia, è arbitrario; dunque, usando criteri diversi per la rimozione di outlier, i ricercatori finiscono per trovare risultati diversi.
 
-In situazioni ottimali l'autocorrelazione diminuisce rapidamente ed è effettivamente pari a 0 per piccoli lag. Ciò indica che i valori della catena di Markov che si trovano a più di soli pochi passi di distanza gli uni dagli altri non risultano associati tra loro, il che fornisce una conferma del ``mixing'' della catena di Markov, ossia della convergenza alla distribuzione stazionaria. Nelle analisi bayesiane, una delle strategie che consentono di ridurre l'autocorrelazione è quella di assottigliare l'output immagazzinando solo ogni \(m\)-esimo punto dopo il periodo di burn-in. Una tale strategia va sotto il nome di \emph{thinning}.
+Questo problema trova una semplice soluzione nell'approccio bayesiano. Il modello lineare che abbiamo dicusso finora ipotizza una specifica distribuzione degli errori, ovvero \(\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})\). In un modello formulato in questi termini, la presenza di solo un valore anomalo e influente ha un effetto drammatico sulle stime dei parametri.
 
-\hypertarget{test-di-convergenza}{%
-\subsection{Test di convergenza}\label{test-di-convergenza}}
+Per fare un esempio, introduciamo un singlo valore anomalo e influente nel set dei dati dell'esempio che stiamo discutendo:
 
-Un test di convergenza può essere svolto in maniera grafica mediante le tracce delle serie temporali (\emph{trace plot}), cioè il grafico dei valori simulati rispetto al numero di iterazioni. Se la catena è in uno stato stazionario le tracce mostrano assenza di periodicità nel tempo e ampiezza costante, senza tendenze visibili o andamenti degni di nota. Un esempio di \emph{trace plot} è fornito nella figura \ref{fig:sim-markov-chain-zetsche} (destra).
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df2 }\OtherTok{\textless{}{-}}\NormalTok{ df}
+\NormalTok{df2}\SpecialCharTok{$}\NormalTok{kid\_score[}\DecValTok{434}\NormalTok{] }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\DecValTok{500}
+\NormalTok{df2}\SpecialCharTok{$}\NormalTok{mom\_iq[}\DecValTok{434}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{140}
+\end{Highlighting}
+\end{Shaded}
 
-Ci sono inoltre alcuni test che permettono di verificare la stazionarietà del campionatore dopo un dato punto. Uno è il test di Geweke che suddivide il campione, dopo aver rimosso un periodo di burn in, in due parti. Se la catena è in uno stato stazionario, le medie dei due campioni dovrebbero essere uguali. Un test modificato, chiamato Geweke z-score, utilizza un test \(z\) per confrontare i due subcampioni ed il risultante test statistico, se ad esempio è più alto di 2, indica che la media della serie sta ancora muovendosi da un punto ad un altro e quindi è necessario un periodo di burn-in più lungo.
+Per comodità, calcoliamo le stime di \(\alpha\) e \(\beta\) con il metodo dei minimi quadrati (tali stime sono simili a quelle che si otterrebbero con un modello bayesiano gaussiano che impiega distribuzioni a priori debolmente informative). Sappiamo che, nel campione originale di dati, \(\hat{\beta} \approx 0.6\). In presenza di un solo outlier troviamo la stima di \(\beta\) viene drammaticamente ridotta:
 
-\hypertarget{commenti-e-considerazioni-finali-1}{%
-\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-1}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{lm}\NormalTok{(kid\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ mom\_iq, }\AttributeTok{data =}\NormalTok{ df2) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{coef}\NormalTok{()}
+\CommentTok{\#\textgreater{} (Intercept)      mom\_iq }
+\CommentTok{\#\textgreater{}     49.1880      0.3626}
+\end{Highlighting}
+\end{Shaded}
+
+In generale, però, non è necessario assumere \(\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})\). È altrettanto valido un modello che ipotizza una diversa distribuzione di densità per gli errori come, ad esempio, la distribuzione \(t\) di Student con un piccolo numero di gradi di libertà. Una caratteristica della \(t\) di Student è che le code della distribuzione contengono una massa di probabilità maggiore della distribuzione gaussiana. Ciò fornisce alla \(t\) di Student la possibilità di ``rendere conto'' della presenza di osservazioni lontane dalla media della distribuzione. In altri termini, se in modello lineare usiamo la \(t\) di Student quale distribuzione degli errori, la presenza di outlier avrà una minore influenza sulle stime dei parametri di quanto avvenga nel tradizionale modello lineare gaussiano.
+
+Per verificare questa affermazione, modifichiamo il codice Stan usato in precedenza in modo tale da ipotizzare che \(y\) segua una distribuzione \(t\) di Student con un numero \(\nu\) gradi di libertà stimato dal modello: \texttt{student\_t(nu,\ mu,\ sigma)}.\footnote{È equivalente scrivere \(y_i = \mu_i + \varepsilon_i\), dove \(\mu_i = \alpha + \beta x_i, \varepsilon_i \sim \mathcal{N}(0, \sigma_\varepsilon),\) oppure \(y_i \sim \mathcal{N}(\mu_i, \sigma_\varepsilon).\)}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelString }\OtherTok{\textless{}{-}} \StringTok{"}
+\StringTok{data \{}
+\StringTok{  int\textless{}lower=0\textgreater{} N;}
+\StringTok{  vector[N] y;}
+\StringTok{  vector[N] x;}
+\StringTok{\}}
+\StringTok{transformed data \{}
+\StringTok{  vector[N] x\_std;}
+\StringTok{  vector[N] y\_std;}
+\StringTok{  x\_std = (x {-} mean(x)) / sd(x);}
+\StringTok{  y\_std = (y {-} mean(y)) / sd(y);}
+\StringTok{\}}
+\StringTok{parameters \{}
+\StringTok{  real alpha\_std;}
+\StringTok{  real beta\_std;}
+\StringTok{  real\textless{}lower=0\textgreater{} sigma\_std;}
+\StringTok{  real\textless{}lower=1\textgreater{} nu;    // degrees of freedom is constrained \textgreater{}1}
+\StringTok{\}}
+\StringTok{model \{}
+\StringTok{  alpha\_std \textasciitilde{} normal(0, 1);}
+\StringTok{  beta\_std \textasciitilde{} normal(0, 1);}
+\StringTok{  sigma\_std \textasciitilde{} normal(0, 1);}
+\StringTok{  nu \textasciitilde{} gamma(2, 0.1);   // Juárez and Steel(2010)}
+\StringTok{  y\_std \textasciitilde{} student\_t(nu, alpha\_std + beta\_std * x\_std, sigma\_std);}
+\StringTok{\}}
+\StringTok{generated quantities \{}
+\StringTok{  real alpha;}
+\StringTok{  real beta;}
+\StringTok{  real\textless{}lower=0\textgreater{} sigma;}
+\StringTok{  alpha = sd(y) * (alpha\_std {-} beta\_std * mean(x) / sd(x))}
+\StringTok{           + mean(y);}
+\StringTok{  beta = beta\_std * sd(y) / sd(x);}
+\StringTok{  sigma = sd(y) * sigma\_std;}
+\StringTok{\}}
+\StringTok{"}
+\FunctionTok{writeLines}\NormalTok{(modelString, }\AttributeTok{con =} \StringTok{"code/simpleregstdrobust.stan"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Costruiamo la lista dei dati usando il data.frame \texttt{df2} che include l'outlier:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data3\_list }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}
+  \AttributeTok{N =} \FunctionTok{length}\NormalTok{(df2}\SpecialCharTok{$}\NormalTok{kid\_score),}
+  \AttributeTok{y =}\NormalTok{ df2}\SpecialCharTok{$}\NormalTok{kid\_score,}
+  \AttributeTok{x =}\NormalTok{ df2}\SpecialCharTok{$}\NormalTok{mom\_iq }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(df2}\SpecialCharTok{$}\NormalTok{mom\_iq)}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Adattiamo il modello lineare robusto ai dati:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{file }\OtherTok{\textless{}{-}} \FunctionTok{file.path}\NormalTok{(}\StringTok{"code"}\NormalTok{, }\StringTok{"simpleregstdrobust.stan"}\NormalTok{)}
+\NormalTok{mod }\OtherTok{\textless{}{-}} \FunctionTok{cmdstan\_model}\NormalTok{(file)}
+
+\NormalTok{fit4 }\OtherTok{\textless{}{-}}\NormalTok{ mod}\SpecialCharTok{$}\FunctionTok{sample}\NormalTok{(}
+  \AttributeTok{data =}\NormalTok{ data3\_list,}
+  \AttributeTok{iter\_sampling =}\NormalTok{ 4000L,}
+  \AttributeTok{iter\_warmup =}\NormalTok{ 2000L,}
+  \AttributeTok{seed =}\NormalTok{ SEED,}
+  \AttributeTok{chains =}\NormalTok{ 4L,}
+  \AttributeTok{parallel\_chains =}\NormalTok{ 2L,}
+  \AttributeTok{refresh =} \DecValTok{0}\NormalTok{,}
+  \AttributeTok{thin =} \DecValTok{1}
+\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Se esaminiamo le stime dei parametri notiamo che la stima di \(\beta\) non è stata influenzata dalla presenza di un'osservazione anomala e influente:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit4}\SpecialCharTok{$}\FunctionTok{summary}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\StringTok{"alpha"}\NormalTok{, }\StringTok{"beta"}\NormalTok{, }\StringTok{"sigma"}\NormalTok{, }\StringTok{"nu"}\NormalTok{))}
+\CommentTok{\#\textgreater{} \# A tibble: 4 x 10}
+\CommentTok{\#\textgreater{}   variable   mean median     sd    mad     q5    q95}
+\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}     \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}  \textless{}dbl\textgreater{}}
+\CommentTok{\#\textgreater{} 1 alpha    87.8   87.8   0.901  0.898  86.3   89.3  }
+\CommentTok{\#\textgreater{} 2 beta      0.602  0.602 0.0589 0.0587  0.505  0.699}
+\CommentTok{\#\textgreater{} 3 sigma    15.9   15.9   0.800  0.803  14.6   17.2  }
+\CommentTok{\#\textgreater{} 4 nu        5.58   5.46  1.15   1.09    3.93   7.64 }
+\CommentTok{\#\textgreater{} \# ... with 3 more variables: rhat \textless{}dbl\textgreater{},}
+\CommentTok{\#\textgreater{} \#   ess\_bulk \textless{}dbl\textgreater{}, ess\_tail \textless{}dbl\textgreater{}}
+\end{Highlighting}
+\end{Shaded}
+
+Il modello lineare robusto non risente dunque della presenza di outlier.
+
+\hypertarget{commenti-e-considerazioni-finali-2}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-2}}
 
 
-In generale, la distribuzione a posteriori dei parametri di un modello statistico non può essere determinata per via analitica. Tale problema viene invece affrontato facendo ricorso ad una classe di algoritmi per il campionamento da distribuzioni di probabilità che sono estremamente onerosi dal punto di vista computazionale e che possono essere utilizzati nelle applicazioni pratiche solo grazie alla potenza di calcolo dei moderni computer. Lo sviluppo di software che rendono sempre più semplice l'uso dei metodi MCMC, insieme all'incremento della potenza di calcolo dei computer, ha contribuito a rendere sempre più popolare il metodo dell'inferenza bayesiana che, in questo modo, può essere estesa a problemi di qualunque grado di complessità.
+Nell'approccio bayesiano possiamo rappresentare l'incertezza delle nostre credenze a posteriori in due modi: mediante la rappresentazione grafica dell'intera distribuzione a posteriori dei parametri o mediante l'uso degli intervalli di credibilità. Un bonus della discussione del presente Capitolo è quello di mostrare come il modello lineare tradizionale (che assume \(\varepsilon \sim \mathcal{N}(0, \sigma_{\varepsilon})\)) possa essere facilmente esteso nei termini di un modello robusto che offre una semplice soluzione al problema di ridurre l'effetto della presenza di osservazioni outlier.
+
+\hypertarget{regr-ml}{%
+\chapter{Adattare il modello lineare ai dati}\label{regr-ml}}
+
+In questo Capitolo verranno esposte alcune nozioni matematiche che stanno alla base dell'inferenza sul modello lineare.
+
+\hypertarget{minimi-quadrati}{%
+\section{Minimi quadrati}\label{minimi-quadrati}}
+
+Nel modello lineare classico, \(y_i = \beta_0 + \beta_1 x_i + \varepsilon_i\), i coefficienti \(\beta_0\) e \(\beta_1\) sono stimati in modo tale da minimizzare gli errori \(\varepsilon_i\). Se il numero dei dati \(n\) è maggiore di 2, non è generalmente possibile trovare una retta che passi per tutte le osservazioni (\(x, y\)) (sarebbe \(y_i = \beta_0 + \beta_1 x_i\), senza errori, per tutti i punti \(i = 1, \dots, n\)). L'obiettivo della stima dei minimi quadrati è quello di scegliere i valori (\(\hat{\beta}_0, \hat{\beta}_1\)) che minimizzano la somma dei quadrati dei residui,
+
+\begin{equation}
+e_i = y_i − (\hat{\beta}_0 + \hat{\beta}_1 x_i)\,.
+\end{equation}
+
+Distinguiamo tra i residui \(e_i = y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)\) e gli \emph{errori} \(\varepsilon_i = y_i − (\beta_0 + \beta_1 x_i)\). Il modello di regressione è scritto in termini degli errori, ma possiamo solo lavorare con i residui: non possiamo calcolare gli errori perché per farlo sarebbe necessario conoscere i parametri ignoti \(\beta_0\) e \(\beta_1\).
+
+La somma dei residui quadratici (\emph{residual sum of squares}) è
+
+\begin{equation}
+\text{RSS} = \sum_{i=1}^n (y_i = (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2\,.
+\end{equation}
+
+I coefficienti (\(\hat{\beta}_0, \hat{\beta}_1\)) che minimizzano RSS sono chiamati stime dei minimi quadrati, o minimi quadrati ordinari (\emph{ordinari least squares}), o stime OLS.
+
+\hypertarget{stima-della-deviazione-standard-dei-residui-sigma}{%
+\subsection{\texorpdfstring{Stima della deviazione standard dei residui \(\sigma\)}{Stima della deviazione standard dei residui \textbackslash sigma}}\label{stima-della-deviazione-standard-dei-residui-sigma}}
+
+Nel modello lineare, gli errori \(\varepsilon_i\) provengono da una distribuzione con media 0 e deviazione standard \(\sigma\): la media è zero per definizione (qualsiasi media diversa da zero viene assorbita nell'intercetta, \(\beta_0\)), e la deviazione standard degli errori può essere stimata dai dati. Un modo apparentemente naturale per stimare \(\sigma\) potrebbe essere quello di calcolare la deviazione standard dei residui, \(\sqrt{\frac{1}{n} \sum_{i=1}^n e_i^2} = \sqrt{ \frac{1}{n} \sum_{i=1}^n y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2}\), ma questo approccio finisce per sottostimare \(\sigma\). La correzione standard di questa sottostima consiste nel sostituire \(n\) con \(n - 2\) al denominatore (la sottrazione di 2 deriva dal fatto che il valore atteso del modello lineare è stato calcolato utilizzando i due coefficienti nel modello, l'intercetta e la pendenza, i quali sono stati stimati dai dati campionari -- si dice che, in questo modo, abbiamo perso due gradi di libertà). Così facendo otteniamo
+
+\begin{equation}
+\hat{\sigma} = \sqrt{\frac{1}{n-2} \sum_{i=1}^n (y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i))^2}\, .
+\end{equation}
+
+Quando \(n = 1\) o \(2\) l'equazione precedente è priva di significato, il che ha senso: con solo due osservazioni è possibile adattare esattamente una retta al diagramma di dispersione e quindi non c'è modo di stimare l'errore dai dati.
+
+\hypertarget{calcolare-la-somma-dei-quadrati}{%
+\section{Calcolare la somma dei quadrati}\label{calcolare-la-somma-dei-quadrati}}
+
+Seguendo \href{https://github.com/ASKurz/Working-through-Regression-and-other-stories/blob/main/08.Rmd}{Solomon Kurz}, creiamo una funzione per calcolare la somma dei quadrati per diversi valori di \(\beta_0\) e \(\beta_1\) che, per semplicità, qui verranno chiamati \(a\) e \(b\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rss }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x, y, a, b) \{}
+  \CommentTok{\# x and y are vectors,}
+  \CommentTok{\# a and b are scalars}
+\NormalTok{  resid }\OtherTok{\textless{}{-}}\NormalTok{ y }\SpecialCharTok{{-}}\NormalTok{ (a }\SpecialCharTok{+}\NormalTok{ b }\SpecialCharTok{*}\NormalTok{ x)}
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{sum}\NormalTok{(resid}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Per fare un esempio concreto useremo un famoso dataset chiamato \texttt{kidiq} \citep{gelman2020regression} che riporta i dati di un'indagine del 2007 su un campione di donne americane adulte e sui loro bambini di età compresa tra i 3 e i 4 anni. I dati sono costituiti da 434 osservazioni e 4 variabili:
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{kid\_score}: QI del bambino; è il punteggio totale del \emph{Peabody Individual Achievement Test} (PIAT) costituito dalla somma dei punteggi di tre sottoscale (Mathematics, Reading comprehension, Reading recognition);
+\item
+  \texttt{mom\_hs}: variabile dicotomica (0 or 1) che indica se la madre del bambino ha completato le scuole superiori (1) oppure no (0);
+\item
+  \texttt{mom\_iq}: QI della madre;
+\item
+  \texttt{mom\_age}: età della madre.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"rio"}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ rio}\SpecialCharTok{::}\FunctionTok{import}\NormalTok{(here}\SpecialCharTok{::}\FunctionTok{here}\NormalTok{(}\StringTok{"data"}\NormalTok{, }\StringTok{"kidiq.dta"}\NormalTok{))}
+\FunctionTok{head}\NormalTok{(df)}
+\CommentTok{\#\textgreater{}   kid\_score mom\_hs mom\_iq mom\_work mom\_age}
+\CommentTok{\#\textgreater{} 1        65      1 121.12        4      27}
+\CommentTok{\#\textgreater{} 2        98      1  89.36        4      25}
+\CommentTok{\#\textgreater{} 3        85      1 115.44        4      27}
+\CommentTok{\#\textgreater{} 4        83      1  99.45        3      25}
+\CommentTok{\#\textgreater{} 5       115      1  92.75        4      27}
+\CommentTok{\#\textgreater{} 6        98      0 107.90        1      18}
+\end{Highlighting}
+\end{Shaded}
+
+Calcoliamo alcune statistiche descrittive:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(df)}
+\CommentTok{\#\textgreater{}    kid\_score         mom\_hs          mom\_iq     }
+\CommentTok{\#\textgreater{}  Min.   : 20.0   Min.   :0.000   Min.   : 71.0  }
+\CommentTok{\#\textgreater{}  1st Qu.: 74.0   1st Qu.:1.000   1st Qu.: 88.7  }
+\CommentTok{\#\textgreater{}  Median : 90.0   Median :1.000   Median : 97.9  }
+\CommentTok{\#\textgreater{}  Mean   : 86.8   Mean   :0.786   Mean   :100.0  }
+\CommentTok{\#\textgreater{}  3rd Qu.:102.0   3rd Qu.:1.000   3rd Qu.:110.3  }
+\CommentTok{\#\textgreater{}  Max.   :144.0   Max.   :1.000   Max.   :138.9  }
+\CommentTok{\#\textgreater{}     mom\_work      mom\_age    }
+\CommentTok{\#\textgreater{}  Min.   :1.0   Min.   :17.0  }
+\CommentTok{\#\textgreater{}  1st Qu.:2.0   1st Qu.:21.0  }
+\CommentTok{\#\textgreater{}  Median :3.0   Median :23.0  }
+\CommentTok{\#\textgreater{}  Mean   :2.9   Mean   :22.8  }
+\CommentTok{\#\textgreater{}  3rd Qu.:4.0   3rd Qu.:25.0  }
+\CommentTok{\#\textgreater{}  Max.   :4.0   Max.   :29.0}
+\end{Highlighting}
+\end{Shaded}
+
+Il QI medio dei bambini è di circa 87 mentre quello della madre è di 100. La gamma di età delle madri va da 17 a 29 anni con una media di circa 23 anni. Si noti infine che il 79\% delle mamme ha un diploma di scuola superiore.
+
+Ci poniamo ora il problema di descrivere l'associazione tra il QI dei figli, \texttt{kid\_score}, e il QI delle madri, \texttt{mom\_iq}, mediante un modello lineare. Le stime dei minimi quadrati sono fornite dalla funzione \texttt{lm()}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fm }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(kid\_score }\SpecialCharTok{\textasciitilde{}}\NormalTok{ mom\_iq, }\AttributeTok{data =}\NormalTok{ df)}
+\NormalTok{fm }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{tidy}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{filter}\NormalTok{(term }\SpecialCharTok{==} \FunctionTok{c}\NormalTok{(}\StringTok{"(Intercept)"}\NormalTok{, }\StringTok{"mom\_iq"}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pull}\NormalTok{(estimate)}
+\CommentTok{\#\textgreater{} [1] 25.80  0.61}
+\end{Highlighting}
+\end{Shaded}
+
+\noindent Calcoliamo la somma dei residui quadratici in base al modello di regressione \(\hat{y}_i = 25.8 + 0.61 x_i\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rss}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{mom\_iq, df}\SpecialCharTok{$}\NormalTok{kid\_score, }\FloatTok{25.8}\NormalTok{, }\FloatTok{0.61}\NormalTok{)}
+\CommentTok{\#\textgreater{} [1] 144137}
+\end{Highlighting}
+\end{Shaded}
+
+Per sviluppare una comprensione intuitiva del metodo dei minimi quadrati, esploriamo i valori assunti da \texttt{rss} per diversi valori di \(a\) e \(b\). Per semplicità, manteniamo costante \texttt{b\ =\ 0.61} e variamo i valori \texttt{a}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{a =} \FunctionTok{seq}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{30}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{rss =}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map\_dbl}\NormalTok{(}
+\NormalTok{      a,}
+\NormalTok{      rss,}
+      \AttributeTok{x =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{mom\_iq,}
+      \AttributeTok{y =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{kid\_score,}
+      \AttributeTok{b =} \FloatTok{0.61}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ a, }\AttributeTok{y =}\NormalTok{ rss)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Il valore b è tenuto costante (b = 0.61)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-46-1} \end{center}
+
+Il minimo della funzione che qui abbiamo discretizzato costituisce la stima dei minimi quadrati del parametro \(\beta_0\).
+
+Lo stesso può essere fatto per \(b\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{tibble}\NormalTok{(}\AttributeTok{b =} \FunctionTok{seq}\NormalTok{(}\FloatTok{0.4}\NormalTok{, }\FloatTok{0.8}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{rss =}\NormalTok{ purrr}\SpecialCharTok{::}\FunctionTok{map\_dbl}\NormalTok{(}
+\NormalTok{      b,}
+\NormalTok{      rss,}
+      \AttributeTok{x =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{mom\_iq,}
+      \AttributeTok{y =}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{kid\_score,}
+      \AttributeTok{a =} \FloatTok{25.8}
+\NormalTok{    )}
+\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ b, }\AttributeTok{y =}\NormalTok{ rss)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{subtitle =} \StringTok{"Il valore a è tenuto costante (a = 25.8)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-47-1} \end{center}
+
+Il minimo della funzione rappresentata qui sopra costituisce la stima dei minimi quadrati del parametro \(\beta_1\).
+
+In generale, possiamo dire che il metodo dei minimi quadrati consente di minimizzare la funzione quadratica \(RSS = \sum_{i=1}^n \left(y_i - (\hat{\beta}_0 + \hat{\beta}_1 x_i)\right)^2\) rispetto alle due incognite \(\hat{\beta}_0\) e \(\hat{\beta}_1\). Numericamente, ciò corrisponde a variare sia \texttt{a} che \texttt{b} simultaneamente in un listato simile a quello riportato sopra. Anche se il codice \(\R\) necessario per ottenere questo risultato è più complesso di quello qui esaminato, l'idea di base non cambia.
+
+\begin{remark}
+Nelle precedenti istruzioni \(\R\) abbiamo utilizzato la funzione \texttt{purrr::map\_dbl()}. Questo oggetto \(\R\) consente di applicare una funzione (in questo caso, \texttt{rss()}) a ciascun elemento di un vettore in input (nel caso presente, il vettore \texttt{a} oppure il vettore \texttt{b}). La funzione \texttt{purrr::map\_dbl()} ritorna un numero reale.
+\end{remark}
+
+\hypertarget{commenti-e-considerazioni-finali-3}{%
+\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-3}}
+
+
+Se gli errori del modello lineare sono indipendenti e distribuiti normalmente, in modo che \(y_i \sim \mathcal{N}(\beta_0 + \beta_1 x_i, \sigma^2)\) per ogni \(i\), allora la stima ai minimi quadrati di (\(\hat{\beta}_0\), \(\hat{\beta}_1\)) coincide con la stima di massima verosimiglianza di questi parametri. In un modello lineare, la funzione di verosimiglianza è definita come la densità di probabilità delle osservazioni, dati i parametri e i predittori, ovvero,
+
+\begin{equation}
+ p(y \mid \beta_0, \beta_1, \sigma, x) = \prod_{i=1}^n \mathcal{N}(y_i \mid \beta_0 + \beta_1 x_i, \sigma^2),
+ \label{eq:ml-lin-mod}
+\end{equation}
+
+dove \(\mathcal{N}(\cdot | \cdot, \cdot)\) è la funzione gaussiana.
+
+Un studio della \eqref{eq:ml-lin-mod} mostra che la massimizzazione della verosimiglianza richiede la minimizzazione della somma dei quadrati dei residui. Se gli errori sono indipendenti e distribuiti normalmente, quindi, la stima dei minimi quadrati \(\hat{\beta} = (\hat{\beta}_0, \hat{\beta}_1)\) coincide con la stima di massima verosimiglianza per i parametri del modello lineare.
 
   \bibliography{refs.bib,book.bib,packages.bib}
 

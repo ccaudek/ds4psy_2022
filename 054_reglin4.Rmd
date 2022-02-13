@@ -8,7 +8,7 @@ library("tidybayes")
 
 ## Rappresentazione grafica dell'incertezza della stima
 
-Un primo modo per rappresentare l'incertezza dell'inferenza in un ottica bayesiana è quella di rappresentare graficamente la retta specificata dal modello lineare. Continuando con l'esempio descritto nel Capitolo precedente (ovvero, i dati `kid_score` e `mom_iq` centrati), usando la funzione `rstan::read_stan_csv` leggiamo i file CSV generati da `cmdstan` e trasformiamo le stime a posteriori dei parametri in formato `stanfit`:
+Un primo modo per rappresentare l'incertezza dell'inferenza in un ottica bayesiana è quella di rappresentare graficamente la retta specificata dal modello lineare. Continuando con l'esempio descritto nel Capitolo precedente (ovvero, i dati `kid_score` e i valori `mom_iq` centrati), usando la funzione `rstan::read_stan_csv` leggiamo i file CSV generati da `cmdstan` e trasformiamo le stime a posteriori dei parametri in formato `stanfit`:
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, results='hide'}
 library("rio")
@@ -90,15 +90,13 @@ tibble(
   )
 ```
 
-Un modo per visualizzare l'incertezza della stima della retta specifiata dal modello lineare è quello di tracciare molteplici rette, ciascuna delle quali definita da una diversa stima dei parametri $\alpha$ e $\beta$; le diverse stime dei parametri $\alpha$ e $\beta$ vengono estratta a caso dalle rispettive distribuzioni a posteriori.
-
-Per ottenere questo risultato dobbiamo estrarre le informazioni richieste dall'oggetto `stanfit` che abbiamo creato. Per fare questo usiamo le funzionalità di `tidybayes`. Per esempio
+L'incertezza della stima della retta specifiata dal modello lineare può essere visualizzata tracciando molteplici rette, ciascuna delle quali definita da un diverso valore estratto a caso dalla distribuzione a posteriori dei parametri $\alpha$ e $\beta$. Per ottenere questo risultato dobbiamo estrarre le informazioni richieste dall'oggetto `stanfit` che abbiamo creato; usiamo, per esempio, le funzionalità di `tidybayes`:
 
 ```{r}
 tidybayes::get_variables(stanfit)
 ```
 
-Creiamo un Dataframe in formato tidy che contiene le stime a posteriori di $\alpha$ e $\beta$ nel modo seguente:
+Creiamo un Dataframe in formato tidy (cioè, tale per cui le osservazioni stanno sulle righe e le variabili stanno sulle colonne) che contiene le stime a posteriori di $\alpha$ e $\beta$:
 
 ```{r}
 draws <- stanfit %>%
@@ -110,7 +108,7 @@ draws %>%
   head(10)
 ```
 
-Possiamo ora generare il diagramma a dispersione con `ggplot()`:
+Possiamo ora generare un diagramma a dispersione con `ggplot()`:
 
 ```{r}
 tibble(
@@ -133,11 +131,11 @@ tibble(
   )
 ```
 
-Il grafico indica che le rette di regressione costruite estraendo a caso valori dalla distribuzione a posteriori dei parametri $\beta_0$ e $\beta_1$ tendono ad essere molto simili tra loro. Ciò significa che, relativamente alla dipendenza (lineare) del quoziente di intelligenza del bambino da quello della madra, l'incertezza è piccola (ovvero, la certezza è alta).
+Il grafico indica che le rette di regressione costruite estraendo a caso valori dalla distribuzione a posteriori dei parametri $\beta_0$ e $\beta_1$ tendono ad essere molto simili tra loro. Ciò significa che, relativamente alla dipendenza (lineare) del quoziente di intelligenza del bambino da quello della madra, la nostra incertezza è molto piccola.
 
 ## Intervalli di credibilità
 
-L'incertezza inferenziale sui parametri può anche essere rappresentata mediante gli _intervalli di credibilità_, ovvero gli intervalli che contengono la quota desiderata (es., il 95%) della distribuzione a posteriori. Per l'esempio che stiamo discutendo, gli intervalli di credibilità al 95% si ottengono nel modo seguente:
+L'incertezza inferenziale sui parametri può anche essere descritta mediante gli _intervalli di credibilità_, ovvero gli intervalli che contengono la quota desiderata (es., il 95%) della distribuzione a posteriori. Per l'esempio che stiamo discutendo, gli intervalli di credibilità al 95% si ottengono nel modo seguente:
 
 ```{r}
 rstantools::posterior_interval(
