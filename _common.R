@@ -30,7 +30,7 @@ knitr::opts_chunk$set(
   fig.asp = 0.618, # 1 / phi
   # fig.show = "hold",
   # dpi = 300,
-  fig.pos = "h", # pdf mode
+  # fig.pos = "h", # pdf mode
   # cache.extra = knitr::rand_seed,
   # tidy.opts = list(width.cutoff = 76),
   tidy = "styler"

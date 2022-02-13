@@ -24,6 +24,7 @@ Integrando su $\theta$ otteniamo la distribuzione predittiva a posteriori:
 
 \begin{equation}
 p(\tilde{y} \mid y) = \int_{\theta} p(\tilde{y} \mid \theta) p(\theta \mid y) \,\operatorname {d}\!\theta.
+(\#eq:post-pred-distr)
 \end{equation}
 
 Nel caso dello schema beta-binomiale, la funzione $p(\tilde{y} \mid \theta)$ è binomiale di parametri $m$ e $\theta$, e la distribuzione a posteriori $p(\theta \mid y)$ è $\mbox{Beta}(\alpha + y, \beta + n - y)$. Risolvendo l'integrale otteniamo:
@@ -242,7 +243,9 @@ tibble(y_rep = rowSums(y_bern)) %>%
 Si noti che questo istogramma non può essere confrontato con quello ottenuto nella simulazione precedente dato che $m$ è diverso nelle due simulazioni.
 :::
 
-## Posterior predictive checks
+## I metodi per la valutazione del modello
+
+### Posterior predictive checks
 
 La distribuzione predittiva a posteriori viene utilizzata per eseguire i cosiddetti _controlli predittivi a posteriori_ (_Posterior Predictive Checks_, PPC). Nella distribuzione predittiva a posteriori, viene generato un campione di dati possibili futuri utilizzando le proprietà del modello adattato. È ovvio che tali dati possibili futuri devono almento essere coerenti con i dati del campione presente. I PPC eseguono un confronto grafico tra $p(y^{rep} \mid y)$ e i dati osservati $y$: confrontando visivamente gli aspetti chiave dei dati previsti futuri $y^{rep}$ e dei dati osservati $y$ è possibile determinare se il modello è adeguato.
 
@@ -432,6 +435,62 @@ ppc_stat_2d(data_list$y, y_rep, stat = c("mean", "min"))
 
 In conclusione, per le misurazioni della velocità della luce di Newcomb l'accuratezza predittiva del modello basato sulla distribuzione $t$ di Student è chiaramente migliore di quella del modello normale.
 :::
+
+## Distribuzione predittiva a priori
+
+Nella sezione precedente abbiamo visto come la distribuzione predittiva è stata usata per generare nuovi dati previsti futuri. Più precisamente, mediante la \@ref(eq:post-pred-distr)
+
+\begin{equation}
+p(\tilde{y} \mid y) = \int_{\theta} p(\tilde{y} \mid \theta) p(\theta \mid y) \,\operatorname {d}\!\theta\notag
+\end{equation}
+
+abbiamo descritto la nostra incertezza sulla distribuzione di future osservazioni di dati, data la distribuzione a posteriori di $\theta$, ovvero tenendo conto della scelta del modello e della stima dei parametri mediante i dati osservati. Si noti che, nella \@ref(eq:post-pred-distr), $\tilde{y}$ è condizionato da $y$ ma non da ciò che è incognito, ovvero $\theta$. La distribuzione predittiva a posteriori è ottenuta mediante marginalizzazione sopra i parametri incogniti $\theta$.
+
+In un modello bayesiano dove $\theta$ ha una distribuzione a priori $p(\theta)$ e per $y$ possiamo definire la funzione di verosimiglianza $p(y \mid \theta)$ possiamo scrivere la distribuzione congiunta $p(y, \theta)$ come il prodotto della verosimiglianza e della distribuzione a priori:
+
+$$
+p(y, \theta) = p(y \mid \theta)p(\theta).
+$$
+
+Una rappresentazione alternativa della distribuzione congiunta $p(y, \theta)$ è
+
+$$
+p(y, \theta) = p(\theta \mid y)p(y)
+$$
+
+Il primo termine in questo prodotto, la densità $p(\theta \mid y)$, è la densità a posteriori di $\theta$ date le osservazioni $y$. Il secondo termine in questo prodotto, $p(y)$, è la _distribuzione predittiva a priori_ che rappresenta la distribuzione dei dati futuri previsti dal modello prima di avere osservato il campione $y$. Se risulta che i dati $y$ non sono coerenti con distribuzione predittiva a priori, questa è evidenza che il modello bayesiano non è specificato correttamente. In altre parole, questo ci dice che, in base al modello bayesiano così come è stato formulato, è improbabile che si verifichino i dati che sono stati effettivamente osservati. Ovviamente, questo vuol dire che, per i dati del campione, il modello è inadeguato.
+
+In seguito vedremo come la distribuzione predittiva a priori possa essere facilmente ricavata se l'inferenza bayesiana viene svolta mediante i metodi MCMC. Qui consideriamo un esempio relativo ai dati di @zetschefuture2019 senza approfondire i dettagli computazionali. Lo scopo è solo quello di interpretare il risultato ottenuto.
+
+Nel campione di @albert2019probability abbiamo osservato 23 successi in 30 prove. Nella discussione precedente abbiamo svolto l'aggiornamento bayesiano imponendo su $\theta$ una distribuzione a priori $\mbox{Beta}(2, 10)$. Ci poniamo il problema di costruire la distribuzione predittiva a priori per questo modello. 
+
+Nel caso di una verosimiglianza binomiale e di una distribuzione a priori Beta, la distribuzione predittiva a priori può essere costruita mediante la funzione `LearnBayes::pbetap()`. Con i dati dell'esempio, otteniamo
+
+```{r}
+df <- tibble(
+  y = 0:30,
+  Probability = LearnBayes::pbetap(c(2, 10), 30, 0:30)
+)
+df %>% 
+  ProbBayes::prob_plot(Color = "gray", Size = 3) + 
+  geom_point(data = tibble(y = 23, Probability = 0), size = 3) 
+```
+
+La distribuzione predittiva a priori assegna livelli diversi di plausibilità a ciascuno dei possibili risultati del nostro esperimento casuale, ovvero all'osservazione di $0, 1, \dots, 30$ successi in 30 prove Bernoulliane. Nella distribuzione predittiva a priori assegna ho evidenziato il punto $y = 23$, ovvero il numero di successi che sono stati effettivamente osservati nel campione. Il grafico mostra che la distribuzione predittiva a priori assegna una plausibilità quasi nulla all'evento $y = 23$, ovvero ai dati che sono stati effettivamente osservati. Questo indica chiaramente che la distribuzione a priori $\mbox{Beta}(2, 10)$ non è adeguata per i dati che stiamo analizzando. Se viene invece utilizzata una distribuzione a priori debolmente informativa, come $\mbox{Beta}(2, 2)$, la distribuzione predittiva a priori diventa:
+
+```{r}
+df <- tibble(
+  y = 0:30,
+  Probability = LearnBayes::pbetap(c(2, 2), 30, 0:30)
+)
+df %>% 
+  ProbBayes::prob_plot(Color = "gray", Size = 3) + 
+  geom_point(data = tibble(y = 23, Probability = 0), size = 3) 
+```
+
+In questo secondo caso al valore $y$ osservato nel campione viene assegnata una plausibilità piuttosto alta. Ciò significa che una $\mbox{Beta}(2, 2)$ è adeguata quale distribuzione a priori.  
+
+Ricordo che, nell'analisi dei dati di @zetschefuture2019, la $\mbox{Beta}(2, 10)$ è stata utilizzata quale distribuzione a priori solo per scopi didattici, ovvero per evidenziare le proprietà dell'aggiornamento bayesiano (la differenza tra la distribuzione a priori e la distribuzione a posteriori). La discussione presente mette però chiaramente in evidenza il fatto che la $\mbox{Beta}(2, 10)$ non è una buona scelta per la distribuzione a priori: sarebbe invece più opportuno usare una $\mbox{Beta}(2, 2)$.
 
 ## Commenti e considerazioni finali {-}
 

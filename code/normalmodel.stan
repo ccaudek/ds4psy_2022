@@ -9,7 +9,7 @@ parameters {
 }
 model {
   mu ~ normal(25, 2);
-  sigma ~ normal(0, 5);
+  sigma ~ normal(5, 2.5);
   y ~ normal(mu, sigma);
 }
 

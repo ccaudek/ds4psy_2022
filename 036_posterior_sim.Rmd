@@ -628,6 +628,42 @@ ggplot(d, aes(x = iter, y = mcmc)) +
 
 Ovviamente, è necessario fare tutto questo in RStudio: non ho inserito un GIF animato nel presente file pdf.
 
+#### Funzione `metropolis()`
+
+I calcoli precedenti possono essere svolti anche mediante la funzione `metropolis()` del pacchetto `ProbBayes`. Per fare un esempio, consideriamo i dati corrispondenti a 23 successi in 30 prove, con una distribuzione a priori $\mbox{Beta}(2, 10)$. Le istruzioni sono le seguenti: 
+
+```{r}
+set.seed(123)
+lpost <- function(theta, s){
+  dbeta(theta, 2, 10,log = TRUE) +
+  dbinom(23, 30, theta, log = TRUE)
+}
+post <- ProbBayes::metropolis(lpost, 0.5, 0.2, 8000)
+
+tibble(
+  x = post$S[4001:8000]
+) %>%
+  ggplot(aes(x)) +
+  geom_histogram() +
+  labs(
+    x = expression(theta),
+    y = "Frequenza",
+    title = "Distribuzione a posteriori"
+  )
+```
+
+Utilizzando un burn-in piuttosto lungo, la stima a posteriori di $\theta$ diventa:
+
+```{r}
+mean(post$S[4001:8000])
+```
+
+L'accettanza però non è ottimale:
+
+```{r}
+post$accept_rate
+```
+
 ### Input
 
 Negli esempi discussi in questo Capitolo abbiamo illustrato l'esecuzione di una singola catena in cui si parte un unico valore iniziale e si raccolgono i valori simulati da molte iterazioni. È possibile però che i valori di una catena siano influenzati dalla scelta del valore iniziale. Quindi una raccomandazione generale è di eseguire l'algoritmo di Metropolis più volte utilizzando diversi valori di partenza. In questo caso, si avranno più catene di Markov. Confrontando le proprietà delle diverse catene si esplora la sensibilità dell'inferenza alla scelta del valore di partenza. I software MCMC consentono sempre all'utente di specificare diversi valori di partenza e di generare molteplici catene di Markov.
