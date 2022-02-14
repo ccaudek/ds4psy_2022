@@ -29,10 +29,10 @@ rmd_files:
     # - "010_freq_distr.Rmd"
     # - "011_loc_scale.Rmd"
     # - "012_correlation.Rmd"
-    # ## PART II
-    # - "015_prob_intro.Rmd"
-    # - "016_conditional_prob.Rmd"
-    # - "017_bayes_theorem.Rmd"
+    ## PART II
+    - "015_prob_intro.Rmd"
+    - "016_conditional_prob.Rmd"
+    - "017_bayes_theorem.Rmd"
     # - "018_joint_prob.Rmd"
     # - "019_density_func.Rmd"
     # - "020_expval_var.Rmd"
@@ -40,7 +40,7 @@ rmd_files:
     # - "023_cont_rv_distr.Rmd"
     ## PART III
     - "025_intro_bayes.Rmd"
-    - "026_subj_prop.Rmd"
+    # - "026_subj_prop.Rmd"
     # - "029_conjugate_families.Rmd"
     # - "030_balance_prior_post.Rmd"
     # - "036_posterior_sim.Rmd"

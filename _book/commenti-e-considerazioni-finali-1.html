@@ -31,7 +31,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="posterior-predictive-checks.html"/>
+<link rel="prev" href="principali-distribuzioni-coniugate.html"/>
 
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -193,12 +193,19 @@ div.csl-indent {
 <li class="chapter" data-level="1.7" data-path="distribuzione-predittiva-a-posteriori.html"><a href="distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>1.7</b> Distribuzione predittiva a posteriori</a></li>
 <li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali.html"><a href="commenti-e-considerazioni-finali.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="ch-prediction.html"><a href="ch-prediction.html"><i class="fa fa-check"></i><b>2</b> La predizione bayesiana</a>
+<li class="chapter" data-level="2" data-path="ch-distr-coniugate.html"><a href="ch-distr-coniugate.html"><i class="fa fa-check"></i><b>2</b> Distribuzioni a priori coniugate</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="la-distribuzione-predittiva.html"><a href="la-distribuzione-predittiva.html"><i class="fa fa-check"></i><b>2.1</b> La distribuzione predittiva</a></li>
-<li class="chapter" data-level="2.2" data-path="simulazione-della-distribuzione-predittiva-a-posteriori.html"><a href="simulazione-della-distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>2.2</b> Simulazione della distribuzione predittiva a posteriori</a></li>
-<li class="chapter" data-level="2.3" data-path="metodi-mcmc-per-la-distribuzione-predittiva-a-posteriori.html"><a href="metodi-mcmc-per-la-distribuzione-predittiva-a-posteriori.html"><i class="fa fa-check"></i><b>2.3</b> Metodi MCMC per la distribuzione predittiva a posteriori</a></li>
-<li class="chapter" data-level="2.4" data-path="posterior-predictive-checks.html"><a href="posterior-predictive-checks.html"><i class="fa fa-check"></i><b>2.4</b> Posterior predictive checks</a></li>
+<li class="chapter" data-level="2.1" data-path="lo-schema-beta-binomiale.html"><a href="lo-schema-beta-binomiale.html"><i class="fa fa-check"></i><b>2.1</b> Lo schema beta-binomiale</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="lo-schema-beta-binomiale.html"><a href="lo-schema-beta-binomiale.html#la-specificazione-della-distribuzione-a-priori"><i class="fa fa-check"></i><b>2.1.1</b> La specificazione della distribuzione a priori</a></li>
+<li class="chapter" data-level="2.1.2" data-path="lo-schema-beta-binomiale.html"><a href="lo-schema-beta-binomiale.html#la-specificazione-della-distribuzione-a-posteriori"><i class="fa fa-check"></i><b>2.1.2</b> La specificazione della distribuzione a posteriori</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="inferenza-bayesiana-con-distribuzioni-a-priori-continue.html"><a href="inferenza-bayesiana-con-distribuzioni-a-priori-continue.html"><i class="fa fa-check"></i><b>2.2</b> Inferenza bayesiana con distribuzioni a priori continue</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="inferenza-bayesiana-con-distribuzioni-a-priori-continue.html"><a href="inferenza-bayesiana-con-distribuzioni-a-priori-continue.html#approccio-bayesiano-alla-verifica-di-ipotesi"><i class="fa fa-check"></i><b>2.2.1</b> Approccio bayesiano alla verifica di ipotesi</a></li>
+<li class="chapter" data-level="2.2.2" data-path="inferenza-bayesiana-con-distribuzioni-a-priori-continue.html"><a href="inferenza-bayesiana-con-distribuzioni-a-priori-continue.html#intervalli-di-credibilità"><i class="fa fa-check"></i><b>2.2.2</b> Intervalli di credibilità</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="principali-distribuzioni-coniugate.html"><a href="principali-distribuzioni-coniugate.html"><i class="fa fa-check"></i><b>2.3</b> Principali distribuzioni coniugate</a></li>
 <li class="chapter" data-level="" data-path="commenti-e-considerazioni-finali-1.html"><a href="commenti-e-considerazioni-finali-1.html"><i class="fa fa-check"></i>Commenti e considerazioni finali</a></li>
 </ul></li>
 <li class="divider"></li>
@@ -223,11 +230,14 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="commenti-e-considerazioni-finali-1" class="section level2 unnumbered">
 <h2>Commenti e considerazioni finali</h2>
-<p>Questo capitolo presenta i controlli predittivi a posteriori. A questo proposito è necessario notare un punto importante: i controlli predittivi a posteriori, quando suggeriscono un buon adattamento del modello alle caratterische dei dati previsti futuri <span class="math inline">\(y^{rep}\)</span>, non forniscono necessariamente una forte evidenza della capacità del modello di generalizzarsi a nuovi campioni di dati. Una tale evidenza sulla generalizzabilità del modello può solo essere fornita da studi di <em>holdout validation</em>, ovvero da studi nei quali viene utilizzato un <em>nuovo</em> campione di dati. Se i PPC mostrano un cattivo adattamento del modello ai dati previsti futuri, però, questo controllo fornisce una forte evidenza di una errata specificazione del modello.</p>
+<p>Lo scopo di questa discussione è mostrare come sia possibile combinare le nostre conoscenze a priori (espresse nei termini di una densità di probabilità) con le evidenze fornite dai dati (espresse nei termini della funzione di verosimiglianza), così da determinare, mediante il teorema di Bayes, una distribuzione a posteriori, la quale condensa l’incertezza che abbiamo sul parametro <span class="math inline">\(\theta\)</span>. Per illustrare tale problema, abbiamo considerato una situazione nella quale <span class="math inline">\(\theta\)</span> corrisponde alla probabilità di successo in una sequenza di prove Bernoulliane. In tali circostanze è ragionevole esprimere le nostre credenze a priori mediante la densità Beta, con opportuni parametri. L’inferenza rispetto a <span class="math inline">\(\theta\)</span> può essere svolta utilizzando una distribuzione a priori Beta e una verosimiglianza binomiale. Così facendo, la distribuzione a posteriori diventa essa stessa una distribuzione Beta – questo è il cosiddetto schema beta-binomiale. Dato che utilizza una distribuzione a priori coniugata, lo schema beta-binomiale rende possibile la determinazione analitica dei parametri della distribuzione a posteriori.</p>
 
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div class="csl-entry">
-Gelman, Andrew, Jennifer Hill, and Aki Vehtari. 2020. <em>Regression and Other Stories</em>. Cambridge University Press.
+Johnson, Alicia A., Miles Ott, and Mine Dogucu. 2022. <em><span class="nocase">Bayes Rules! An Introduction to Bayesian Modeling with R</span></em>. CRC Press.
+</div>
+<div class="csl-entry">
+Milgram, Stanley. 1963. <span>“Behavioral Study of Obedience.”</span> <em>The Journal of Abnormal and Social Psychology</em> 67 (4): 371–78.
 </div>
 <div class="csl-entry">
 Zetsche, Ulrike, Paul-Christian Bürkner, and Babette Renneberg. 2019. <span>“Future Expectations in Clinical Depression: <span>Biased</span> or Realistic?”</span> <em>Journal of Abnormal Psychology</em> 128 (7): 678–88.
@@ -240,7 +250,7 @@ Zetsche, Ulrike, Paul-Christian Bürkner, and Babette Renneberg. 2019. <span>“
           </div>
         </div>
       </div>
-<a href="posterior-predictive-checks.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="principali-distribuzioni-coniugate.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
@@ -272,7 +282,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/ccaudek/ds4psy/edit/master/046_bayesian_prediction.Rmd",
+"link": "https://github.com/ccaudek/ds4psy/edit/master/029_conjugate_families.Rmd",
 "text": "Edit"
 },
 "history": {

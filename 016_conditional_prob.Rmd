@@ -178,6 +178,126 @@ $$
 Il concetto di indipendenza è del tutto differente da quello di incompatibilità. Si noti infatti che due eventi _A_ e _B_ incompatibili (per i quali si ha $A \cap B = \emptyset$) sono statisticamente dipendenti, poiché il verificarsi dell'uno esclude il verificarsi dell'altro: $P(A \cap B)=0  \neq P(A)P(B)$.
 ::: 
 
+
+## Il teorema della probabilità assoluta
+
+Il teorema della probabilità assoluta è presente al denominatore del teorema di Bayes (che esamineremo nel prossimo capitolo) e verrà qui presentato considerando una partizione dello spazio campionario in tre sottoinsiemi, ma è facile estendere tale discussione al caso di una partizione in un qualunque numero di sottoinsiemi.
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \cap H_1) + {\mbox{P}}(E \cap H_2) + {\mbox{P}}(E \cap H_3) \notag
+(\#eq:prob-total-1a)
+\end{equation}
+
+ovvero
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \mid F_1) {\mbox{P}}(F_1) + {\mbox{P}}(E \mid F_2) {\mbox{P}}(F_2) + {\mbox{P}}(E \mid F_3) {\mbox{P}}(F_3).
+(\#eq:prob-total-1b)
+\end{equation}
+
+Il teorema della probabilità assoluta afferma che, se l'evento $E$ è
+costituito da tutti gli eventi elementari in $E \cap F_1$, $E \cap F_2$
+e $E \cap F_3$, allora la probabilità ${\mbox{P}}(E)$ è data dalla somma delle
+probabilità di questi tre eventi (figura \@ref(fig:tikz-prob-tot)). La \@ref(eq:prob-total-1b) costituisce il denominatore del teorema di Bayes.
+
+```{tikz, echo=FALSE, tikz-prob-tot, fig.cap = "Partizione dello spazio campionario $\\Omega$.", fig.ext = 'png', cache=TRUE}
+\usetikzlibrary{
+  matrix, patterns, calc, fit, shapes, chains, snakes,
+  arrows.meta, arrows, backgrounds, trees, positioning,
+  lindenmayersystems
+}
+\begin{tikzpicture}
+\tikzset{
+    myrectangle/.style={
+        draw=black,
+        minimum width=4cm,
+        minimum height=2cm,
+    },
+    A/.style={
+        draw=gray,
+    },
+    E/.style={
+        draw=gray,
+    },
+    >=stealth,
+    node distance=1cm and 1cm,
+}
+
+    \node[myrectangle] (left) {};
+    \node[myrectangle] (right) [right=of left] {};
+    \path (left.south east) -- coordinate (tmp) (right.south west);
+    \node[myrectangle] (bottom) [below=of tmp] {};
+
+    % "contents" of left node
+    \path (left.west) -- node[pos=.25] {$F_1$} (left.east);
+    \path (left.west) -- node[pos=.5] {$F_2$} (left.east);
+    \path (left.west) -- node[pos=.75] {$F_3$} (left.east);
+
+    \draw[A] ($(left.north west) ! .4 ! (left.north east)$) -- ($(left.south west) ! .35 ! (left.south east)$);
+    \draw[A] ($(left.north west) ! .6 ! (left.north east)$) -- ($(left.south west) ! .66 ! (left.south east)$);
+
+    % "contents" of right node
+    \draw[E] (right.center) ellipse [x radius=1.5cm, y radius=0.75cm] node {$E$};
+
+    % "contents" of bottom node
+    \path (bottom.west) -- node[pos=.25] {\scriptsize $E\cap F_1$} (bottom.east);
+    \path (bottom.west) -- node[pos=.5] {\scriptsize $E \cap F_2$} (bottom.east);
+    \path (bottom.west) -- node[pos=.75] {\scriptsize $E \cap F_3$} (bottom.east);
+
+    \draw[A] ($(bottom.north west) ! .4 ! (bottom.north east)$) -- ($(bottom.south west) ! .35 ! (bottom.south east)$);
+    \draw[A] ($(bottom.north west) ! .6 ! (bottom.north east)$) -- ($(bottom.south west) ! .66 ! (bottom.south east)$);
+
+    \draw[E] (bottom.center) ellipse [x radius=1.5cm, y radius=0.75cm];
+
+    % arrows
+    \begin{scope}[
+        shorten >=.2cm,
+        shorten <=.2cm,
+    ]
+        \draw[->, black] (left) -- (bottom);
+        \draw[->, black] (right) -- (bottom);
+    \end{scope}
+
+    % labels on top
+    \node at (left.north east) [anchor=south east] {$\Omega$};
+    \node at (right.north east) [anchor=south east] {$\Omega$};
+    \node at (bottom.north east) [anchor=south east] {$\Omega$};
+\end{tikzpicture}
+```
+
+::: {.exercise}
+Si considerino tre urne, ciascuna delle quali contiene 100 palline:
+
+-   Urna 1: 75 palline rosse e 25 palline blu,
+-   Urna 2: 60 palline rosse e 40 palline blu,
+-   Urna 3: 45 palline rosse e 55 palline blu.
+
+\noindent
+Una pallina viene estratta a caso da un'urna anch'essa scelta a caso.
+Qual è la probabilità che la pallina estratta sia di colore rosso?
+
+Sia $R$ l'evento "la pallina estratta è rossa" e sia $U_i$ l'evento che
+corrisponde alla scelta dell'$i$-esima urna. Sappiamo che
+
+$$
+{\mbox{P}}(R \mid U_1) = 0.75, \quad {\mbox{P}}(R \mid U_2) = 0.60, \quad {\mbox{P}}(R \mid U_3) = 0.45.
+$$
+
+Gli eventi $U_1$, $U_2$ e $U_3$ costituiscono una partizione dello
+spazio campionario in quanto $U_1$, $U_2$ e $U_3$ sono eventi
+mutualmente esclusivi ed esaustivi, ${\mbox{P}}(U_1 \cup U_2 \cup U_3) = 1.0$. In
+base al teorema della probabilità assoluta, la probabilità di estrarre una
+pallina rossa è dunque
+
+$$
+\begin{split}
+{\mbox{P}}(R) &= {\mbox{P}}(R \mid U_1){\mbox{P}}(U_1)+{\mbox{P}}(R \mid U_2){\mbox{P}}(U_2)+{\mbox{P}}(R \mid U_3){\mbox{P}}(U_3) \\
+&= 0.75 \cdot \frac{1}{3}+0.60 \cdot \frac{1}{3}+0.45 \cdot \frac{1}{3} \\
+&=0.60.
+\end{split}
+$$
+:::
+
 ## Commenti e considerazioni finali {-}
 
 La probabilità condizionata è importante perché ci fornisce uno strumento per precisare il concetto di indipendenza statistica. Una delle domande più importanti delle analisi statistiche è infatti quella che si chiede se due variabili sono associate tra loro oppure no. In questo Capitolo abbiamo discusso il concetto di indipendenza (come contrapposto al concetto di associazione -- si veda il Capitolo \@ref(chapter-descript)). In seguito vedremo come sia possibile fare inferenza sull'associazione tra variabili.
