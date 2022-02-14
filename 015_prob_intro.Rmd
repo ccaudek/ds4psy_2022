@@ -2,42 +2,42 @@
 
 # (PART) Il calcolo delle probabilità  {-}
 
-# Il ragionamento scientifico: deduzione e induzione {#intro-prob-1}
+# Ragionamento scientifico e inferenza induttiva  {#intro-prob-1}
 
 ```{r, include = FALSE}
 source("_common.R")
 ```
 
-In questa parte della dispensa verrà introdotta la teoria delle probabilità. Prima di entrare nei dettagli, cerchiamo di capire perché la probabilità è cruciale per la ricerca scientifica. Ingenuamente, potremmo pensare che il modo migliore di procedere nella ricerca scientifica sia quello di usare la logica deduttiva (aristotelica) -- con un tale metodo, infatti, siamo sicuri di non commettere errori. Un esempio è il sillogismo, come 
+In questa parte della dispensa verrà introdotta la teoria delle probabilità. Prima di entrare nei dettagli, cerchiamo di capire perché la probabilità sia cruciale per la ricerca scientifica. 
 
-- tutti gli uomini sono mortali, 
-- Socrate è un uomo, 
-- quindi, Socrate è mortale.
+<!-- Ingenuamente, potremmo pensare che il modo migliore di procedere nella ricerca scientifica sia quello di usare la logica deduttiva (aristotelica) -- con un tale metodo, infatti, siamo sicuri di non commettere errori. Un esempio è il sillogismo, come  -->
+<!-- - tutti gli uomini sono mortali,  -->
+<!-- - Socrate è un uomo,  -->
+<!-- - quindi, Socrate è mortale. -->
+<!-- La logica deduttiva, però, non può essere utilizzata in psicologia, né in alcun'altra scienza empirica. Nel sillogismo, la correttezza del ragionamento dipende dalla sua struttura e non dal significato delle parole (come uomo, mortale, ecc.). Nelle scienze empiriche, però, il "significato delle parole" è cruciale. Le "parole" usate nel sillogismo corrispondono ai "concetti teorici" (detti, in psicologia, costrutti) delle teorie scientifiche. Il problema è che la _corrispondenza_ tra relazioni tra costrutti teorici, da una parte, e relazioni tra i fenomeni empirici, dall'altra, dipende dalla validità delle teorie. In fisica, ad esempio, i concetti teorici di massa ($m$), peso ($P$) e forza di gravità ($g$) consentono di descrivere accuratamente ciò che si osserva nel mondo empirico: $P = m \cdot g$. Non è così, invece, nelle scienze sociali, dove le relazioni tra costrutti sono in grado di descrivere _solo in parte_ le relazioni tra i corrispondenti fenomeni empirici.  -->
 
-La logica deduttiva, però, non può essere utilizzata in psicologia, né in alcun'altra scienza empirica. Nel sillogismo, la correttezza del ragionamento dipende dalla sua struttura e non dal significato delle parole (come uomo, mortale, ecc.). Nelle scienze empiriche, però, il "significato delle parole" è cruciale. Le "parole" usate nel sillogismo corrispondono ai "concetti teorici" (detti, in psicologia, costrutti) delle teorie scientifiche. Il problema è che la _corrispondenza_ tra relazioni tra costrutti teorici, da una parte, e relazioni tra i fenomeni empirici, dall'altra, dipende dalla validità delle teorie. In fisica, ad esempio, i concetti teorici di massa ($m$), peso ($P$) e forza di gravità ($g$) consentono di descrivere accuratamente ciò che si osserva nel mondo empirico: $P = m \cdot g$. Non è così, invece, nelle scienze sociali, dove le relazioni tra costrutti sono in grado di descrivere _solo in parte_ le relazioni tra i corrispondenti fenomeni empirici. Nelle scienze sociali, dunque, la ricerca procede mediante l'inferenza induttiva. Non siamo mai completamente sicuri della verità di una proposizione: al valore di verità di una proposizione possiamo solo assegnare un giudizio probabilistico. L'approccio bayesiano è una scuola di pensiero che usa la probabilità per quantificare il grado di credenza che viene attribuito al valore di verità di una proposizione. L'inferenza statistica bayesiana è un tipo di inferenza induttiva che ha lo scopo di quantificare quanto sia plausibile la proposizione $A$ dopo aver osservato l'evento $B$. Per quantificare la plausibilità di una proposizione l'inferenza statistica bayesiana utilizza la teoria delle probabilità. Una discussione dell'inferenza statistica bayesiana richiede dunque, preliminarmente, la conoscenze della teoria delle probabilità. 
+La teoria delle probabilità è cruciale per la scienza perché la ricerca procede mediante l'inferenza induttiva. Non siamo mai completamente sicuri della verità di una proposizione (ipotesi, teoria): al valore di verità di una proposizione possiamo solo assegnare un giudizio probabilistico. L'approccio bayesiano è una scuola di pensiero che usa la probabilità per quantificare il grado di fiducia che può essere attribuito ad una proposizione. L'inferenza statistica bayesiana è un tipo di inferenza induttiva che ha lo scopo di quantificare la fiducia che si ha nell'ipotesi $H$ dopo il verificarsi del dato d'evidenza $E$. Per quantificare un tale grado di fiducia l'inferenza statistica bayesiana utilizza la teoria delle probabilità. Una comprensione dell'inferenza statistica bayesiana richiede dunque, preliminarmente, la conoscenze della teoria delle probabilità. 
 
-## Proposizioni e modelli statistici
+<!-- ## Proposizioni e modelli statistici -->
 
-Nell'inferenza bayesiana, le proposizioni di una teoria scientifica sono espresse nella forma di un modello statistico, ovvero mediante una legge generale che descrive il modo in cui un fenomeno si manifesta. Tale legge generale viene anche detta _processo generativo dei dati_. Ma che cos'è un modello generativo dei dati? Per fare un esempio, consideriamo il quoziente d'intelligenza. Sappiamo che il punteggio totale della _Wechsler Adult Intelligence Scale_ ha, nella popolazione, media 100 e deviazione standard 15 (dato che il test WAIS è stato costruito in modo da avere una tale proprietà). Quindi, se prendiamo un campione abbastanza grande di persone, i valori del QI di tali persone avranno, circa, media uguale a 100 e deviazione standard uguale a 15. Se con tali dati costruiamo un istogramma, sappiamo anche che il profilo di tale istogramma sarà ben descritto da una funzione matematica che va sotto il nome di _legge gaussiana_. La rappresentazione grafica della funzione gaussiana è la classica curva a campana che avrete visto tante volte in passato. La funzione gaussiana dipende da due parametri: la media (solitamente indicata con $\mu$) e la deviazione standard ($\sigma$). Se cambiamo questi parametri, ma usiamo sempre la stessa formula, otteniamo una curva diversa.  Per esempio, se consideriamo solo la sotto-popolazione dei bambini plus-dotati, la distribuzione dei punteggi QI sarà una gaussiana centrata su 130, con una qualche deviazione standard. In questo esempio, la gaussiana è il modello generatore dei dati e i parametri sono $\mu$ e $\sigma$. Per altri fenomeni, come ad esempio i tempi di reazione nel compito Stroop, o la gravità della sintomatologia ansiosa negli adulti misurata attraverso il test _Beck Anxiety Inventory_, il modello gaussiano non è più appropriato ed è necessario _ipotizzare_ un diverso processo generativo dei dati.
+<!-- Nell'inferenza bayesiana, le proposizioni di una teoria scientifica sono espresse nella forma di un modello statistico, ovvero mediante una legge generale che descrive il modo in cui un fenomeno si manifesta. Tale legge generale viene anche detta _processo generativo dei dati_.^[Per fare un esempio, consideriamo il quoziente d'intelligenza. Sappiamo che il punteggio totale della _Wechsler Adult Intelligence Scale_ ha, nella popolazione, media 100 e deviazione standard 15 (dato che il test WAIS è stato costruito in modo da avere una tale proprietà). Quindi, se prendiamo un campione abbastanza grande di persone, i valori del QI di tali persone avranno, circa, media uguale a 100 e deviazione standard uguale a 15. Se con tali dati costruiamo un istogramma, sappiamo anche che il profilo di tale istogramma sarà ben descritto da una funzione matematica che va sotto il nome di _legge gaussiana_. La rappresentazione grafica della funzione gaussiana è la classica curva a campana che sicuramente avrete già vista. La funzione gaussiana dipende da due parametri: la media (solitamente indicata con $\mu$) e la deviazione standard ($\sigma$). Se cambiamo questi parametri, ma usiamo sempre la stessa formula, otteniamo una curva diversa.  Per esempio, se consideriamo solo la sotto-popolazione dei bambini plus-dotati, la distribuzione dei punteggi QI sarà una gaussiana centrata su 130, con una qualche deviazione standard. In questo esempio, la gaussiana è il modello generatore dei dati e i parametri sono $\mu$ e $\sigma$. Per altri fenomeni, come ad esempio i tempi di reazione nel compito Stroop, o la gravità della sintomatologia ansiosa negli adulti misurata attraverso il test _Beck Anxiety Inventory_, il modello gaussiano non è più appropriato ed è necessario _ipotizzare_ un diverso processo generativo dei dati.] In generale, l'inferenza induttiva bayesiana procede _ipotizzando_ un modello generativo dei dati per poi, sulla base dei dati osservati in un campione e sulla base delle nostre credenze a priori, _inferire_ i valori plausibili dei parametri del modello. In questo processo inferenziale, possiamo individuare cinque fonti di incertezza: -->
 
-In generale, l'inferenza induttiva bayesiana procede _ipotizzando_ un modello generativo dei dati per poi, sulla base dei dati osservati in un campione e sulla base delle nostre credenze a priori, _inferire_ i valori plausibili dei parametri del modello. In questo processo inferenziale, possiamo individuare cinque fonti di incertezza:
+<!-- 1. incertezza sui parametri dei modelli; -->
+<!-- 2. incertezza su quale sia il modello migliore; -->
+<!-- 3. incertezza su cosa fare con l'output dei (migliori) modelli; -->
+<!-- 4. incertezza sul funzionamento del software che produce i risultati; -->
+<!-- 5. incertezza sul fatto che il/i modello/i (migliore/i) siano coerenti con altri campioni di dati. -->
 
-1. incertezza sui parametri dei modelli;
-2. incertezza su quale sia il modello migliore;
-3. incertezza su cosa fare con l'output dei (migliori) modelli;
-4. incertezza sul funzionamento del software che produce i risultati;
-5. incertezza sul fatto che il/i modello/i (migliore/i) siano coerenti con altri campioni di dati.
+<!-- * L'approccio bayesiano usa la teoria delle probabilità per descrivere l'incertezza relativa ai punti (1) e (2); -->
+<!-- * l'approccio bayesiano si collega alla teoria delle decisioni, che prescrive come affrontare il problema descritto nel punto (3); -->
+<!-- * il software utilizzato (nel nostro caso, Stan) fa tutto ciò che è possibile per mitigare la preoccupazione (4); -->
+<!-- * l'approccio bayesiano consente di quantificare l'incertezza descritta al punto (5). -->
 
-* L'approccio bayesiano usa la teoria delle probabilità per descrivere l'incertezza relativa ai punti (1) e (2);
-* l'approccio bayesiano si collega alla teoria delle decisioni, che prescrive come affrontare il problema descritto nel punto (3);
-* il software utilizzato (nel nostro caso, Stan) fa tutto ciò che è possibile per mitigare la preoccupazione (4);
-* l'approccio bayesiano consente di quantificare l'incertezza descritta al punto (5).
+<!-- ## Oggettività e soggettività -->
 
-## Oggettività e soggettività
+<!-- Facendo delle assunzioni non controverse, l'inferenza bayesiana consente di aggiornare le credenze a priori sui valori (sconosciuti) dei parametri $\theta$ di un modello statistico alla luce di nuovi dati $y_1, y_2, \dots, y_N$ che vengono osservati. L'approccio bayesiano è etichettato come "soggettivo" perché non ci dice quale valore dovrebbe essere assegnato ai parametri prima di avere osservato i dati $y_1, y_2, \dots, y_N$. In realtà, l'aggiornamento bayesiano è il modo più razionale di procedere: se, prima di avere osservato i dati, il ricercatore ha una credenza assurda relativamente al valore di $\theta$, dopo avere osservato $y_1, y_2, \dots, y_N$ le sue credenze _a posteriori_ su $\theta$, aggiornate secondo i principi bayesiani, saranno meno assurde. Il problema di questo modo di procedere non è che, a priori, i ricercatori (o chiunque altro) possono avere delle credenze sbagliate, ma bensì il fatto che, avendo osservato $y_1, y_2, \dots, y_N$, le credenze su $\theta$ non vengono aggiornate secondo i principi bayesiani. Infatti, in alcune situazioni, l'osservazione di dati che contraddicono le credenze pregresse non fa altro che rafforzare tali convinzioni errate -- il problema, dunque, non nasce dalla "soggettività" dell'approccio bayesiano, ma quanto dal fatto di non seguire un tale modo di procedere! -->
 
-Facendo delle assunzioni non controverse, l'inferenza bayesiana consente di aggiornare le credenze a priori sui valori (sconosciuti) dei parametri $\theta$ di un modello statistico alla luce di nuovi dati $y_1, y_2, \dots, y_N$ che vengono osservati. L'approccio bayesiano è etichettato come "soggettivo" perché non ci dice quale valore dovrebbe essere assegnato ai parametri prima di avere osservato i dati $y_1, y_2, \dots, y_N$. In realtà, l'aggiornamento bayesiano è il modo più razionale di procedere: se, prima di avere osservato i dati, il ricercatore ha una credenza assurda relativamente al valore di $\theta$, dopo avere osservato $y_1, y_2, \dots, y_N$ le sue credenze _a posteriori_ su $\theta$, aggiornate secondo i principi bayesiani, saranno meno assurde. Il problema di questo modo di procedere non è che, a priori, i ricercatori (o chiunque altro) possono avere delle credenze sbagliate, ma bensì il fatto che, avendo osservato $y_1, y_2, \dots, y_N$, le credenze su $\theta$ non vengono aggiornate secondo i principi bayesiani. Infatti, in alcune situazioni, l'osservazione di dati che contraddicono le credenze pregresse non fa altro che rafforzare tali convinzioni errate -- il problema, dunque, non nasce dalla "soggettività" dell'approccio bayesiano, ma quanto dal fatto di non seguire un tale modo di procedere!
-
-Lo scopo delle prossime sezioni della dispensa è quello di introdurre quei concetti base della teoria delle probabilità che risultano necessari per una presentazione delle procedure dell'inferenza induttiva bayesiana.
+<!-- Lo scopo delle prossime sezioni della dispensa è quello di introdurre quei concetti base della teoria delle probabilità che risultano necessari per una presentazione delle procedure dell'inferenza induttiva bayesiana. -->
 
 ## Che cos'è la probabilità?
 
@@ -49,23 +49,23 @@ La definizione della probabilità è un problema estremamente dibattuto ed apert
 In termini epistemici, la probabilità fornisce una misura della nostra incertezza sul verificarsi di un fenomeno, alla luce delle informazioni disponibili. Potremmo dire che c'è una "scala" naturale che ha per estremi il vero (1: evento certo) da una parte ed il falso (0: evento impossibile) dall'altra. La probabilità è la quantificazione di questa scala: quantifica lo stato della nostra incertezza rispetto al contenuto di verità di una proposizione (ovvero, quantifica la plausibilità di una proposizione). 
 
 - Nell'interpretazione frequentista della probabilità, la probabilità $P(A)$ rappresenta la frequenza relativa a lungo termine nel caso di un grande numero di ripetizioni di un esperimento casuale sotto le medesime condizioni. L'evento $A$ deve essere una proposizione relativa alle variabili casuali^[Viene stressata qui l'idea che ciò di cui parliamo è qualcosa che emerge nel momento in cui è possibile ripetere l'esperimento casuale tante volte sotto le medesime condizioni. Le variabili casuali, infatti, forniscono una quantificazione dei risultati che si ottengono ripetendo tante volte l'esperimento casuale sotto le medesime condizioni.].
-- Nell'interpretazione bayesiana della probabilità $P(A)$ rappresenta il grado di credenza, o plausibilità, a proposito di $A$, dove $A$ può essere qualsiasi proposizione logica.
+- Nell'interpretazione bayesiana della probabilità, $P(A)$ rappresenta il grado di fiducia che si ha relativamente al verificarsi dell'evento $A$.
 
-In questo insegnamento utilizzeremo l'interpretazione bayesiana della probabilità. Possiamo citare De Finetti, ad esempio, il quale ha formulato la seguente definizione "soggettiva" di probabilità la quale risulta applicabile anche ad esperimenti casuali i cui eventi elementari non siano ritenuti ugualmente possibili e che non siano necessariamente ripetibili più volte sotto le stesse condizioni:
+In questo insegnamento utilizzeremo l'interpretazione bayesiana della probabilità.
+<!-- Possiamo citare De Finetti, ad esempio, il quale ha formulato la seguente definizione "soggettiva" di probabilità la quale risulta applicabile anche ad esperimenti casuali i cui eventi elementari non siano ritenuti ugualmente possibili e che non siano necessariamente ripetibili più volte sotto le stesse condizioni.  -->
+L'impostazione bayesiana, sviluppata da Ramsey e de Finetti, riconduce l'assegnazione di probabilità allo scommettere sul verificarsi di un evento.
 
 ::: {.definition}
-La probabilità di un evento $E$ è la quota $p(E)$ che un individuo reputa di dover pagare ad un banco per ricevere "1" ovvero "0" verificandosi o non verificandosi $E$. Le valutazioni di probabilità degli eventi devono rispondere ai pricipi di equità e coerenza.
+La probabilità di un evento $E$ è la quota $p(E)$ che un individuo reputa di dover pagare ad un banco per ricevere "1" ovvero "0" verificandosi o non verificandosi $E$. Le valutazioni di probabilità degli eventi devono rispondere ai principi di equità e coerenza.
 :::
 
-I principi di equità e coerenza sono definiti come segue.
-
 ::: {.definition}
-Una scommessa risponde ai pricipi di *equità* se il ruolo di banco e giocatore sono scambiabili in ogni momento del gioco e sempre alle stesse condizioni; *coerenza* se non vi sono combinazioni di scommesse che consentano (sia al banco che al giocatore) di realizzare perdite o vincite certe.
+Una scommessa risponde al principio di *equità* se il ruolo di banco e giocatore sono scambiabili in ogni momento del gioco e sempre alle stesse condizioni. Una scommessa risponde al principio di *coerenza* se non vi sono combinazioni di scommesse che consentano (sia al banco che al giocatore) di realizzare perdite o vincite certe.
 :::
 
 Secondo @definetti1931prob, *"nessuna scienza ci permetterà di dire: il tale fatto accadrà, andrà così e così, perché ciò è conseguenza di tale legge, e tale legge è una verità assoluta, ma tanto meno ci condurrà a concludere scetticamente: la verità assoluta non esiste, e quindi tale fatto può accadere e può non accadere, può andare così e può andare in tutt’altro modo, nulla io ne so. Quel che si potrà dire è questo: io prevedo che il tale fatto avverrà, e avverrà nel tal modo, perché l’esperienza del passato e l’elaborazione scientifica cui il pensiero dell’uomo l’ha sottoposta mi fanno sembrare ragionevole questa previsione."*
 
-In altri termini, de Finetti ritiene che la probabilità debba essere concepita non come una proprietà "oggettiva" dei fenomeni ("la probabilità di un fenomeno ha un valore determinato che dobbiamo solo scoprire"), ma bensì come il "grado di fiducia -- in inglese _degree of belief_ -- di un dato soggetto, in un dato istante e con un dato insieme d'informazioni, riguardo al verificarsi di un evento". Per denotare sia la probabilità (soggettiva) di un evento sia il concetto di _valore atteso_ (che descriveremo in seguito), @definetti1970teoria utilizza il termine "previsione" (e lo stesso simbolo $P$): *"la previsione [$\dots$] consiste nel considerare ponderatamente tutte le alternative possibili per ripartire fra di esse nel modo che parrà più appropriato le proprie aspettative, le proprie sensazioni di probabilità."*
+In altri termini, de Finetti ritiene che la probabilità debba essere concepita non come una proprietà "oggettiva" dei fenomeni, ma bensì come il "grado di fiducia" -- in inglese _degree of belief_ -- di un dato soggetto, in un dato istante e con un dato insieme d'informazioni, riguardo al verificarsi di un evento. Per denotare sia la probabilità (soggettiva) di un evento sia il concetto di _valore atteso_ (che descriveremo in seguito), @definetti1970teoria utilizza il termine "previsione" (e lo stesso simbolo $P$): *"la previsione [$\dots$] consiste nel considerare ponderatamente tutte le alternative possibili per ripartire fra di esse nel modo che parrà più appropriato le proprie aspettative, le proprie sensazioni di probabilità."*
 
 ## Variabili casuali e probabilità di un evento
 
@@ -73,30 +73,15 @@ Esaminiamo qui di seguito alcuni concetti di base della teoria delle probabilit�
 
 ### Eventi e probabilità
 
-Nella teoria delle probabilità il risultato "testa" nel lancio di una moneta è chiamato _evento_.^[Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \@ref(insiemistica).] Ad esempio, $Y$ = 1 denota l'evento in cui il lancio di una moneta produce come risultato testa. Il funzionale $Pr[·]$ definisce la probabilità di un evento. Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento "il risultato del lancio della moneta è testa" è scritta come
+Nella teoria delle probabilità il risultato "testa" nel lancio di una moneta è chiamato _evento_.^[Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \@ref(insiemistica).] Ad esempio, $Y$ = 1 denota l'evento in cui il lancio di una moneta produce come risultato testa. Il funzionale $P(·)$ definisce la probabilità di un evento. Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento "il risultato del lancio della moneta è testa" è scritta come $P(Y = 1) = 0.5.$
 
-$$
-Pr[Y = 1] = 0.5.
-$$
+Se la moneta è equilibrata dobbiamo anche avere $P(Y = 0) = 0.5$. I due eventi _Y_ = 1 e $Y$ = 0 sono _mutuamente esclusivi_ nel senso che  non possono entrambi verificarsi contemporaneamente: $P(Y = 1\; e \; Y = 0) = 0.$ Gli eventi $Y$ = 1 e $Y$ = 0 di dicono _esaustivi_, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica, $P(Y = 1\; o \; Y = 0) = 1.$
 
-Se la moneta è equilibrata dobbiamo anche avere $Pr[Y = 0] = 0.5$. I due eventi _Y_ = 1 e $Y$ = 0 sono _mutuamente esclusivi_ nel senso che  non possono entrambi verificarsi contemporaneamente. Nella notazione probabilistica,
-
-$$
-Pr[Y = 1\; e \; Y = 0] = 0.
-$$
-
-Gli eventi $Y$ = 1 e $Y$ = 0 di dicono _esaustivi_, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica,
-
-$$
-Pr[Y = 1\; o \; Y = 0] = 1.
-$$
-
-Il connettivo logico "o" specifica eventi _disgiunti_, ovvero eventi che non possono verificarsi contemporaneamente (eventi _incompatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; e \; B) = 0$. 
-Il connettivo logico "e", invece, specifica eventi _congiunti_, ovvero eventi che possono verificarsi contemporaneamente (eventi _compatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $Pr(A \; e \; B) > 0$.
+Il connettivo logico "o" specifica eventi _disgiunti_, ovvero eventi che non possono verificarsi contemporaneamente (eventi _incompatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; e \; B) = 0$. Il connettivo logico "e", invece, specifica eventi _congiunti_, ovvero eventi che possono verificarsi contemporaneamente (eventi _compatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; e \; B) > 0$.
 
 ### Spazio campionario e risultati possibili
 
-Anche se il lancio di una moneta produce sempre uno specifico risultato  nel mondo reale, noi possiamo anche immaginare i possibili risultati alternativi che si sarebbero potuti osservare. Quindi, anche se in uno specifico lancio la moneta dà testa ($Y$ = 1), possiamo immaginare la possibilità che il lancio possa avere prodotto croce ($Y$ = 0). Tale ragionamento controfattuale è la chiave per comprendere la teoria delle probabilità e l'inferenza statistica.
+Anche se il lancio di una moneta produce sempre uno specifico risultato nel mondo reale, possiamo anche immaginare i possibili risultati alternativi che si sarebbero potuti osservare. Quindi, anche se in uno specifico lancio la moneta dà testa ($Y$ = 1), possiamo immaginare la possibilità che il lancio possa avere prodotto croce ($Y$ = 0). Tale ragionamento controfattuale è la chiave per comprendere la teoria delle probabilità e l'inferenza statistica.
 
 I risultati possibili che si possono osservare come conseguenza del lancio di una moneta determinano i valori possibili che la variabile casuale può assumere. L'insieme di tutti i risultati possibili è chiamato _spazio campionario_. Lo spazio campionario può essere concettualizzato come un'urna contenente una pallina per ogni possibile risultato del lancio della moneta. Su ogni pallina è scritto il valore della variabile casuale. Uno specifico lancio di una moneta -- ovvero, l'osservazione di uno specifico valore di una variabile casuale -- è chiamato _esperimento casuale_.
 
@@ -106,7 +91,7 @@ Il lancio di un dado ci fornisce l'esempio di un altro esperimento casuale. Supp
 
 Sia $Y$ il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, $Y$ è una _variabile casuale_, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50% che il lancio della moneta dia come risultato "testa" e una probabilità del 50% che dia come risultato "croce". Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale $Y$ assume il valore 1 se esce testa e il valore 0 se esce croce.
 
-Una variabile casuale può essere _discreta_ o _continua_. Una variabile casuale discreta può assumere un numero finito di valori $x_1, \dots ,x_n$, in corrispondenza degli eventi $E_i, \dots, E_n$ che si verificano con le rispettive probabilità $p_1, \dots, p_n$. Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'intervallo dei valori che può assumere la variabile casuale è detto _supporto_ della sua distribuzione di probabilità, che può essere finito (come nel caso di una variabile casuale uniforme di supporto $[a, b]$) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale).
+Una variabile casuale può essere _discreta_ o _continua_. Una variabile casuale discreta può assumere un numero finito di valori $x_1, \dots ,x_n$, in corrispondenza degli eventi $E_i, \dots, E_n$ che si verificano con le rispettive probabilità $p_1, \dots, p_n$. Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'intervallo dei valori che può assumere la variabile casuale è detto _supporto_ della sua distribuzione di probabilità, che può essere finito (come nel caso di una variabile casuale uniforme di supporto $[a, b]$) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale). Nel seguito useremo la notazione $P(\cdot)$ per fare riferimento alle probabilità discrete e $p(\cdot)$ per fare riferimento alla densità di probabilità delle variabili casuali continue.
 
 ## Usare la simulazione per stimare le probabilità
 
@@ -130,7 +115,7 @@ In maniera equivalente, la stessa operazione si può realizzare mediante l'istru
 rbinom(1, 1, 0.5)
 ```
 
-Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i risultati così ottenuti. La stima della probabilità dell'evento $Pr[Y = 1]$ è data dalla frequenza relativa del numero di volte in cui abbiamo osservato l'evento di interesse ($Y = 1$):
+Supponiamo di ripetere questo esperimento casuale 100 volte e di registrare i risultati così ottenuti. La stima della probabilità dell'evento $P(Y = 1)$ è data dalla frequenza relativa del numero di volte in cui abbiamo osservato l'evento di interesse ($Y = 1$):
 
 ```{r}
 M <- 100
@@ -162,7 +147,7 @@ for(i in 1:10) {
 }
 ```
 
-Dato che la moneta è equilibrata, la stima delle probabilità dell'evento $Pr[Y = 1]$ è simile a al valore che ci aspettiamo ($Pr[Y = 1]$ = 0.5), ma il risultato ottenuto nelle varie simulazioni non è sempre esatto.  Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
+Dato che la moneta è equilibrata, la stima delle probabilità dell'evento $Pr[Y = 1]$ è simile a al valore che ci aspettiamo ($P(Y = 1)$ = 0.5), ma il risultato ottenuto nelle varie simulazioni non è sempre esatto.  Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
 
 ```{r}
 for(i in 1:10) {
@@ -182,7 +167,7 @@ Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stim
 
 ## La legge dei grandi numeri
 
-La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere qjello che accade all'aumentare del numero $M$ di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento $Pr[Y = 1]$ in funzione del numero di ripetizioni dell'esperimento casuale per ogni $m \in 1:M.$ Un grafico dell'andamento della stima di $Pr[Y = 1]$ in funzione di $m$ si ottiene nel modo seguente. 
+La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere qjello che accade all'aumentare del numero $M$ di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento $P(Y = 1)$ in funzione del numero di ripetizioni dell'esperimento casuale per ogni $m \in 1:M$. Possiamo ottenere un grafico dell'andamento della stima di $P(Y = 1)$ in funzione di $m$ come: 
 
 ```{r legge-grandi-n-1, cache=TRUE, fig.cap="Stima della probabilità di successo in funzione del numero di lanci di una moneta."}
 nrep <- 1e4
@@ -195,7 +180,7 @@ flip_coin <- function(m) {
 for(i in 1:nrep) {
   estimate[i] <- flip_coin(i)
 }
-d <- data.frame(
+d <- tibble(
   n = 1:nrep, 
   estimate
 )
@@ -211,7 +196,7 @@ d %>%
 )
 ```
 
-Dato che il grafico \@ref(fig:legge-grandi-n-1) espresso su una scala lineare non rivela chiaramente l'andamento della simulazione, possiamo usare un grafico che impone una scala logaritmica sull'asse delle ascisse ($x$). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osseerva per valori tra 50 e 700, eccetera.
+Dato che il grafico \@ref(fig:legge-grandi-n-1) espresso su una scala lineare non rivela chiaramente l'andamento della simulazione, imponiamo una scala logaritmica sull'asse delle ascisse ($x$). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osserva tra i valori 50 e 700, eccetera.
 
 ```{r legge-grandi-n-2, fig.cap="Stima della probabilità di successo in funzione del numero di lanci di una moneta -- scala logaritmica."}
 d %>% 
@@ -230,11 +215,11 @@ d %>%
 )
 ```
 
-La _legge dei grandi numeri_ ci dice che, all'aumentare del numero di ripetizioni dell'esperimento casuale, la media dei risultati ottenuti tenderà ad avvicinarsi al valore atteso, man mano che verranno eseguite più prove. Nel caso presente, la figura \@ref(fig:legge-grandi-n-2) mostra appunto che, all'aumentare del numero _M_ di lanci della moneta, la stima di $Pr[Y = 1]$ tende a convergere al vero valore di 0.5.
+La _legge dei grandi numeri_ ci dice che, all'aumentare del numero di ripetizioni dell'esperimento casuale, la media dei risultati ottenuti tende al valore atteso, man mano che vengono eseguite più prove. Nella figura \@ref(fig:legge-grandi-n-2) vediamo infatti che, all'aumentare del numero _M_ di lanci della moneta, la stima di $P(Y = 1)$ converge al valore 0.5.
 
 ## Variabili casuali multiple
 
-Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una singola variabile casuale _Y_ che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. Ciò suggerisce che i risultati di ciascuno dei tre lanci possono essere rappresentati da una diversa variabile casuale, ad esepio, $Y_1 , Y_2 , Y_3$. Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Ognuna di queste variabili $Y_n$ per $n \in 1:3$ ha $Pr[Y_n =1]=0.5$ e $Pr[Y_n =0]=0.5$. 
+Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una singola variabile casuale _Y_ che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. I risultati di ciascuno dei tre lanci possono essere rappresentati da una diversa variabile casuale, ad esempio, $Y_1 , Y_2 , Y_3$. Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Ognuna di queste variabili $Y_n$ per $n \in 1:3$ ha $P(Y_n =1)=0.5$ e $P(Y_n =0)=0.5$. 
 
 È possibile combinare più variabili casuali usando le operazioni aritmetiche. Se $Y_1 , Y_2, Y_3$ sono variabili casuali che rappresentano tre lanci di una moneta equilibrata (o un lancio di tre monete equilibrate), possiamo definire la somma di tali variabili casuali come
 
@@ -334,7 +319,7 @@ Il lancio di quattro monete può produrre sedici possibili risultati. Dato che i
 La funzione $p_Z$ è stata costruita per mappare un valore $u$ per $Z$ alla probabilità dell'evento $Z = u$. Convenzionalmente, queste probabilità sono scritte come
 
 $$
-p_Z(z) = \mbox{Pr}[Z = z].
+P_Z(z) = \mbox{P}(Z = z).
 $$ 
 
 La parte a destra dell'uguale si può leggere come: "la probabilità che la variabile casuale $Z$ assuma il valore $z$".
@@ -383,17 +368,13 @@ $$
 Nel caso dell'esempio discusso nella Sezione \@ref(sec:fun-mass-prob), la probabilità che la variabile casuale $Z$ sia un numero dispari è
 
 $$
-Pr(\text{Z è un numero dispari}) = P_{z}(Z = 1) + P_{z}(Z = 3) = \frac{4}{16} + \frac{4}{16} = \frac{1}{2}.
+P(\text{Z è un numero dispari}) = P_{z}(Z = 1) + P_{z}(Z = 3) = \frac{4}{16} + \frac{4}{16} = \frac{1}{2}.
 $$
 ::: 
 
 ## Commenti e considerazioni finali {-}
 
-In questo capitolo abbiamo visto come si costruisce lo spazio
-campionario di un esperimento casuale, quali sono le proprietà di base
-della probabilità e come si assegnano le probabilità agli eventi
-definiti sopra uno spazio campionario discreto. Abbiamo anche introdotto
-le nozioni di "variabile casuale", ovvero di una variabile che prende i suoi valori casualmente. E abbiamo descritto il modo di specificare la probabilità con cui sono presi i differenti valori, ovvero la funzione di distribuzione probabilistica $F(X) = Pr(X < x)$, e la funzione di massa di probabilità. Le procedure di analisi dei dati psicologici che discuteremo in seguito faranno un grande uso di questi concetti e della notazione qui introdotta.
+In questo capitolo abbiamo visto come si costruisce lo spazio campionario di un esperimento casuale, quali sono le proprietà di base della probabilità e come si assegnano le probabilità agli eventi definiti sopra uno spazio campionario discreto. Abbiamo anche introdotto le nozioni di "variabile casuale", ovvero di una variabile che prende i suoi valori casualmente. E abbiamo descritto il modo di specificare la probabilità con cui sono presi i differenti valori, ovvero la funzione di distribuzione probabilistica $F(X) = P(X < x)$, e la funzione di massa di probabilità. Le procedure di analisi dei dati psicologici che discuteremo in seguito faranno un grande uso di questi concetti e della notazione qui introdotta.
 
 
 
