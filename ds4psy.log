@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.2.8)  14 FEB 2022 19:21
+This is XeTeX, Version 3.141592653-2.6-0.999993 (TeX Live 2021) (preloaded format=xelatex 2022.2.8)  14 FEB 2022 22:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -2227,16 +2227,17 @@ Underfull \hbox (badness 10000) detected at line 1235
 [][][]
  []
 
-[4] [5]
+[4]
 File: ds4psy_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-19-1.pdf>
 
-LaTeX Warning: Reference `chapter-balance' on page 6 undefined on input line 1279.
+LaTeX Warning: Reference `chapter-balance' on page 5 undefined on input line 1279.
+
+[5]
+
+LaTeX Warning: Reference `appendix:future-exp' on page 6 undefined on input line 1284.
 
 [6]
-
-LaTeX Warning: Reference `appendix:future-exp' on page 7 undefined on input line 1284.
-
 File: ds4psy_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (type pdf)
 <use ds4psy_files/figure-latex/unnamed-chunk-20-1.pdf>
 [7] [8]
@@ -2253,7 +2254,46 @@ LaTeX Warning: Reference `appendix:const-norm-bino23' on page 13 undefined on in
 
 LaTeX Warning: Reference `ch:metropolis' on page 13 undefined on input line 1481.
 
-[13] [14] [15] (./ds4psy.bbl [16]
+[13] [14] (./ds4psy.bbl [15]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+Overfull \hbox (336.25pt too wide) has occurred while \output is active
+[]
+ []
+
+
+Underfull \hbox (badness 10000) has occurred while \output is active
+ [][][][] 
+ []
+
+[16
+
+]
 Underfull \vbox (badness 10000) detected at line 1
  []
 
@@ -2336,7 +2376,6 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 
 [17
 
-
 ] (./ds4psy.aux
 LaTeX Info: Redefining \rmfamily on input line 21.
 LaTeX Info: Redefining \sffamily on input line 21.
@@ -2346,14 +2385,14 @@ LaTeX Info: Redefining \ttfamily on input line 21.
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `ds4psy.out' has not changed.
-(rerunfilecheck)             Checksum: 8DFBA4961B1A00B8B128E972E6493580;8665.
+(rerunfilecheck)             Checksum: 093D941F634A6475295789CA1747D7C0;8096.
  ) 
 Here is how much of TeX's memory you used:
- 23850 strings out of 478166
- 452824 string characters out of 5852768
- 960012 words of memory out of 5000000
- 44039 multiletter control sequences out of 15000+600000
- 477882 words of font info for 122 fonts, out of 8000000 for 9000
+ 23841 strings out of 478166
+ 452576 string characters out of 5852768
+ 959154 words of memory out of 5000000
+ 44032 multiletter control sequences out of 15000+600000
+ 477874 words of font info for 121 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  86i,17n,123p,2164b,561s stack positions out of 5000i,500n,10000p,200000b,80000s
 

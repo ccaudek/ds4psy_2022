@@ -4,20 +4,12 @@
 source("_common.R")
 ```
 
-<!-- Il teorema di Bayes deriva da due teoremi fondamentali delle probabilità: il _teorema della probabilità composta_, ovvero $\ {\mbox{P}}(A\cap B)={\mbox{P}}(B){\mbox{P}}(A \mid B)={\mbox{P}}(A){\mbox{P}}(B \mid A)$, e il _teorema della probabilità assoluta_ (detto anche _teorema delle partizioni_), ovvero ${\mbox{P}}(B)=\sum _{{i=1}}^{n}{\mbox{P}}(A_{i}\cap B)=\sum _{{i=1}}^{n}{\mbox{P}}(A_{i}){\mbox{P}}(B \mid A_{i})$. Iniziamo con il teorema della probabilità assoluta. -->
-
 Il teorema di Bayes assume un ruolo fondamentale nell'interpretazione soggettivista della probabilità perché descrive l'aggiornamento della fiducia che si aveva nel verificarsi di una determinata ipotesi $H$ (identificata con la probabilità assegnata all'ipotesi stessa) in conseguenza del verificarsi dell'evidenza $E$. 
 
 ## Il teorema di Bayes
 
 ::: {.theorem}
-Sia $(H_i)_{i\geq 1}$ una partizione dell'evento certo $\Omega$  e sia 
-<!-- tale che -->
-<!-- 1. $\bigcup_{i=1}^\infty H_i = \Omega$; -->
-<!-- 2. $H_j \cap H_j = \emptyset, i\neq j$; -->
-<!-- 3. $P(H_i) > 0, i = 1, \dots, \infty$, -->
-<!-- Sia  -->
-$E \subseteq \Omega$ un evento tale che $p(E) > 0$, allora, per $i = 1, \dots, \infty$:
+Sia $(H_i)_{i\geq 1}$ una partizione dell'evento certo $\Omega$  e sia $E \subseteq \Omega$ un evento tale che $p(E) > 0$, allora, per $i = 1, \dots, \infty$:
 
 \begin{equation}
 {\mbox{P}}(H_i \mid E) = \frac{{\mbox{P}}(E \mid H_i){\mbox{P}}(H_i)}{\sum_{j=1}^{\infty}{\mbox{P}}(H_j)P(E \mid H_j)}.

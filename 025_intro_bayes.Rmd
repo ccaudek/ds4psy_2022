@@ -14,20 +14,18 @@ La moderna statistica bayesiana viene per lo più eseguita utilizzando un lingua
 
 <!-- Consideriamo nuovamente il teorema di Bayes dalla \@ref(eq:bayes2) per assegnarli ora, in modo più chiaro,  l'interpretazione che gli è propria nell'inferenza bayesiana moderna. In generale, diciamo che il teorema di Bayes è uno strumento di aggiornamento delle conoscenze a priori in relazione alle nuove evidenze. Se si prende in considerazione una variabile casuale $Y$, di cui si conosce la distribuzione a meno di un parametro $\theta$, secondo l'approccio bayesiano è possibile modellare l'incertezza su tale parametro mediante una variabile casuale continua $\Theta$ che può assumere tutti i valori ammissibili per il parametro cercato. La funzione di densità $p(\theta)$ di tale variabile casuale prende il nome di _distribuzione a priori_ e rappresenta la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima di avere osservato il risultato dell'esperimento.  -->
 
-Riprendiamo ora la \@ref(eq:bayes2) per formulare il teorema di Bayes nel caso delle variabili casuali continue. 
-<!-- È infatti più naturale usare le densità di probabilità, anziché le probabilità di eventi, per descrivere il nostro livello di fiducia in un'ipotesi. Nello specifico, -->
-Si può descrivere l'aggiornamento bayesiano facendo riferimento ad una variabile casuale  $Y$ di cui si conosce la distribuzione a meno di un parametro $\theta$. Secondo l'approccio bayesiano, è possibile modellare l'incertezza su tale parametro mediante una variabile casuale continua $\Theta$ avente come supporto l'insieme dei valori ammissibili per il parametro cercato. La funzione di densità $p(\theta)$ di tale variabile casuale prende il nome di _distribuzione a priori_ e rappresenta la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima dell'osservazione dei dati. L'aggiornamento dell'incertezza su $\theta$ è determinata dal verificarsi dell'evidenza $y$, ovvero dall'osservazione dei risultati di un esperimento casuale. Le informazioni provenienti dal campione osservato $y = (y_1, \dots, y_n)$ sono contenute nella funzione $p(y \mid \theta)$, che, osservata come funzione di $\theta$ per $y$, prende il nome di _funzione di verosimiglianza_. L'aggiornamento delle conoscenze a priori incorporate nella distribuzione iniziale $p(\theta)$ in base all'evidenza $y$ avviene attraverso il teorema di Bayes
+Nell'approccio bayesiano all'inferenza statistica si prende in considerazione una variabile casuale $Y$ di cui si conosce la distribuzione a meno di un parametro $\theta$. Secondo l'approccio bayesiano, è possibile modellare l'incertezza sul valore del parametro rappresentandolo con una variabile casuale continua $\Theta$ avente come supporto l'insieme dei valori ammissibili per il parametro cercato. La funzione di densità $p(\theta)$ prende il nome di _distribuzione a priori_ e rappresenta la sintesi delle opinioni e delle informazioni che si hanno sul parametro prima dell'osservazione dei dati. L'aggiornamento dell'incertezza su $\theta$ è determinata dal verificarsi dell'evidenza $y$, ovvero dall'osservazione dei risultati di un esperimento casuale. Le informazioni provenienti dal campione osservato $y = (y_1, \dots, y_n)$ sono contenute nella funzione $p(y \mid \theta)$, che, osservata come funzione di $\theta$ per $y$, prende il nome di _funzione di verosimiglianza_. L'aggiornamento delle conoscenze a priori incorporate nella distribuzione iniziale $p(\theta)$ in seguito al verificarsi di $Y = y$ (evidenza empirica) avviene attraverso il teorema di Bayes in cui $p(\theta \mid y)$ risulta proporzionale al prodotto della probabilità a priori e della verosimiglianza e prende il nome di _distribuzione a posteriori_:
 
 \begin{equation}
-p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int_{\Theta}p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta} \quad \theta \in \Theta
+p(\theta \mid y) = \frac{p(y \mid \theta) p(\theta)}{\int_{\Theta}p(y \mid \theta) p(\theta) \,\operatorname {d}\!\theta} \quad \theta \in \Theta.
 (\#eq:bayes-intro)
 \end{equation}
 
-in cui $p(\theta \mid y)$ risulta proporzionale al prodotto della probabilità a priori e della verosimiglianza e prende il nome di _distribuzione a posteriori_. Si noti che 
-<!-- al denominatore troviamo una costante di normalizzazione (corrisponde alla densità marginale dei dati o verosimiglianza marginale) che contiene un integrale.  -->
-l'integrale al denominatore della \@ref(eq:bayes-intro) è spesso di difficile risoluzione analitica per cui l'inferenza bayesiana solitamente procede attraverso metodi di ricampionamento e metodi iterativi, quali le Catene di Markov Monte Carlo (MCMC).
+Si noti che  l'integrale al denominatore della \@ref(eq:bayes-intro) è spesso di difficile risoluzione analitica per cui l'inferenza bayesiana solitamente procede attraverso metodi di ricampionamento e metodi iterativi, quali le Catene di Markov Monte Carlo (MCMC).
 
-@martin2022bayesian descrive la modellazione bayesiana distinguendo tre passaggi.
+<!-- Si considera inoltre una variabile $\Theta$ continua, avente funzione di densità $p(\theta)$, tali che $p(y \mid \theta)$ sia la funzione di probabilità condizionata di $Y$ dato $\Theta$. Allora, la formula di Bayes diventa: -->
+
+@martin2022bayesian descrivono la modellazione bayesiana distinguendo tre passaggi.
 
 1. Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, si progetta un modello statistico combinando e trasformando variabili casuali.
 2. Si usa il teorema di Bayes per condizionare il modello ai dati. Questo processo viene chiamato "inferenza" e come risultato si ottiene una distribuzione a posteriori. 
@@ -41,7 +39,7 @@ Per fissare la notazione, nel seguito $y$ rappresenterà i dati e $\theta$ rappr
 
 ## Distribuzioni a priori
 
-Quando adottiamo un approccio bayesiano, i parametri della distribuzione di riferimento non venono considerati come delle costanti incognite ma bensì vengono trattati come variabili casuali; di conseguenza, i parametri assumono una particolare distribuzione che nelle statistica bayesiana viene definita "a priori". I parametri (o il parametro), che possiamo indicare con $\theta$, possono assumere delle distribuzioni a priori differenti: a seconda delle informazioni disponibili bisogna selezionare una distribuzione di $\theta$ in modo tale che venga assegnata una probabilità maggiore a quei valori che si ritengono più plausibili per $\theta$. Idealmente, le credenze a priori che portano alla specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti. 
+Quando adottiamo un approccio bayesiano, i parametri della distribuzione di riferimento non venono considerati come delle costanti incognite ma bensì vengono trattati come variabili casuali; di conseguenza, i parametri assumono una particolare distribuzione che nelle statistica bayesiana viene definita "a priori". I parametri $\theta$ possono assumere delle distribuzioni a priori differenti: a seconda delle informazioni disponibili bisogna selezionare una distribuzione di $\theta$ in modo tale che venga assegnata una probabilità maggiore a quei valori del parametro che si ritengono più plausibili. Idealmente, le credenze a priori che portano alla specificazione di una distribuzione a priori dovrebbero essere supportate da una qualche motivazione, come ad esempio i risultati di ricerche precedenti. 
 
 <!-- La distribuzione a priori sui valori dei parametri $p(\theta)$ è parte integrante del modello statistico. Ciò implica che due modelli bayesiani possono condividere la stessa funzione di verosimiglianza, ma tuttavia devono essere considerati come modelli diversi se specificano diverse distribuzioni a priori. Ciò significa che, quando diciamo "Modello binomiale", intendiamo in realtà un'intera classe di modelli, ovvero tutti i possibili modelli che hanno la stessa verosimiglianza ma diverse distribuzioni a priori su $\theta$. -->
 
@@ -49,7 +47,7 @@ Quando adottiamo un approccio bayesiano, i parametri della distribuzione di rife
 
 ### Tipologie di distribuzioni a priori
 
-Possiamo distinguere tra diverse distribuzioni a priori in base a quanto fortemente impegnano il ricercatore a ritenere come plausibile un particolare intervallo di valori dei parametri. Il caso più estremo è quello che rivela una totale assenza di conoscenze a priori, il che conduce alle *distribuzioni a priori non informative*, ovvero quelle che assegnano lo stesso livello di credibilità a tutti i valori dei parametri. Le distribuzioni a priori informative, d'altra parte, possono essere *debolmente informative* o *fortemente informative*, a seconda della forza della credenza che esprimono. Il caso più estremo di credenza a priori è quello che riassume il punto di vista del ricercatore nei termini di un  *unico valore* del parametro, il che assegna tutta la probabilità (massa o densità) ad di un singolo valore del parametro. Poiché questa non è più una distribuzione di probabilità, sebbene ne soddisfi la definizione, in questo caso si parla di una *distribuzione a priori degenerata*. La figura seguente motra alcuni esempi di distribuzioni a priori per il modello Binomiale:
+Possiamo distinguere tra diverse distribuzioni a priori in base a quanto fortemente impegnano il ricercatore a ritenere come plausibile un particolare intervallo di valori dei parametri. Il caso più estremo è quello che rivela una totale assenza di conoscenze a priori, il che conduce alle *distribuzioni a priori non informative*, ovvero quelle che assegnano lo stesso livello di fiducia a tutti i valori dei parametri. Le distribuzioni a priori informative, d'altra parte, possono essere *debolmente informative* o *fortemente informative*, a seconda del modo in cui lo sperimentatore distribuisce la sua fiducia nello spazio del parametro. Il caso più estremo di credenza a priori è quello che assegna tutta la probabilità ad un singolo valore del parametro. La figura seguente mostra alcuni esempi di distribuzioni a priori per il modello Binomiale:
 
 - distribuzione *non informativa*: $\theta_c \sim \mbox{Beta}(1,1)$;
 - distribuzione *debolmente informativa*: $\theta_c \sim \mbox{Beta}(5,2)$;
@@ -255,21 +253,6 @@ $$
 $$
 
 Ripeto qui quanto detto sopra: le quantità di interesse della statistica bayesiana(costante di normalizzazione, valore atteso della distribuzione a posteriori, ecc.) contengono integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente. Per questo motivo, si ricorre a metodi di stima numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC). Questo argomento verrà discusso nel Capitolo \@ref(ch:metropolis).
-
-
-## Le probabilità condizionate
-
-I metodi bayesiani utilizzano le relazioni di indipendenza condizionale per la modellazione. A tal fine è opportuno riesaminare il concetto di indipendenza e introdurre il concetto di indipendenza condizionale.
-
-### Indipendenza stocastica
-
-Si consideri il vettore di variabili casuali $X = (X1, X2, . . . , Xd)$. La funzione di probabilità congiunta pX1,X2,...,Xd contiene tutte le informazioni probabilistiche sul vettore casuale X, ma se si hanno conoscenze a priori sulle re- lazioni intercorrenti fra le variabili casuali in oggetto, `e possibile semplificare tale funzione, decomponendola in fattori piu` semplici. Il caso di massima decomponi- bilita` si ha in presenza di indipendenza stocastica che implica che la distribuzione congiunta puo` essere fattorizzata nel prodotto delle sue marginali.
-
-
-
-### Indipendenza condizionale
-
-#### Proprietà dell'indipendenza condizionale
 
 ## Distribuzione predittiva a priori
 
