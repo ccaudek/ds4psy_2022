@@ -27,8 +27,6 @@ in cui $p(\theta \mid y)$ risulta proporzionale al prodotto della probabilità a
 <!-- al denominatore troviamo una costante di normalizzazione (corrisponde alla densità marginale dei dati o verosimiglianza marginale) che contiene un integrale.  -->
 l'integrale al denominatore della \@ref(eq:bayes-intro) è spesso di difficile risoluzione analitica per cui l'inferenza bayesiana solitamente procede attraverso metodi di ricampionamento e metodi iterativi, quali le Catene di Markov Monte Carlo (MCMC).
 
-<!-- In ambito bayesiano la distribuzione a posteriori viene utilizzata per calcolare le principali quantità di interesse dell'inferenza, ad esempio la media a posteriori di $\theta$.  -->
-
 @martin2022bayesian descrive la modellazione bayesiana distinguendo tre passaggi.
 
 1. Dati alcuni dati e alcune ipotesi su come questi dati potrebbero essere stati generati, si progetta un modello statistico combinando e trasformando variabili casuali.
@@ -257,6 +255,21 @@ $$
 $$
 
 Ripeto qui quanto detto sopra: le quantità di interesse della statistica bayesiana(costante di normalizzazione, valore atteso della distribuzione a posteriori, ecc.) contengono integrali che risultano, nella maggior parte dei casi, impossibili da risolvere analiticamente. Per questo motivo, si ricorre a metodi di stima numerici, in particolare a quei metodi Monte Carlo basati sulle proprietà delle catene di Markov (MCMC). Questo argomento verrà discusso nel Capitolo \@ref(ch:metropolis).
+
+
+## Le probabilità condizionate
+
+I metodi bayesiani utilizzano le relazioni di indipendenza condizionale per la modellazione. A tal fine è opportuno riesaminare il concetto di indipendenza e introdurre il concetto di indipendenza condizionale.
+
+### Indipendenza stocastica
+
+Si consideri il vettore di variabili casuali $X = (X1, X2, . . . , Xd)$. La funzione di probabilità congiunta pX1,X2,...,Xd contiene tutte le informazioni probabilistiche sul vettore casuale X, ma se si hanno conoscenze a priori sulle re- lazioni intercorrenti fra le variabili casuali in oggetto, `e possibile semplificare tale funzione, decomponendola in fattori piu` semplici. Il caso di massima decomponi- bilita` si ha in presenza di indipendenza stocastica che implica che la distribuzione congiunta puo` essere fattorizzata nel prodotto delle sue marginali.
+
+
+
+### Indipendenza condizionale
+
+#### Proprietà dell'indipendenza condizionale
 
 ## Distribuzione predittiva a priori
 

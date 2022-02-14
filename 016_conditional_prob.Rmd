@@ -59,20 +59,14 @@ Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4 (probabi
 
 ## Legge delle probabilità composte
 
-Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta come prodotto di due probabilità, una condizionata e una marginale. La legge delle probabilità composte (o regola moltiplicativa, o regola della catena) afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo. Per esempio se conosciamo la probabilità marginale $P(B)$ e la probabilità condizionata  $P(A \mid B)$ otteniamo
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La legge delle probabilità composte (o regola moltiplicativa, o regola della catena) afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
 
 \begin{equation}
-P(A \cap B) = P(B)P(A \mid B),
+P(A \cap B) = P(B)P(A \mid B) = P(A)P(B \mid A).
 (\#eq:probcondinv)
 \end{equation}
 
-mentre se conosciamo la probabilità marginale $P(A)$ e la probabilità condizionata $P(B \mid A)$ otteniamo 
-
-$$
-P(A \cap B) = P(A)P(B \mid A).
-$$
-
-L'equazione \@ref(eq:probcondinv) si estende al caso di $n$ eventi $A_1, \dots, A_n$ nella forma seguente: 
+La \@ref(eq:probcondinv) si estende al caso di $n$ eventi $A_1, \dots, A_n$ nella forma seguente: 
 
 \begin{equation}
 P\left( \bigcap_{k=1}^n A_k \right) = \prod_{k=1}^n \left(  A_k  \ \Biggl\lvert \ \bigcap_{j=1}^{k-1} A_j \right)
@@ -133,10 +127,14 @@ $$
 
 ## L'indipendendenza stocastica
 
-Un concetto molto importante per le applicazioni statistiche della probabilità è quello dell'indipendenza stocastica. La definizione \@ref(eq:probcond) esprime il concetto intuitivo di indipendenza di un evento da un altro, nel senso che il verificarsi di $A$ non influisce sulla probabilità del verificarsi di $B$, ovvero non la condiziona. Infatti, per la definizione \@ref(eq:probcond) di probabilità condizionata, si ha che, se $A$ e $B$ sono due eventi indipendenti, risulta:
+Un concetto molto importante per le applicazioni statistiche della probabilità è quello dell'indipendenza stocastica. La definizione \@ref(eq:probcond) consente di esprimere il concetto di indipendenza di un evento da un altro in forma intuitiva: se $A$ e $B$ sono eventi indipendenti, allora il verificarsi di $A$ non influisce sulla probabilità del verificarsi di $B$, ovvero non la condiziona, e il verificarsi di $B$ non influisce sulla probabilità del verificarsi di $A$. Infatti, per la \@ref(eq:probcond), si ha che, se $A$ e $B$ sono due eventi indipendenti, risulta:
 
 $$
-P(A \mid B) = \frac{P(A)P(B)}{P(B)} = P(A).\notag
+P(A \mid B) = \frac{P(A)P(B)}{P(B)} = P(A),
+$$ 
+
+$$
+P(B \mid A) = \frac{P(A)P(B)}{P(A)} = P(B).
 $$ 
 
 Possiamo dunque dire che due eventi $A$ e $B$ sono indipendenti se 
@@ -148,17 +146,44 @@ P(B \mid A) &= P(B).
 \end{split}
 \end{equation}
 
-Si noti inoltre che, se due eventi con probabilità non nulla sono statisticamente indipendenti, la legge delle probabilità totali espressa dalla \@ref(eq:probunione) 
+
+## Il teorema della probabilità totale
+
+Dato un insieme finito $A_i$ di eventi, nel calcolo della probabilità dell'unione di tutti gli eventi, se gli eventi considerati non sono a due a due incompatibili, si deve tenere conto delle loro intersezioni. In particolare, la probabilità dell'unione di due eventi $A$ e $B$ è pari alla somma delle singole probabilità $P(A)$ e $P(B)$ diminuita della probabilità della loro intersezione:
+
 \begin{equation}
-P(A \cup B) = P(A) + P(B) - P(A \cap B)
+P(A \cup B) = P(A) + P(B) - P(A \cap B).
 (\#eq:probunione)
 \end{equation}
 
-si modifica nella relazione seguente:
+Nel caso di tre eventi, si ha
+
+$$
+\begin{split}
+P(A \cup B \cup C) &= P(A)+P(B)+P(C)-P(A\cap B)-P(A\cap C) - \\
+& \qquad P(B\cap C) + P(A\cap B\cap C).
+\end{split}
+$$
+
+La formula per il caso di $n$ eventi si ricava per induzione.
+
+Per il caso di due soli eventi, se $A$ e $B$ sono indipendenti, la \@ref(eq:probunione) si modifica nella relazione seguente:
 
 \begin{equation}
 P(A \cup B) = P(A) + P(B) - P(A)P(B).
 \end{equation}
+
+Nel caso di due eventi $A$ e $B$ incompatibili, se cioè $P(A \cap B) = \varnothing$, si ha che 
+
+$$
+A\cap B=\varnothing \Rightarrow P(A\cup B)=P(A)+P(B).
+$$
+
+Si può dimostrare per induzione che ciò vale anche per un insieme finito di eventi $A_{n}$ a due a due incompatibili, ovvero che:
+
+$$
+A_i\cap A_j=\varnothing, i\neq j \Rightarrow P\left(\bigcup_{i=1}^n A_i\right)=\sum_{i=1}^nP(A_i).
+$$
 
 ::: {.exercise}
 Nel lancio di due dadi non truccati, si considerino gli eventi: _A_ = {esce un 1 o un 2 nel primo lancio} e _B_ = {il punteggio totale è 8}. Gli eventi _A_ e _B_ sono indipendenti?
@@ -183,7 +208,13 @@ Il concetto di indipendenza è del tutto differente da quello di incompatibilit�
 
 ## Il teorema della probabilità assoluta
 
-Il teorema della probabilità assoluta è presente al denominatore del teorema di Bayes (che esamineremo nel prossimo capitolo) e verrà qui presentato considerando una partizione dello spazio campionario in tre sottoinsiemi, ma è facile estendere tale discussione al caso di una partizione in un qualunque numero di sottoinsiemi.
+Il teorema della probabilità assoluta consente di calcolare la probabilità di un evento $E$ di cui sono note le probabilità condizionate rispetto ad altri eventi $(H_i)_{i\geq 1}$, a condizione che essi costituiscano una partizione dell'evento certo $\Omega$, ovvero 
+
+1. $\bigcup_{i=1}^\infty H_i = \Omega$;
+2. $H_j \cap H_j = \emptyset, i\neq j$;
+3. $P(H_i) > 0, i = 1, \dots, \infty$.
+
+Nel caso di una partizione dello spazio campionario in tre sottoinsiemi, ad esempio, abbiamo
 
 \begin{equation}
 {\mbox{P}}(E) = {\mbox{P}}(E \cap H_1) + {\mbox{P}}(E \cap H_2) + {\mbox{P}}(E \cap H_3) \notag
@@ -193,16 +224,16 @@ Il teorema della probabilità assoluta è presente al denominatore del teorema d
 ovvero
 
 \begin{equation}
-{\mbox{P}}(E) = {\mbox{P}}(E \mid F_1) {\mbox{P}}(F_1) + {\mbox{P}}(E \mid F_2) {\mbox{P}}(F_2) + {\mbox{P}}(E \mid F_3) {\mbox{P}}(F_3).
+{\mbox{P}}(E) = {\mbox{P}}(E \mid H_1) {\mbox{P}}(H_1) + {\mbox{P}}(E \mid H_2) {\mbox{P}}(H_2) + {\mbox{P}}(E \mid H_3) {\mbox{P}}(H_3).
 (\#eq:prob-total-1b)
 \end{equation}
 
-Il teorema della probabilità assoluta afferma che, se l'evento $E$ è
-costituito da tutti gli eventi elementari in $E \cap F_1$, $E \cap F_2$
-e $E \cap F_3$, allora la probabilità ${\mbox{P}}(E)$ è data dalla somma delle
-probabilità di questi tre eventi (figura \@ref(fig:tikz-prob-tot)). La \@ref(eq:prob-total-1b) costituisce il denominatore del teorema di Bayes.
+Il teorema della probabilità assoluta afferma dunque che, se l'evento $E$ è
+costituito da tutti gli eventi elementari in $E \cap H_1$, $E \cap H_2$
+e $E \cap H_3$, allora la sua probabilità è data dalla somma delle
+probabilità condizionate $P(E \mid H_i)$, ciascuna delle quali pesata per la probabilità dell'evento condizionante $H_i$.
 
-```{tikz, echo=FALSE, tikz-prob-tot, fig.cap = "Partizione dello spazio campionario $\\Omega$.", fig.ext = 'png', cache=TRUE}
+```{tikz, echo=FALSE, tikz-prob-tot, fig.cap = "Partizione dell'evento certo $\\Omega$ in tre sottoinsiemi sui quali viene definito l'evento $E$.", fig.ext = 'png', cache=TRUE}
 \usetikzlibrary{
   matrix, patterns, calc, fit, shapes, chains, snakes,
   arrows.meta, arrows, backgrounds, trees, positioning,
@@ -231,9 +262,9 @@ probabilità di questi tre eventi (figura \@ref(fig:tikz-prob-tot)). La \@ref(eq
     \node[myrectangle] (bottom) [below=of tmp] {};
 
     % "contents" of left node
-    \path (left.west) -- node[pos=.25] {$F_1$} (left.east);
-    \path (left.west) -- node[pos=.5] {$F_2$} (left.east);
-    \path (left.west) -- node[pos=.75] {$F_3$} (left.east);
+    \path (left.west) -- node[pos=.25] {$H_1$} (left.east);
+    \path (left.west) -- node[pos=.5] {$H_2$} (left.east);
+    \path (left.west) -- node[pos=.75] {$H_3$} (left.east);
 
     \draw[A] ($(left.north west) ! .4 ! (left.north east)$) -- ($(left.south west) ! .35 ! (left.south east)$);
     \draw[A] ($(left.north west) ! .6 ! (left.north east)$) -- ($(left.south west) ! .66 ! (left.south east)$);
@@ -242,9 +273,9 @@ probabilità di questi tre eventi (figura \@ref(fig:tikz-prob-tot)). La \@ref(eq
     \draw[E] (right.center) ellipse [x radius=1.5cm, y radius=0.75cm] node {$E$};
 
     % "contents" of bottom node
-    \path (bottom.west) -- node[pos=.25] {\scriptsize $E\cap F_1$} (bottom.east);
-    \path (bottom.west) -- node[pos=.5] {\scriptsize $E \cap F_2$} (bottom.east);
-    \path (bottom.west) -- node[pos=.75] {\scriptsize $E \cap F_3$} (bottom.east);
+    \path (bottom.west) -- node[pos=.25] {\scriptsize $E\cap H_1$} (bottom.east);
+    \path (bottom.west) -- node[pos=.5] {\scriptsize $E \cap H_2$} (bottom.east);
+    \path (bottom.west) -- node[pos=.75] {\scriptsize $E \cap H_3$} (bottom.east);
 
     \draw[A] ($(bottom.north west) ! .4 ! (bottom.north east)$) -- ($(bottom.south west) ! .35 ! (bottom.south east)$);
     \draw[A] ($(bottom.north west) ! .6 ! (bottom.north east)$) -- ($(bottom.south west) ! .66 ! (bottom.south east)$);

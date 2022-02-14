@@ -11,13 +11,13 @@ Il teorema di Bayes assume un ruolo fondamentale nell'interpretazione soggettivi
 ## Il teorema di Bayes
 
 ::: {.theorem}
-Sia $(H_i)_{i\geq 1}$ una partizione dell'evento certo $\Omega$ tale che
-
-1. $\bigcup_{i=1}^\infty H_i = \Omega$;
-2. $H_j \cap H_j = \emptyset, i\neq j$;
-3. $P(H_i) > 0, i = 1, \dots, \infty$,
-
-Sia $E \subseteq \Omega$ un evento tale che $p(E) > 0$, allora, per $i = 1, \dots, \infty$:
+Sia $(H_i)_{i\geq 1}$ una partizione dell'evento certo $\Omega$  e sia 
+<!-- tale che -->
+<!-- 1. $\bigcup_{i=1}^\infty H_i = \Omega$; -->
+<!-- 2. $H_j \cap H_j = \emptyset, i\neq j$; -->
+<!-- 3. $P(H_i) > 0, i = 1, \dots, \infty$, -->
+<!-- Sia  -->
+$E \subseteq \Omega$ un evento tale che $p(E) > 0$, allora, per $i = 1, \dots, \infty$:
 
 \begin{equation}
 {\mbox{P}}(H_i \mid E) = \frac{{\mbox{P}}(E \mid H_i){\mbox{P}}(H_i)}{\sum_{j=1}^{\infty}{\mbox{P}}(H_j)P(E \mid H_j)}.
@@ -33,6 +33,8 @@ La formula di Bayes contiene tre concetti fondamentali. I primi due distinguono 
 Il terzo concetto definisce la probabilità che ha l'evento $E$ di verificarsi quando è vera l'ipotesi $H$, ovvero la probabilità dell'evidenza in base all'ipotesi. Pertanto, dati gli eventi $H, E \subseteq \Omega$
 
 - si definisce _verosimiglianza_ di $H$ dato $E$, la probabilità condizionata che si verifichi $E$, se è vera $H$: $P (E \mid H)$. 
+
+Si noti che per il calcolo della quantità a denominatore si ricorre al teorema della probabilità assoluta.
 
 Per fare un esempio concreto, considerando una partizione dell'evento certo $\Omega$ in due soli eventi che chiamiamo ipotesi $H_1$ e $H_2$. Supponiamo conosciute le probabilità a priori $P(H_1)$ e $P(H_2)$. Consideriamo un terzo evento $E \subseteq \Omega$ con probabilità non nulla di cui si conosce la verosimiglianza, ovvero si conoscono le probabilità condizionate  ${\mbox{P}}(E \mid H_1)$ e $P(E \mid H_2)$. Supponendo che si sia verificato l'evento $E$, vogliamo conoscere le probabilità a posteriori delle ipotesi, ovvero $P(H_1 \mid E)$ e $P(H_2 \mid E)$. 
 
