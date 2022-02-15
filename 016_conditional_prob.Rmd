@@ -331,6 +331,26 @@ $$
 $$
 :::
 
+## Indipendenza condizionale
+
+Aggiungo qui delle considerazioni sul concetto di indipendenza condizionale a cui si farà riferimento nell'ultima parte della dispensa. L'indipendenza condizionale descrive situazioni in cui un'osservazione è irrilevante o ridondante quando si valuta la certezza di un'ipotesi. L'indipendenza condizionale è solitamente formulata nei termini della probabilità condizionata, come un caso speciale in cui la probabilità dell'ipotesi data un'osservazione non informativa è uguale alla probabilità senza tale osservazione non informativa.
+
+Se $A$ è l'ipotesi e $B$ e $C$ sono osservazioni, l'indipendenza condizionale può essere espressa come l'uguaglianza:
+
+$$
+P(A \mid B,C)=P(A \mid C).
+$$
+
+Dato che $P(A \mid B,C)$ è uguale a $P(A \mid C)$, questa uguaglianza corrisponde all'affermazione che $B$ non fornisce alcun contributo alla certezza di $A$. In questo caso si dice che $A$ e $B$ condizionalmente indipendente dato $C$, scritto simbolicamente come: $(A \perp\!\!\!\!\perp B \mid C)$.
+
+In maniera equivalente, l'indipendenza condizionale $(A \perp\!\!\!\!\perp B \mid C)$ si verifica se:
+
+$$
+P(A, B \mid C) = P(A \mid C) P(B \mid C).
+$$
+
+Un esempio è il seguente (da Wikipedia). Siano due eventi le probabilità che le persone A e B tornino a casa in tempo per la cena, e il terzo evento è il fatto che una tempesta di neve ha colpito la città. Mentre sia A che B hanno una probabilità più piccola di tornare a casa in tempo per cena (di quando non c'è la neve), tali probabilità sono comunque indipendenti l'una dall'altra. Cioè, sapere che A è in ritardo non ci dice nulla sul fatto che B sia in ritardo o meno. (A e B potrebbero vivere in quartieri diversi, percorrere distanze diverse e utilizzare mezzi di trasporto diversi.) Tuttavia, se sapessimo che A e B vivono nello stesso quartiere, usano lo stesso mezzo di trasporto e lavorano nello stesso luogo, allora i due eventi non sarebbero condizionatamente indipendenti.
+
 ## Commenti e considerazioni finali {-}
 
 La probabilità condizionata è importante perché ci fornisce uno strumento per precisare il concetto di indipendenza statistica. Una delle domande più importanti delle analisi statistiche è infatti quella che si chiede se due variabili sono associate tra loro oppure no. In questo Capitolo abbiamo discusso il concetto di indipendenza (come contrapposto al concetto di associazione -- si veda il Capitolo \@ref(chapter-descript)). In seguito vedremo come sia possibile fare inferenza sull'associazione tra variabili.
