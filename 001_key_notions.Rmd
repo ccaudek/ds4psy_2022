@@ -92,7 +92,6 @@ D_{m,n} =
  \end{pmatrix}
  $$ 
  
- \noindent
 dove, nel caso presente, la prima colonna contiene il
 nome delle unità statistiche, la seconda e la terza colonna si
 riferiscono a due mutabili statistiche (variabili categoriali; $A$ e
@@ -136,7 +135,6 @@ Un modello psicologico di un qualche aspetto del comportamento umano o della men
     portare a rigettare il modello, se si dimostrassero incompatibili con
     esso).
 
-\noindent
 L'analisi dei dati valuta un modello psicologico utilizzando strumenti statistici.
 
 Questa dispensa è strutturata in maniera tale da rispecchiare la suddivisione tra i temi della misurazione, dell'analisi descrittiva e dell'inferenza. Nel prossimo Capitolo sarà affrontato il tema della misurazione e, nell'ultima parte della dispensa verrà discusso l'argomento più difficile, quello dell'inferenza. Prima di affrontare il secondo tema, l'analisi descrittiva dei dati, sarà necessario introdurre il linguaggio di programmazione statistica R (un'introduzione a R è fornita in Appendice). Inoltre, prima di potere discutere l'inferenza, dovranno essere introdotti i concetti di base della teoria delle probabilità, in quanto l'inferenza non è che l'applicazione della teoria delle probabilità all'analisi dei dati.

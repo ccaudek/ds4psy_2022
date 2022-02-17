@@ -42,7 +42,7 @@ Possiamo migliorare l'approssimazione aumentando il numero di punti della grigli
 
 ### Modello Beta-Binomiale
 
-Per fare un esempio, consideriamo lo schema beta-binomiale di cui conosciamo la soluzione esatta. Utilizziamo nuovamente i dati di @zetschefuture2019: 23 "successi" in 30 prove Bernoulliane indipendenti.^[Nel presente esempio useremo lo stesso codice $\R$ utilizzato da @Johnson2022bayesrules.] Imponiamo alla distribuzione a priori su $\theta$ (probabilità di successo in una singola prova, laddove per "successo" si intende una aspettativa  distorta negativamente dell'umore futuro) una $\mbox{Beta}(2, 10)$ per descrivere la  nostra incertezza sul parametro prima di avere osservato i dati. Dunque, il modello diventa:
+Per fare un esempio, consideriamo lo schema beta-binomiale di cui conosciamo la soluzione esatta. Utilizziamo nuovamente i dati di @zetschefuture2019: 23 "successi" in 30 prove Bernoulliane indipendenti.^[Nel presente esempio useremo lo stesso codice $\textsf{R}$ utilizzato da @Johnson2022bayesrules.] Imponiamo alla distribuzione a priori su $\theta$ (probabilità di successo in una singola prova, laddove per "successo" si intende una aspettativa  distorta negativamente dell'umore futuro) una $\mbox{Beta}(2, 10)$ per descrivere la  nostra incertezza sul parametro prima di avere osservato i dati. Dunque, il modello diventa:
 
 \begin{align}
 Y \mid \theta & \sim \mbox{Bin}(n = 30, \theta), \notag\\
@@ -213,7 +213,7 @@ $$
 allora diventa possibile calcolare
 
 $$
-\E(\theta \mid y) = \int \theta p(\theta \mid y) \,\operatorname {d}\!\theta \approx \frac{1}{T} \sum_{i=1}^T \theta^{(t)}.
+\mathbb{E}(\theta \mid y) = \int \theta p(\theta \mid y) \,\operatorname {d}\!\theta \approx \frac{1}{T} \sum_{i=1}^T \theta^{(t)}.
 $$
 
 In altre parole, l'aspettazione teorica di $\theta$ può essere approssimata dalla media campionaria di un insieme di realizzazioni indipendenti ricavate da $p(\theta \mid y)$. Per la Legge Forte dei Grandi Numeri, l'approssimazione diventa arbitrariamente esatta per $T \rightarrow \infty$.^[L'integrazione Monte Carlo può essere utilizzata anche per la valutazione di integrali più complessi.]
@@ -286,7 +286,7 @@ print(mean(rbeta(1e6, shape1 = 25, shape2 = 17)), 6)
 Lo stesso si può dire delle altre statistiche descrittive: moda, varianza, eccetera. Nel presente esempio, la simulazione Monte Carlo produce il risultato desiderato perché 
 
 - sappiamo che la distribuzione a posteriori è una $\mbox{Beta}(25, 17)$,
-- è possibile usare le funzioni $\R$ per estrarre campioni casuali da una tale distribuzione. 
+- è possibile usare le funzioni $\textsf{R}$ per estrarre campioni casuali da una tale distribuzione. 
 
 Tuttavia, capita raramente di usare una distribuzione a priori coniugata alla verosimiglianza. Quindi, in generale, le due condizioni descritte sopra non si applicano. Ad esempio, nel caso di una verosimiglianza binomiale e di una distribuzione a priori gaussiana, la distribuzione a posteriori di $\theta$ è
 
@@ -294,7 +294,7 @@ $$
 p(\theta \mid y) = \frac{\mathrm{e}^{-(\theta - 1 / 2)^2} \theta^y (1 - \theta)^{n - y}} {\int_0^1 \mathrm{e}^{-(t - 1 / 2)^2} t^y (1 - t)^{n - y} dt}.
 $$
 
-Una tale distribuzione non è implementata in $\R$ e dunque non possiamo ottenere dei campioni casuali da una tale distribuzione.
+Una tale distribuzione non è implementata in $\textsf{R}$ e dunque non possiamo ottenere dei campioni casuali da una tale distribuzione.
 
 In tali circostanze, però, è ancora possibile ottenere ottenere un campione causale dalla distribuzione a posteriori in un altro modo. Questo risultato si ottiene utilizzando i metodi Monte Carlo basati su Catena di Markov (MCMC). I metodi MCMC, di cui l'algoritmo di Metropolis è un caso particolare e ne rappresenta il primo esempio, sono una classe di algoritmi che consentono di ottenere campioni casuali da una distribuzione a posteriori _senza dovere conoscere la rappresentazione analitica di una tale distribuzione_.^[In termini più formali, si può dire che i metodi MCMC consentono di costruire sequenze di punti (detti catene di Markov) nello spazio dei parametri le cui densità sono proporzionali alla distribuzione a posteriori. In altre parole, dopo aver simulato un grande numero di passi della catena si possono usare i valori così generati come se fossero un campione casuale della distribuzione a posteriori. Un'introduzione alle catene di Markov è fornita nell'Appendice \@ref(markov-chains).] Le tecniche MCMC sono il metodo computazionale maggiormente usato per risolvere i problemi dell'inferenza bayesiana.
 
@@ -302,7 +302,7 @@ In tali circostanze, però, è ancora possibile ottenere ottenere un campione ca
 
 Prima di applicare l'algoritmo di Metropolis ai dati di @zetschefuture2019, consideriamo un caso più semplice. In questo esempio preliminare useremo l'algoritmo di Metropolis  per ottenere un campione casuale da una distribuzione di massa di probabilità; esamineremo il caso continuo in seguito.^[Seguo qui la trattazione di @albert2019probability. Per una presentazione dell'idea che sta alla base dell'algoritmo di Metropolis, si possono anche consultare @doing_bayesian_data_an e @McElreath_rethinking.] 
 
-Definiamo la distribuzione di probabilità discreta della variabile casuale $X$ che assume valori nell'insieme dei numeri naturali $1, 2, \dots, K$. Scriviamo in $\R$ la funzione `pd()` che assegna a $X = \{1, 2, \dots, 8\}$ valori di probabilità proporzionali agli interi 5, 10, 4, 4, 20, 20, 12 e 5:
+Definiamo la distribuzione di probabilità discreta della variabile casuale $X$ che assume valori nell'insieme dei numeri naturali $1, 2, \dots, K$. Scriviamo in $\textsf{R}$ la funzione `pd()` che assegna a $X = \{1, 2, \dots, 8\}$ valori di probabilità proporzionali agli interi 5, 10, 4, 4, 20, 20, 12 e 5:
 
 ```{r}
 pd <- function(x){
@@ -536,7 +536,7 @@ p1 <- tibble(
   x = chain[-(1:burnin)]
 ) %>%
   ggplot(aes(x)) +
-  geom_histogram() +
+  geom_histogram(fill = "darkgray") +
   labs(
     x = expression(theta),
     y = "Frequenza",
@@ -553,7 +553,7 @@ p2 <- tibble(
   y = chain[-(1:burnin)]
 ) %>%
   ggplot(aes(x, y)) +
-  geom_line() +
+  geom_line(color = "darkgray") +
   labs(
     x = "Numero di passi",
     y = expression(theta),
@@ -561,7 +561,7 @@ p2 <- tibble(
   ) +
   geom_hline(
     yintercept = mean(chain[-(1:burnin)]),
-    colour = "gray"
+    colour = "black"
   ) +
   ylim(c(0.3, 0.85)) 
 
@@ -584,7 +584,7 @@ tibble(
   x = post$S[4001:8000]
 ) %>%
   ggplot(aes(x)) +
-  geom_histogram() +
+  geom_histogram(fill = "darkgray") +
   labs(
     x = expression(theta),
     y = "Frequenza",
@@ -604,6 +604,134 @@ L'accettanza però non è ottimale:
 post$accept_rate
 ```
 
+### Gibb's sampling
+
+Il campionamento di Gibbs è un algoritmo MCMC per ottenere una sequenza di campioni casuali da una distribuzione di probabilità congiunta di due o più variabili casuali quando il campionamento diretto si dimostra difficoltoso. Questa sequenza può essere usata per approssimare la distribuzione congiunta. 
+
+Consideriamo, quale esempio, la seguente distribuzione di probabilità congiunta $p(x, y)$ delle due variabili casuali $X$ e $Y$ [lo script $\textsf{R}$ è ricavato da @albert2019probability]:
+
+```{r}
+p <- matrix(c(
+  4, 3, 2, 1,
+  3, 4, 3, 2,
+  2, 3, 4, 3,
+  1, 2, 3, 4
+) / 40, 4, 4, byrow = TRUE)
+dimnames(p)[[1]] <- 1:4
+dimnames(p)[[2]] <- 1:4
+p
+```
+
+Supponiamo che sia difficile campionare direttamente da $p(x, y)$; supponiamo, tuttavia, di poter facilmente campionare dalle distribuzioni condizionate $p(x \mid y)$ e $p(y \mid x)$. Poniamo che l'algoritmo inizi con il valore $X = 1$. 
+
+- _Passo 1_. Si simula $Y$ dalla distribuzione condizionata $f(y \mid X = 1)$. Questa distribuzione condizionata è contenuta nella prima colonna della matrice $p(x, y)$, ovvero
+
+```{r}
+p[, 1]
+```
+
+  Supponiamo di avere ottenuto il valore $Y = 2$. 
+
+- _Passo 2_. Ora estraiamo un valore a caso $X$ dalla distribuzione condizionata $f(x \mid Y = 2)$. Questa distribuzione condizionata è contenuta nella seconda riga della matrice $p(x, y)$, ovvero
+
+```{r}
+p[2, ]
+```
+
+  Supponiamo di avere ottenuto il valore $X = 3$.
+  
+Implementando i passi 1 e 2, si ottiene un'iterazione del campionamento di Gibbs, ovvero la coppia simulata $(X, Y) = (3, 2)$. Il campionamento di Gibbs si realizza ripetendo i passaggi 1 e 2 molte volte, laddove in ogni passo condizioniamo i valori simulati ai valori $X$ o $Y$ più recenti. 
+
+Le seguenti istruzioni generano 100,000 iterazioni dell'algorimo di Gibbs per l'esempio in considerazione:
+
+```{r}
+n_iter <- 1e5
+gibbs_discrete <- function(p, i = 1, iter = n_iter){
+  x <- matrix(0, iter, 2)
+  n_x <- dim(p)[1]
+  n_y <- dim(p)[2]
+  for(k in 1:n_iter){
+    j <- sample(1:n_y, 1, prob = p[i, ])
+    i <- sample(1:n_x, 1, prob = p[, j])
+    x[k, ] <- c(i, j)
+  }
+  x
+}
+```
+
+Esaminando i risultati ottenuti, notiamo che il campionamento di Gibbs produce una buona approssimazione della distribuzione di probabilità congiunta di partenza:
+
+```{r}
+sp <- data.frame(gibbs_discrete(p))
+names(sp) <- c("X", "Y")
+round(table(sp) / n_iter, 3)
+```
+
+#### Campionamento beta-binomiale
+
+L'esempio precedente ha dimostrato il campionamento di Gibbs per una distribuzione discreta a due parametri, ma il campionamento di Gibbs funziona per qualsiasi distribuzione a due parametri. Per illustrare questo, consideriamo nuovamente lo schema beta-binomiale. 
+
+$$
+\begin{split}
+Y \mid p &\sim \mbox{Binom}(n, p),\\
+p &\sim \mbox{Beta}(a, b).
+\end{split}
+$$
+
+Per implementare il campionamento Gibbs per questa situazione, è necessario identificare le due distribuzioni condizionate $Y \mid P$ e $p \mid Y$. A questo fine, calcoliamo prima la distribuzione congiunta $f(Y, p)$:
+
+
+$$
+\begin{split}
+f(Y, p) &= f(p) f(y \mid p)\\
+&= \left[ \frac{1}{B(a, b)}p^{a-1} (1-p)^{b-1} \right] \left[ \binom{n}{y}p^y (1-p)^{n-y}\right].
+\end{split}
+$$
+
+Per trovare le distribuzioni marginali, sopprimiamo la dipendenza di $f(Y, p)$ dalle costanti irrilevanti. Se teniamo fisso $p$, l'unica variabile casuale è $y$. Dunque, tutto il contenuto della prima parentesi quadra diventa una costante che può essere ignorata. Per cui $f(y \mid p)$ è $\mbox{Binom}(n, p)$. D'altra parte, se teniamo fisso $y$, ignorando le costanti, la densità congiunta risulta proporzionale a 
+
+$$
+p^{y+a-1} (1-p)^{n-y+b-1}
+$$
+
+che è il kernel della distribuzione Beta con parametri di forma $y+a$ e $n-y+b$. Quindi abbiamo $f(p \mid y) = \mbox{Beta}(y+a, n-y+b)$.
+
+Una volta trovate le due distribuzioni condizionate è facile modificare l'algoritmo di Gibbs visto sopra per adattarlo alla situazione presente:
+
+```{r}
+gibbs_betabin <- function(n, a, b, p = 0.5, iter = n_iter){
+  x <- matrix(0, iter, 2)
+  for(k in 1:iter){
+    y <- rbinom(1, size = n, prob = p)
+    p <- rbeta(1, y + a, n - y + b)
+    x[k, ] <- c(y, p)
+  }
+  x
+}
+```
+
+Di seguito eseguiamo il campionamento Gibbs per questo modello Beta-Binomiale con $n=20$, $a = 5$ e $b=5$. Dopo aver eseguito 100,000 iterazioni, possiamo considerare  la matrice $sp$ come un campione casuale tratto dalla distribuzione congiunta $f(Y, p)$. 
+
+Se dalla sequenza di coppie $(Y, p)$ generate dall'algoritmo di Gibbs consideriamo solo i valori $Y$, possiamo ottenere un'approssimazione della distribuzione marginale $f(y)$ di $Y$.
+
+```{r}
+set.seed(123)
+sp <- data.frame(gibbs_betabin(20, 5, 5))
+ggplot(data.frame(Y = sp$X1), aes(Y)) +
+  geom_bar(width = 0.5, fill = "darkgray") +
+  ylab("Frequency") 
+```
+
+La figura seguente mostra invece l'approssimazione della distribuzione congiunta $f(Y, p)$ che è stata ottenuta:
+
+```{r}
+ggplot(sp, aes(X1, X2)) +
+  geom_point(size = 0.5, color = "black", alpha = 0.05) +
+  xlab("Y") +
+  ylab("p")
+```
+
+
 ### Input
 
 Negli esempi discussi in questo Capitolo abbiamo illustrato l'esecuzione di una singola catena in cui si parte un unico valore iniziale e si raccolgono i valori simulati da molte iterazioni. È possibile però che i valori di una catena siano influenzati dalla scelta del valore iniziale. Quindi una raccomandazione generale è di eseguire l'algoritmo di Metropolis più volte utilizzando diversi valori di partenza. In questo caso, si avranno più catene di Markov. Confrontando le proprietà delle diverse catene si esplora la sensibilità dell'inferenza alla scelta del valore di partenza. I software MCMC consentono sempre all'utente di specificare diversi valori di partenza e di generare molteplici catene di Markov.
@@ -619,12 +747,12 @@ Informazioni sul "mixing" della catena di Markov sono fornite dall'autocorrelazi
 L'autocorrelazione di ordine $k$ è data da $\rho_k$ e può essere stimata come:
 
 \begin{align}
-\rho_k &= \frac{\Cov(\theta_m, \theta_{m+k})}{\Var(\theta_m)}\notag\\
+\rho_k &= \frac{\mbox{Cov}(\theta_m, \theta_{m+k})}{\mbox{Var}(\theta_m)}\notag\\
 &= \frac{\sum_{m=1}^{n-k}(\theta_m - \bar{\theta})(\theta_{m-k} - \bar{\theta})}{\sum_{m=1}^{n-k}(\theta_m - \bar{\theta})^2} \qquad\text{con }\quad \bar{\theta} = \frac{1}{n}\sum_{m=1}^{n}\theta_m.
 (\#eq:autocor)
 \end{align}
 
-Per fare un esempio pratico, simuliamo dei dati autocorrelati con la funzione R `colorednoise::colored_noise()`:
+Per fare un esempio pratico, simuliamo dei dati autocorrelati con la funzione $\textsf{R}$ `colorednoise::colored_noise()`:
 
 ```{r}
 suppressPackageStartupMessages(library("colorednoise"))
@@ -640,7 +768,7 @@ L'autocorrelazione di ordine 1 è semplicemente la correlazione tra ciascun elem
 cor(rednoise[-length(rednoise)], rednoise[-1])
 ```
 
-Il Correlogramma è uno strumento grafico usato per la valutazione della tendenza di una catena di Markov nel tempo. Il correlogramma si costruisce a partire dall'autocorrelazione $\rho_k$ di una catena di Markov in funzione del ritardo (_lag_) $k$ con cui l'autocorrelazione è calcolata: nel grafico ogni barretta verticale riporta il valore dell'autocorrelazione (sull'asse delle ordinate) in funzione del ritardo (sull'asse delle ascisse). In $\R$, il correlogramma può essere prodotto con una chiamata a `acf()`:
+Il Correlogramma è uno strumento grafico usato per la valutazione della tendenza di una catena di Markov nel tempo. Il correlogramma si costruisce a partire dall'autocorrelazione $\rho_k$ di una catena di Markov in funzione del ritardo (_lag_) $k$ con cui l'autocorrelazione è calcolata: nel grafico ogni barretta verticale riporta il valore dell'autocorrelazione (sull'asse delle ordinate) in funzione del ritardo (sull'asse delle ascisse). In $\textsf{R}$, il correlogramma può essere prodotto con una chiamata a `acf()`:
 
 ```{r}
 acf(rednoise)

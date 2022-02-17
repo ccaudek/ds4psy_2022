@@ -236,7 +236,7 @@
 
 \title{Data Science per psicologi}
 \author{Corrado Caudek}
-\date{2022-02-15}
+\date{2022-02-17}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -804,7 +804,45 @@ Il fondamento della statistica bayesiana è il teorema di Bayes e il teorema di 
 \hypertarget{sec:bayes-cancer}{%
 \section{Probabilità condizionata su altri eventi}\label{sec:bayes-cancer}}
 
-L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. Consideriamo il seguente problema.
+L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato.
+
+Per introdurre la probabilità condizionata, \citet{albert2019probability} utilizzando il famoso paradosso delle tre carte. ``Ci sono tre carte, delle quali la prima (A) è rossa su entrambi i lati, la seconda (B) su un lato è rossa e sull'altro è bianca e la terza (C) è bianca su entrambi i lati. Ponendo su un tavolo una delle tre carte, scelta a caso, ottengo che il lato visibile è di colore rosso. Qual è la probabilità che anche il lato non visibile sia di colore rosso? La risposta intuitiva porta solitamente a rispondere che la probabilità ricercata sia pari al 50\%, in quanto solo due carte (la A e la B) possono mostrare il colore rosso e solo una di queste (la A) può mostrare anche sull'altro lato il colore rosso; tuttavia si dimostra che la risposta giusta è 2/3.'' (da Wikipedia)
+
+\citet{albert2019probability} propongono di risolvere il problema con una simulazione in \(\textsf{R}\): prima di tutto si sceglie una carta a caso, e poi si sceglie un lato della carta. Ci sono tre carte possibili, che chiamiamo ``c\_rossa'', ``c\_bianca'', e ``c\_entrambi''. Per la carta rossa, ci sono due lati rossi; per la carta bianca ci sono due lati bianchi e la carta ``entrambi'' ha un lato rosso e un lato bianco. Ripetiamo l'esperimento 1,000 volte e classifichiamo i risultati per tipo di carta e lato:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{84735}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{Carta =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"c\_rossa"}\NormalTok{, }\StringTok{"c\_rossa"}\NormalTok{, }\StringTok{"c\_bianca"}\NormalTok{, }\StringTok{"c\_bianca"}\NormalTok{, }\StringTok{"c\_entrambi"}\NormalTok{,}
+    \StringTok{"c\_entrambi"}
+\NormalTok{  ),}
+  \AttributeTok{Lato =} \FunctionTok{c}\NormalTok{(}
+    \StringTok{"rosso"}\NormalTok{, }\StringTok{"rosso"}\NormalTok{, }\StringTok{"bianco"}\NormalTok{, }\StringTok{"bianco"}\NormalTok{, }\StringTok{"rosso"}\NormalTok{, }\StringTok{"bianco"}
+\NormalTok{  )}
+\NormalTok{)}
+\NormalTok{df}
+\CommentTok{\#\textgreater{} \# A tibble: 6 x 2}
+\CommentTok{\#\textgreater{}   Carta      Lato  }
+\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}      \textless{}chr\textgreater{} }
+\CommentTok{\#\textgreater{} 1 c\_rossa    rosso }
+\CommentTok{\#\textgreater{} 2 c\_rossa    rosso }
+\CommentTok{\#\textgreater{} 3 c\_bianca   bianco}
+\CommentTok{\#\textgreater{} 4 c\_bianca   bianco}
+\CommentTok{\#\textgreater{} 5 c\_entrambi rosso }
+\CommentTok{\#\textgreater{} 6 c\_entrambi bianco}
+\NormalTok{carte }\OtherTok{\textless{}{-}} \FunctionTok{sample\_n}\NormalTok{(df, }\DecValTok{1000}\NormalTok{, }\AttributeTok{replace =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(carte}\SpecialCharTok{$}\NormalTok{Carta, carte}\SpecialCharTok{$}\NormalTok{Lato)}
+\CommentTok{\#\textgreater{}             }
+\CommentTok{\#\textgreater{}              bianco rosso}
+\CommentTok{\#\textgreater{}   c\_bianca      353     0}
+\CommentTok{\#\textgreater{}   c\_entrambi    143   160}
+\CommentTok{\#\textgreater{}   c\_rossa         0   344}
+\end{Highlighting}
+\end{Shaded}
+
+Se si osserva il colore rosso (seconda colonna nella tabella precedente), questo risultato è dovuto ad una carta rossa in 344 casi e ad una carta ``entrambi'' in 160 casi. Quindi, nella simulazione il colore rosso (344 + 160) è associato ad una carta rossa in circa 2/3 dei casi -- ciò significa che, se i lato visibile è di colore rosso, allora c'è una probabilità di 2/3 che anche il lato non visibile sia di colore rosso. Questo esempio dimostra come le nostre intuizioni a proposito della probabilità condizionata non sono sempre corrette. Consideriamo un altro problema più articolato.
 
 \begin{exercise}
 
@@ -837,8 +875,10 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{con}\, P(B) > 0,
 \label{eq:probcond}
 \end{equation}
 
-dove \(P(A\cap B)\) è la probabilità congiunta dei due eventi, ovvero la probabilità che si verifichino entrambi.
+dove \(P(A\cap B)\) è la \emph{probabilità congiunta} dei due eventi, ovvero la probabilità che si verifichino entrambi.
 \end{definition}
+
+Concludiamo con un problema veramente semplice per consolidare la nostra comprensione del concetto di probabilità condizionata.
 
 \begin{exercise}
 Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
@@ -846,10 +886,10 @@ Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una
 Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4 (probabilità non condizionata). Per rispondere alla seconda domanda consideriamo solo le 13 carte di cuori; la probabilità cercata è dunque 3/13 (probabilità condizionata).
 \end{exercise}
 
-\hypertarget{legge-delle-probabilituxe0-composte}{%
-\section{Legge delle probabilità composte}\label{legge-delle-probabilituxe0-composte}}
+\hypertarget{la-regola-moltiplicativa}{%
+\section{La regola moltiplicativa}\label{la-regola-moltiplicativa}}
 
-Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La legge delle probabilità composte (o regola moltiplicativa, o regola della catena) afferma che la probabilità che si verifichino due eventi \(A\) e \(B\) è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La regola moltiplicativa (o legge delle probabilità composte, o regola della catena) afferma che la probabilità che si verifichino due eventi \(A\) e \(B\) è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
 
 \begin{equation}
 P(A \cap B) = P(B)P(A \mid B) = P(A)P(B \mid A).
@@ -1015,10 +1055,27 @@ Il teorema della probabilità assoluta consente di calcolare la probabilità di 
   \(P(H_i) > 0, i = 1, \dots, \infty\).
 \end{enumerate}
 
-Nel caso di una partizione dello spazio campionario in tre sottoinsiemi, ad esempio, abbiamo
+Nel caso di una partizione dello spazio campione in \(n\) sottoinsiemi abbiamo
 
 \begin{equation}
-{\mbox{P}}(E) = {\mbox{P}}(E \cap H_1) + {\mbox{P}}(E \cap H_2) + {\mbox{P}}(E \cap H_3) \notag
+{\mbox{P}}(E)=\sum _{{i=1}}^{n}{\mbox{P}}(H_{i}\cap E)=\sum _{{i=1}}^{n}{\mbox{P}}(H_{i}){\mbox{P}}(E \mid H_{i}).
+\end{equation}
+
+Consideriamo, ad esempio, una partizione dell'evento certo in tre soli sottoinsiemi.
+
+\begin{figure}
+
+{\centering \includegraphics{ds4psy_files/figure-latex/tikz-prob-tot-1} 
+
+}
+
+\caption{Partizione dell'evento certo $\Omega$ in tre sottoinsiemi sui quali viene definito l'evento $E$.}\label{fig:tikz-prob-tot}
+\end{figure}
+
+In tali circostanze si ha che
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \cap H_1) + {\mbox{P}}(E \cap H_2) + {\mbox{P}}(E \cap H_3), \notag
 \label{eq:prob-total-1a}
 \end{equation}
 
@@ -1029,16 +1086,7 @@ ovvero
 \label{eq:prob-total-1b}
 \end{equation}
 
-Il teorema della probabilità assoluta afferma dunque che, se l'evento \(E\) è costituito da tutti gli eventi elementari in \(E \cap H_1\), \(E \cap H_2\) e \(E \cap H_3\), allora la sua probabilità è data dalla somma delle probabilità condizionate \(P(E \mid H_i)\), ciascuna delle quali pesata per la probabilità dell'evento condizionante \(H_i\).
-
-\begin{figure}
-
-{\centering \includegraphics{ds4psy_files/figure-latex/tikz-prob-tot-1} 
-
-}
-
-\caption{Partizione dell'evento certo $\Omega$ in tre sottoinsiemi sui quali viene definito l'evento $E$.}\label{fig:tikz-prob-tot}
-\end{figure}
+In base al teorema della probabilità assoluta, dunque, se l'evento \(E\) è costituito da tutti gli eventi elementari in \(E \cap H_1\), \(E \cap H_2\) e \(E \cap H_3\), allora la sua probabilità è data dalla somma delle probabilità condizionate \(P(E \mid H_i)\), ciascuna delle quali pesata per la probabilità dell'evento condizionante \(H_i\).
 
 \begin{exercise}
 Si considerino tre urne, ciascuna delle quali contiene 100 palline:
@@ -1140,7 +1188,7 @@ Per fare un esempio concreto, considerando una partizione dell'evento certo \(\O
 
 \begin{figure}
 
-{\centering \includegraphics[width=0.45\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-17-1} 
+{\centering \includegraphics[width=0.45\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-18-1} 
 
 }
 
@@ -1487,565 +1535,715 @@ Applicando la \eqref{eq:ex-marginalization}, la distribuzione marginale \(p(y) =
 
 La funzione di probabilità congiunta tiene simultaneamente conto del comportamento di due variabili casuali \(X\) e \(Y\) e di come esse si influenzano reciprocamente. In particolare, si osserva che se le due variabili discrete \(X\) e \(Y\) non si influenzano, cioè se sono statisticamente indipendenti, allora la distribuzione di massa di probabilità congiunta si ottiene come prodotto delle funzioni di probabilità marginali di \(X\) e \(Y\): \(P_{X, Y}(x, y) = P_X(x) P_Y(y)\).
 
-\mainmatter
+\hypertarget{chapter-intro-density-function}{%
+\chapter{La densità di probabilità}\label{chapter-intro-density-function}}
 
-\hypertarget{part-il-confronto-bayesiano-di-modelli}{%
-\part{Il confronto bayesiano di modelli}\label{part-il-confronto-bayesiano-di-modelli}}
+Finora abbiamo considerato solo variabili casuali discrete, cioè variabili che assumono solo valori interi. Ma cosa succede se vogliamo usare variabili casuali per rappresentare lunghezze o volumi o distanze una qualsiasi delle altre proprietà continue nel mondo fisico (o psicologico)? È necessario generalizzare l'approccio usato finora.
 
-\hypertarget{ch:entropy}{%
-\chapter{Entropia}\label{ch:entropy}}
+Le variabili casuali continue assumono valori reali. L'insieme dei numeri reali è \emph{non numerabile} perché è più grande dell'insieme degli interi.\footnote{Georg Cantor dimostrò che era impossibile mappare uno a uno i reali negli interi, dimostrando così che l'insieme dei reali è non numerabile.} Le leggi della probabilità sono le stessa per le variabili casuali discrete e quelle continue. La nozione di funzione di massa di probabilità, invece, deve essere sostituita dal suo equivalente continuo, ovvero dalla funzione di densità di probabilità. Lo scopo di questo Capitolo è quello di chiarire il significato di questa nozione, usando un approccio basato sulle simulazioni.
 
-Il principio base del metodo scientifico è la \emph{replicabilità} delle osservazioni: le osservazioni che non possono essere replicate sono poco interessanti. Parallelamente, una caratteristica fondamentale di un modello scientifico è la \emph{generalizzabilità}: se un modello è capace di descrivere soltanto le proprietà di uno specifico campione di osservazioni, allora è poco utile. Ma come è possibile valutare la generalizzabilità di un modello statistico? Questa è la domanda a cui cercheremo di rispondere in questa parte della dispensa. In questo Capitolo inizieremo questa discussione introducendo il concetto di entropia.
+\hypertarget{spinner-e-variabili-casuali-continue-uniformi}{%
+\section{Spinner e variabili casuali continue uniformi}\label{spinner-e-variabili-casuali-continue-uniformi}}
 
-\hypertarget{la-generalizzabilituxe0-dei-modelli}{%
-\section{La generalizzabilità dei modelli}\label{la-generalizzabilituxe0-dei-modelli}}
-
-Secondo \citet{Johnson2022bayesrules}, nel valutare un modello, il ricercatore deve porsi tre domande critiche.
-
-\begin{itemize}
-\item
-  Quali conseguenze più ampie derivano dall'inferenza? Come e chi ha raccolto i dati? Colui che svolge la ricerca otterrebbe di benefici manipolando i dati (escludendo delle osservazioni; selezionando il campione)? Che impatto hanno inferenze che vengono tratte dai dati sugli individui e sulla società? Quali pregiudizi o strutture di potere possono essere coinvolti in questa analisi?
-\item
-  Che tipo di distorsioni sistematiche potrebbero essere presenti nell'analisi statistica? Ricordiamo la famosa citazione di George Box: ``Tutti i modelli sono sbagliati, ma alcuni sono utili''. È dunque importante sapere quanto è sbagliato il modello. Le assunzioni che stanno alla base del modello sono ragionevoli? Il meccanismo generatore dei dati che è stato ipotizzato è adeguato per il fenomeno in esame?
-\item
-  Quanto è accurato il modello? Quanto sono lontane dalla realtà le previsioni del modello?
-\end{itemize}
-
-Per approfondire questi temi, si rinvia al testo di \citet{Johnson2022bayesrules}. Qui ci concentreremo su uno dei temi critici relativa alla validità di un modello, ovvero sul tema della generalizzabilità del modello.
-
-Nella scienza l'utilità di una teoria viene verificata esaminando la corrispondenza tra predizioni teoriche e osservazioni. Se vi sono discrepanze significative tra predizioni e osservazioni ciò suggerisce che la teoria, o nella nostra visione più ristretta, il modello statistico, è poco utile. Il problema della capacità predittiva del modello non riguarda soltanto l'adeguatezza del modello in riferimento ad uno specifico campione di dati, ma riguarda anche la capacità di un modello statistico sviluppato in un campione di dati di ben adattarsi ad altri campioni della stessa popolazione.
-
-In generale, i modelli statistici tendono a non generalizzarsi bene a un nuovo campione; questo perché sfruttano le caratteristiche specifiche dei dati del campione e tendono a produrre risultati eccessivamente ottimistici (cioè le dimensioni dell'effetto) che sovrastimano la dimensione dell'effetto atteso sia nella popolazione che in nuovi campioni. Benché i problemi della generalizzabilità dei modelli e il metodo chiave per valutarli -- ovvero, la convalida incrociata (\emph{cross-validation}) -- siano stati discussi sin dagli esordi della letteratura psicometrica \citep{lord1950efficiency}, tali temi sono stati sottovalutati nella formazione psicologica contemporanea e nella ricerca. Tuttavia, questi concetti diventeranno sempre più importanti considerata l'enfasi corrente sulla necessità di condurre ricerche replicabili. Un'introduzione a questi temi è fornita, da esempio, da \citet{song2021making}. Nello specifico, \citet{song2021making} mostrano che un modello che viene adattato a un campione (\emph{campione di calibrazione}) non si generalizza bene a un altro campione (\emph{campione di convalida}): la capacità predittiva del modello è minore quando il modello viene applicato al campione di convalida piuttosto che al campione di calibrazione. Questo problema è detto \emph{sovra-adattamento} (\emph{overfitting}). In generale, \citet{song2021making} mostrano come la capacità di generalizzazione del modello diminuisce (a) all'aumentare della complessità del modello, (b) al diminuire dell'ampiezza del campione di calibrazione, e (c) al diminuire della dimensione dell'effetto nella popolazione.
-
-Sebbene i modelli statistici producono comunemente un sovra-adattamento, è anche possibile che essi producano un \emph{sotto-adattamento} (\emph{underfitting}) dei dati. Tale mancanza di adattamento è dovuta dalla variabilità campionaria e dalla complessità del modello. Il sotto-adattamento porta ad un \(R^2\) basso e ad un \emph{MSE} alto, sia nei campioni di calibrazione che in quelli di convalida. Per questo motivo, la scarsa generalizzabilità del modello può essere dovuta sia al sovra-adattamento che al sotto-adattamento del modello.
-
-Per aumentarne la capacità di generalizzazione del modello devono essere soddisfatte tre condizioni: (a) campioni di calibrazione grandi, (b) dimensioni dell'effetto non piccole nella popolazione, e (c) modelli che non siano inutilmente complessi. Tuttavia, nella ricerca psicologica queste tre condizioni sono difficili da soddisfare: l'aumento della dimensione del campione spesso richiede l'utilizzo di maggiori risorse, la dimensione di un dato effetto nella popolazione non è soggetta alla discrezione dei ricercatori e la complessità del modello è spesso guidata da motivazioni teoriche. Pertanto, negli studi psicologici la generalizzabilità dei modelli è spesso problematica. Ciò rende necessario che il ricercatore fornisca informazioni aggiuntive relative alla capacità del modello di generalizzarsi a nuovi campioni. L'obiettivo di questa parte della dispensa è di descrivere come questo possa essere fatto utilizzando l'approccio bayesiano.
-
-\hypertarget{capacituxe0-predittiva}{%
-\section{Capacità predittiva}\label{capacituxe0-predittiva}}
-
-Nel framework bayesiano il problema della generalizzabilità di un modello viene affrontato valutando la capacità predittiva del modello, laddove per capacità predittiva si intende la capacità di un modello, i cui parametri sono stati stimati usando le informazioni di un campione, di ben adattarsi ad un campione di osservazioni future. In questo Capitolo cercheremo di rispondere a tre domande.
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Quali criteri consentono di valutare la capacità predittiva di un modello?
-\item
-  Come quantificare la capacità predittiva di un modello usando solo un campione di osservazioni?
-\item
-  Come confrontare le capacità predittive di modelli diversi?
-\end{enumerate}
-
-\hypertarget{il-rasoio-di-ockham}{%
-\section{Il rasoio di Ockham}\label{il-rasoio-di-ockham}}
-
-Il problema di scegliere il modello più adatto a spiegare un fenomeno di interesse è uno dei più importanti problemi in campo scientifico. I ricercatori si chiedono: il modello è completo? È necessario aggiungere un nuovo parametro al modello? Come può essere migliorato il modello? Se ci sono modelli diversi, qual'è il modello migliore?
-
-Per rispondere a queste domande è possibile usare il rasoio di Ockham: \emph{frustra fit per plura quod potest fieri per pauciora} (``si fa inutilmente con molte cose ciò che si può fare con poche cose''). Parafrasando la massima si potrebbe dire: se due modelli descrivono i dati egualmente bene, viene sempre preferito il modello più semplice. Questo è il principio che sta alla base della ricerca scientifica.
-
-Il rasoio di Ockham, però, non consente sempre di scegliere tra modelli alternativi. Se due modelli fanno le stesse predizioni ma differiscono in termini di complessità --- per esempio, relativamente al numero di parametri di cui sono costituiti --- allora è facile decidere: viene preferito il modello più semplice, anche perché, pragmaticamente, è il più facile da usare. Tuttavia, in generale, i modelli differiscono sia per complessità (ovvero, per il numero di parametri) che per accuratezza (ovvero, per la grandezza degli errori di predizione). In tali circostanze il rasoio di Ockham non è sufficiente: non consente infatti di trovare un equilibrio tra accuratezza e semplicità.
-
-In questo Capitolo ci chiederemo come sia possibile misurare l'accuratezza predittiva di un modello. Ciò ci consentirà, in seguito, di usare il rasoio di Ockham: a parità di accuratezza, sarà possibile scegliere il modello più semplice. Ma nella pratica scientifica non si sacrifica mai l'accuratezza per la semplicità: il criterio prioritario è sempre l'accuratezza.
-
-\hypertarget{sovra-adattamento-e-sotto-adattamento}{%
-\subsection{Sovra-adattamento e sotto-adattamento}\label{sovra-adattamento-e-sotto-adattamento}}
-
-Secondo \citet{McElreath_rethinking}, la selezione tra modelli deve evitare due opposti errori: il sovra-adattamento e il sotto-adattamento. Tale problema va sotto il nome di \emph{bias-variance trade-off}: il sotto-adattamento, infatti, porta a distorsioni (\emph{bias}) nella stima dei parametri, mentre il sovra-adattamento porta a previsioni scadenti in campioni futuri. Spesso l'incertezza relativa alla scelta del modello (sotto-adattamento versus sovra-adattamento) passa inosservata ma il suo impatto può essere drammatico. Secondo \citet{hoeting1999bayesian}, \emph{``Standard statistical practice ignores model uncertainty. Data analysts typically select a model from some class of models and then proceed as if the selected model had generated the data. This approach ignores the uncertainty in model selection, leading to over-confident inferences and decisions that are more risky than one thinks they are.}
-
-In questo Capitolo esamineremo alcune tecniche bayesiane che possono essere utilizzate per operare una selezione tra modelli alternativi, tenendo sotto controllo i pericoli del sovra-adattamento e del sotto-adattamento. In particolare, ci chiederemo quale, tra due o più modelli, sia quello da preferire in base al criterio della capacità predittiva.
-
-\hypertarget{stargazing}{%
-\subsection{Stargazing}\label{stargazing}}
-
-Nella pratica concreta della ricerca, il metodo più comune per la selezione tra modelli alternativi utilizza i test di ipotesi statistiche di stampo frequentista. Questo metodo viene chiamato \emph{stargazing}, poiché richiede soltanto l'esame degli asterischi (\(**\)) che si trovano nell'output di un software statistico (gli asterischi marcano i coefficienti del modello che sono ``statisticamente significativi''): alcuni ricercatori ritengono che il modello con più stelline sia anche il modello migliore. Questo però non è vero. Al di là dei problemi legati ai test dell'ipotesi nulla, è sicuramente un errore usare i test di significatività per la selezione di modelli: i valori-\emph{p} non consentono di trovare un equilibrio tra \emph{underfitting} e \emph{overfitting}. Infatti, le variabili che migliorano la capacità predittiva di un modello non sono sempre statisticamente significative; d'altra parte, le variabili statisticamente significative non sempre migliorano la capacità predittiva di un modello.
-
-Quando ci chiediamo quale, tra modelli alternativi, è il modello che meglio rappresenta il ``vero'' processo di generazione dei dati, ci troviamo di fronte al problema di quantificare il grado di ``vicinanza'' di un modello al ``vero'' processo di generazione dei dati. Si noti che, in tale confronto, facciamo riferimento sia alla famiglia distributiva così come ai valori dei parametri. Ad esempio, il modello \(y_i \sim \mathcal{N}(5, 3)\) è diverso dal modello \(y_i \sim \mathcal{N}(5, 6)\), ed è anche diverso dal modello \(y_i \sim \Gamma(2, 2)\). I primi due modelli appartengono alla stessa famiglia distributiva ma differiscono nei termini dei valori dei parametri; gli ultimi due modelli appartengono a famiglie distributive diverse (gaussiano vs.~Gamma). Per misurare il grado di ``vicinanza'' tra due modelli, \(\mathcal{M}_1\) e \(\mathcal{M}_2\), la metrica di gran lunga più popolare è la \emph{divergenza di Kullback-Leibler}. Per chiarire questo concetto è però prima necessario introdurre la nozione di entropia.
-
-\hypertarget{la-misura-del-disordine}{%
-\section{La misura del disordine}\label{la-misura-del-disordine}}
-
-Se vogliamo ottenere una comprensione intuitiva del concetto di entropia\footnote{La nozione di entropia fu introdotta agli inizi del XIX secolo nel campo della termodinamica classica; il secondo principio della termodinamica è infatti basato sul concetto di entropia che, in generale, è assunto come una misura del disordine di un sistema fisico. Successivamente Boltzmann fornì una definizione statistica di entropia. Nel 1948 Shannon impiegò la nozione di entropia nell'ambito della teoria delle comunicazioni.} possiamo pensare a quant'è informativa una distribuzione. Maggiore è l'entropia di una distribuzione, meno informativa sarà quella distribuzione e più uniformemente verranno assegnate le probabilità agli eventi. In altri termini, ottenere la risposta di ``42'' è più informativo della risposta ``42 \(\pm\) 5'', che a sua volta è più informativo della risposta ``un numero qualsiasi''. L'entropia quantifica questa osservazione qualitativa.
-
-Il concetto di entropia si applica sia alle distribuzioni continue sia a quelle discrete, ma è più facile da capire usando le distribuzioni discrete. Negli esempi successivi vedremo alcuni esempi applicati al caso discreto, ma gli stessi concetti si applicano al caso continuo.
-
-\hypertarget{entropia-di-un-singolo-evento}{%
-\subsection{Entropia di un singolo evento}\label{entropia-di-un-singolo-evento}}
-
-Il concetto di entropia può essere usato per descrivere la quantità di informazione fornita da un evento. L'intuizione che sta alla base del concetto di entropia è che l'informazione fornita da un evento descrive la sorpresa suscitata dall'evento: gli eventi rari (a bassa probabilità) sono più sorprendenti -- e quindi forniscono più informazione -- degli eventi comuni (ad alta probabilità). In altre parole,
-
-\begin{itemize}
-\tightlist
-\item
-  un evento a bassa probabilità è sorprendente e fornisce molta informazione;
-\item
-  un evento ad alta probabilità è poco o per niente sorprendente e fornisce poca (o nessuna) informazione.
-\end{itemize}
-
-È dunque possibile quantificare l'informazione fornita dal verificarsi di un evento usando la probabilità di quell'evento. Una tale \emph{quantità di informazione} è chiamata ``informazione di Shannon'', ``auto-informazione'' o semplicemente ``informazione'' e, per un evento discreto \(x\), può essere calcolata come:
-
-\[
-\text{informazione}(x) = -\log_2 p(x),
-\]
-
-dove \(\log_2\) è il logaritmo in base 2 e \(p(x)\) è la probabilità dell'evento \(x\).
-
-La scelta del logaritmo in base 2 significa che l'unità di misura dell'informazione è il bit (cifre binarie). Questo può essere interpretato dicendo che l'informazione misura il numero di bit richiesti per rappresentare un evento.\footnote{È possibile pensare all'entropia nei termini del numero di domande sì/no che devono essere poste per ridurre l'incertezza. Per esempio, se in un certo giorno ci può essere solo sole o pioggia, per ridurre l'incertezza, a fine giornata chiediamo: ``ha piovuto?'' La risposta (sì/no) ad una singola domanda elimina l'incertezza, e quindi l'informazione ottenuta (ovvero, la riduzione dell'incertezza) è uguale ad 1 bit. Se in una certa giornata ci potrebbero essere sole, pioggia o neve, per ridurre l'incertezza sono necessarie due domande: ``c'era sole?''; ``ha piovuto?'' In questo secondo caso, l'informazione ottenuta (ovvero, la riduzione dell'incertezza) è uguale ad 2 bit. Usando un logaritmo in base 2, dunque, l'entropia può essere interpretata come il numero minimo di bit necessari per codificare la quantità di informazione nei dati.} Solitamente, si denota la quantità di informazione con \(h()\):
-
-\[
-h(x) = -\log p(x).
-\]
-
-Il segno negativo garantisce che il risultato sia sempre positivo o zero. L'informazione è zero quando la probabilità dell'evento è 1.0, ovvero quando l'evento è certo (assenza di sorpresa).
-
-\begin{example}
-
-Consideriamo il lancio di una moneta equilibrata. La probabilità di testa (e croce) è 0.5. La quantità di informazione di ottenere ``testa'' è dunque
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\SpecialCharTok{{-}}\FunctionTok{log2}\NormalTok{(}\FloatTok{0.5}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 1}
-\end{Highlighting}
-\end{Shaded}
-
-Per rappresentare questo evento abbiamo bisogno di 1 bit di informazione. Se la stessa moneta venisse lanciata \(n\) volte, la quantità di informazione necessaria per rappresentare questo evento (ovvero, questa sequenza di lanci) sarebbe pari a \(n\) bit. Se la moneta non è equilibrata e la probabilità di testa è 0.1, allora l'evento ``testa'' è più raro e richiede più di 3 bit di informazione:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\SpecialCharTok{{-}}\FunctionTok{log2}\NormalTok{(}\FloatTok{0.1}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 3.322}
-\end{Highlighting}
-\end{Shaded}
-
-Consideriamo ora il lancio di un dado. Quanta informazione viene fornita, ad esempio, dall'evento ``esce il numero 6''? Dato che la probabilità di ottenere un 6 nel lancio di un dado è più piccola della probabilità di ottenere ``testa'' nel lancio di una moneta, il risultato del lancio di un dado deve produrre una sorpresa maggiore del risultato del lancio di una moneta. Per cui, la quantità di informazione associata all'evento ``è uscito 6'', dovrà essere maggiore di quella associata all'evento ``testa''. Infatti, la quantità di informazione dell'evento ``è uscito un 6'' è più che doppia rispetto alla quantità di informazione dell'evento ``testa'':
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\SpecialCharTok{{-}}\FunctionTok{log2}\NormalTok{(}\DecValTok{1} \SpecialCharTok{/} \DecValTok{6}\NormalTok{)}
-\CommentTok{\#\textgreater{} [1] 2.585}
-\end{Highlighting}
-\end{Shaded}
-
-\end{example}
-
-\begin{example}
-Nella figura successiva viene esaminata la relazione tra probabilità e informazione, per valori di probabilità nell'intervallo tra 0 e 1.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{, }\AttributeTok{length.out =} \DecValTok{1000}\NormalTok{)}
-\NormalTok{h }\OtherTok{\textless{}{-}} \SpecialCharTok{{-}}\FunctionTok{log2}\NormalTok{(p)}
-\FunctionTok{ggplot}\NormalTok{(}\FunctionTok{tibble}\NormalTok{(p, h), }\FunctionTok{aes}\NormalTok{(p, h)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"Probabilità"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Informazione"}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-22-1} \end{center}
-
-La figura mostra che questa relazione non è lineare, è infatti leggermente sublineare. Questo ha senso dato che abbiamo usato una funzione logaritmica.
-\end{example}
-
-\hypertarget{entropia-di-una-variabile-casuale}{%
-\subsection{Entropia di una variabile casuale}\label{entropia-di-una-variabile-casuale}}
-
-Possiamo estendere questa discussione pensando ad un insieme di eventi, ovvero ad una distribuzione. Nella teoria della probabilità usiamo la nozione di variabile casuale per fare riferimento ad un insieme di eventi e alle probabilità associate a tali eventi. L'entropia quantifica l'informazione che viene fornita da una variabile casuale.
-
-\begin{definition}
-Sia \(Y = y_1, \dots, y_n\) una variabile casuale e \(p_t(y)\) una distribuzione di probabilità su \(Y\). Si definisce la sua entropia (detta di Shannon) come:
-
-\begin{equation}
-H(Y) = - \sum_{i=1}^n p_t(y_i) \cdot \log_2 p_t(y_i).
-\label{eq:entropy}
-\end{equation}
-\end{definition}
-
-Per interpretare la \eqref{eq:entropy}, consideriamo un esempio discusso da \citet{martin2022bayesian}.
+Consideriamo il seguente esperimento casuale. Facciamo ruotare ad alta velocità uno spinner simmetrico imperniato su un goniometro e osserviamo la posizione in cui si ferma (individuata dall'angolo acuto con segno tra il suo asse e l'asse orizzontale del goniometro). Chiamiamo \(\Theta\) la variabile casuale ``pendenza dello spinner''. Nella trattazione seguente useremo i gradi e, di conseguenza, \(\Theta \in [0, 360]\).
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{images/entropy_example} 
+{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-19-1} 
 
 }
 
-\caption{Funzioni di massa di probabilità e associata entropia.}\label{fig:entropy-example}
+\caption{Uno spinner che riposa a 36 gradi, o il dieci percento del percorso intorno al cerchio. La pendenza dello spinner può assumere qualunque valore tra 0 e 360 gradi.}\label{fig:unnamed-chunk-19}
 \end{figure}
 
-Nella figura \ref{fig:entropy-example} sono rappresentate sei distribuzioni. viene anche riportato il valore di entropia di ciascuna distribuzione. La distribuzione con il picco più pronunciato o con la dispersione minore è \texttt{q}, e questa è la distribuzione con il valore di entropia più basso tra le sei distribuzioni considerate. Per \texttt{q} la distribuzione è \texttt{q\ \textasciitilde{}\ binom(n\ =\ 10,\ p\ =\ 0.75)}; quindi ci sono 11 possibili eventi. \texttt{qu} ha una distribuzione uniforme sugli stessi 11 possibili eventi. L'entropia di \texttt{qu} è maggiore dell'entropia di \texttt{q}. Infatti, se calcoliamo l'entropia di distribuzioni binomiali con \(n = 10\) (con valori diversi di \(p\)) ci rendiamo conto che nessuna di tali distribuzioni ha un'entropia maggiore di \texttt{qu}. Dobbiamo aumentare \(n ≈ 3\) volte per trovare la prima distribuzione binomiale con entropia maggiore di \texttt{qu}. Passiamo alla riga successiva. Generiamo la distribuzione \texttt{r} spostando a destra \texttt{q} e normalizzando (per garantire che la somma di tutte le probabilità sia 1). Poiché \texttt{r} ha una dispersione maggiore di \texttt{q}, la sua entropia è maggiore. \texttt{ru} è una distribuzione uniforme con lo stesso numero di eventi possibili come \texttt{r} (ovvero 22) -- si noti che sono stati inclusi come valori possibili anche quelli nella ``valle'' tra i due picchi. Ancora una volta, la distribuzione uniforme ha l'entropia più grande.
+Cosa implica per \(\Theta\) dire che lo spinner è simmetrico? Possiamo dire che, in ciascuna prova, la rotazione dello spinner produce un angolo qualunque da 0 a 360 gradi. In altri termini, un valore \(\Theta\) compreso tra 0 e 36 gradi ha la stessa probabilità di essere osservato di un valore \(\Theta\) compreso tra 200 e 236 gradi. Inoltre, poiché 36 gradi è un decimo del percorso intorno al cerchio, la probabilità di ottenere un qualsiasi intervallo di 36 gradi sarà sempre uguale al 10\%. Ovvero \(\mbox{P}[0 \leq \Theta \leq 36] \ = \ \frac{1}{10}\) e \(\mbox{P}[200 \leq \Theta \leq 236] \ = \ \frac{1}{10}\).
 
-Gli esempi discussi finora sembrano suggerire che l'entropia è proporzionale alla varianza della distribuzione. Verifichiamo questa intuizione esaminiamo le ultime due distribuzioni della figura \ref{fig:entropy-example}. La distribuzione \texttt{s} è simile a \texttt{r} ma presenta una separazione maggiore tra i due picchi della distribuzione -- dunque, ha una varianza più grande. Ciò nonostante, l'entropia non varia. Quindi la relazione tra entropia e varianza non è così semplice come ci sembrava. Il risultato che abbiamo trovato può essere spiegato dicendo che, nel calcolo dell'entropia, non vengono considerati gli eventi con probabilità nulla (per questa ragione, nell'esempio, è stato possibile aumentare la varianza senza cambiare l'entropia). La distribuzione \texttt{su} è stata costruita sostituendo i due picchi in \texttt{s} con \texttt{qu} (e normalizzando). Possiamo vedere che \texttt{su} ha un'entropia minore di \texttt{ru}, anche se \texttt{su} ha una dispersione maggiore di \texttt{ru}. Questo è dovuto al fatto che \texttt{su} distribuisce la probabilità totale tra un numero minore di eventi (22) di \texttt{ru} (che ne conta 23); quindi è sensato attribuire a \texttt{su} un'entropia minore di \texttt{ru}.
-
-\begin{example}
-Consideriamo ora un esempio riguardante le previsioni del tempo. Supponiamo che le probabilità di pioggia e sole siano, rispettivamente, \(p_1 = 0.3\) e \(p_2 = 0.7\). Quindi
+È importante notare che le considerazioni precedenti non si riferiscono al fatto che \(\Theta\) può assumere uno specifico valore, ma piuttosto alla probabilità di osservare \(\Theta\) in un particolare intervallo di valori. In generale, la probabilità che la pendenza \(\Theta\) dello spinner cada in intervallo è la frazione del cerchio rappresentata dall'intervallo, cioè,
 
 \[
-H(p) = − [p(y_1) \log_2 p(y_1) + p(y_2) \log_2 p(y_2)] \approx 0.61.
+\mbox{P}[\theta_1 \leq \Theta \leq \theta_2] = \frac{\theta_2 - \theta_1}{360}, \qquad 0 \leq \theta_1 \leq \theta_2 \leq 360.
 \]
 
-Se però viviamo a Las Vegas, allora le probabilità di pioggia e sole saranno simili a \(p(y_1) = 0.01\) e \(p(y_2) = 0.99\). In questo secondo caso, l'entropia è 0.06, ovvero, molto minore di prima. Infatti, a Las Vegas non piove quasi mai, per cui quando abbiamo imparato che, in un certo giorno, non ha piovuto, abbiamo imparato molto poco rispetto a quello che già sapevamo in precedenza.
-\end{example}
+La ragione di questo è che le variabili casuali continue non hanno una massa di probabilità. Invece, una massa di probabilità viene assegnata alla realizzazione della variabile casuale in un intervallo di valori.
 
-\begin{example}
+\hypertarget{il-paradosso-delle-variabili-casuali-continue}{%
+\subsection{Il paradosso delle variabili casuali continue}\label{il-paradosso-delle-variabili-casuali-continue}}
 
-Nell'esempio precedente abbiamo visto che, se gli esiti possibili sono pioggia o sole con \(p(y_1) = 0.7\), \(p(y_2) = 0.3\), allora l'entropia è
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\SpecialCharTok{{-}}\NormalTok{(}\FloatTok{0.7} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \FloatTok{0.3} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FloatTok{0.3}\NormalTok{))}
-\CommentTok{\#\textgreater{} [1] 0.6109}
-\end{Highlighting}
-\end{Shaded}
-
-Ma se gli esiti possibili sono pioggia, neve o sole con \(p(y_1) = 0.7\), \(p(y_2) = 0.15\) e \(p(y_3) = 0.15\), rispettivamente, allora l'entropia cresce:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\SpecialCharTok{{-}}\NormalTok{(}\FloatTok{0.7} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FloatTok{0.7}\NormalTok{) }\SpecialCharTok{+} \FloatTok{0.15} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FloatTok{0.15}\NormalTok{) }\SpecialCharTok{+} \FloatTok{0.15} \SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FloatTok{0.15}\NormalTok{))}
-\CommentTok{\#\textgreater{} [1] 0.8188}
-\end{Highlighting}
-\end{Shaded}
-
-\end{example}
-
-\hypertarget{commenti-e-considerazioni-finali-4}{%
-\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-4}}
-
-
-In questo Capitolo abbiamo visto come sia possibile quantificare l'incertezza tramite l'entropia. Ma come è possibile usare l'entropia dell'informazione per specificare la ``distanza'' tra un modello e il vero meccanismo generatore dei dati? La risposta a questa domanda è fornita dalla divergenza di Kullback-Leibler che verrà discussa nel Capitolo \ref{ch:kl-div}.
-
-\hypertarget{ch:kl-div}{%
-\chapter{La divergenza di Kullback-Leibler}\label{ch:kl-div}}
-
-È comune in statistica utilizzare una distribuzione di probabilità \(q\) per approssimare un'altra distribuzione \(p\) -- generalmente, questo viene fatto se \(p\) non è conosciuta o è troppo complessa. In questi casi possiamo chiederci quanta informazione venga perduta usando \(q\) al posto di \(p\), o equivalentemente, quanta incertezza aggiuntiva viene introdotta nell'analisi statistica. La quantificazione di questo incremento di incertezza è fornita dalla divergenza di Kullback-Leibler.
-
-\hypertarget{la-perdita-di-informazione}{%
-\section{La perdita di informazione}\label{la-perdita-di-informazione}}
-
-Intuitivamente, per quantificare l'informazione che si perde quando una distribuzione approssimata \(q\) viene usata in luogo della distribuzione corretta \(p\) sembra necessaria una quantità che ha valore zero quando \(q = p\), e un valore positivo altrimenti. Seguendo la definizione \eqref{eq:entropy} di entropia, possiamo quantificare una tale perdita di informazione mediante il valore atteso della differenza tra \(\log(p)\) e \(\log(q)\). Questa quantità è chiamata \emph{entropia relativa} o \emph{divergenza di Kullback-Leibler}:
-
-\begin{equation}
-\mathbb{KL} (p \mid\mid q) = \E (\log p - \log q).
-\label{eq:kldivergence}
-\end{equation}
-
-La divergenza \(\mathbb{KL} (p \mid\mid q)\) corrisponde alla differenza media nelle probabilità logaritmiche quando \(q\) viene usato per approssimare \(p\). Poiché gli eventi si manifestano secondo \(p\), è necessario calcolare il valore atteso rispetto a \(p\). Per distribuzioni discrete dunque abbiamo:
-
-\begin{equation}
-\mathbb{KL} (p \mid\mid q) = \sum_i^n p_i (\log p_i - \log q_i) = \sum_i^n p_i \log \frac{p_i}{q_i}.
-\end{equation}
-
-Riarrangiando i termini otteniamo:
-
-\begin{equation}
-\mathbb{KL} (p \mid\mid q) = -\sum_i^n p_i (\log q_i - \log p_i),
-\end{equation}
-
-ovvero,
-
-\begin{equation}
-\mathbb{KL} (p \mid\mid q) = \underbrace{-\sum_i^n p_i \log q_i}_{h(p, q)} - \underbrace{\left(-\sum_i^n p_i \log p_i\right)}_{h(p)},
-\end{equation}
-
-laddove \(h(p)\) è l'entropia di \(p\) e \(h(p, q) = −\E [\log q]\) può essere intesa come l'entropia di \(q\), ma valutata secondo i valori di probabilità \(p\).
-
-Riarrangiando l'equazione precedente otteniamo:
-
-\begin{equation}
-h(p, q) = h(p) + \mathbb{KL} (p \mid\mid q),
-\end{equation}
-
-il che mostra come la divergenza \(\mathbb{KL}\) possa essere interpretata come l'incremento di entropia, rispetto a \(h(p)\), quando \(q\) viene usata per rappresentare \(p\).
-
-\begin{example}
-\citep[da][]{McElreath_rethinking} Sia la distribuzione target \(p = \{0.3, 0.7\}\). Supponiamo che la distribuzione approssimata \(q\) possa assumere valori da \(q = \{0.01, 0.99\}\) a \(q = \{0.99, 0.01\}\). Calcoliamo la divergenza KL.
-
-Le istruzioni \(\R\) sono le seguenti:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{t }\OtherTok{\textless{}{-}}
-  \FunctionTok{tibble}\NormalTok{(}
-    \AttributeTok{p\_1 =}\NormalTok{ .}\DecValTok{3}\NormalTok{,}
-    \AttributeTok{p\_2 =}\NormalTok{ .}\DecValTok{7}\NormalTok{,}
-    \AttributeTok{q\_1 =} \FunctionTok{seq}\NormalTok{(}\AttributeTok{from =}\NormalTok{ .}\DecValTok{01}\NormalTok{, }\AttributeTok{to =}\NormalTok{ .}\DecValTok{99}\NormalTok{, }\AttributeTok{by =}\NormalTok{ .}\DecValTok{01}\NormalTok{)}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{q\_2 =} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ q\_1}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{d\_kl =}\NormalTok{ (p\_1 }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(p\_1 }\SpecialCharTok{/}\NormalTok{ q\_1)) }\SpecialCharTok{+}\NormalTok{ (p\_2 }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(p\_2 }\SpecialCharTok{/}\NormalTok{ q\_2))}
-\NormalTok{  )}
-
-\FunctionTok{head}\NormalTok{(t)}
-\CommentTok{\#\textgreater{} \# A tibble: 6 x 5}
-\CommentTok{\#\textgreater{}     p\_1   p\_2   q\_1   q\_2  d\_kl}
-\CommentTok{\#\textgreater{}   \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1   0.3   0.7  0.01  0.99 0.778}
-\CommentTok{\#\textgreater{} 2   0.3   0.7  0.02  0.98 0.577}
-\CommentTok{\#\textgreater{} 3   0.3   0.7  0.03  0.97 0.462}
-\CommentTok{\#\textgreater{} 4   0.3   0.7  0.04  0.96 0.383}
-\CommentTok{\#\textgreater{} 5   0.3   0.7  0.05  0.95 0.324}
-\CommentTok{\#\textgreater{} 6   0.3   0.7  0.06  0.94 0.276}
-\end{Highlighting}
-\end{Shaded}
-
-\noindent Nella figura seguente sull'asse delle ascisse sono rappresentati i valori \(q\) e sull'asse delle ordinante sono riportati i corrispondenti valori \(\mathbb{KL}\).
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{t }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ q\_1, }\AttributeTok{y =}\NormalTok{ d\_kl)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ .}\DecValTok{3}\NormalTok{, }\AttributeTok{linetype =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{annotate}\NormalTok{(}
-    \AttributeTok{geom =} \StringTok{"text"}\NormalTok{, }\AttributeTok{x =}\NormalTok{ .}\DecValTok{4}\NormalTok{, }\AttributeTok{y =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{label =} \StringTok{"q = p"}\NormalTok{,}
-    \AttributeTok{size =} \FloatTok{3.5}
-\NormalTok{  ) }\SpecialCharTok{+}
-  \FunctionTok{labs}\NormalTok{(}
-    \AttributeTok{x =} \StringTok{"q[1]"}\NormalTok{,}
-    \AttributeTok{y =} \StringTok{"Divergenza di q da p"}
-\NormalTok{  )}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-27-1} \end{center}
-
-Tanto meglio la distribuzione \(q\) approssima la distribuzione target tanto più piccolo è il valore di divergenza KL.
-\end{example}
-
-\begin{example}
-Sia \(p\) una distribuzione binomiale di parametri \(\theta = 0.2\) e \(n = 5\)
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{4}
-\NormalTok{p }\OtherTok{\textless{}{-}} \FloatTok{0.2}
-\NormalTok{true\_py }\OtherTok{\textless{}{-}} \FunctionTok{dbinom}\NormalTok{(}\DecValTok{0}\SpecialCharTok{:}\NormalTok{n, n, }\FloatTok{0.2}\NormalTok{)}
-\NormalTok{true\_py}
-\CommentTok{\#\textgreater{} [1] 0.4096 0.4096 0.1536 0.0256 0.0016}
-\end{Highlighting}
-\end{Shaded}
-
-\noindent Sia \(q_1\) una approssimazione a \(p\):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{q1 }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FloatTok{0.46}\NormalTok{, }\FloatTok{0.42}\NormalTok{, }\FloatTok{0.10}\NormalTok{, }\FloatTok{0.01}\NormalTok{, }\FloatTok{0.01}\NormalTok{)}
-\NormalTok{q1}
-\CommentTok{\#\textgreater{} [1] 0.46 0.42 0.10 0.01 0.01}
-\end{Highlighting}
-\end{Shaded}
-
-Sia \(q_2\) una distribuzione uniforme:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{q2 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\DecValTok{5}\NormalTok{)}
-\NormalTok{q2}
-\CommentTok{\#\textgreater{} [1] 0.2 0.2 0.2 0.2 0.2}
-\end{Highlighting}
-\end{Shaded}
-
-La divergenza KL di \(q_1\) da \(p\) è
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{sum}\NormalTok{(true\_py }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(true\_py }\SpecialCharTok{/}\NormalTok{ q1))}
-\CommentTok{\#\textgreater{} [1] 0.02925}
-\end{Highlighting}
-\end{Shaded}
-
-La divergenza KL di \(q_2\) da \(p\) è:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{sum}\NormalTok{(true\_py }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(true\_py }\SpecialCharTok{/}\NormalTok{ q2))}
-\CommentTok{\#\textgreater{} [1] 0.4864}
-\end{Highlighting}
-\end{Shaded}
-
-È chiaro che perdiamo una quantità maggiore di informazioni se, per descrivere la distribuzione binomiale \(p\), usiamo la distribuzione uniforme \(q_2\) anziché \(q_1\).
-\end{example}
-
-\hypertarget{la-divergenza-dipende-dalla-direzione}{%
-\section{La divergenza dipende dalla direzione}\label{la-divergenza-dipende-dalla-direzione}}
-
-La divergenza KL non è una vera e propria metrica: per esempio, non è simmetrica. In generale, \(\mathbb{KL}(p \mid\mid q) \neq \mathbb{KL}(q \mid\mid p)\), ovvero la \(\mathbb{KL}\) da \(p\) a \(q\) è diversa dalla \(\mathbb{KL}\) da \(q\) a \(p\).
-
-\begin{example}
-
-Usando le seguenti istruzioni \(\R\) otteniamo:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{tibble}\NormalTok{(}
-  \AttributeTok{direction =} \FunctionTok{c}\NormalTok{(}\StringTok{"Da q a p"}\NormalTok{, }\StringTok{"Da p a q"}\NormalTok{),}
-  \AttributeTok{p\_1 =} \FunctionTok{c}\NormalTok{(.}\DecValTok{01}\NormalTok{, .}\DecValTok{7}\NormalTok{),}
-  \AttributeTok{q\_1 =} \FunctionTok{c}\NormalTok{(.}\DecValTok{7}\NormalTok{, .}\DecValTok{01}\NormalTok{)}
-\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}
-    \AttributeTok{p\_2 =} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ p\_1,}
-    \AttributeTok{q\_2 =} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ q\_1}
-\NormalTok{  ) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{mutate}\NormalTok{(}\AttributeTok{d\_kl =}\NormalTok{ (p\_1 }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(p\_1 }\SpecialCharTok{/}\NormalTok{ q\_1)) }\SpecialCharTok{+}\NormalTok{ (p\_2 }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(p\_2 }\SpecialCharTok{/}\NormalTok{ q\_2)))}
-\CommentTok{\#\textgreater{} \# A tibble: 2 x 6}
-\CommentTok{\#\textgreater{}   direction   p\_1   q\_1   p\_2   q\_2  d\_kl}
-\CommentTok{\#\textgreater{}   \textless{}chr\textgreater{}     \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{} \textless{}dbl\textgreater{}}
-\CommentTok{\#\textgreater{} 1 Da q a p   0.01  0.7   0.99  0.3   1.14}
-\CommentTok{\#\textgreater{} 2 Da p a q   0.7   0.01  0.3   0.99  2.62}
-\end{Highlighting}
-\end{Shaded}
-
-\end{example}
-
-\hypertarget{confronto-tra-modelli}{%
-\section{Confronto tra modelli}\label{confronto-tra-modelli}}
-
-La divergenza KL viene utilizzata nel confronto tra modelli, ovvero ci consente di quantificare l'informazione che viene perduta quando utilizziamo la distribuzione di probabilità ipotizzata da un modello, chiamiamola \(p_{\mathcal{M}}\), per approssimare la distribuzione di probabilità del vero modello generatore dei dati, \(p_t\).
-
-Nel Capitolo \ref{ch:intro-bayes-inference} abbiamo introdotto il concetto di distribuzione predittiva a posteriori:
+Nel nostro esempio, la pendenza dello spinner è esattamente 36 gradi; ma avrebbe potuto anche essere 36.0376531 gradi o qualunque altro valore in quell'intorno. Qual è la probabilità che la pendenza dello spinner sia esattamente 36? Paradossalmente, la risposta è zero:
 
 \[
-p(\tilde{y} \mid y) = \int_\Theta p(\tilde{y} \mid \theta) p(\theta \mid y) \,\operatorname {d}\!\theta .
+\mbox{P}[\Theta = 36] = 0.
 \]
 
-La distribuzione predittiva a posteriori descrive il tipo di dati che ci aspettiamo vengano prodotti dal modello generativo \(\mathcal{M}\), alla luce delle nostre credenze iniziali, \(p(\theta)\) e dei dati osservati \(y\). Quando valutiamo un modello ci chiediamo in che misura \(p_{\mathcal{M}}(\tilde{y} \mid y)\) approssimi \(p_t(\tilde{y})\). Cioè, ci chiediamo quanto siano simili i dati \(p_{\mathcal{M}}(\cdot)\) prodotti dal modello \(\mathcal{M}\) ai dati prodotti dal vero processo generatore dei dati \(p_t(\cdot)\).
+Infatti, se la probabilità di un qualunque valore fosse maggiore di zero, ogni altro possibile valore dovrebbe avere la stessa probabilità, dato che abbiamo assumiamo che tutti i valori \(\Theta\) sono egualmente probabili. Ma se poi andiamo a sommare tutte queste probabilità il totale diventerà maggiore di uno, il che non è possibile.
 
-Una misura della ``somiglianza'' tra la distribuzione \(q_{\mathcal{M}}\) ipotizzata dal modello \(\mathcal{M}\) e la distribuzione \(p_t\) del vero modello generatore dei dati è fornita dalla divergenza di Kullback-Leibler \(\mathbb{KL}(p_t \mid\mid q_{\mathcal{M}})\). Supponendo di avere \(k\) modelli della distribuzione a posteriori, \(\{q_{\mathcal{M}_1}, q_{\mathcal{M}_2}, \dots, q_{\mathcal{M}_k}\}\), e di conoscere il vero modello generatore dei dati, possiamo scrivere
+Nel caso delle variabili casuali continue dobbiamo dunque rinunciare a qualcosa, e quel qualcosa è l'idea che, in una distribuzione continua, ciascun valore puntuale della variabile casuale possa avere una massa di probabilità maggiore di zero. Il paradosso sorge perché una realizzazione della variabile casuale conrtinua produce sempre un qualche numero, ma ciscuno di tali numeri ha probabilità nulla.
+
+\hypertarget{la-funzione-di-ripartizione-per-una-variabile-casuale-continua}{%
+\section{La funzione di ripartizione per una variabile casuale continua}\label{la-funzione-di-ripartizione-per-una-variabile-casuale-continua}}
+
+Supponiamo che \(\Theta \sim \mbox{uniform}(0, 360)\) sia la pendenza dello spinner. La funzione di ripartizione (ovvero, la distribuzione cumulativa) è definita esattamente come nel caso delle variabili casuali discrete:
+
+\[
+F_{\Theta}(\theta) = \mbox{P}[\Theta \leq \theta].
+\]
+
+Cioè, è la probabilità che la variabile casuale \(\Theta\) assuma un valore minore di o uguale a \(\theta\). In questo caso, poiché si presume che lo spinner sia simmetrico, la funzione di distribuzione cumulativa è
+
+\[
+F_{\Theta}(\theta) = \frac{\theta}{360}.
+\]
+
+Questa è una funzione lineare di \(\theta\), cioè \(\frac{1}{360} \times \theta\), come indicato dal grafico della figura \ref{fig:spinner-cdf}.
+
+\begin{figure}
+
+{\centering \includegraphics{ds4psy_files/figure-latex/spinner-cdf-1} 
+
+}
+
+\caption{Funzione di distribuzione cumulativa per l'angolo $\theta$ (in gradi) risultante da una rotazione di uno spinner simmetrico. La linea tratteggiata mostra il valore a 180 gradi, che corrisponde ad una probabilità di 0.5, e la linea tratteggiata a 270 gradi, che corrisponde ad una probabilità di 0.75.}\label{fig:spinner-cdf}
+\end{figure}
+
+Possiamo verificare questo risultato mediante simulazione. Per stimare la funzione di ripartizione, simuliamo \(M\) valori \(\theta^{(m)}\) e poi li ordiniamo in ordine crescente.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{1000}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(M, }\DecValTok{0}\NormalTok{, }\DecValTok{360}\NormalTok{)}
+\NormalTok{theta\_asc }\OtherTok{\textless{}{-}} \FunctionTok{sort}\NormalTok{(theta)}
+\NormalTok{prob }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{1}\SpecialCharTok{:}\NormalTok{M) }\SpecialCharTok{/}\NormalTok{ M}
+\NormalTok{unif\_cdf\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{theta =}\NormalTok{ theta\_asc,}
+  \AttributeTok{prob =}\NormalTok{ prob}
+\NormalTok{)}
+\NormalTok{unif\_cdf\_plot }\OtherTok{\textless{}{-}}
+\NormalTok{  unif\_cdf\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ theta, }\AttributeTok{y =}\NormalTok{ prob)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{90}\NormalTok{, }\DecValTok{180}\NormalTok{, }\DecValTok{270}\NormalTok{, }\DecValTok{360}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\FloatTok{1.0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(theta)) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(F[Theta](theta)))}
+\NormalTok{unif\_cdf\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-20-1} 
+
+}
+
+\caption{Grafico della funzione di ripartizione di una variabile casuale $\Theta$ che rappresenta il risultato di una rotazione di uno spinner simmetrico. Come previsto, tale funzione è una semplice funzione lineare perché la variabile sottostante $\Theta$ ha una distribuzione uniforme.}\label{fig:unnamed-chunk-20}
+\end{figure}
+
+Anche con \emph{M} = 1000, tale grafico è praticamente indistinguibile da quello prodotto per via analitica.
+
+Come nel caso delle variabili casuali discrete, la funzione di ripartizione può essere utilizzata per calcolare le probabilità che la variabile casuale assuma valori in un intervallo. Ad esempio
 
 \begin{align}
-\mathbb{KL} (p_t \mid\mid q_{\mathcal{M}_1}) &= \E (\log p_{\mathcal{M}_0}) - \E (\log q_{\mathcal{M}_1})\notag\\
-\mathbb{KL} (p_t \mid\mid q_{\mathcal{M}_2}) &= \E (\log p_t) - \E (\log q_{\mathcal{M}_2})\notag\\
-&\cdots\notag\\
-\mathbb{KL} (p_t \mid\mid q_{\mathcal{M}_k}) &= \E (\log p_{\mathcal{M}_0}) - \E (\log q_{\mathcal{M}_k}).
-\label{eq:kl-mod-comp}
+\mbox{P}[180 < \Theta \leq 270] &= \mbox{P}[\Theta \leq 270] \ - \ \mbox{P}[\Theta \leq 180] \notag\\
+&= F_{\Theta}(270) - F_{\Theta}(180)\notag\\
+&= \frac{3}{4} - \frac{1}{2} \notag\\
+&= \frac{1}{4}.\noindent
 \end{align}
 
-La \eqref{eq:kl-mod-comp} può sembrare un esercizio futile poiché nella vita reale non conosciamo il vero modello generatore dei dati. È però facile rendersi conto che, poiché \(p_t\) è la stessa per tutti i confronti, diventa possibile costruire un ordinamento dei modelli basato unicamente sul secondo termine della \eqref{eq:kl-mod-comp}, ovvero senza nessun riferimento al vero modello generatore dei dati. Per un generico modello \(\mathcal{M}\), il secondo termine della \eqref{eq:kl-mod-comp} può essere scritto come:
+\hypertarget{la-distribuzione-uniforme}{%
+\section{La distribuzione uniforme}\label{la-distribuzione-uniforme}}
 
-\begin{equation}
-\E \log p_{\mathcal{M}}(y) = \int_{-\infty}^{+\infty}p_{t}(y)\log p_{\mathcal{M}}(y) \,\operatorname {d}\!y .
-\label{eq:kl-div-cont-t2}
-\end{equation}
+Dopo avere visto come generare numeri casuali uniformi da 0 a 360, consideriamo ora una variabile casuale che assume valori nell'intervallo da 0 a 1. Chiamiamo tale variabile casuale \(\Theta\) e assumiamo che abbia una distribuzione continua uniforme sull'intervallo {[}0, 1{]}:
 
-\hypertarget{expected-log-predictive-density}{%
-\section{Expected log predictive density}\label{expected-log-predictive-density}}
+\[
+\Theta \sim Uniform(0, 1).
+\]
 
-Le previsioni del modello \(\mathcal{M}\) sui nuovi dati futuri sono date dalla distribuzione predittiva a posteriori. Possiamo dunque riscrivere la \eqref{eq:kl-div-cont-t2} come
+Poiché le probabilità assumono valori nell'intervallo {[}0, 1{]}, possiamo pensare a \(\Theta\) come ad un valore di probabilità preso a caso in ciascuna realizzazione dell'esperimento casuale.
 
-\begin{equation}
-\elpd = \int_{\tilde{y}} p_{t}(\tilde{y}) \log p(\tilde{y} \mid y) \,\operatorname {d}\!\tilde{y}.
-\label{eq:elpd}
-\end{equation}
+La distribuzione uniforme è la più semplice delle distribuzioni di densità di probabilità. Per chiarire le proprietà di tale distribuzione, iniziamo con una simulazione e generiamo 10,000 valori casuali di \(\Theta\). I primi 10 di tali valori sono stampati qui di seguito:
 
-La \eqref{eq:elpd} è chiamata \emph{expected log predictive density} (\(\elpd\)) e fornisce la risposta al problema che ci eravamo posti: nel confronto tra modelli, come è possibile scegliere il modello più simile al vero meccanismo generatore dei dati? Possiamo pensare alla \eqref{eq:elpd} dicendo che descrive la distribuzione predittiva a posteriori del modello ponderando la verosimiglianza dei possibili (sconosciuti) dati futuri (\(\tilde{y}\)) con la vera distribuzione \(p_t\). Di conseguenza, valori \(\elpd\) più grandi identificano il modello che risulta più simile al vero meccanismo generatore dei dati.
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{M }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{logit }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{log}\NormalTok{(x }\SpecialCharTok{/}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ x))}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{runif}\NormalTok{(M)}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FunctionTok{logit}\NormalTok{(theta)}
+\ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{) \{}
+  \FunctionTok{print}\NormalTok{(alpha[m])}
+\NormalTok{\}}
+\CommentTok{\#\textgreater{} [1] {-}2.053}
+\CommentTok{\#\textgreater{} [1] 0.4993}
+\CommentTok{\#\textgreater{} [1] 0.4443}
+\CommentTok{\#\textgreater{} [1] 0.5039}
+\CommentTok{\#\textgreater{} [1] 1.823}
+\CommentTok{\#\textgreater{} [1] 0.5767}
+\CommentTok{\#\textgreater{} [1] {-}4.647}
+\CommentTok{\#\textgreater{} [1] {-}1.194}
+\CommentTok{\#\textgreater{} [1] 0.6905}
+\CommentTok{\#\textgreater{} [1] 0.05702}
+\end{Highlighting}
+\end{Shaded}
 
-Non dobbiamo preoccuparci di trovare una formulazione analitica della distribuzione predittiva a posteriori \(p(\tilde{y} \mid y)\) perché, come abbiamo visto nel Capitolo \ref{chapter-ppc}, è possibile approssimare tale distribuzione mediante simulazione. Notiamo però che la \eqref{eq:elpd} include un termine, \(p_t(\tilde{y})\), il quale descrive la distribuzione dei dati futuri \(\tilde{y}\) secondo il vero modello generatore dei dati. Il termine \(p_t\), ovviamente, è ignoto.\footnote{Se il modello sottostante i dati fosse noto non avremmo bisogno di cercare il modello migliore, perché \(p_t\) è il modello migliore.} Di conseguenza, la quantità \(\elpd\) non può mai essere calcolata in maniera esatta, ma può solo essere stimata. Il secondo problema di questo Capitolo è capire come la \eqref{eq:elpd} possa essere stimata utilizzando un campione di osservazioni.
+Creaiamo ora un istogramma che descrive la distribuzione delle 10,000 realizzazioni \(\Theta\) che abbiamo trovato:
 
-\hypertarget{log-pointwise-predictive-density}{%
-\subsection{Log pointwise predictive density}\label{log-pointwise-predictive-density}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_prob\_unif }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{theta =}\NormalTok{ theta)}
+\NormalTok{unif\_prob\_plot }\OtherTok{\textless{}{-}}
+  \FunctionTok{ggplot}\NormalTok{(df\_prob\_unif, }\FunctionTok{aes}\NormalTok{(theta)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}
+    \AttributeTok{binwidth =} \DecValTok{1} \SpecialCharTok{/} \DecValTok{34}\NormalTok{, }\AttributeTok{center =} \DecValTok{1} \SpecialCharTok{/} \DecValTok{68}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{,}
+    \AttributeTok{size =} \FloatTok{0.25}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FloatTok{0.25}\NormalTok{, }\FloatTok{0.5}\NormalTok{, }\FloatTok{0.75}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}\AttributeTok{lim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1300}\NormalTok{), }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{500}\NormalTok{, }\DecValTok{1000}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(Theta, }\StringTok{" \textasciitilde{} Uniform(0, 1)"}\NormalTok{)))}
+\NormalTok{unif\_prob\_plot}
+\end{Highlighting}
+\end{Shaded}
 
-Ingenuamente, potremmo pensare di stimare la \eqref{eq:elpd} ipotizzando che la distribuzione del campione coincida con \(p_t\). Usare la distribuzione del campione come proxy del vero modello generatore dei dati (ovvero, ipotizzare che la distribuzione del campione rappresenti fedelmente \(p_t\)) comporta due conseguenze:
+\begin{figure}
+
+{\centering \includegraphics{ds4psy_files/figure-latex/unnamed-chunk-22-1} 
+
+}
+
+\caption{Istogramma di $10\,000$ realizzazioni $\Theta \sim \mbox{Uniform}(0, 1)$. }\label{fig:unnamed-chunk-22}
+\end{figure}
+
+È chiaro che, all'aumentare del numero delle realizzazioni \(\Theta\), il profilo dell'istogramma tenderà a diventare una linea retta. Ciò significa che la funzione di densità di una variabile casuale uniforme continua è una costante. Cioè, se \(\Theta \sim \mbox{Uniform} (a, b)\), allora \(p_{\Theta}(\theta) = c\), dove \(c\) è una costante.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{uniform\_pdf\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{p\_y =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\NormalTok{uniform\_pdf\_plot }\OtherTok{\textless{}{-}}
+  \FunctionTok{ggplot}\NormalTok{(uniform\_pdf\_df, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ y, }\AttributeTok{y =}\NormalTok{ p\_y)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{size =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#333333"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{color =} \StringTok{"\#333333"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"a"}\NormalTok{, }\StringTok{"b"}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{scale\_y\_continuous}\NormalTok{(}
+    \AttributeTok{lim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{), }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{),}
+    \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"0"}\NormalTok{, }\StringTok{"c"}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(theta)) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(p[Theta], }\StringTok{"("}\NormalTok{, theta, }\StringTok{" | a, b)"}\NormalTok{))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{0}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{, }\AttributeTok{xend =} \DecValTok{0}\NormalTok{, }\AttributeTok{yend =} \DecValTok{1}\NormalTok{),}
+    \AttributeTok{linetype =} \StringTok{"dotted"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{, }\AttributeTok{xend =} \DecValTok{1}\NormalTok{, }\AttributeTok{yend =} \DecValTok{1}\NormalTok{),}
+    \AttributeTok{linetype =} \StringTok{"dotted"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{0}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{, }\AttributeTok{xend =} \DecValTok{1}\NormalTok{, }\AttributeTok{yend =} \DecValTok{0}\NormalTok{),}
+    \AttributeTok{linetype =} \StringTok{"dotted"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \SpecialCharTok{{-}}\FloatTok{0.25}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{, }\AttributeTok{xend =} \DecValTok{0}\NormalTok{, }\AttributeTok{yend =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_segment}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{, }\AttributeTok{xend =} \FloatTok{1.25}\NormalTok{, }\AttributeTok{yend =} \DecValTok{0}\NormalTok{)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{0}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{),}
+    \AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{shape =} \DecValTok{21}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"\#ffffe6"}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\NormalTok{, }\AttributeTok{y =} \DecValTok{0}\NormalTok{),}
+    \AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{shape =} \DecValTok{21}\NormalTok{,}
+    \AttributeTok{fill =} \StringTok{"\#ffffe6"}
+\NormalTok{  )}
+\NormalTok{uniform\_pdf\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics{ds4psy_files/figure-latex/unnamed-chunk-23-1} \end{center}
+
+\noindent Dal grafico vediamo che l'area sottesa alla funzione di densità è \((b - a)\times c\). Dato che tale area deve essere unitaria, ovvero, \((b - a) \times c = 1\), possiamo trovare \(c\) dividendo entrambi i termini per \(b - a\),
+
+\[
+c  = \frac{\displaystyle{1}}{\displaystyle b - a}.
+\]
+
+Ovvero, se \(\Theta \sim \mbox{Uniform}(a, b)\), allora
+
+\[
+p_{\Theta}(\theta) = \mbox{Uniform}(\theta \mid a, b),
+\]
+
+laddove
+
+\[
+\mbox{Uniform}(\theta \mid a, b) = \frac{1}{b - a}.
+\]
+
+In conclusione, la densità di una variabile casuale uniforme continua non dipende da \(\theta\) --- è costante e identica per ogni possibile valore \(\theta\).\footnote{Per comodità, possiamo assumere che i valori impossibili di \(\theta\) abbiano una densità uguale a zero.} Vedremo nel prossimo Paragrafo che, eseguendo una trasformazione su questa variabile casuale uniforme, possiamo creare altre variabili casuali di interesse.
+
+\begin{exercise}
+Si consideri una variabile casuale uniforme \(X\) definita sull'intervallo {[}0, 100{]}. Si trovi la probabilità \(P(20 < X < 60)\).
+
+Per trovare la soluzione è sufficiente calcolare l'area di un rettangolo di base \(60 - 20 = 40\) e di altezza 1/100. La probabilità cercata è dunque \(P(20 < X < 60) = 40 \cdot 0.01 = 0.4\).
+\end{exercise}
+
+\hypertarget{dagli-istogrammi-alle-densituxe0}{%
+\section{Dagli istogrammi alle densità}\label{dagli-istogrammi-alle-densituxe0}}
+
+Non esiste l'equivalente di una funzione di massa di probabilità per le variabili casuali continue. Esiste invece una \emph{funzione di densità di probabilità} la quale, nei termini di una simulazione, può essere concepita nel modo seguente: avendo a disposizione un numero enorme di casi, quando l'intervallo \(\Delta\) di ciascuna classe \(\rightarrow\) 0, la spezzata tende a diventare una curva continua. Tale curva continua \(f(x)\) è detta funzione di densità di probabilità.
+
+Come si trasformano gli istogrammi all'aumentare del numero di osservazioni? Nei grafici seguenti, la numerosità cresce da \(10\) a \(1\,000\,000\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df\_log\_odds\_growth }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (log10M }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{6}\NormalTok{) \{}
+\NormalTok{  M }\OtherTok{\textless{}{-}} \DecValTok{10}\SpecialCharTok{\^{}}\NormalTok{log10M}
+\NormalTok{  alpha }\OtherTok{\textless{}{-}} \FunctionTok{logit}\NormalTok{(}\FunctionTok{runif}\NormalTok{(M))}
+\NormalTok{  df\_log\_odds\_growth }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(}
+\NormalTok{    df\_log\_odds\_growth,}
+    \FunctionTok{data.frame}\NormalTok{(}
+      \AttributeTok{alpha =}\NormalTok{ alpha,}
+      \AttributeTok{M =} \FunctionTok{rep}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"M = \%d"}\NormalTok{, M), M)}
+\NormalTok{    )}
+\NormalTok{  )}
+\NormalTok{\}}
+\NormalTok{log\_odds\_growth\_plot }\OtherTok{\textless{}{-}}
+\NormalTok{  df\_log\_odds\_growth }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(alpha)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{bins =} \DecValTok{75}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{M, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{lim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{8.5}\NormalTok{, }\FloatTok{8.5}\NormalTok{), }\AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{5}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{5}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}\FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(Phi, }\StringTok{" = "}\NormalTok{, }\FunctionTok{logit}\NormalTok{(Theta)))) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"proportion of draws"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{axis.ticks.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{panel.spacing.x =} \FunctionTok{unit}\NormalTok{(}\DecValTok{2}\NormalTok{, }\StringTok{"lines"}\NormalTok{),}
+    \AttributeTok{panel.spacing.y =} \FunctionTok{unit}\NormalTok{(}\DecValTok{2}\NormalTok{, }\StringTok{"lines"}\NormalTok{)}
+\NormalTok{  )}
+\NormalTok{log\_odds\_growth\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/unnamed-chunk-24-1} 
+
+}
+
+\caption{Istogramma di $M$ campioni casuali $\Theta \sim \mbox{Uniform}(0, 1)$ trasformati in valori $\Phi = \mbox{logit}(\Theta).$ Il profilo limite dell'istogramma è evidenziato nella figura in basso a destra che è stata costruita usando $1\,000\,000$ di osservazioni.}\label{fig:unnamed-chunk-24}
+\end{figure}
+
+In un istogramma, l'area di ciascuna barra è proporzionale alla frequenza relativa delle osservazioni in quel'intervallo. Perché tutti gli intervalli hanno la stessa ampiezza, anche l'altezza di ciascuna barra sarà proporzionale alla frequenza relativa delle osservazioni in quel'intervallo.
+
+Nella simulazione, possiamo pensare all'area di ciascuna barra dell'istogramma come alla stima della probabilità che la variabile casuale assuma un valore compreso nell'intervallo considerato. All'aumentare del numero \(M\) di osservazioni, le probabilità stimate si avvicinano sempre di più ai veri valori della probabilità. All'aumentare del numero degli intervalli (quando l'ampiezza \(\Delta\) dell'intervallo \(\rightarrow\) 0), il profilo dell'istogramma tende a diventare una curva continua. Tale curva continua è la funzione di densità di probabilità della variabile casuale. Per l'esempio presente, con \(M =1\,000\,000\), otteniamo il grafico riportato nella figura \ref{fig:hist-dens-example}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{M }\OtherTok{\textless{}{-}} \FloatTok{1e6}
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \FunctionTok{logit}\NormalTok{(}\FunctionTok{runif}\NormalTok{(M))}
+\NormalTok{density\_limit\_df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{alpha =}\NormalTok{ alpha)}
+\NormalTok{density\_limit\_plot }\OtherTok{\textless{}{-}}
+\NormalTok{  density\_limit\_df }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(alpha)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}
+    \AttributeTok{stat =} \StringTok{"density"}\NormalTok{, }\AttributeTok{n =} \DecValTok{75}\NormalTok{, }\AttributeTok{color =} \StringTok{"black"}\NormalTok{, }\AttributeTok{size =} \FloatTok{0.15}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{stat\_function}\NormalTok{(}
+    \AttributeTok{fun =}\NormalTok{ dlogis,}
+    \AttributeTok{args =} \FunctionTok{list}\NormalTok{(}\AttributeTok{location =} \DecValTok{0}\NormalTok{, }\AttributeTok{scale =} \DecValTok{1}\NormalTok{),}
+    \AttributeTok{col =} \StringTok{"black"}\NormalTok{,}
+    \AttributeTok{size =} \FloatTok{0.3}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{scale\_x\_continuous}\NormalTok{(}
+    \AttributeTok{lim =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{9}\NormalTok{, }\DecValTok{9}\NormalTok{),}
+    \AttributeTok{breaks =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{6}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{4}\NormalTok{, }\SpecialCharTok{{-}}\DecValTok{2}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{6}\NormalTok{)}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{xlab}\NormalTok{(}
+    \FunctionTok{expression}\NormalTok{(}\FunctionTok{paste}\NormalTok{(Phi, }\StringTok{" = "}\NormalTok{, }\FunctionTok{logit}\NormalTok{(Theta)))}
+\NormalTok{  ) }\SpecialCharTok{+}
+  \FunctionTok{ylab}\NormalTok{(}\StringTok{"Frequenza relativa"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}
+    \AttributeTok{axis.text.y =} \FunctionTok{element\_blank}\NormalTok{(),}
+    \AttributeTok{axis.ticks.y =} \FunctionTok{element\_blank}\NormalTok{()}
+\NormalTok{  )}
+\NormalTok{density\_limit\_plot}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{ds4psy_files/figure-latex/hist-dens-example-1} 
+
+}
+
+\caption{Istogramma di $M = 1\,000\,000$ campioni casuali $\Theta \sim \mbox{Uniform}(0,1)$ trasformati in valori $\Phi = \mbox{logit}(\Theta)$. La spezzata nera congiunge i punti centrali superiori delle barre dell'istogramma. Nel limite, quando il numero di osservazioni e di barre tende all'infinito, tale spezzata approssima la funzione di densità di probabilità della variabile casuale.}\label{fig:hist-dens-example}
+\end{figure}
+
+Nella statistica descrittiva abbiamo già incontrato una rappresentazione che ha lo stesso significato della funzione di densità, ovvero il kernel density plot. La stima della densità del kernel (KDE), infatti, è un modo non parametrico per stimare la funzione di densità di probabilità di una variabile casuale.
+
+\hypertarget{funzione-di-densituxe0-di-probabilituxe0}{%
+\section{Funzione di densità di probabilità}\label{funzione-di-densituxe0-di-probabilituxe0}}
+
+Per descrivere le probabilità che possono essere associate ad una variabile casuale continua \(X\) è necessario definire una funzione \(p(X)\) che deve soddisfare le seguenti due proprietà:
+
+\begin{itemize}
+\item
+  \(p(x) \geq 0, \forall x\), ovvero, l'ordinata della funzione di densità è 0 o positiva;
+\item
+  \(\int_{-\infty}^{\infty} p(x) \,\operatorname {d}\!x = 1\), ovvero, l'area sottesa dalla \(p(x)\) è unitaria\footnote{Per quel che riguarda la notazione dell'integrale, ovvero \(\int_x \,\operatorname {d}\!x\), rimando alla discussione di S.P. Thompson: \url{https://calculusmadeeasy.org/1.html}};
+\item
+  \(p(a < x < b) = \int_a^b p(x) \,\operatorname {d}\!x\), se \(a \leq b\), ovvero, l'area sottesa dalla \(p(y)\) tra due punti \(a\) e \(b\) corrisponde alla probabilità che la v.c. \(x\) assuma un valore compresto tra questi due estremi.
+\end{itemize}
+
+\emph{Interpretazione.} È possibile che \(p(x) > 1\), quindi una densità di probabilità non può essere interpretata come una probabilità. Piuttosto, la densità \(p(x)\) può essere utilizzata per confrontare la plausibilità relativa di diversi valori \(X\). Considerata una variabile casuale \(X\) di cui è disponibile un insieme di realizzazioni, tanto maggiore è \(p(x_k)\) rispetto a \(p(x_l)\), tanto più grande sarà la nostra certezza che valori nell'intorno di \(x_k\) verranno osservati con maggiore frequenza di valori nell'intorno di \(x_l\).
+
+\hypertarget{la-funzione-di-ripartizione}{%
+\section{La funzione di ripartizione}\label{la-funzione-di-ripartizione}}
+
+La funzione di ripartizione \(F(X)\) è quella funzione che associa a ogni valore di una variabile aleatoria \(X\) la probabilità che la variabile assuma valore minore o uguale a un prefissato valore \(x_k\).
+
+La funzione di ripartizione è sempre non negativa, monotona non decrescente tra \(0\) e \(1\), tale che:
+
+\[
+\lim_{x \to -\infty} F_x(X) = F_X(-\infty) = 0, \quad \lim_{x \to +\infty} F_X(X) = F_X(+\infty) = 1.
+\]
+
+Se \(X\) è una variabile aleatoria discreta, tale funzione può essere espressa nel seguente modo:
+
+\[
+F(x_k) = P(X \leq x_k) = \sum_{i=1}^k P(X = x_i),
+\]
+
+dove \(P(X = xi)\) rappresenta la probabilità che la variabile aleatoria \(X\) assuma la modalità \(x_i\).
+
+Se \(X\) è una variabile aleatoria continua allora la funzione di ripartizione è:
+
+\[
+F(x_k) = P(X \leq x_k) = \int_{-\infty}^{x_k} f(x) \,\operatorname {d}\!x .
+\]
+
+\hypertarget{exp-val-and-variance-rv}{%
+\chapter{Valore atteso e varianza}\label{exp-val-and-variance-rv}}
+
+Spesso risulta utile fornire una rappresentazione sintetica della distribuzione di una variabile casuale attraverso degli indicatori caratteristici piuttosto che fare riferimento ad una sua rappresentazione completa mediante la funzione di ripartizione, o la funzione di massa o di densità di probabilità. Una descrizione più sintetica di una variabile casuale, tramite pochi valori, ci consente di cogliere le caratteristiche essenziali della distribuzione, quali: la posizione, cioè il baricentro della distribuzione di probabilità; la variabilità, cioè la dispersione della distribuzione di probabilità attorno ad un centro; la forma della distribuzione di probabilità, considerando la simmetria e la curtosi (pesantezza delle code). In questo Capitolo introdurremo quegli indici sintetici che descrivono il centro di una distribuzione di probabilità e la sua variabilità.
+
+\hypertarget{valore-atteso}{%
+\section{Valore atteso}\label{valore-atteso}}
+
+Quando vogliamo conoscere il comportamento tipico di una variabile casuale spesso vogliamo sapere qual è il suo ``valore tipico''. La nozione di ``valore tipico'', tuttavia, è ambigua. Infatti, essa può essere definita in almeno tre modi diversi:
 
 \begin{itemize}
 \tightlist
 \item
-  non è necessario ponderare per \(p_t\), in quanto assumiamo che la distribuzione empirica del campione corrisponda a \(p_t\) (ciò significa assumere che i valori più comunemente osservati nel campione siano anche quelli più verosimili nella vera distribuzione \(p_t\));
+  la \emph{media} (somma dei valori divisa per il numero dei valori),
 \item
-  dato che il campione è finito, anziché eseguire un'operazione di integrazione possiamo semplicemente sommare la densità predittiva a posteriori delle osservazioni.
+  la \emph{mediana} (il valore centrale della distribuzione, quando la variabile è ordinata in senso crescente o decrescente),
+\item
+  la \emph{moda} (il valore che ricorre più spesso).
 \end{itemize}
 
-Questo conduce alla seguente equazione:\footnote{In riferimento alla notazione, ricordiamo che \citet{gelman2014understanding} distinguono tra \(y^{rep}\) e \(\tilde{y}\). I valori \(y^{rep}\) corrispondono ad un'altra possibile realizzazione del medesimo modello statistico che ha prodotto \(y\) mediante determinati valori dei parametri \(\theta\) (repliche sotto lo stesso modello statistico). I valori \(\tilde{y}\) corrispondono invece ad un campione empirico di dati osservato in qualche futura occasione.}
+Per esempio, la media di \(\{3, 1, 4, 1, 5\}\) è \(\frac{3+1+4+1+5}{5} = 2.8\), la mediana è \(3\) e la moda è \(1\). Tuttavia, la teoria delle probabilità si occupa di variabili casuali piuttosto che di sequenze di numeri. Diventa dunque necessario precisare che cosa intendiamo per ``valore tipico'' quando facciamo riferimento alle variabili casuali. Giungiamo così alla seguente definizione.
+
+\begin{definition}
+Sia \(Y\) è una variabile casuale discreta che assume i valori \(y_1, \dots, y_n\) con distribuzione \(p(y)\), ossia
+
+\[
+P(Y = y_i) = p(y_i),
+\]
+
+per definizione il \emph{valore atteso} di \(Y\), \(\E(Y)\), è
 
 \begin{equation}
-\frac{1}{n} \sum_{i=1}^n \log p(y_i^{rep} \mid y).
-\label{eq:1n-lppd}
+\E(Y) = \sum_{i=1}^n y_i \cdot p(y_i).
+\label{eq:expval-discr}
 \end{equation}
+\end{definition}
 
-La quantità \eqref{eq:1n-lppd}, senza il passaggio finale della divisione per il numero di osservazioni, è chiamata \emph{log pointwise predictive density} (\(\lppd\))
+A parole: il valore atteso (o speranza matematica, o aspettazione, o valor medio) di una variabile casuale è definito come la somma di tutti i valori che la variabile casuale può prendere, ciascuno pesato dalla probabilità con cui il valore è preso.
+
+\begin{exercise}
+Calcoliamo il valore atteso della variabile casuale \(Y\) corrispondente al lancio di una moneta equilibrata (testa: \emph{Y} = 1; croce: \emph{Y} = 0).
+
+\[
+\E(Y) = \sum_{i=1}^{2} y_i \cdot P(y_i) = 0 \cdot \frac{1}{5} + 1 \cdot \frac{1}{5} = 0.5.
+\]
+\end{exercise}
+
+\begin{exercise}
+Supponiamo ora che \emph{Y} sia il risultato del lancio di un dado equilibrato. Il valore atteso di \emph{Y} diventa:
+
+\[
+\E(Y) = \sum_{i=1}^{6} y_i \cdot P(y_i) = 1 \cdot \frac{1}{6} + 2 \cdot \frac{1}{6} + \dots + 6 \cdot \frac{1}{6} = \frac{21}{6} = 3.5.
+\]
+\end{exercise}
+
+\hypertarget{interpretazione}{%
+\subsection{Interpretazione}\label{interpretazione}}
+
+Che interpretazione può essere assegnata alla nozione di valore atteso? Bruno de Finetti adottò lo stesso termine di \emph{previsione} (e lo stesso simbolo) tanto per la probabilità che per la speranza matematica. Si può pertanto dire che, dal punto di vista bayesiano, la speranza matematica è l'estensione naturale della nozione di probabilità soggettiva.
+
+\hypertarget{proprietuxe0-del-valore-atteso}{%
+\subsection{Proprietà del valore atteso}\label{proprietuxe0-del-valore-atteso}}
+
+La proprietà più importante del valore atteso è la linearità: il valore atteso di una somma di variabili casuali è uguale alla somma dei lori rispettivi valori attesi:
 
 \begin{equation}
-\lppd = \sum_{i=1}^n \log p(y_i^{rep} \mid y)
-\label{eq:lppd}
+\E(X + Y) = \E(X) + \E(Y).
+\label{eq:prop-expval-linearity}
 \end{equation}
 
-e corrisponde alla somma delle densità predittive logaritmiche delle \(n\) osservazioni. Valori più grandi della \eqref{eq:lppd} sono da preferire perché indicano una maggiore accuratezza media. È anche comune vedere espressa la quantità precedente nei termini della \emph{devianza}, ovvero alla \(\lppd\) moltiplicata per -2. In questo secondo caso sono da preferire valori piccoli.
+La \eqref{eq:prop-expval-linearity} sembra ragionevole quando \(X\) e \(Y\) sono indipendenti, ma è anche vera quando \(X\) e \(Y\) sono associati. Abbiamo anche che
 
-È importante notare che \(\lppd\) fornisce una \emph{sovrastima} della \eqref{eq:elpd}. Tale sovrastima è dovuta al fatto che, nel calcolo della \eqref{eq:lppd}, abbiamo usato \(p(y^{rep} \mid y)\) al posto di \(p(\tilde{y} \mid y)\): in altri termini, abbiamo considerato le osservazioni del campione come se fossero un nuovo campione di dati. In una serie di simulazioni, \citet{McElreath_rethinking} esamina il significato di questa sovrastima. Nelle simulazioni la devianza viene calcolata come funzione della complessità (ovvero, il numero di parametri) del modello. La simulazione mostra che \(\lppd\) aumenta al crescere del numero di parametri del modello. Ciò significa che \(\lppd\) mostra lo stesso limite del coefficiente di determinazione: aumenta all'aumentare della complessità del modello.
+\begin{equation}
+\E(cY) = c \E(Y).
+\label{eq:prop-expval-const}
+\end{equation}
 
-\begin{example}
+La \eqref{eq:prop-expval-const} ci dice che possiamo estrarre una costante dall'operatore di valore atteso. Tale proprietà si estende a qualunque numero di variabili casuali. Infine, se due variabili casuali \(X\) e \(Y\) sono indipendenti, abbiamo che
 
-Esaminiamo un esempio tratto da \href{https://vasishth.github.io/bayescogsci/book/expected-log-predictive-density-of-a-model.html}{Bayesian Data Analysis for Cognitive Science} nel quale la \(\elpd\) viene calcolata in forma esatta oppure mediante approssimazione. Supponiamo di disporre di un campione di \(n\) osservazioni. Supponiamo inoltre di conoscere il vero processo generativo dei dati (qualcosa che in pratica non è mai possibile), ovvero:
+\begin{equation}
+\E(X Y) = \E(X) \E(Y). 
+\label{eq:expval-prod-ind-rv}
+\end{equation}
+
+\begin{exercise}
+Si considerino le seguenti variabili casuali: \(Y\), ovvero il numero che si ottiene dal lancio di un dado equilibrato, e \(Y\), il numero di teste prodotto dal lancio di una moneta equilibrata. Poniamoci il problema di trovare il valore atteso di \(X+Y\).
+
+Per risolvere il problema iniziamo a costruire lo spazio campionario dell'esperimento casuale consistente nel lancio di un dado e di una moneta.
+
+\begin{longtable}[]{@{}ccccccc@{}}
+\toprule
+\(x/ y\) & 1 & 2 & 3 & 4 & 5 & 6 \\
+\midrule
+\endhead
+0 & (0, 1) & (0, 2) & (0, 3) & (0, 4) & (0, 5) & (0, 6) \\
+1 & (1, 1) & (1, 2) & (1, 3) & (1, 4) & (1, 5) & (1, 6) \\
+\bottomrule
+\end{longtable}
+
+\noindent ovvero
+
+\begin{longtable}[]{@{}ccccccc@{}}
+\toprule
+\(x/ y\) & 1 & 2 & 3 & 4 & 5 & 6 \\
+\midrule
+\endhead
+0 & 1 & 2 & 3 & 4 & 5 & 6 \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+\bottomrule
+\end{longtable}
+
+\noindent Il risultato del lancio del dado è indipendente dal risultato del lancio della moneta. Pertanto, ciascun evento elementare dello spazio campionario avrà la stessa probabilità di verificarsi, ovvero \(Pr(\omega) = \frac{1}{12}\). Il valore atteso di \(X+Y\) è dunque uguale a:
 
 \[
-p_t(y) = \Beta(1, 3).
-\] I dati sono
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{75}\NormalTok{)}
-\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10000}
-\NormalTok{y\_data }\OtherTok{\textless{}{-}} \FunctionTok{rbeta}\NormalTok{(n, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\FunctionTok{head}\NormalTok{(y\_data)}
-\CommentTok{\#\textgreater{} [1] 0.55062 0.13346 0.80251 0.21431 0.01913 0.08677}
-\end{Highlighting}
-\end{Shaded}
-
-Supponiamo inoltre di avere adattato ai dati un modello bayesiano \(\mathcal{M}\) e di avere ottenuto la distribuzione a posteriori per i parametri del modello. Inoltre, supponiamo di avere derivato la forma analitica della distribuzione predittiva a posteriori per il modello:
-
-\[
-p(y^{rep} \mid y) \sim \Beta(2, 2).
+\E(X+Y) = 1 \cdot \frac{1}{12} + 2 \cdot \frac{1}{12} + \dots + 7 \cdot \frac{1}{12} = 4.0.
 \]
 
-Questa distribuzione ci dice quanto sono credibili i possibili dati futuri.
-
-Conoscendo la vera distribuzione dei dati \(p_t(y)\) possiamo calcolare in forma esatta la quantità \(\elpd\), ovvero
+Lo stesso risultato si ottiene nel modo seguente:
 
 \[
-\elpd = \int_{y^{rep}}p_{t}(y^{rep})\log p(y^{rep} \mid y) \,\operatorname {d}\!y^{rep}.
+\E(X+Y) = \E(X) + E(Y) = 3.5 + 0.5 = 4.0.
 \]
+\end{exercise}
 
-Svolgiamo i calcoli in \(\R\) otteniamo:
+\begin{exercise}
+Si considerino le variabili casuali \(X\) e \(Y\) definite nel caso del lancio di tre monete equilibrate, dove \(X\) conta il numero delle teste nei tre lanci e \(Y\) conta il numero delle teste al primo lancio. Si calcoli il valore atteso del prodotto delle variabili casuali \(X\) e \(Y\).
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# True distribution}
-\NormalTok{p\_t }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{dbeta}\NormalTok{(y, }\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\CommentTok{\# Predictive distribution}
-\NormalTok{p }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{dbeta}\NormalTok{(y, }\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\CommentTok{\# Integration}
-\NormalTok{integrand }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(y) }\FunctionTok{p\_t}\NormalTok{(y) }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FunctionTok{p}\NormalTok{(y))}
-\FunctionTok{integrate}\NormalTok{(}\AttributeTok{f =}\NormalTok{ integrand, }\AttributeTok{lower =} \DecValTok{0}\NormalTok{, }\AttributeTok{upper =} \DecValTok{1}\NormalTok{)}
-\CommentTok{\#\textgreater{} {-}0.3749 with absolute error \textless{} 6.8e{-}07}
-\end{Highlighting}
-\end{Shaded}
+La distribuzione di probabilità congiunta \(P(X, Y)\) è fornita nella tabella seguente.
 
-Tuttavia, in pratica non conosciamo mai \(p_t(y)\). Quindi approssimiamo \(\elpd\) usando la \eqref{eq:elpd}:
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\(x/ y\) & 0 & 1 & \(p(Y)\) \\
+\midrule
+\endhead
+0 & 1/8 & 0 & 1/8 \\
+1 & 2/8 & 1/8 & 3/8 \\
+2 & 1/8 & 2/8 & 3/8 \\
+3 & 0 & 1/8 & 1/8 \\
+\(p(y)\) & 4/8 & 4/8 & 1.0 \\
+\bottomrule
+\end{longtable}
+
+\noindent Il calcolo del valore atteso di \(XY\) si riduce a
 
 \[
-\frac{1}{n} \sum_{i=1}^n \log p(y_i \mid y).
+\E(XY) = 1 \cdot \frac{1}{8} + 2 \cdot \frac{2}{8} + 3 \cdot \frac{1}{8} = 1.0.
 \]
 
-Così facendo, e svolgendo i calcoli in \(\R\), otteniamo un valore diverso da quello trovato in precedenza:
+Si noti che le variabili casuali \(Y\) e \(Y\) non sono indipendenti. Dunque non possiamo usare la proprietà \ref{thm:prodindrv}. Infatti, il valore atteso di \(X\) è
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\DecValTok{1} \SpecialCharTok{/}\NormalTok{ n }\SpecialCharTok{*} \FunctionTok{sum}\NormalTok{(}\FunctionTok{log}\NormalTok{(}\FunctionTok{p}\NormalTok{(y\_data)))}
-\CommentTok{\#\textgreater{} [1] {-}0.3639}
-\end{Highlighting}
-\end{Shaded}
+\[
+\E(X) = 1 \cdot \frac{3}{8} + 2 \cdot \frac{3}{8} + 3 \cdot \frac{1}{8} = 1.5
+\]
 
-\end{example}
+e il valore atteso di \(Y\) è
 
-\hypertarget{commenti-e-considerazioni-finali-5}{%
-\section*{Commenti e considerazioni finali}\label{commenti-e-considerazioni-finali-5}}
+\[
+\E(Y) = 0 \cdot \frac{4}{8} + 1 \cdot \frac{4}{8} = 0.5.
+\] Dunque
 
+\[
+1.5 \cdot 0.5 \neq 1.0.
+\]
+\end{exercise}
 
-Dato che non conosciamo il vero meccanismo generatore dei dati \(p\), possiamo usare la distribuzione dei dati osservata come proxy per la vera distribuzione \(p\). Quindi, invece di ponderare la distribuzione predittiva in base alla densità reale di tutti i possibili dati futuri, utilizziamo semplicemente le \(n\) osservazioni che abbiamo. Possiamo farlo perché assumiamo che le nostre osservazioni costituiscano un campione dalla vera distribuzione dei dati: in base a questa ipotesi, nel campione ci aspettiamo di osservare più frequentemente quelle osservazioni che hanno una maggiore verosimiglianza nella vera distribuzione \(p\). È così possibile giungere ad una stima numerica della \(\elpd\) chiamata \emph{log pointwise predictive density} (\(\lppd\)).
+\hypertarget{variabili-casuali-continue}{%
+\subsection{Variabili casuali continue}\label{variabili-casuali-continue}}
+
+Nel caso di una variabile casuale continua \(Y\) il valore atteso diventa:
+
+\begin{equation}
+\E(Y) = \int_{-\infty}^{+\infty} y p(y) \,\operatorname {d}\!y
+\label{eq:def-ev-rv-cont}
+\end{equation}
+
+Anche in questo caso il valore atteso è una media ponderata della \(y\), nella quale ciascun possibile valore \(y\) è ponderato per il corrispondente valore della densità \(p(y)\). Possiamo leggere l'integrale pensando che \(y\) rappresenti l'ampiezza delle barre infinitamente strette di un istogramma, con la densità \(p(y)\) che corrisponde all'altezza di tali barre e la notazione \(\int_{-\infty}^{+\infty}\) che corrisponde ad una somma.
+
+Un'altra misura di tendenza centrale delle variabili casuali continue è la moda. La moda della \(Y\) individua il valore \(y\) più plausibile, ovvero il valore \(y\) che massimizza la funzione di densità \(p(y)\):
+
+\begin{equation}
+\Mo(Y) = \argmax_y p(y).
+\label{eq:def-mode}
+\end{equation}
+
+\hypertarget{varianza}{%
+\section{Varianza}\label{varianza}}
+
+La seconda più importante proprietà di una variabile casuale, dopo che conosciamo il suo valore atteso, è la \emph{varianza}.
+
+\begin{definition}
+Se \(Y\) è una variabile casuale discreta con distribuzione \(p(y)\), per definizione la varianza di \(Y\), \(\Var(Y)\), è
+
+\begin{equation}
+\Var(Y) = \E\Big[\big(Y - \E(Y)\big)^2\Big].
+\label{eq:def-var-rv}
+\end{equation}
+\end{definition}
+
+A parole: la varianza è la deviazione media quadratica della variabile dalla sua media.\footnote{Data una variabile casuale \(Y\) con valore atteso \(\E(Y)\), le ``distanze'' tra i valori di \(Y\) e il valore atteso \(\E(Y)\) definiscono la variabile casuale \(Y - \E(Y)\) chiamata \emph{scarto}, oppure \emph{deviazione} oppure \emph{variabile casuale centrata}. La variabile \(Y - \E(Y)\) equivale ad una traslazione di sistema di riferimento che porta il valore atteso nell'origine degli assi. Si può dimostrare facilmente che il valore atteso della variabile scarto \(Y - \E(Y)\) vale zero, dunque la media di tale variabile non può essere usata per quantificare la ``dispersione'' dei valori di \(Y\) relativamente al suo valore medio. Occorre rendere sempre positivi i valori di \(Y - \E(Y)\) e tale risultato viene ottenuto considerando la variabile casuale \(\left(Y - \E(Y)\right)^2\).} Se denotiamo \(\E(Y) = \mu\), la varianza \(\Var(Y)\) diventa il valore atteso di \((Y - \mu)^2\).
+
+\begin{exercise}
+Posta \(S\) uguale alla somma dei punti ottenuti nel lancio di due dadi equilibrati, poniamoci il problema di calcolare la varianza di \(S\).
+
+La variabile casuale \(S\) ha la seguente distribuzione di probabilità:
+
+\begin{longtable}[]{@{}cccccccccccc@{}}
+\toprule
+\(s\) & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11 & 12 \\
+\midrule
+\endhead
+\(P(S = s)\) & \(\frac{1}{36}\) & \(\frac{2}{36}\) & \(\frac{3}{36}\) & \(\frac{4}{36}\) & \(\frac{5}{36}\) & \(\frac{6}{36}\) & \(\frac{5}{36}\) & \(\frac{4}{36}\) & \(\frac{3}{36}\) & \(\frac{2}{36}\) & \(\frac{1}{36}\) \\
+\bottomrule
+\end{longtable}
+
+\noindent Essendo \(\E(S) = 7\), la varianza diventa
+
+\begin{align}
+\Var(S) &= \sum \left(S- \mathbb{E}(S)\right)^2 \cdot P(S) \notag\\
+&= (2 - 7)^2 \cdot 0.0278 + (3-7)^2 \cdot 0.0556 + \dots + (12 - 7)^2 \cdot 0.0278 \notag\\
+&= 5.8333.\notag
+\end{align}
+\end{exercise}
+
+\hypertarget{formula-alternativa-per-la-varianza}{%
+\subsection{Formula alternativa per la varianza}\label{formula-alternativa-per-la-varianza}}
+
+C'è un modo più semplice per calcolare la varianza:
+
+\begin{align}
+\E\Big[\big(X - \E(Y)\big)^2\Big] &= \E\big(X^2 - 2X\E(Y) + \E(Y)^2\big)\notag\\
+&= \E(Y^2) - 2\E(Y)\E(Y) + \E(Y)^2,\notag
+\end{align}
+
+dato che \(\E(Y)\) è una costante; pertanto
+
+\begin{equation}
+\Var(Y) = \E(Y^2) - \big(\E(Y) \big)^2.
+\label{eq:def-alt-var-rv}
+\end{equation}
+
+A parole: la varianza è la media dei quadrati meno il quadrato della media.
+
+\begin{exercise}
+Consideriamo la variabile casuale \(Y\) che corrisponde al numero di teste che si osservano nel lancio di una moneta truccata con probabilità di testa uguale a 0.8. Il valore atteso di \(Y\) è
+
+\[
+\E(Y) = 0 \cdot 0.2 + 1 \cdot 0.8 = 0.8.
+\] Usando la formula tradizionale della varianza otteniamo:
+
+\[
+\Var(Y) = (0 - 0.8)^2 \cdot 0.2 + (1 - 0.8)^2 \cdot 0.8 = 0.16.
+\] Lo stesso risultato si trova con la formula alternativa della varianza. Il valore atteso di \(Y^2\) è
+
+\[
+\E(Y^2) = 0^2 \cdot 0.2 + 1^2 * 0.8 = 0.8.
+\] e la varianza diventa
+
+\[
+\Var(Y) = \E(Y^2) - \big(\E(Y) \big)^2 = 0.8 - 0.8^2 = 0.16.
+\]
+\end{exercise}
+
+\hypertarget{variabili-casuali-continue-1}{%
+\subsection{Variabili casuali continue}\label{variabili-casuali-continue-1}}
+
+Nel caso di una variabile casuale continua \(Y\), la varianza diventa:
+
+\begin{equation}
+\Var(Y) = \int_{-\infty}^{+\infty} \large[y - \E(Y)\large]^2 p(y) \,\operatorname {d}\!y
+\label{eq:def-var-rv-cont}
+\end{equation}
+
+Come nel caso discreto, la varianza di una v.c. continua \(y\) misura approssimativamente la distanza al quadrato tipica o prevista dei possibili valori \(y\) dalla loro media.
+
+\hypertarget{deviazione-standard}{%
+\section{Deviazione standard}\label{deviazione-standard}}
+
+Quando lavoriamo con le varianze, i termini sono innalzati al quadrato e quindi i numeri possono diventare molto grandi (o molto piccoli). Per trasformare nuovamente i valori nell'unità di misura della scala originaria si prende la radice quadrata. Il valore risultante viene chiamato \emph{deviazione standard} e solitamente è denotato dalla lettera greca \(\sigma\).
+
+\begin{definition}
+Si definisce scarto quadratico medio (o deviazione standard o scarto tipo) la radice quadrata della varianza:
+
+\begin{equation}
+\sigma_Y = \sqrt{\Var(Y)}.
+\label{eq:def-sd}
+\end{equation}
+\end{definition}
+
+Interpretiamo la deviazione standard di una variabile casuale come nella statistica descrittiva: misura approssimativamente la distanza tipica o prevista dei possibili valori \(y\) dalla loro media.
+
+\begin{exercise}
+Per i dadi equilibrati dell'esempio precedente, la deviazione standard della variabile casuale \(S\) è uguale a \(\sqrt{5.833} = 2.415\).
+\end{exercise}
+
+\hypertarget{standardizzazione}{%
+\section{Standardizzazione}\label{standardizzazione}}
+
+\begin{definition}
+Data una variabile casuale \(Y\), si dice variabile standardizzata di \(Y\) l'espressione
+
+\begin{equation}
+Z = \frac{Y - \E(Y)}{\sigma_Y}.
+\label{eq:standardization}
+\end{equation}
+\end{definition}
+
+Solitamente, una variabile standardizzata viene denotata con la lettera \(Z\).
+
+\hypertarget{momenti-di-variabili-casuali}{%
+\section{Momenti di variabili casuali}\label{momenti-di-variabili-casuali}}
+
+\begin{definition}
+Si chiama \emph{momento} di ordine \(q\) di una v.c. \(X\), dotata di densità \(p(x)\), la quantità
+
+\begin{equation}
+\E(X^q) = \int_{-\infty}^{+\infty} x^q p(x) \; dx.
+\end{equation}
+
+Se \(X\) è una v.c. discreta, i suoi momenti valgono:
+
+\begin{equation}
+\E(X^q) = \sum_i x_i^q p(x_i).
+\end{equation}
+\end{definition}
+
+I momenti sono importanti parametri indicatori di certe proprietà di \(X\). I più noti sono senza dubbio quelli per \(q = 1\) e \(q = 2\). Il momento del primo ordine corrisponde al valore atteso di \(X\). Spesso i momenti di ordine superiore al primo vengono calcolati rispetto al valor medio di \(X\), operando una traslazione \(x_0 = x − \E(X)\) che individua lo scarto dalla media. Ne deriva che il momento centrale di ordine 2 corrisponde alla varianza.
 
   \bibliography{refs.bib,book.bib,packages.bib}
 

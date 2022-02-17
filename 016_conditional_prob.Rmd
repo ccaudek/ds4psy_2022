@@ -8,9 +8,29 @@ Il fondamento della statistica bayesiana è il teorema di Bayes e il teorema di 
 
 ## Probabilità condizionata su altri eventi {#sec:bayes-cancer}
 
-L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione.
-<!-- La probabilità condizionata è una componente essenziale del ragionamento scientifico dato che chiarisce come sia possibile incorporare le evidenze disponibili, in maniera logica e coerente, nella nostra conoscenza del mondo. -->
-Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. Consideriamo il seguente problema.
+L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. 
+
+Per introdurre la probabilità condizionata, @albert2019probability utilizzando il famoso paradosso delle tre carte. "Ci sono tre carte, delle quali la prima (A) è rossa su entrambi i lati, la seconda (B) su un lato è rossa e sull'altro è bianca e la terza (C) è bianca su entrambi i lati. Ponendo su un tavolo una delle tre carte, scelta a caso, ottengo che il lato visibile è di colore rosso. Qual è la probabilità che anche il lato non visibile sia di colore rosso? La risposta intuitiva porta solitamente a rispondere che la probabilità ricercata sia pari al 50%, in quanto solo due carte (la A e la B) possono mostrare il colore rosso e solo una di queste (la A) può mostrare anche sull'altro lato il colore rosso; tuttavia si dimostra che la risposta giusta è 2/3." (da Wikipedia)
+
+@albert2019probability propongono di risolvere il problema con una simulazione in $\textsf{R}$: prima di tutto si sceglie una carta a caso, e poi si sceglie un lato della carta. Ci sono tre carte possibili, che chiamiamo "c_rossa", "c_bianca", e "c_entrambi". Per la carta rossa, ci sono due lati rossi; per la carta bianca ci sono due lati bianchi e la carta "entrambi" ha un lato rosso e un lato bianco. Ripetiamo l'esperimento 1,000 volte e classifichiamo i risultati per tipo di carta e lato:
+
+```{r}
+set.seed(84735)
+df <- tibble(
+  Carta = c(
+    "c_rossa", "c_rossa", "c_bianca", "c_bianca", "c_entrambi", 
+    "c_entrambi"
+  ),
+  Lato = c(
+    "rosso", "rosso", "bianco", "bianco", "rosso", "bianco"
+  )
+)
+df
+carte <- sample_n(df, 1000, replace = TRUE)
+table(carte$Carta, carte$Lato)
+```
+
+Se si osserva il colore rosso (seconda colonna nella tabella precedente), questo risultato è dovuto ad una carta rossa in 344 casi e ad una carta "entrambi" in 160 casi. Quindi, nella simulazione il colore rosso (344 + 160) è associato ad una carta rossa in circa 2/3 dei casi -- ciò significa che, se i lato visibile è di colore rosso, allora c'è una probabilità di 2/3 che anche il lato non visibile sia di colore rosso. Questo esempio dimostra come le nostre intuizioni a proposito della probabilità condizionata non sono sempre corrette. Consideriamo un altro problema più articolato.
 
 ::: {.exercise}
 Supponiamo che lo screening per la diagnosi precoce del tumore mammario si avvalga di test che sono accurati al 90%, nel senso che il 90% delle donne con cancro e il 90% delle donne senza cancro saranno classificate correttamente. Supponiamo che l'1% delle donne sottoposte allo screening abbia effettivamente il cancro al seno. Ci chiediamo: qual è la probabilità che una donna scelta casualmente abbia una mammografia positiva e, se ce l'ha, qual è la probabilità che abbia davvero il cancro?
@@ -37,11 +57,10 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{con}\, P(B) > 0,
 (\#eq:probcond)
 \end{equation}
 
-dove $P(A\cap B)$ è la probabilità congiunta dei due eventi, ovvero la probabilità che si verifichino entrambi.
+dove $P(A\cap B)$ è la _probabilità congiunta_ dei due eventi, ovvero la probabilità che si verifichino entrambi.
 :::
 
-<!-- Nella \@ref(eq:probcond) possiamo distinguere tra la probabilità congiunta $P(A \cap B)$, la probabilità condizionata $P(A \mid B)$ e la probabilità marginale $P(B)$. -->
-
+Concludiamo con un problema veramente semplice per consolidare la nostra comprensione del concetto di probabilità condizionata. 
 
 ::: {.exercise}
 Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
@@ -57,9 +76,9 @@ Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4 (probabi
 
 <!-- Le considerazioni precedenti risultano più chiare se facciamo nuovamente riferimento all'esercizio sul tumore mammario descritto sopra. In tale esercizio abbiamo visto come la probabilità di cancro dato un risultato positivo al test sia uguale a 0.08. Tale probabilità è molto diversa dalla probabilità di un risultato positivo al test data la presenza del cancro. Infatti, questa seconda probabilità è uguale a 0.90 ed è descritta nel problema come una delle caratteristiche del test in questione. -->
 
-## Legge delle probabilità composte
+## La regola moltiplicativa
 
-Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La legge delle probabilità composte (o regola moltiplicativa, o regola della catena) afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La regola moltiplicativa (o legge delle probabilità composte, o regola della catena) afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
 
 \begin{equation}
 P(A \cap B) = P(B)P(A \mid B) = P(A)P(B \mid A).
@@ -214,26 +233,15 @@ Il teorema della probabilità assoluta consente di calcolare la probabilità di 
 2. $H_j \cap H_j = \emptyset, i\neq j$;
 3. $P(H_i) > 0, i = 1, \dots, \infty$.
 
-Nel caso di una partizione dello spazio campionario in tre sottoinsiemi, ad esempio, abbiamo
+Nel caso di una partizione dello spazio campione in $n$ sottoinsiemi abbiamo
 
 \begin{equation}
-{\mbox{P}}(E) = {\mbox{P}}(E \cap H_1) + {\mbox{P}}(E \cap H_2) + {\mbox{P}}(E \cap H_3) \notag
-(\#eq:prob-total-1a)
+{\mbox{P}}(E)=\sum _{{i=1}}^{n}{\mbox{P}}(H_{i}\cap E)=\sum _{{i=1}}^{n}{\mbox{P}}(H_{i}){\mbox{P}}(E \mid H_{i}).
 \end{equation}
 
-ovvero
+Consideriamo, ad esempio, una partizione dell'evento certo in tre soli sottoinsiemi.
 
-\begin{equation}
-{\mbox{P}}(E) = {\mbox{P}}(E \mid H_1) {\mbox{P}}(H_1) + {\mbox{P}}(E \mid H_2) {\mbox{P}}(H_2) + {\mbox{P}}(E \mid H_3) {\mbox{P}}(H_3).
-(\#eq:prob-total-1b)
-\end{equation}
-
-Il teorema della probabilità assoluta afferma dunque che, se l'evento $E$ è
-costituito da tutti gli eventi elementari in $E \cap H_1$, $E \cap H_2$
-e $E \cap H_3$, allora la sua probabilità è data dalla somma delle
-probabilità condizionate $P(E \mid H_i)$, ciascuna delle quali pesata per la probabilità dell'evento condizionante $H_i$.
-
-```{tikz, echo=FALSE, tikz-prob-tot, fig.cap = "Partizione dell'evento certo $\\Omega$ in tre sottoinsiemi sui quali viene definito l'evento $E$.", fig.ext = 'png', cache=TRUE}
+```{tikz tikz-prob-tot, echo=FALSE, fig.cap = "Partizione dell'evento certo $\\Omega$ in tre sottoinsiemi sui quali viene definito l'evento $E$.", fig.ext = 'png', cache=TRUE}
 \usetikzlibrary{
   matrix, patterns, calc, fit, shapes, chains, snakes,
   arrows.meta, arrows, backgrounds, trees, positioning,
@@ -297,6 +305,22 @@ probabilità condizionate $P(E \mid H_i)$, ciascuna delle quali pesata per la pr
     \node at (bottom.north east) [anchor=south east] {$\Omega$};
 \end{tikzpicture}
 ```
+
+In tali circostanze si ha che
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \cap H_1) + {\mbox{P}}(E \cap H_2) + {\mbox{P}}(E \cap H_3), \notag
+(\#eq:prob-total-1a)
+\end{equation}
+
+ovvero
+
+\begin{equation}
+{\mbox{P}}(E) = {\mbox{P}}(E \mid H_1) {\mbox{P}}(H_1) + {\mbox{P}}(E \mid H_2) {\mbox{P}}(H_2) + {\mbox{P}}(E \mid H_3) {\mbox{P}}(H_3).
+(\#eq:prob-total-1b)
+\end{equation}
+
+In base al teorema della probabilità assoluta, dunque, se l'evento $E$ è costituito da tutti gli eventi elementari in $E \cap H_1$, $E \cap H_2$ e $E \cap H_3$, allora la sua probabilità è data dalla somma delle probabilità condizionate $P(E \mid H_i)$, ciascuna delle quali pesata per la probabilità dell'evento condizionante $H_i$.
 
 ::: {.exercise}
 Si considerino tre urne, ciascuna delle quali contiene 100 palline:

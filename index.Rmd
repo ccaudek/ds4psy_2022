@@ -29,7 +29,6 @@ options(
 )
 ```
 
-
 <!-- https://github.com/rstudio/rmarkdown-book -->
 
 
