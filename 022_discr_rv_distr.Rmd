@@ -31,8 +31,8 @@ con $0 \leq \theta \leq 1$. Convenzionalmente l'evento $\{Y = 1\}$ con probabili
 Applicando l'operatore di valore atteso e di varianza, otteniamo
 
 \begin{align}
-\E(Y) &= 0 \cdot Pr(Y=0) + 1 \cdot Pr(Y=1) = \theta, \\
-\Var(Y) &= (0 - \theta)^2 \cdot Pr(Y=0) + (1 - \theta)^2 \cdot rP(Y=1) = \theta(1-\theta).
+\E(Y) &= 0 \cdot P(Y=0) + 1 \cdot P(Y=1) = \theta, \\
+\Var(Y) &= (0 - \theta)^2 \cdot P(Y=0) + (1 - \theta)^2 \cdot P(Y=1) = \theta(1-\theta).
 (\#eq:ev-var-bern)
 \end{align}
 
@@ -216,6 +216,7 @@ standard di una distribuzione binomiale sono molto semplici:
 
 ::: {.proof}
 Essendo $Y$ la somma di $n$ prove Bernoulliane indipendenti $Y_i$, è facile vedere che 
+
 \begin{align}
 \E(Y) &= \E \left( \sum_{i=1}^n Y_i \right) = \sum_{i=1}^n \E(Y_i) = n\theta, \\
 \Var(Y) &= \Var \left( \sum_{i=1}^n Y_i \right) = \sum_{i=1}^n \Var(Y_i) = n \theta (1-\theta).
@@ -372,9 +373,9 @@ dpois(x = 2, lambda = 3)
 
 ## Distribuzione discreta uniforme
 
-Una distribuzione discreta uniforme è una distribuzione di probabilità discreta che è uniforme su un insieme, ovvero che attribuisce ad ogni elemento dell'insieme discreto $S$ su cui è definita la stessa probabilità $p$ di verificarsi (in particolare l'insieme dev'essere finito).
+Una distribuzione discreta uniforme è una distribuzione di probabilità discreta che è uniforme su un insieme, ovvero che attribuisce ad ogni elemento dell'insieme discreto e finito $S$ su cui è definita la stessa probabilità $p$ di verificarsi.
 
-Consideriamo la variabile casuale $X$ con supporto $1, 2, \dots, m$. Un esperimento casuale in cui si verifica questa distribuzione è la scelta di un intero casuale compreso tra 1 e $m$ inclusi. Sia $X$ il numero scelto. Allora
+Consideriamo la variabile casuale $X$ con supporto $1, 2, \dots, m$. Un esperimento casuale in cui si verifica questa distribuzione è la scelta casuale di un intero compreso tra 1 e $m$ inclusi. Sia $X$ il numero scelto. Allora
 
 $$
 P(X = x) = \frac{1}{m}, \quad x = 1, \dots, m.
@@ -405,6 +406,19 @@ La sintassi generale per simulare una variabile casuale uniforme discreta è `sa
 - Per lanciare un dado equilibrato 3000 volte:  `sample(6, size = 3000, replace = TRUE)`;
 - per scegliere 27 numeri casuali da 30 a 70: `sample(30:70, size = 27, replace = TRUE)`;
 - per lanciare una moneta equa 1000 volte: `sample(c("H","T"), size = 1000, replace = TRUE)`.
+
+
+## Distribuzione beta-binomiale
+
+La distribuzione beta-binomiale di parametri $N$, $\alpha$ e $\beta$ è una distribuzione discreta con una funzione di massa di probabilità uguale a
+
+\begin{equation}
+\mbox{BetaBinomial}(y \mid N, \alpha, \beta) = \binom{N}{y} \frac{B(y + \alpha, N-y+\beta)}{B(\alpha, \beta)},
+\end{equation}
+
+dove la funzione beta è $B(u, v) = \frac{\Gamma(u)\Gamma(v)}{\Gamma(u+v)}$. 
+
+Senza entrare nei dettagli, ci accontentiamo di sapere che tale distribuzione è implementata nella funzione `dbbinom()` del pacchetto `extraDistr`.
 
 
 ## Commenti e considerazioni finali {-}

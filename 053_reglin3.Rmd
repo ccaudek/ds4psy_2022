@@ -5,7 +5,7 @@ source("_common.R")
 source("_stan_options.R")
 ```
 
-Mostreremo qui come sia possibile usare il linguaggio probabilistico Stan per la stima dei parametri del modello di regressione. Vedremo anche come interpretare i risultati dell'analisi bayesiana (si vedano anche le Appendici \@ref(regr-ml) e \@ref(regr-lin-frequentista)). 
+Mostreremo qui come sia possibile usare il linguaggio probabilistico Stan per la stima dei parametri del modello di regressione (si vedano anche le Appendici \@ref(regr-ml) e \@ref(regr-lin-frequentista)). 
 
 ## Una distribuzione a priori debolmente informativa
 
@@ -28,7 +28,9 @@ per le distribuzioni a priori dei parametri, si ottiene la distribuzione a poste
 
 ## Linguaggio Stan
 
-Leggiamo in $\textsf{R}$ il dataset `kidiq`:
+È conveniente ottenere una sequenza MCMC dalla distribuzione a posteriori di un modello di regressione utilizzando il linguaggio Stan. È semplice trasporre la descrizione del modello bayesiano (verosimiglianza e distribuzione a priori) direttamente nello script del modello Stan.
+
+Nel seguente esempio ci poniamo il problema di descrivere l'associazione tra il QI dei figli e il QI delle madri mediante un modello lineare. I dati sono quelli del dataset `kidiq`:
 
 ```{r}
 library("rio")
@@ -36,7 +38,7 @@ df <- rio::import(here::here("data", "kidiq.dta"))
 head(df)
 ```
 
-Vogliamo descrivere l'associazione tra il QI dei figli e il QI delle madri mediante un modello lineare. Per farci un'idea del valore dei parametri, adattiamo il modello lineare ai dati mediante la procedura di massima verosimiglianza:
+Per farci un'idea del valore dei parametri, adattiamo il modello lineare ai dati mediante la procedura di massima verosimiglianza:
 
 ```{r}
 summary(lm(kid_score ~ mom_iq, data = df))

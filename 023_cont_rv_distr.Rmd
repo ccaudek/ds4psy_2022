@@ -581,6 +581,21 @@ Il rapporto $\frac{1}{B(\alpha, \beta)} = \frac{\Gamma(\alpha+b)}{\Gamma(\alpha)
 \int_0^1 \pi^{\alpha-1} (1-\pi)^{\beta-1} = \frac{\Gamma(\alpha+b)}{\Gamma(\alpha)\Gamma(\beta)}\,.
 \end{equation}
 
+Facciamo un esempio con dei valori arbitrari $\alpha = 3$ e $\beta = 6$:
+
+```{r}
+a <- 3
+b <- 6
+integrand <- function(p) {p^{a - 1}*(1 - p)^{b - 1}}
+integrate(integrand, lower = 0, upper = 1)
+```
+
+ovvero
+
+```{r}
+1 / (gamma(a + b) / (gamma(a) * gamma(b)))
+```
+
 Il valore atteso, la moda e la varianza di una distribuzione Beta sono dati dalle seguenti equazioni:
 
 \begin{equation}

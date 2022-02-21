@@ -315,7 +315,61 @@ Non ci sono delle soglie universalmente riconosciute per interpretare il BF. Per
 1/100 - 1/30 |	Very strong evidence for $H_0$
 < 1/100	| Extreme evidence for $H_0$
 
-Tuttavia, è importante notare che l'opinione maggiormente diffusa nella comunità scientifica sia quella che incoraggia a non trarre conclusioni rigide  dai dati utilizzando dei criteri fissati una volta per tutte. Pertanto, non esiste una soglia univoca per il BF che consente di classificare le ipotesi dei ricercatori nelle due categorie "vero" o "falso". Invece, è più utile adottare una pratica più flessibile capace di tenere in considerazione il contesto e le potenziali implicazioni di ogni singolo test di ipotesi. Inoltre, è stato molte volte ripetuto che la distribuzione a posteriori è molto più informativa di una decisione binaria: la rappresentazione di tutta la distribuzione a posteriori fornisce una misura olistica del nostro livello di incertezza riguardo all'affermazione (il parametro, ovvero l'ipotesi) che viene valutata. 
+Tuttavia, è importante notare che l'opinione maggiormente diffusa nella comunità scientifica sia quella che incoraggia a non trarre conclusioni rigide  dai dati utilizzando dei criteri fissati una volta per tutte. Pertanto, non esiste una soglia univoca per il BF che consente di classificare le ipotesi dei ricercatori nelle due categorie "vero" o "falso". Invece, è più utile adottare una pratica più flessibile capace di tenere in considerazione il contesto e le potenziali implicazioni di ogni singolo test di ipotesi. Inoltre, è stato molte volte ripetuto che la distribuzione a posteriori è molto più informativa di una decisione binaria: la rappresentazione di tutta la distribuzione a posteriori fornisce una misura olistica del nostro livello di incertezza riguardo all'affermazione (il parametro, ovvero l'ipotesi) che viene valutata.
+
+## La funzione di perdita attesa
+
+Un modo razionale per giungere ad una decisione statistica utilizzando l'intera distribuzione a posteriori è quello di usare la _funzione di perdita_ (_loss function_). La funzione di perdita è concetto nella teoria delle decisioni statistiche che consente di quantificare il costo derivante dalla decisione di scegliere quale stima del parametro il valore $\theta_0$ quando esso in realtà ha il valore $\theta$. 
+
+Per chiarire che cosa si intende per funzione di perdita, esaminiamo qui un semplice esempio nel quale vengono considerati due soli valori di probabilità per l'evento target, anziché l'intera distribuzione a posteriori [il codice è ricavato da @schmettow2021new].
+
+Si consideri la scelta di prendere o meno l'ombrello nell'uscire di casa. Le previsioni del tempo sono le seguenti:
+
+```{r}
+Risultato <-
+  tibble(
+    risultato = c("piove", "non piove"),
+    prob = c(0.6, 0.4)
+  )
+Risultato
+```
+
+Le  azioni possibili sono: prendo / non  prendo  l'ombrello:
+
+```{r}
+Azione <-
+  tibble(azione = c("prendo l'ombrello", "non prendo l'ombrello"))
+Azione
+```
+
+Assegniamo  un costo massimo  (4)  alla  conseguenza  peggiore  ("non prendo  l'ombrello  e piove") e uno minimo (0) alla conseguenza migliore ("non prendo l'ombrello e non piove"):
+
+```{r}
+Costi <-
+  expand.grid(
+    azione = Azione$azione,
+    risultato = Risultato$risultato
+  ) %>%
+  inner_join(Risultato) %>%
+  mutate(costo = c(2, 4, 2, 0))
+Costi
+```
+
+Calcoliamo ora il costo atteso delle due azioni tenuto conto delle probabilità che si verifichi l'uno o l'altro stato del mondo (ricordiamo che piove/non piove hanno una probabilità rispettivamente del 40% e del 60%), ovvero ponderiamo il costo di ogni azione con la probabilità che si verifichi l'evento corrispondente:
+
+```{r}
+Util <-
+  Costi %>%
+  mutate(costo_condizionato = prob * costo) %>%
+  group_by(azione) %>%
+  summarise(costo_atteso = sum(costo_condizionato))
+Util
+```
+
+La  regola  di  minimizzazione dei costi  induce  a  scegliere l'alternativa  che comporta  il valore più basso: nel nostro esempio "prendere l'ombrello".
+
+La stessa logica dell'esempio può essere usata anche nel momento in cui, anziché avere solo due valori per la probabilità dello stato del mondo in questione (per esempio, pioverà / non pioverà), utilizziamo l'intera distribuzione a posteriori (per esempio, quella relativa alla previsione di pioggia). Concludiamo questi brevi accenni relativi alla funzione di perdita con una considerazione di @McElreath_rethinking il quale nota che, anche se gli statistici e i teorici dei giochi sono da tempo interessati alle funzioni di perdita e alle relazioni che intercorrono tra esse e l'inferenza bayesiana, i ricercatori non le usano quasi mai in modo esplicito. 
+
 ## Commenti e considerazioni finali {-}
 
 Questo capitolo introduce le procedure di base per la manipolazione
