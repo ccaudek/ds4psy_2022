@@ -49,6 +49,8 @@ La definizione della probabilità è un problema estremamente dibattuto ed apert
 
 In termini epistemici, la probabilità fornisce una misura della nostra incertezza sul verificarsi di un fenomeno, alla luce delle informazioni disponibili. Potremmo dire che c'è una "scala" naturale che ha per estremi il vero (1: evento certo) da una parte ed il falso (0: evento impossibile) dall'altra. La probabilità è la quantificazione di questa scala: descrive lo stato della nostra incertezza rispetto al contenuto di verità di una proposizione. 
 
+L'incertezza nelle nostre previsioni può sorgere per due ragioni fondamentalmente diverse. Il primo è dovuto alla nostra ignoranza delle cause nascoste sottostanti o dei meccanismi che generano i dati. Questa è appunto un'incertezza *epistemica*, poiché epistemologia è lo studio della conoscenza. Il secondo tipo di incertezza deriva dalla variabilità intrinseca, che non può essere ridotta anche se raccogliamo più dati. Questo è talvolta chiamato incertezza *aleatoria*. Come esempio concreto, considera di lanciare una moneta equilibrata. Potremmo sapere con certezza che la probabilità di testa è p = 0.5, quindi non c'è incertezza epistemica, ma non questo non è sufficiente per metterci in grado di prevedere con certezza il risultato.
+
 Nell'interpretazione frequentista, la probabilità $P(E)$ rappresenta la frequenza relativa a lungo termine di un grande numero di ripetizioni di un esperimento casuale sotto le medesime condizioni. Viene stressata qui l'idea che ciò di cui parliamo è qualcosa che emerge nel momento in cui è possibile ripetere l'esperimento casuale tante volte sotto le medesime condizioni -- sono invece esclusi gli eventi unici e irripetibili.
 
 <!-- - Nell'interpretazione bayesiana della probabilità, $P(A)$ rappresenta il grado di fiducia che si ha relativamente al verificarsi dell'evento $A$. -->
@@ -70,15 +72,15 @@ I problemi posti dall'approccio definettiano riguardano l'arbitrarietà dell'ass
 
 ## Variabili casuali e probabilità di un evento
 
-Esaminiamo qui di seguito alcuni concetti di base della teoria delle probabilità.
+Esaminiamo qui di seguito alcuni concetti di base della teoria delle probabilità, la quale può essere vista come un'estensione della logica.
 
 ### Eventi e probabilità
 
-Nella teoria delle probabilità il risultato "testa" nel lancio di una moneta è chiamato _evento_.^[Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \@ref(insiemistica).] Ad esempio, $Y$ = 1 denota l'evento in cui il lancio di una moneta produce come risultato testa. Il funzionale $P(·)$ definisce la probabilità di un evento. Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento "il risultato del lancio della moneta è testa" è scritta come $P(Y = 1) = 0.5.$
+Nella teoria delle probabilità il risultato "testa" nel lancio di una moneta è chiamato _evento_.^[Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \@ref(insiemistica).] Un evento, denotato da una variabile binaria, corrisponde ad uno stato del mondo che si verifica oppure no. Ad esempio, $Y$ = 1 può denotare l'evento per cui il lancio di una moneta produce il risultato testa. Il funzionale $P(·)$ definisce la probabilità di un evento. Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento "il risultato del lancio della moneta è testa" è scritta come $P(Y = 1) = 0.5.$
 
-Se la moneta è equilibrata dobbiamo anche avere $P(Y = 0) = 0.5$. I due eventi _Y_ = 1 e $Y$ = 0 sono _mutuamente esclusivi_ nel senso che  non possono entrambi verificarsi contemporaneamente: $P(Y = 1\; e \; Y = 0) = 0.$ Gli eventi $Y$ = 1 e $Y$ = 0 di dicono _esaustivi_, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica, $P(Y = 1\; o \; Y = 0) = 1.$
+Se la moneta è equilibrata dobbiamo anche avere $P(Y = 0) = 0.5$. I due eventi _Y_ = 1 e $Y$ = 0 sono _mutuamente esclusivi_ nel senso che  non possono entrambi verificarsi contemporaneamente: $P(Y = 1\; \land \; Y = 0) = 0.$ Gli eventi $Y$ = 1 e $Y$ = 0 di dicono _esaustivi_, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica, $P(Y = 1\; \lor \; Y = 0) = 1.$
 
-Il connettivo logico "o" specifica eventi _disgiunti_, ovvero eventi che non possono verificarsi contemporaneamente (eventi _incompatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; e \; B) = 0$. Il connettivo logico "e", invece, specifica eventi _congiunti_, ovvero eventi che possono verificarsi contemporaneamente (eventi _compatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; e \; B) > 0$.
+Il connettivo logico "o" specifica eventi _disgiunti_, ovvero eventi che non possono verificarsi contemporaneamente (eventi _incompatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; \land \; B) = 0$. Il connettivo logico "e", invece, specifica eventi _congiunti_, ovvero eventi che possono verificarsi contemporaneamente (eventi _compatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; \land \; B) > 0$.
 
 ### Spazio campione e risultati possibili
 
