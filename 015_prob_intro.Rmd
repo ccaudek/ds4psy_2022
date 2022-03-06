@@ -49,7 +49,7 @@ La definizione della probabilità è un problema estremamente dibattuto ed apert
 
 In termini epistemici, la probabilità fornisce una misura della nostra incertezza sul verificarsi di un fenomeno, alla luce delle informazioni disponibili. Potremmo dire che c'è una "scala" naturale che ha per estremi il vero (1: evento certo) da una parte ed il falso (0: evento impossibile) dall'altra. La probabilità è la quantificazione di questa scala: descrive lo stato della nostra incertezza rispetto al contenuto di verità di una proposizione. 
 
-L'incertezza nelle nostre previsioni può sorgere per due ragioni fondamentalmente diverse. Il primo è dovuto alla nostra ignoranza delle cause nascoste sottostanti o dei meccanismi che generano i dati. Questa è appunto un'incertezza *epistemica*, poiché epistemologia è lo studio della conoscenza. Il secondo tipo di incertezza deriva dalla variabilità intrinseca, che non può essere ridotta anche se raccogliamo più dati. Questo è talvolta chiamato incertezza *aleatoria*. Come esempio concreto, considera di lanciare una moneta equilibrata. Potremmo sapere con certezza che la probabilità di testa è p = 0.5, quindi non c'è incertezza epistemica, ma non questo non è sufficiente per metterci in grado di prevedere con certezza il risultato.
+L'incertezza nelle nostre previsioni può sorgere per due ragioni fondamentalmente diverse. Il primo è dovuto alla nostra ignoranza delle cause nascoste sottostanti o dei meccanismi che generano i dati. Questa è appunto un'incertezza *epistemica*. Il secondo tipo di incertezza deriva dalla variabilità intrinseca dei fenomeni, che non può essere ridotta anche se raccogliamo più dati. Questa seconda forma di incertezza è talvolta chiamata *aleatoria*. Come esempio concreto, consideriamo il lancio di una moneta equilibrata. Sappiamo con certezza che la probabilità di testa è $P = 0.5$, quindi non c'è incertezza epistemica, ma non questo non è sufficiente per prevedere con certezza il risultato -- ovvero, l'incertezza aleatoria persiste anche in assenza di incertezza epistemica.
 
 Nell'interpretazione frequentista, la probabilità $P(E)$ rappresenta la frequenza relativa a lungo termine di un grande numero di ripetizioni di un esperimento casuale sotto le medesime condizioni. Viene stressata qui l'idea che ciò di cui parliamo è qualcosa che emerge nel momento in cui è possibile ripetere l'esperimento casuale tante volte sotto le medesime condizioni -- sono invece esclusi gli eventi unici e irripetibili.
 
@@ -76,11 +76,11 @@ Esaminiamo qui di seguito alcuni concetti di base della teoria delle probabilit�
 
 ### Eventi e probabilità
 
-Nella teoria delle probabilità il risultato "testa" nel lancio di una moneta è chiamato _evento_.^[Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \@ref(insiemistica).] Un evento, denotato da una variabile binaria, corrisponde ad uno stato del mondo che si verifica oppure no. Ad esempio, $Y$ = 1 può denotare l'evento per cui il lancio di una moneta produce il risultato testa. Il funzionale $P(·)$ definisce la probabilità di un evento. Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento "il risultato del lancio della moneta è testa" è scritta come $P(Y = 1) = 0.5.$
+Nella teoria delle probabilità il risultato "testa" nel lancio di una moneta è chiamato _evento_.^[Per un ripasso delle nozioni di base della teoria degli insiemi, si veda l'Appendice \@ref(insiemistica).] Un evento, denotato da una variabile binaria, corrisponde ad uno stato del mondo che si verifica oppure no. Ad esempio, $Y$ = 1 può denotare l'evento per cui il lancio di una moneta produce il risultato testa. Il funzionale $P(Y)$ denota la probabilità con cui si ritiene che l'evento $Y$ sia vero (o la proporzione di volte che si verifica tale evento osservando a lungo termine delle ripetizioni indipendenti di un esperimento casuale). Ad esempio, per il lancio di una moneta equilibrata, la probabilità dell'evento "il risultato del lancio della moneta è testa" è scritta come $P(Y = 1) = 0.5.$
 
-Se la moneta è equilibrata dobbiamo anche avere $P(Y = 0) = 0.5$. I due eventi _Y_ = 1 e $Y$ = 0 sono _mutuamente esclusivi_ nel senso che  non possono entrambi verificarsi contemporaneamente: $P(Y = 1\; \land \; Y = 0) = 0.$ Gli eventi $Y$ = 1 e $Y$ = 0 di dicono _esaustivi_, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica, $P(Y = 1\; \lor \; Y = 0) = 1.$
+Se la moneta è equilibrata dobbiamo anche avere $P(Y = 0) = 0.5$. I due eventi _Y_ = 1 e $Y$ = 0 sono _mutuamente esclusivi_ nel senso che  non possono entrambi verificarsi contemporaneamente: $P(Y = 1\; \land \; Y = 0) = 0.$ Gli eventi $Y$ = 1 e $Y$ = 0 di dicono _esaustivi_, nel senso che almeno uno di essi deve verificarsi e nessun altro tipo di evento è possibile. Nella notazione probabilistica, $P(Y = 1\; \lor \; Y = 0) = 1.$ Il connettivo logico "o" ($\lor$) specifica eventi _disgiunti_, ovvero eventi che non possono verificarsi contemporaneamente (eventi _incompatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; \land \; B) = 0$. Il connettivo logico "e" ($\land$), invece, specifica eventi _congiunti_, ovvero eventi che possono verificarsi contemporaneamente (eventi _compatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; \land \; B) > 0$. La probabilità del verificarsi di due eventi congiunti $A$ e $B$ si può denotare, in maniera equivalente, con la notazione precedente, oppure con $P(A \cap B)$, oppure con $P(A, B)$. 
 
-Il connettivo logico "o" specifica eventi _disgiunti_, ovvero eventi che non possono verificarsi contemporaneamente (eventi _incompatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; \land \; B) = 0$. Il connettivo logico "e", invece, specifica eventi _congiunti_, ovvero eventi che possono verificarsi contemporaneamente (eventi _compatibili_) e per i quali, perciò, la probabilità della loro congiunzione è $P(A \; \land \; B) > 0$.
+Si richiede che $0 \leq P(A) \leq 1$, dove $P(A) = 0$ denota l'evento impossibile e $P(A) = 1$ denota l'evento certo. Scriviamo $P(\lnot A)$ o $P(\bar{A})$ per denotare la probabilità che l'evento $A$ non avvenga; questa probabilità è definita come $P(\bar{A}) = 1 − P(A)$.
 
 ### Spazio campione e risultati possibili
 
@@ -98,20 +98,20 @@ Una variabile casuale può essere _discreta_ o _continua_. Una variabile casuale
 
 ## Usare la simulazione per stimare le probabilità
 
-I metodi basati sulla simulazione consentono di stimare le probabilità degli eventi in un modo diretto, se siamo in grado di generare molteplici e casuali realizzazioni delle variabili casuali coinvolte nelle definizioni degli eventi. Per simulare il lancio di una moneta equilibrata in $\R$ iniziamo a definire un vettore che contiene i possibili risultati del lancio della moneta (ovvero i possibili valori della variabile casuale $Y$):
+<!-- I metodi basati sulla simulazione consentono di stimare le probabilità degli eventi in un modo diretto, se siamo in grado di generare molteplici e casuali realizzazioni delle variabili casuali coinvolte nelle definizioni degli eventi. -->
+
+In questa dispensa verrà adottata l'interpretazione bayesiana delle probabilità. Tuttavia, le regole di base della teoria delle probabilità sono le stesse, indipendentemente dall'interpretazione adottata. Pertanto, negli esempi seguenti, possiamo utilizzare la simulazione per stimarere le probabilità degli eventi in un modo diretto, ovvero mediante la generazione di molteplici osservazioni delle variabili casuali derivate dagli eventi di interesse. Ad esempio, per simulare in $\R$ il lancio di una moneta equilibrata iniziamo con il definire un vettore che contiene i risultati possibili del lancio della moneta (ovvero i  valori possibili della variabile casuale $Y$):
 
 ```{r}
 coin <- c(0, 1)
 ```
 
-\noindent
 L'estrazione casuale di uno di questi due possibili valori (ovvero, la simulazione di uno specifico lancio di una moneta) si realizza con la funzione `sample()`:
 
 ```{r}
 sample(coin, size = 1)
 ```
 
-\noindent
 In maniera equivalente, la stessa operazione si può realizzare mediante l'istruzione
 
 ```{r}
@@ -150,7 +150,7 @@ for(i in 1:10) {
 }
 ```
 
-Dato che la moneta è equilibrata, la stima delle probabilità dell'evento $Pr[Y = 1]$ è simile a al valore che ci aspettiamo ($P(Y = 1)$ = 0.5), ma il risultato ottenuto nelle varie simulazioni non è sempre esatto.  Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
+Dato che la moneta è equilibrata, la stima delle probabilità dell'evento $Pr[Y = 1]$ è simile a al valore che ci aspettiamo, ovvero $P(Y = 1)$ = 0.5, ma il risultato ottenuto nelle simulazioni non è sempre esatto.  Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
 
 ```{r}
 for(i in 1:10) {
@@ -158,7 +158,7 @@ for(i in 1:10) {
 }
 ```
 
-In questo secondo caso, gli errori tendono ad essere più piccoli della simulazione precedente. Cosa succede se in ciascuna simulazione esaminiamo i risultati di 10,000 lanci della moneta?
+In questo secondo caso, gli errori tendono ad essere più piccoli che nel caso precedente. Cosa succede se in ciascuna simulazione esaminiamo i risultati di 10,000 lanci della moneta?
 
 ```{r}
 for(i in 1:10) {
@@ -170,9 +170,9 @@ Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stim
 
 ## La legge dei grandi numeri
 
-La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere qjello che accade all'aumentare del numero $M$ di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento $P(Y = 1)$ in funzione del numero di ripetizioni dell'esperimento casuale per ogni $m \in 1:M$. Possiamo ottenere un grafico dell'andamento della stima di $P(Y = 1)$ in funzione di $m$ come: 
+La visualizzazione mediante grafici contribuisce alla comprensione dei concetti della statistica e della teoria delle probabilità. Un modo per descrivere ciò che accade all'aumentare del numero $M$ di ripetizioni del lancio della moneta consiste nel registrare la stima della probabilità dell'evento $P(Y = 1)$ in funzione del numero di ripetizioni dell'esperimento casuale per ogni $m \in 1:M$. Possiamo ottenere un grafico dell'andamento della stima di $P(Y = 1)$ in funzione di $m$ nel modo seguente: 
 
-```{r legge-grandi-n-1, cache=TRUE, fig.cap="Stima della probabilità di successo in funzione del numero di lanci di una moneta."}
+```{r legge-grandi-n-1, cache=TRUE, fig.cap="Stima della probabilità di successo in funzione del numero dei lanci di una moneta."}
 nrep <- 1e4
 estimate <- rep(NA, nrep)
 flip_coin <- function(m) {
@@ -188,41 +188,40 @@ d <- tibble(
   estimate
 )
 d %>% 
-  ggplot(
-    aes(x = n, y = estimate)
-  ) +
+  ggplot(aes(x = n, y = estimate)) +
   geom_line() +
-  theme(legend.title = element_blank()) +
   labs(
     x = "Numero di lanci della moneta", 
-    y = "Stima Pr[Y = 1]"
+    y = "Stima di P(Y = 1)"
 )
 ```
 
-Dato che il grafico \@ref(fig:legge-grandi-n-1) espresso su una scala lineare non rivela chiaramente l'andamento della simulazione, imponiamo una scala logaritmica sull'asse delle ascisse ($x$). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osserva tra i valori 50 e 700, eccetera.
+Dato che la figura \@ref(fig:legge-grandi-n-1) espressa su una scala lineare non rivela chiaramente l'andamento della simulazione, imponiamo una scala logaritmica sull'asse delle ascisse ($x$). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osserva tra i valori 50 e 700, eccetera.
 
-```{r legge-grandi-n-2, fig.cap="Stima della probabilità di successo in funzione del numero di lanci di una moneta -- scala logaritmica."}
-d %>% 
-  ggplot(
-    aes(x = n, y = estimate)
-  ) +
+```{r legge-grandi-n-2, fig.cap="Stima della probabilità di successo in funzione del numero dei lanci di una moneta."}
+d %>%
+  ggplot(aes(x = n, y = estimate)) +
   geom_line() +
-  scale_x_log10(
-    breaks = c(1, 3, 10, 50, 200, 
-               700, 2500, 10000)
+  geom_hline(
+    yintercept = 0.5, color = "gray", size = 1
   ) +
-  theme(legend.title = element_blank()) +
+  scale_x_log10(
+    breaks = c(
+      1, 3, 10, 50, 200,
+      700, 2500, 10000
+    )
+  ) +
   labs(
-    x = "Numero di lanci della moneta", 
-    y = "Stima Pr[Y = 1]"
-)
+    x = "Numero dei lanci della moneta (scala logaritmica)",
+    y = "Stima di P(Y = 1)"
+  )
 ```
 
 La _legge dei grandi numeri_ ci dice che, all'aumentare del numero di ripetizioni dell'esperimento casuale, la media dei risultati ottenuti tende al valore atteso, man mano che vengono eseguite più prove. Nella figura \@ref(fig:legge-grandi-n-2) vediamo infatti che, all'aumentare del numero _M_ di lanci della moneta, la stima di $P(Y = 1)$ converge al valore 0.5.
 
 ## Variabili casuali multiple
 
-Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una singola variabile casuale _Y_ che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. I risultati di ciascuno dei tre lanci possono essere rappresentati da una diversa variabile casuale, ad esempio, $Y_1 , Y_2 , Y_3$. Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Ognuna di queste variabili $Y_n$ per $n \in 1:3$ ha $P(Y_n =1)=0.5$ e $P(Y_n =0)=0.5$. 
+Le variabili casuali non esistono isolatamente. Abbiamo iniziato con una sola variabile casuale $Y$ che rappresenta il risultato di un singolo, specifico lancio di una moneta equlibrata. Ma supponiamo ora di lanciare la moneta tre volte. I risultati di ciascuno dei tre lanci possono essere rappresentati da una diversa variabile casuale, ad esempio, $Y_1 , Y_2 , Y_3$. Possiamo assumere che ogni lancio sia indipendente, ovvero che non dipenda dal risultato degli altri lanci. Per ciascuna di queste variabili $Y_n$, con $n \in 1:3$, abbiamo che $P(Y_n =1)=0.5$ e $P(Y_n =0)=0.5$. 
 
 È possibile combinare più variabili casuali usando le operazioni aritmetiche. Se $Y_1 , Y_2, Y_3$ sono variabili casuali che rappresentano tre lanci di una moneta equilibrata (o un lancio di tre monete equilibrate), possiamo definire la somma di tali variabili casuali come
 
@@ -299,9 +298,7 @@ $$
 
 ## Funzione di massa di probabilità {#sec:fun-mass-prob}
 
-È conveniente avere una funzione che associa ogni possibile valore di una variabile casuale alla sua probabilità. In generale, ciò è possibile se e solo se la variabile casuale è discreta, così com'è stata definita nel Paragrafo precedente.
-
-Ad esempio, se consideriamo $Z = Y_1 + \dots + Y_4$ come il numero di risultati "testa" in 4 lanci della moneta, allora possiamo definire la seguente funzione:
+È conveniente avere una funzione che associa una probabilità a ciascun possibile valore di una variabile casuale. In generale, ciò è possibile se e solo se la variabile casuale è discreta, così com'è stata definita nel Paragrafo precedente. Ad esempio, se consideriamo $Z = Y_1 + \dots + Y_4$ come il numero di risultati "testa" in 4 lanci della moneta, allora possiamo definire la seguente funzione:
 
 $$
 \begin{array}{rclll}
@@ -319,19 +316,17 @@ $$
 
 Il lancio di quattro monete può produrre sedici possibili risultati. Dato che i lanci sono indipendenti e le monete sono equilibrate, ogni possibile risultato è ugualmente probabile. Nella tabella in alto, le sequenze dei risultati possibili del lancio delle 4 monete sono riportate nella colonna più a destra. Le probabilità si ottengono dividendo il numero di sequenze che producono lo stesso numero di eventi testa per il numero dei risultati possibili.
 
-La funzione $p_Z$ è stata costruita per mappare un valore $u$ per $Z$ alla probabilità dell'evento $Z = u$. Convenzionalmente, queste probabilità sono scritte come
+La funzione $p_Z$ è stata costruita per associare a ciascun valore $u$ della variabile casuale $Z$ la probabilità dell'evento $Z = u$. Convenzionalmente, queste probabilità sono scritte come
 
 $$
 P_Z(z) = \mbox{P}(Z = z).
 $$ 
 
-La parte a destra dell'uguale si può leggere come: "la probabilità che la variabile casuale $Z$ assuma il valore $z$".
-
-Una funzione definita come sopra è detta _funzione di massa di probabilità_ della variabile casuale $Z$. Ad ogni variabile casuale discreta è associata un'unica funzione di massa di probabilità.
+La parte a destra dell'uguale si può leggere come: "la probabilità che la variabile casuale $Z$ assuma il valore $z$". Una funzione definita come sopra è detta _funzione di massa di probabilità_ della variabile casuale $Z$. Ad ogni variabile casuale discreta è associata un'unica funzione di massa di probabilità.
 
 Una rappresentazione grafica della stima della funzione di massa di probabilità per l'esperimento casuale del lancio di quattro monete equilibrate è fornita nella figura \@ref(fig:barplot-mdf-4coins).
 
-```{r barplot-mdf-4coins, fig.cap="Grafico di $M = 100\\,000$ simulazioni della funzione di massa di probabilità di una variabile casuale definita come il numero di teste in quattro lanci di una moneta equilibrata."}
+```{r barplot-mdf-4coins, fig.cap="Grafico di $M = 100,000$ simulazioni della funzione di massa di probabilità di una variabile casuale definita come il numero di teste in quattro lanci di una moneta equilibrata."}
 set.seed(1234)
 M <- 1e5
 nflips <- 4
@@ -343,16 +338,14 @@ for (n in 0:nflips) {
 }
 bar_plot <-
   data.frame(Z = x, count = y) %>%
-  ggplot(
-    aes(x = Z, y = count)
-  ) +
+  ggplot(aes(x = Z, y = count)) +
   geom_bar(stat = "identity") +
   scale_x_continuous(
     breaks = 0:4,
     labels = c(0, 1, 2, 3, 4)
   ) +
   labs(
-    y = "Probabilità stimata Pr[Z = z]"
+    y = "Probabilità stimata P(Z = z)"
   )
 bar_plot
 ```
@@ -363,21 +356,32 @@ $P_{z}$. Mediante una distribuzione di probabilità $P_{z}$ è dunque
 possibile determinare la probabilità di ciascun sottoinsieme
 $A \subset Z$ come 
 
-$$
+\begin{equation}
 P_{z}(A) = \sum_{z \in A} P_{z}(Z).
-$$
+\end{equation}
+
+Una funzione di massa di probabilità soddisfa le proprietà $0 \leq P(X=x) \leq 1$ e $\sum_{x \in X} P(x) = 1$.
+
 
 ::: {.example}
-Nel caso dell'esempio discusso nella Sezione \@ref(sec:fun-mass-prob), la probabilità che la variabile casuale $Z$ sia un numero dispari è
+Nel caso dell'esempio discusso nel Paragrafo \@ref(sec:fun-mass-prob), la probabilità che la variabile casuale $Z$ sia un numero dispari è
 
 $$
 P(\text{Z è un numero dispari}) = P_{z}(Z = 1) + P_{z}(Z = 3) = \frac{4}{16} + \frac{4}{16} = \frac{1}{2}.
 $$
 ::: 
 
+### Funzione di ripartizione
+
+Data una variabile casuale discreta $X$ possiamo calcolare la probabilità che  $X$ non superi un certo valore $x$, ossia la sua _funzione di ripartizione_. Poichè $X$ assume valori discreti possiamo cumulare le probabilità mediante una somma:
+
+\begin{equation}
+F(x_k) = P(X \leq x_k) = \sum_{x \leq x_k} P(x).
+\end{equation}
+
 ## Commenti e considerazioni finali {-}
 
-In questo capitolo abbiamo visto come si costruisce lo spazio campione di un esperimento casuale, quali sono le proprietà di base della probabilità e come si assegnano le probabilità agli eventi definiti sopra uno spazio campione discreto. Abbiamo anche introdotto le nozioni di "variabile casuale", ovvero di una variabile che prende i suoi valori casualmente. E abbiamo descritto il modo di specificare la probabilità con cui sono presi i differenti valori, ovvero la funzione di distribuzione probabilistica $F(X) = P(X < x)$, e la funzione di massa di probabilità. Le procedure di analisi dei dati psicologici che discuteremo in seguito faranno un grande uso di questi concetti e della notazione qui introdotta.
+In questo capitolo abbiamo visto come si costruisce lo spazio campione di un esperimento casuale, quali sono le proprietà di base della probabilità e come si assegnano le probabilità agli eventi definiti sopra uno spazio campione discreto. Abbiamo anche introdotto le nozioni di variabile casuale, ovvero di una variabile che assume i suoi valori in maniera casuale. Abbiamo descritto il modo di specificare la probabilità con cui sono una variabile casuale assume i suoi differenti valori, ovvero la funzione di ripartizione $F(X) = P(X < x)$ e la funzione di massa di probabilità. 
 
 
 

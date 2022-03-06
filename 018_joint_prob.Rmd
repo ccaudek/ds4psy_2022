@@ -8,19 +8,19 @@ La probabilità congiunta è la probabilità che due o più eventi si verifichin
 
 ## Funzione di probabilità congiunta
 
-Dopo aver trattato della distribuzione di probabilità di una variabile casuale, la quale associa ad ogni evento elementare dello spazio campionario uno ed un solo numero reale, è naturale estendere questo concetto al caso di due o più variabili casuali. 
+Dopo aver trattato della distribuzione di probabilità di una variabile casuale, la quale associa ad ogni evento elementare dello spazio campione uno ed un solo numero reale, è naturale estendere questo concetto al caso di due o più variabili casuali. 
 
-Iniziamo a descrivere il caso discreto con un esempio. Consideriamo l'esperimento casuale corrispondente al lancio di tre monete equilibrate. Lo spazio campionario è
+Iniziamo a descrivere il caso discreto con un esempio. Consideriamo l'esperimento casuale corrispondente al lancio di tre monete equilibrate. Lo spazio campione è
 
 $$
 \Omega = \{TTT, TTC, TCT, CTT, CCT, CTC, TCC, CCC\}.
 $$ 
 
-Dato che i tre lanci sono tra loro indipendenti, non c'è ragione di aspettarsi che uno degli otto risultati possibili dell'esperimento sia più probabile degli altri, dunque possiamo associare a ciascuno degli otto eventi elementari dello spazio campionario la stessa probabilità, ovvero 1/8.
+Dato che i tre lanci sono tra loro indipendenti, non c'è ragione di aspettarsi che uno degli otto risultati possibili dell'esperimento sia più probabile degli altri, dunque possiamo associare a ciascuno degli otto eventi elementari dello spazio campione la stessa probabilità, ovvero 1/8.
 
-Siano $X \in \{0, 1, 2, 3\}$ = "numero di realizzazioni con il risultato testa nei tre lanci" e $Y \in \{0, 1\}$ = "numero di realizzazioni con il risultato testa nel primo lancio" due variabili casuali definite sullo spazio campionario $\Omega$. Indicando con T = 'testa' e C = 'croce', si ottiene la situazione riportata nella tabella \@ref(tab:tre-monete-distr-cong-1).
+Siano $X \in \{0, 1, 2, 3\}$ = "numero di realizzazioni con il risultato testa nei tre lanci" e $Y \in \{0, 1\}$ = "numero di realizzazioni con il risultato testa nel primo lancio" due variabili casuali definite sullo spazio campione $\Omega$. Indicando con T = 'testa' e C = 'croce', si ottiene la situazione riportata nella tabella \@ref(tab:tre-monete-distr-cong-1).
 
-Table: (\#tab:tre-monete-distr-cong-1) Spazio campionario dell'esperimento consistente nel lancio di tre monete equilibrate su cui sono state definite le variabili aleatorie $X$ e $Y$.
+Table: (\#tab:tre-monete-distr-cong-1) Spazio campione dell'esperimento consistente nel lancio di tre monete equilibrate su cui sono state definite le variabili aleatorie $X$ = 'numero di realizzazioni con il risultato testa nei tre lanci' e $Y$ = 'numero di realizzazioni con il risultato testa nel primo lancio'.
 
        $\omega$       $X$   $Y$   $P(\omega)$
   ------------------ ----- ----- -------------
@@ -33,7 +33,7 @@ Table: (\#tab:tre-monete-distr-cong-1) Spazio campionario dell'esperimento consi
    $\omega_7$ = TCC    1     1        1/8
    $\omega_8$ = CCC    0     0        1/8
 
-Ci poniamo il problema di associare un livello di probabilità ad ogni coppia $(x, y)$ definita su $\Omega$. La coppia $(X = 0, Y = 0)$ si realizza in corrispondenza di un solo evento elementare, ovvero CCC; avrà dunque una probabilità pari a $P(X=0, Y=0) = P(CCC) = 1/8$. Nel caso della coppia $(X = 1, Y = 0)$ ci sono due eventi elementari che danno luogo al risultato considerato, ovvero, CCT e CTC; la probabilità $P(X=1, Y=0)$ sarà dunque data dalla probabilità dell'unione dei due eventi elementari, cioé $P(X=1, Y=0) = P(CCT \:\cup\: CTC) = 1/8 + 1/8 = 1/4$. Sono riportati qui sotto i calcoli per tutti i possibili valori di $X$ e $Y$.
+Ci poniamo il problema di associare un valore di probabilità ad ogni coppia $(x, y)$ definita su $\Omega$. La coppia $(X = 0, Y = 0)$ si realizza in corrispondenza di un solo evento elementare, ovvero CCC; avrà dunque una probabilità pari a $P(X=0, Y=0) = P(CCC) = 1/8$. Nel caso della coppia $(X = 1, Y = 0)$ ci sono due eventi elementari che danno luogo al risultato considerato, ovvero, CCT e CTC. La probabilità dell'evento composto $P(X=1, Y=0)$ è uguale alla somma delle probabilità dei due eventi elementari che lo costituiscono, cioé $P(X=1, Y=0) = P(\mbox{CCT}) + P(\mbox{CTC}) = 1/8 + 1/8 = 1/4$. Sono riportati qui sotto i calcoli per tutti i possibili valori di $X, Y$.
 
 \begin{align}
 P(X = 0, Y = 0) &= P(\omega_8 = CCC) = 1/8; \notag\\
@@ -55,23 +55,25 @@ Table: (\#tab:ditr-cong-biv-1) Distribuzione di probabilità congiunta per i ris
       2       1/8   2/8  
       3        0    1/8  
 
-In generale, possiamo dire che, dato uno spazio campionario discreto $\Omega$, è possibile associare ad ogni evento elementare $\omega_i$ dello spazio campionario una coppia di numeri reali $(x, y)$, essendo $x = X(\omega)$ e $y = Y(\omega)$, il che ci conduce alla seguente definizione.
+In generale, possiamo dire che, dato uno spazio campione discreto $\Omega$, è possibile associare ad ogni evento elementare $\omega_i$ dello spazio campione una coppia di numeri reali $(x, y)$, essendo $x = X(\omega)$ e $y = Y(\omega)$, il che ci conduce alla seguente definizione.
 
 ::: {.definition}
-Siano $X$ e $Y$ due variabili casuali. La funzione che associa ad ogni coppia $(x, y)$ un livello di probabilità prende il nome di funzione di probabilità congiunta:
+Siano $X$ e $Y$ due variabili casuali. La funzione che associa ad ogni coppia $(x, y)$ un valore di probabilità prende il nome di funzione di probabilità congiunta:
 
-$$
+\begin{equation}
 P(x, y) = P(X = x, Y = y).
-$$
+\end{equation}
 ::: 
 
 Il termine "congiunta" deriva dal fatto che questa probabilità è legata al verificarsi di una coppia di valori, il primo associato alla variabile casuale $X$ ed il secondo alla variabile casuale $Y$. Nel caso di due sole variabili casuali si parla di distribuzione bivariata, mentre nel caso di più variabili casuali si parla di distribuzione multivariata.
 
+::: {.remark}
 La regola della catena, $P(A \cap B) = P(A)P(B \mid A)$, permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate. Nel caso di 4 eventi, per esempio, la regola della catena diventa
 
 $$
 P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3).
 $$
+:::
 
 ### Proprietà
 
@@ -90,12 +92,12 @@ $$
 Si noti che dalla probabilità congiunta possiamo calcolare la probabilità di qualsiasi evento definito in base alle variabili aleatorie $X$ e $Y$. Per capire come questo possa essere fatto, consideriamo nuovamente l'esperimento casuale discusso in precedenza.
 
 ::: {.exercise}
-Per la distribuzione di massa di probabilità congiunta riportata nella tabella precedente si trovi la probabilità dell'evento $X+Y \leq 1$.
+Per la distribuzione di massa di probabilità congiunta riportata nella tabella \@ref(tab:ditr-cong-biv-1) si trovi la probabilità dell'evento $X+Y \leq 1$.
 
-Per trovare la probabilità richiesta dobbiamo semplicemente sommare le probabilità associate a tutte le coppie $(x,y)$ che soddisfano la condizione $X+Y \leq 1$, ovvero
+Per trovare la probabilità richiesta dobbiamo sommare le probabilità associate a tutte le coppie $(x,y)$ che soddisfano la condizione $X+Y \leq 1$, ovvero
 
 \begin{equation}
-P_{XY}(X+Y \leq 1) = P_{XY}(0, 0) + P_{XY}(1, 0)= 3/8.\notag
+P_{XY}(X+Y \leq 1) = P_{XY}(0, 0)+ P_{XY}(0, 1) + P_{XY}(1, 0) = 3/8.\notag
 \end{equation}
 ::: 
 
@@ -134,71 +136,6 @@ Table: (\#tab:ditr-cong-biv) Distribuzione di probabilità congiunta $p(x,y)$ pe
             3             0    1/8    1/8
          $P(y)$          4/8   4/8    1.0
 
-:::
-
-## Indipendenza stocastica incondizionata
-
-In precedenza abbiamo visto come l'indipendenza stocastica di due eventi $A$ e $B$ si ha quando il verificarsi di uno non modifica la probabilità di verificarsi dell'altro, ovvero quando $P(A \mid B = P(A)$ e $P(B \mid A) = P(B)$. Queste due condizioni si possono sintetizzare con la formula $P(A \cap B) = P(A) P(B)$.
-
-Analogamente, quando si afferma che due variabili casuali $X$ e $Y$ definite sullo stesso spazio campionario $\Omega$ sono indipendenti si afferma che conoscere qualcosa riguardo al valore di una di esse non apporta alcuna informazione circa il valore dell'altra. Formalmente, questo si verifica quando
-
-\begin{equation}
-P(X, Y)\, = P_X(x)P_Y(y).
-\end{equation}
-
-Nel caso discreto, dunque, l'indipendenza implica che la probabilità riportata in ciascuna cella della tabella di probabilità congiunta deve essere uguale al prodotto delle probabilità marginali di riga e di colonna:
-
-$$
-P(x_i, y_i)\, = P_X(x_i) P_Y(y_i).
-$$
-
-::: {.exercise}
-Per la situazione rappresentata nella tabella \@ref(tab:ditr-cong-biv) le variabili casuali $X$ e $Y$ sono indipendenti?
-
-Nella tabella le variabili casuali $X$ e $Y$ non sono indipendenti: le probabilità congiunte non sono ricavabili dal prodotto delle marginali. Per esempio, nessuna delle probabilità marginali è uguale a $0$ per cui nessuno dei valori dentro la tabella (probabilità congiunte) che risulta essere uguale a $0$ può essere il prodotto delle probabilità marginali.
-:::
-
-## Indipendenza condizionata tra eventi
-
-Sebbene l'indipendenza incondizionata sia una proprietà utile, non capita spesso di incontrare due eventi indipendenti. Una situazione più comune è quando due eventi sono indipendenti dato un terzo evento. Ad esempio, supponiamo di voler ragionare sulla possibilità che uno studente che è in possesso di un titolo di laurea triennale venga accettato al Corso di Laurea Magistrale (CdL) $A$ o al CdL Magistrale $B$. Nella maggior parte dei casi, questi due eventi non sono indipendenti. Se apprendiamo che lo studente è stato accettato al CdL $A$, la nostra stima della sua probabilità che venga accettato al CdL $B$ è ora più alta, poiché è aumentata la nostra credenza che lo studente in questione sia uno studente "promettente".
-
-Ora, supponiamo che entrambi i CdL basino le loro decisioni unicamente sul voto di laurea triennale (chiamiamolo $C$) dello studente e supponiamo di sapere che, per lo  studente in questione, $C = 105/110$. In questo caso, apprendere che lo studente è stato ammesso al CdL $A$ non cambia la probabilità che venga ammesso al CdL $B$: il suo voto di laurea $V$ fornisce tutte le informazioni rilevanti circa la possibilità che lo studente venga ammesso al CdL $A$; sapere che è stato ammesso al CdL $B$ non aggiunge niente a tutto ciò. Formalmente, possiamo scrivere
-
-\begin{equation}
-P(A \mid B \cap C) = P(A \mid B)
-\end{equation}
-
-Se la condizione precedente si verifica, gli eventi $A$ e $B$ si dicono condizionatamente indipendenti dall'evento $C$. 
-
-Alternativamente, possiamo dire che gli eventi $A$ e $B$ sono condizionatamente indipendenti dall'evento $C$ se e solo se
-
-\begin{equation}
-P(A \mid B \cap C) = P(A \mid C) P(B \mid C),
-\end{equation}
-
-oppure, maniera equivalente se
-
-$$
-P(A \mid B, C)= P(A \mid C).
-$$
-
-Poiché la probabilità di $A$ dato $C$ è uguale alla probabilità di $A$ dati sia $B$ che $C$, questa uguaglianza esprime il fatto che $B$ non aggiunge  nulla alla nostra conoscenza della probabilità di $A$.
-
-Solitamente, l'indipendenza condizionata viene indicata utilizzando la notazione $(A \indep B \mid C)$. 
-
-
-## Indipendenza di variabili casuali
-
-Siano $X, Y, Z$ tre variabili casuali. Diciamo che $X$ è condizionatamente indipendente da $Y$ data $Z$ in una distribuzione $P$ se $P$ soddisfa $(X=x \indep Y=y \mid Z=z)$ per tutti i valori $x \in X$, $y \in Y$ e $z \in Z$. Se l'insieme $Z$ è vuoto, invece di scrivere $(X \indep Y \mid \emptyset)$, scriviamo $(X \mid Y)$ e diciamo che $X$ e $Y$ sono _marginalmente indipendenti_.
-
-Da ciò segue la seguente definizione alternativa di indipendenza condizionata. 
-
-:::{.definition}
-La distribuzione $P$ soddisfa $(X \indep Y \mid Z)$ se e solo se 
-
-$$
-P(X, Y \mid Z) = (X \mid Z)P(Y \mid Z).
-$$
 :::
 
 ## Marginalizzazione di variabili casuali continue {#sec:margin-vc-cont}

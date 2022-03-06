@@ -19,16 +19,17 @@ Sia $(H_i)_{i\geq 1}$ una partizione dell'evento certo $\Omega$  e sia $E \subse
 
 La formula di Bayes contiene tre concetti fondamentali. I primi due distinguono il grado di fiducia precedente al verificarsi dell'evidenza $E$ da quello successivo al verificarsi dell'evidenza $E$. Pertanto, dati gli eventi $H, E \subseteq \Omega$
 
-- si definisce _probabilità a priori_ la probabilità che viene attribuita al verificarsi di $H$ prima di sapere che si è verificato l'evento $E$, seguendo l'approccio bayesiano, ovvero tenendo conto delle caratteristiche cognitive del decisore (esperienza, modo di pensare, ecc.);
-- si definisce _probabilità a posteriori_ la probabilità assegnata ad $H$, una volta che sia noto $E$, ovvero l'aggiornamento della probabilità a priori alla luce della nuova evidenza $E$. 
+- si definisce _probabilità a priori_ la probabilità che viene attribuita al verificarsi dell'ipotesi $H$ prima di sapere che si è verificato l'evento $E$,  tenendo conto delle caratteristiche cognitive del decisore (esperienza, modo di pensare, ecc.);
+- si definisce _probabilità a posteriori_ la probabilità assegnata ad $H$ una volta che sia noto $E$, ovvero l'aggiornamento della probabilità a priori alla luce della nuova evidenza $E$. 
 
 Il terzo concetto definisce la probabilità che ha l'evento $E$ di verificarsi quando è vera l'ipotesi $H$, ovvero la probabilità dell'evidenza in base all'ipotesi. Pertanto, dati gli eventi $H, E \subseteq \Omega$
 
-- si definisce _verosimiglianza_ di $H$ dato $E$, la probabilità condizionata che si verifichi $E$, se è vera $H$: $P (E \mid H)$. 
+- si definisce _verosimiglianza_ di $H$ dato $E$ la probabilità condizionata che si verifichi $E$, se è vera $H$: $P (E \mid H)$. 
 
-Si noti che per il calcolo della quantità a denominatore si ricorre al teorema della probabilità assoluta.
+Si noti che, per il calcolo della quantità a denominatore, si ricorre al teorema della probabilità assoluta.
 
-Per fare un esempio concreto, considerando una partizione dell'evento certo $\Omega$ in due soli eventi che chiamiamo ipotesi $H_1$ e $H_2$. Supponiamo conosciute le probabilità a priori $P(H_1)$ e $P(H_2)$. Consideriamo un terzo evento $E \subseteq \Omega$ con probabilità non nulla di cui si conosce la verosimiglianza, ovvero si conoscono le probabilità condizionate  ${\mbox{P}}(E \mid H_1)$ e $P(E \mid H_2)$. Supponendo che si sia verificato l'evento $E$, vogliamo conoscere le probabilità a posteriori delle ipotesi, ovvero $P(H_1 \mid E)$ e $P(H_2 \mid E)$. 
+::: {.exercise}
+Per fare un esempio, considerando una partizione dell'evento certo $\Omega$ in due soli eventi che chiamiamo ipotesi $H_1$ e $H_2$. Supponiamo conosciute le probabilità a priori $P(H_1)$ e $P(H_2)$. Consideriamo un terzo evento $E \subseteq \Omega$ con probabilità non nulla di cui si conosce la verosimiglianza, ovvero si conoscono le probabilità condizionate  ${\mbox{P}}(E \mid H_1)$ e $P(E \mid H_2)$. Supponendo che si sia verificato l'evento $E$, vogliamo conoscere le probabilità a posteriori delle ipotesi, ovvero $P(H_1 \mid E)$ e $P(H_2 \mid E)$. 
 
 ```{tikz echo=FALSE, fig.cap="", fig.ext='png', fig.width = 2, cache=TRUE, out.width="45%"}
 \usetikzlibrary{
@@ -75,7 +76,7 @@ Sostituendo tale risultato nella formula precedente otteniamo:
 (\#eq:bayes1)
 \end{equation}
 
-Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes quando abbiamo risolto l'esercizio riportato nella Sezione \@ref(sec:bayes-cancer). In quel caso, le due ipotesi erano "malattia presente", che possiamo denotare con $M$, e "malattia assente", $M^\complement$. L'evidenza $E$ è costituita dal risultato positivo al test, ovvero $+$. Con questa nuova notazione la \@ref(eq:bayes1) diventa:
+Un lettore attento si sarà reso conto che, in precedenza, abbiamo già applicato il teorema di Bayes quando abbiamo risolto l'esercizio riportato nella Sezione \@ref(sec:bayes-cancer). In quel caso, le due ipotesi erano "malattia", che possiamo denotare con $M$, e "malattia assente", $M^\complement$. L'evidenza $E$ è costituita dal risultato positivo al test, ovvero $+$. Con questa nuova notazione la \@ref(eq:bayes1) diventa:
 
 \begin{equation}
 {\mbox{P}}(M \mid +) = \frac{{\mbox{P}}(+ \mid M) {\mbox{P}}(M)}{{\mbox{P}}(+ \mid M) {\mbox{P}}(M) + {\mbox{P}}(+ \mid M^\complement) {\mbox{P}}(M^\complement)}\notag
@@ -87,7 +88,7 @@ Inserendo i dati nella formula, otteniamo
 {\mbox{P}}(M \mid +) &= \frac{0.9 \cdot 10/1000}{0.9 \cdot 10/1000 + 99 / 990 \cdot 990 / 1000} \notag\\
 &= \frac{9}{108}.\notag
 \end{align}
-
+:::
 
 ## Commenti e considerazioni finali {-}
 

@@ -172,15 +172,15 @@ Un'altra misura di tendenza centrale delle variabili casuali continue è la moda
 La seconda più importante proprietà di una variabile casuale, dopo che conosciamo il suo valore atteso, è la _varianza_.
 
 ::: {.definition}
-Se $Y$ è una variabile casuale discreta con distribuzione $p(y)$, per definizione la varianza di $Y$, $\Var(Y)$, è  
+Se $Y$ è una variabile casuale discreta con distribuzione $p(y)$, per definizione la varianza di $Y$, $\mathbb{V}(Y)$, è  
 
 \begin{equation}
-\Var(Y) = \E\Big[\big(Y - \E(Y)\big)^2\Big].
+\mathbb{V}(Y) = \E\Big[\big(Y - \E(Y)\big)^2\Big].
 (\#eq:def-var-rv)
 \end{equation}
 :::
 
-A parole: la varianza è la deviazione media quadratica della variabile dalla sua media.^[Data una variabile casuale $Y$ con valore atteso $\E(Y)$, le "distanze" tra i valori di $Y$ e il valore atteso $\E(Y)$ definiscono la variabile casuale $Y - \E(Y)$ chiamata _scarto_, oppure _deviazione_ oppure _variabile casuale centrata_. La variabile $Y - \E(Y)$ equivale ad una traslazione di sistema di riferimento che porta il valore atteso nell'origine degli assi. Si può dimostrare facilmente che il valore atteso della variabile scarto $Y - \E(Y)$ vale zero, dunque la media di tale variabile non può essere usata per quantificare la "dispersione" dei valori di $Y$ relativamente al suo valore medio. Occorre rendere sempre positivi i valori di $Y - \E(Y)$ e tale risultato viene ottenuto considerando la variabile casuale $\left(Y - \E(Y)\right)^2$.] Se denotiamo $\E(Y) = \mu$, la varianza $\Var(Y)$ diventa il valore atteso di $(Y - \mu)^2$.  
+A parole: la varianza è la deviazione media quadratica della variabile dalla sua media.^[Data una variabile casuale $Y$ con valore atteso $\E(Y)$, le "distanze" tra i valori di $Y$ e il valore atteso $\E(Y)$ definiscono la variabile casuale $Y - \E(Y)$ chiamata _scarto_, oppure _deviazione_ oppure _variabile casuale centrata_. La variabile $Y - \E(Y)$ equivale ad una traslazione di sistema di riferimento che porta il valore atteso nell'origine degli assi. Si può dimostrare facilmente che il valore atteso della variabile scarto $Y - \E(Y)$ vale zero, dunque la media di tale variabile non può essere usata per quantificare la "dispersione" dei valori di $Y$ relativamente al suo valore medio. Occorre rendere sempre positivi i valori di $Y - \E(Y)$ e tale risultato viene ottenuto considerando la variabile casuale $\left(Y - \E(Y)\right)^2$.] Se denotiamo $\E(Y) = \mu$, la varianza $\mathbb{V}(Y)$ diventa il valore atteso di $(Y - \mu)^2$.  
 
 ::: {.exercise}
 Posta $S$ uguale alla somma dei punti ottenuti nel lancio di due dadi equilibrati, poniamoci il problema di calcolare la varianza di $S$.
@@ -195,7 +195,7 @@ La variabile casuale $S$ ha la seguente distribuzione di probabilità:
 Essendo $\E(S) = 7$, la varianza diventa
 
 \begin{align}
-\Var(S) &= \sum \left(S- \mathbb{E}(S)\right)^2 \cdot P(S) \notag\\
+\mathbb{V}(S) &= \sum \left(S- \mathbb{E}(S)\right)^2 \cdot P(S) \notag\\
 &= (2 - 7)^2 \cdot 0.0278 + (3-7)^2 \cdot 0.0556 + \dots + (12 - 7)^2 \cdot 0.0278 \notag\\
 &= 5.8333.\notag
 \end{align}
@@ -213,7 +213,7 @@ C'è un modo più semplice per calcolare la varianza:
 dato che $\E(Y)$ è una costante; pertanto
 
 \begin{equation}
-\Var(Y) = \E(Y^2) - \big(\E(Y) \big)^2.
+\mathbb{V}(Y) = \E(Y^2) - \big(\E(Y) \big)^2.
 (\#eq:def-alt-var-rv)
 \end{equation}
 
@@ -229,7 +229,7 @@ $$
 Usando la formula tradizionale della varianza otteniamo:
 
 $$
-\Var(Y) = (0 - 0.8)^2 \cdot 0.2 + (1 - 0.8)^2 \cdot 0.8 = 0.16.
+\mathbb{V}(Y) = (0 - 0.8)^2 \cdot 0.2 + (1 - 0.8)^2 \cdot 0.8 = 0.16.
 $$
 Lo stesso risultato si trova con la formula alternativa della varianza. Il valore atteso di $Y^2$ è
 
@@ -239,7 +239,7 @@ $$
 e la varianza diventa
 
 $$
-\Var(Y) = \E(Y^2) - \big(\E(Y) \big)^2 = 0.8 - 0.8^2 = 0.16.
+\mathbb{V}(Y) = \E(Y^2) - \big(\E(Y) \big)^2 = 0.8 - 0.8^2 = 0.16.
 $$
 ::: 
 
@@ -248,7 +248,7 @@ $$
 Nel caso di una variabile casuale continua $Y$, la varianza diventa:
 
 \begin{equation}
-\Var(Y) = \int_{-\infty}^{+\infty} \large[y - \E(Y)\large]^2 p(y) \,\operatorname {d}\!y
+\mathbb{V}(Y) = \int_{-\infty}^{+\infty} \large[y - \E(Y)\large]^2 p(y) \,\operatorname {d}\!y
 (\#eq:def-var-rv-cont)
 \end{equation}
 
@@ -262,7 +262,7 @@ Quando lavoriamo con le varianze, i termini sono innalzati al quadrato e quindi 
 Si definisce scarto quadratico medio (o deviazione standard o scarto tipo) la radice quadrata della varianza: 
 
 \begin{equation}
-\sigma_Y = \sqrt{\Var(Y)}.
+\sigma_Y = \sqrt{\mathbb{V}(Y)}.
 (\#eq:def-sd)
 \end{equation}
 ::: 
@@ -306,54 +306,271 @@ Se $X$ è una v.c. discreta, i suoi momenti valgono:
 I momenti sono importanti parametri indicatori di certe proprietà di $X$. I più
 noti sono senza dubbio quelli per $q = 1$ e $q = 2$. Il momento del primo ordine corrisponde al valore atteso di $X$. Spesso i momenti di ordine superiore al primo vengono calcolati rispetto al valor medio di $X$, operando una traslazione $x_0 = x − \E(X)$ che individua lo scarto dalla media. Ne deriva che il momento centrale di ordine 2 corrisponde alla varianza.
 
-<!-- ## Funzione di ripartizione -->
+## Covarianza
 
-<!-- Il concetto di funzione di ripartizione è molto importante nella teoria della probabilità, sia nel caso discreto, sia in quello continuo. L'insieme $\{\omega: Y \leq y\}$ è un evento in $\Omega$ e si può scrivere $(Y \leq y)$. A tale evento è possibile assegnare una probabilità $P(Y \leq y)$ che, al variare di $y \in \mathbb{R}$, definisce la funzione di ripartizione della variabile casuale $Y$. -->
+La covarianza quantifica la tendenza delle variabili aleatorie $X$ e $Y$ a ``variare assieme''. Per esempio, l'altezza e il peso delle giraffe producono una covarianza positiva perché all'aumentare di una di queste due quantità tende ad aumentare anche l'altra. La covarianza misura la forza e la direzione del legame lineare tra due variabili aleatorie $X$ ed $Y$. Si utilizza la notazione $\mbox{Cov}(X,Y)=\sigma_{xy}$.
 
-<!-- :::{.definition} -->
-<!-- Si chiama *funzione di ripartizione* o *funzione di distribuzione* della variabile casuale $X$ la funzione $F(X)$ definita da -->
+::: {.definition}
+Date due variabili aleatorie $X$, $Y$, chiamiamo covarianza tra $X$ ed $Y$ il numero
 
-<!-- \begin{equation} -->
-<!-- F(X) \triangleq P(X \le x), \qquad x \in \mathbb{R}. -->
-<!-- (\#eq:funrip) -->
-<!-- \end{equation} -->
-<!-- ::: -->
+\begin{equation}
+\mbox{Cov}(X,Y) = \mathbb{E}\Bigl(\bigl(X - \mathbb{E}(X)\bigr) \bigl(Y - \mathbb{E}(Y)\bigr)\Bigr),
+\end{equation}
 
-<!-- Detto a parole: la funzione di distribuzione cumulata, o funzione di ripartizione di $X$, misura la probabilità che $X$ assuma valori minori o uguali al valore $x$. -->
+dove $\mathbb{E}(X)$ e $\mathbb{E}(Y)$ sono i valori attesi di $X$ ed $Y$.
+:::
 
-<!-- La funzione di ripartizione è sempre non negativa, monotona non decrescente tra $0$ e $1$, tale che: -->
+In maniera esplicita,
 
-<!-- $$ -->
-<!-- \lim_{x \to -\infty} F_x(X) = F_X(-\infty) = 0, \quad \lim_{x \to +\infty} F_X(X) = F_X(+\infty) = 1. -->
-<!-- $$ -->
+\begin{equation}
+\mbox{Cov}(X,Y) = \sum_{(x,y) \in \Omega} (x - \mu_X) (y - \mu_Y) f(x, y).
+\label{eq:cov_def}
+\end{equation}
 
-<!-- ::: {.exercise} -->
-<!-- Consideriamo l'esperimento casuale corrispondente al lancio di due monete. Sia $X$ il numero di volte in cui esce testa. La distribuzione di probabilità di $X$ è: -->
+La definizione è  analoga, algebricamente, a quella di varianza e risulta infatti
 
-<!-- $$ -->
-<!-- P(X) =  -->
-<!-- \begin{cases} -->
-<!--     0, & 0.25,\\ -->
-<!--     1, & 0.50,\\ -->
-<!--     2, & 0.25. -->
-<!-- \end{cases} -->
-<!-- $$ -->
-<!-- La funzione di ripartizione di $X$ è: -->
+\begin{equation}
+\mathbb{V}(x) = cov(X, X)
+\end{equation}
 
-<!-- $$ -->
-<!--     F(X) =  -->
-<!-- \begin{cases} -->
-<!--     0,   & \text{se } x < 0,\\ -->
-<!--     1/4, & \text{se } 0 \leq x < 1,\\ -->
-<!--     3/4, & \text{se } 1 \leq x < 2,\\ -->
-<!--      1,  & \text{se } 2 \leq x. -->
-<!-- \end{cases} -->
-<!-- $$ -->
+e
 
-<!-- Il valore della funzione di ripartizione in corrispondenza di $x = 1.5$, ad esempio, è: -->
+\begin{equation}
+\mbox{Cov}(X,Y) = \mathbb{E}(XY) - \mathbb{E}(Y)\mathbb{E}(X).
+\label{eq:cov_vc_alt}
+\end{equation}
 
-<!-- $$ -->
-<!-- F(1.5) = P(X \leq 1.5) = P(X=0) + P(X=1) = \frac{1}{4} + \frac{2}{4} = \frac{3}{4}. -->
-<!-- $$ -->
-<!-- ::: -->
+:::{.proof}
+La proprietà precedente si dimostra nel modo seguente:
+
+\begin{align}
+\mbox{Cov}(X,Y) &= \mathbb{E}\Bigl(\bigl(X-\mathbb{E}(X)\bigr) \bigl(Y-\mathbb{E}(Y)\bigr)\Bigr)\notag\\
+          %&= \mathbb{E}(XY) - \mathbb{E}(Y)X -\mathbb{E}(X)Y + \mathbb{E}(X)\mathbb{E}(Y) )\notag\\
+          &= \mathbb{E}(XY) - \mathbb{E}(Y)\mathbb{E}(X) - \mathbb{E}(X)\mathbb{E}(Y) + \mathbb{E}(X)\mathbb{E}(Y)\notag\\
+          &= \mathbb{E}(XY) - \mathbb{E}(Y)\mathbb{E}(X)\notag.
+\end{align}
+:::
+
+:::{.exercise}
+Consideriamo le variabili casuali definite nell'Esercizio 2.4. Si calcoli la covarianza di $X$ e $Y$.
+
+Abbiamo che $\mu_X = 1.5$ e $\mu_Y = 0.5$. Ne segue che la covarianza di $X$ e $Y$ è:
+
+\begin{equation}
+\begin{split}
+\mbox{Cov}(X,Y) &= \sum_{(x,y) \in\ \Omega} (x - \mu_X) (y - \mu_Y) f(x, y)\\
+&= (0-1.5)(0-0.5)\cdot \frac{1}{8} + (0-1.5)(1-0.5) \cdot 0 \\
+   &\hskip0.05\textwidth\relax + (1-1.5)(0-0.5)\cdot \frac{2}{8} + (1-1.5)(1-0.5) \cdot \frac{1}{8} \\
+    &\hskip0.05\textwidth\relax + (2-1.5)(0-0.5) \cdot \frac{1}{8} + (2-1.5)(1-0.5) \cdot \frac{2}{8} \\
+   &\hskip0.05\textwidth\relax + (3-1.5)(0-0.5) \cdot 0 +  (3-1.5)(1-0.5)\cdot\frac{1}{8} \\
+   &= \frac{1}{4}. \notag
+ \end{split}
+\end{equation}
+
+Lo stesso risultato può essere trovato nel modo seguente. Iniziamo a calcolare il valore atteso del prodotto $XY$:
+
+$$
+\mathbb{E}(XY) = 0 \cdot\frac{4}{8} + 1 \cdot\frac{1}{8} + 2 \cdot\frac{2}{8} + 3 \cdot\frac{1}{8} = 1.0.
+$$
+
+Dunque, la covarianza tra $X$ e $Y$ diventa
+
+\begin{align}
+\mbox{Cov}(X,Y) &= \mathbb{E}(XY) - \mathbb{E}(X)\mathbb{E}(Y)\notag\\
+ &= 1 -  1.5\cdot 0.5 \notag\\
+ &= 0.25.\notag
+\end{align}
+:::
+
+## Correlazione
+
+La covarianza dipende dall'unità di misura delle due variabili e quindi non consente di stabilire l'intensità della relazione.
+Una misura standardizzata della relazione che intercorre fra due variabili è invece rappresentata  dalla correlazione. La correlazione si ottiene dividendo la covarianza per le deviazioni standard delle due variabili aleatorie.
+
+:::{.defn}
+Il coefficiente di correlazione tra $X$ ed $Y$ è il numero definito da
+
+\begin{equation}
+\rho(X,Y) =\frac{\mbox{Cov}(X,Y)}{\sqrt{\mathcal{V}(X)\mathcal{V}(Y)}}.
+\end{equation}
+:::
+
+Si può anche scrivere $\rho_{X,Y}$ al posto di $\rho(X,Y)$.
+
+Il coefficiente di correlazione $\rho_{xy}$ è un numero puro, cioè non
+dipende dall'unità di misura delle variabili, e assume valori compresi tra -1 e +1.
+
+## Proprietà
+
+- La covarianza tra una variabile aleatoria $X$ e una costante $c$ è nulla:
+
+\begin{equation}
+\mbox{Cov}(c,X) = 0,
+\end{equation}
+
+- la covarianza è simmetrica:
+
+\begin{equation}
+\mbox{Cov}(X,Y) = \mbox{Cov}(Y,X),
+\end{equation}
+
+- vale
+
+\begin{equation}
+ -1 \leq \rho(X,Y) \leq 1,
+\end{equation}
+
+- la correlazione non dipende dall'unità di misura:
+
+\begin{equation}
+ \rho(aX, bY) = \rho(X,Y), \qquad \forall a, b > 0,
+\end{equation}
+
+- se $Y = a + bX$ è una funzione lineare di $X$ con costanti $a$ e $b$, allora $\rho(X,Y) = \pm 1$, a seconda del segno di $b$,
+- la covarianza tra $X$ e $Y$, ciascuna moltiplicata per una costante, è uguale al prodotto delle costanti per la covarianza tra $X$ e $Y$:
+
+\begin{equation}
+\mbox{Cov}(aX,bY) = ab \;\mbox{Cov}(X,Y), \qquad \forall a,b \in \Real,
+\end{equation}
+
+- vale
+
+\begin{equation}
+\mathbb{V}(X \pm Y) = \mathbb{V}(X) + \mathbb{V}(Y) \pm 2 \cdot \mbox{Cov}(X,Y),
+\end{equation}
+
+- vale
+
+\begin{equation}
+\mbox{Cov}(X + Y, Z) = \mbox{Cov}(X,Z) + \mbox{Cov}(Y,Z),
+\end{equation}
+
+- per una sequenza di variabili aleatorie $X_1, \dots, X_n$, si ha
+
+ \begin{equation}
+ \mathbb{V}\left( \sum_{i=1}^n X_i\right) = \sum_{i=1}^n
+ \mathbb{V}(X_i) + 2\sum_{i,j: i<j}cov(X_i, X_j),
+\end{equation}
+
+- vale
+
+\begin{equation}
+\mbox{Cov}\left(\sum_{i=1}^n a_i X_i, \sum_{j=1}^m b_jY_j\right) = \sum_{i=1}^n \sum_{j=1}^m a_j b_j\mbox{Cov}(X_j, Y_j),
+\end{equation}
+
+- se $X_1, X_2, \dots, X_n$ sono indipendenti, allora
+
+\begin{equation}
+\mbox{Cov}\left(\sum_{i=1}^n a_i X_i, \sum_{j=1}^n b_jX_j\right) = \sum_{i=1}^n a_i b_i \mathbb{V}(X_i).
+\end{equation}
+
+
+### Incorrelazione
+
+Si dice che $X$ ed $Y$ sono incorrelate, o linermente indipendenti, se la loro covarianza è nulla,
+
+\begin{equation}
+\sigma_{XY} = \mathbb{E} \big[(X - \mu_X) (y-\mu_u) \big] = 0,
+\end{equation}
+
+che si può anche scrivere come
+
+\begin{equation}
+\rho_{XY} = 0, \quad \mathbb{E}(XY) = \mathbb{E}(X) \mathbb{E}(Y).
+\end{equation}
+
+Si introduce così un secondo tipo di indipendenza, più debole, dopo quello di indipendenza stocastica. Viceversa, però, se $\mbox{Cov}(X, Y) = 0$, non è detto che $X$ ed $Y$ siano indipendenti.
+
+
+:::{.exercise}
+Siano $X$ e $Y$ due variabili aleatorie discrete avente una distribuzione di massa di probabilità congiunta pari a
+
+$$
+f_{XY}(x,y) = \frac{1}{4} \quad (x,y) \in \{(0,0), (1,1), (1, -1), (2,0) \}
+$$
+
+e zero altrimenti. Si calcoli la covarianza $\rho_{XY}$. Le due variabili aleatorie $X$ e $Y$ sono mutuamente indipendenti?
+
+La distribuzione marginale della $X$ è
+
+$$
+\begin{cases}
+X = 0, \quad  P_X = 1/4, \\
+X = 1, \quad P_X = 2/4, \\
+X = 2, \quad P_X = 1/4.
+\end{cases}
+$$
+
+$$
+\mathbb{E}(X) = 0 \frac{1}{4} + 1 \frac{2}{4} + 2 \frac{1}{4} = 1.
+$$
+
+$$
+\mathbb{E}(X^2) = 0^2 \frac{1}{4} + 1^2 \frac{2}{4} + 2^2 \frac{1}{4} = \frac{3}{2}.
+$$
+
+$$
+\mathbb{V}(X) = \frac{3}{2} - 1^2 = \frac{1}{2}.
+$$
+
+La distribuzione marginale della $Y$ è
+
+$$
+\begin{cases}
+Y = -1, \quad  P_Y = 1/4, \\
+Y = 0, \quad P_Y = 2/4, \\
+Y = 1, \quad P_Y = 1/4.
+\end{cases}
+$$
+
+$$
+\mathbb{E}(Y) = 0 \frac{2}{4} + 1 \frac{1}{4} + (-1) \frac{1}{4} = 0.
+$$
+
+$$
+\mathbb{E}(Y^2) = 0^2 \frac{2}{4} + 1^2 \frac{1}{4} + (-1)^2 \frac{1}{4} = \frac{1}{2}.
+$$
+
+$$
+\mathbb{V}(X) = \frac{1}{2} - 0^2 = \frac{1}{2}.
+$$
+
+Calcoliamo ora la covarianza tra $X$ e $Y$:
+
+$$
+\mathbb{E}(XY) = \sum_x\sum_y xy f_{XY} (x,y) =
+(0\cdot 0)\frac{1}{4} +
+(1\cdot 1)\frac{1}{4} +
+(1\cdot -1)\frac{1}{4} +
+(2\cdot 0)\frac{1}{4} = 0.
+$$
+
+$$
+\mbox{Cov}(X,Y) = \mathbb{E}(XY) - \mathbb{E}(X)\mathbb{E}(Y) = 0 - 1\cdot0 = 0.
+$$
+
+Quindi le due variabili aleatorie hanno covarianza pari a zero. Tuttavia, esse non sono indipendenti, in quanto non è vero che
+
+$$
+f_{XY} (x,y) = f_X(x) f_Y(y)
+$$
+
+per tutti gli $x$ e $y$. In conclusione, anche se condizione di indipendenza implica una covarianza nulla, questo esempio mostra come l'inverso non sia necessariamente vero. La covarianza può essere zero anche quando le due variabili aleatorie non sono indipendenti.
+:::
+
+## Conclusioni {-}
+
+La densità di probabilità congiunta bivariata tiene simultaneamente conto del comportamento di due variabili aleatorie $X$ e $Y$ e di come esse si influenzino. Se $X$ e $Y$ sono legate linearmente, allora il coefficiente di correlazione
+
+\begin{equation}
+\rho = \frac{\mbox{Cov}(X, Y)}{\sigma_X \sigma_Y}\notag
+\end{equation}
+
+fornisce l'indice maggiormente utilizzato per descrivere l'intensità e il segno dell'associazione lineare. Nel caso di un'associazione lineare perfetta, $Y = a + bX$, avremo $\rho = 1$ con $b$ positivo ed $\rho = -1$ con $b$ negativo. Se il coefficiente di correlazione è pari a 0 le variabili si dicono incorrelate. Condizione sufficiente (ma non necessaria) affinché $\rho = 0$ è che le due variabili siano tra loro indipendenti.
+
+
+
+
+
+
 

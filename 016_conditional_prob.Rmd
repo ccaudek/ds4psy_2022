@@ -10,12 +10,11 @@ Il fondamento della statistica bayesiana è il teorema di Bayes e il teorema di 
 
 L'attribuzione di una probabilità ad un evento è sempre condizionata dalle conoscenze che abbiamo a disposizione. Per un determinato stato di conoscenze, attribuiamo ad un dato evento una certa probabilità di verificarsi; ma se il nostro stato di conoscenze cambia, allora cambierà anche la probabilità che attribuiremo all'evento in questione. Infatti, si può pensare che tutte le probabilità siano probabilità condizionate, anche se l'evento condizionante non è sempre esplicitamente menzionato. 
 
-Per introdurre la probabilità condizionata, @albert2019probability utilizzando il famoso paradosso delle tre carte. "Ci sono tre carte, delle quali la prima (A) è rossa su entrambi i lati, la seconda (B) su un lato è rossa e sull'altro è bianca e la terza (C) è bianca su entrambi i lati. Ponendo su un tavolo una delle tre carte, scelta a caso, ottengo che il lato visibile è di colore rosso. Qual è la probabilità che anche il lato non visibile sia di colore rosso? La risposta intuitiva porta solitamente a rispondere che la probabilità ricercata sia pari al 50%, in quanto solo due carte (la A e la B) possono mostrare il colore rosso e solo una di queste (la A) può mostrare anche sull'altro lato il colore rosso; tuttavia si dimostra che la risposta giusta è 2/3." (da Wikipedia)
+Per introdurre la probabilità condizionata, @albert2019probability utilizzando il famoso paradosso delle tre carte. "Ci sono tre carte, delle quali la prima ($A$) è rossa su entrambi i lati, la seconda ($B$) su un lato è rossa e sull'altro è bianca e la terza ($C$) è bianca su entrambi i lati. Ponendo su un tavolo una delle tre carte, scelta a caso, ottengo che il lato visibile è di colore rosso. Qual è la probabilità che anche il lato non visibile sia di colore rosso? La risposta intuitiva porta solitamente a rispondere che la probabilità ricercata sia pari al 50%, in quanto solo due carte (la $A$ e la $B$) possono mostrare il colore rosso e solo una di queste (la $A$) può mostrare anche sull'altro lato il colore rosso; tuttavia si dimostra che la risposta giusta è 2/3." (da Wikipedia)
 
-@albert2019probability propongono di risolvere il problema con una simulazione in $\textsf{R}$: prima di tutto si sceglie una carta a caso, e poi si sceglie un lato della carta. Ci sono tre carte possibili, che chiamiamo "c_rossa", "c_bianca", e "c_entrambi". Per la carta rossa, ci sono due lati rossi; per la carta bianca ci sono due lati bianchi e la carta "entrambi" ha un lato rosso e un lato bianco. Ripetiamo l'esperimento 1,000 volte e classifichiamo i risultati per tipo di carta e lato:
+@albert2019probability propongono di risolvere il problema con una simulazione in $\textsf{R}$: prima di tutto si sceglie una carta a caso, e poi si sceglie un lato della carta. Ci sono tre carte possibili, che chiamiamo "c_rossa", "c_bianca", e "c_entrambi". Per la carta rossa, ci sono due lati rossi; per la carta bianca ci sono due lati bianchi e la carta "entrambi" ha un lato rosso e un lato bianco. 
 
 ```{r}
-set.seed(84735)
 df <- tibble(
   Carta = c(
     "c_rossa", "c_rossa", "c_bianca", "c_bianca", "c_entrambi", 
@@ -26,18 +25,26 @@ df <- tibble(
   )
 )
 df
-carte <- sample_n(df, 1000, replace = TRUE)
+```
+
+Estraiamo una carta a caso e classifichiamo il risultato ottenuto in base al  tipo di carta e lato osservato. Ripetiamo l'esperimento 1,000 volte:
+
+```{r}
+set.seed(84735)
+carte <- sample_n(df, 1e3, replace = TRUE)
 table(carte$Carta, carte$Lato)
 ```
 
-Se si osserva il colore rosso (seconda colonna nella tabella precedente), questo risultato è dovuto ad una carta rossa in 344 casi e ad una carta "entrambi" in 160 casi. Quindi, nella simulazione il colore rosso (344 + 160) è associato ad una carta rossa in circa 2/3 dei casi -- ciò significa che, se i lato visibile è di colore rosso, allora c'è una probabilità di 2/3 che anche il lato non visibile sia di colore rosso. Questo esempio dimostra come le nostre intuizioni a proposito della probabilità condizionata non sono sempre corrette. Consideriamo un altro problema più articolato.
+Se si osserva il colore rosso (seconda colonna nella tabella precedente), questo risultato è dovuto ad una carta $A$ ("rossa") in 344 casi e ad una carta $B$ ("entrambi") in 160 casi. Quindi, nella simulazione il risultato per cui è stato osservato un colore rosso (344 + 160) è associato ad una carta $A$ ("rossa") in circa 2/3 dei casi -- se il lato visibile è di colore rosso, allora c'è una probabilità di 2/3 che anche il lato non visibile sia di colore rosso. 
+
+Questo esempio dimostra come le nostre intuizioni a proposito della probabilità condizionata non sono sempre corrette. Consideriamo un altro problema più articolato.
 
 ::: {.exercise}
-Supponiamo che lo screening per la diagnosi precoce del tumore mammario si avvalga di test che sono accurati al 90%, nel senso che il 90% delle donne con cancro e il 90% delle donne senza cancro saranno classificate correttamente. Supponiamo che l'1% delle donne sottoposte allo screening abbia effettivamente il cancro al seno. Ci chiediamo: qual è la probabilità che una donna scelta casualmente abbia una mammografia positiva e, se ce l'ha, qual è la probabilità che abbia davvero il cancro?
+Supponiamo che lo screening per la diagnosi precoce del tumore mammario si avvalga di un test che è accurato al 90%, nel senso che classifica correttamente il 90% delle donne colpite dal cancro e il 90% delle donne che non hanno il cancro al seno. Supponiamo che l'1% delle donne sottoposte allo screening abbia effettivamente il cancro al seno (e d'altra parte, il 99% non lo ha). Ci chiediamo: (1) qual è la probabilità che una donna scelta a caso ottenga una mammografia positiva, e (2) se la mammografia è positiva, qual è la probabilità che vi sia effettivamente un tumore al seno?
 
 Per risolvere questo problema, supponiamo che il test in questione venga somministrato ad un grande campione di donne, diciamo a 1000 donne. Di queste 1000 donne, 10 (ovvero, l'1%) hanno il cancro al seno. Per queste 10 donne, il test darà un risultato positivo in 9 casi (ovvero, nel 90% dei casi). Per le rimanenti 990 donne che non hanno il cancro al seno, il test darà un risultato positivo in 99 casi (se la probabilità di un vero positivo è del 90%, la probabilità di un falso positivo è del 10%). Questa situazione è rappresentata nella figura \@ref(fig:mammografia). 
 
-Combinando i due risultati precedenti, vediamo che il test dà un risultato positivo per 9 donne che hanno effettivamente il cancro al seno e per 99 donne che non ce l'hanno, per un totale di 108 risultati positivi. Dunque, la probabilità di ottenere un risultato positivo al test è $\frac{108}{1000}$ = 11%. Ma delle 108 donne che hanno ottenuto un risultato positivo al test, solo 9 hanno il cancro al seno. Dunque, la probabilità di avere il cancro, dato un risultato positivo al test, è pari a $\frac{9}{108}$ = 8%.
+Combinando i due risultati precedenti, vediamo che il test dà un risultato positivo per 9 donne che hanno effettivamente il cancro al seno e per 99 donne che non ce l'hanno, per un totale di 108 risultati positivi. Dunque, la probabilità di ottenere un risultato positivo al test è $\frac{108}{1000}$ = 11%. Ma delle 108 donne che hanno ottenuto un risultato positivo al test, solo 9 hanno il cancro al seno. Dunque, la probabilità di essere una donna che ha veramente il cancro al seno, dato un risultato positivo al test, è pari a $\frac{9}{108}$ = 8%.
 
 ```{r mammografia, echo=FALSE, fig.cap="Rappresentazione ad albero che riporta le frequenze attese dei risultati di una mammografia in un campione di 1,000 donne.", out.width = '77%'}
 knitr::include_graphics("images/mammografia.png")
@@ -46,7 +53,7 @@ knitr::include_graphics("images/mammografia.png")
 
 Nell'esercizio precedente, la probabilità dell'evento "ottenere un risultato positivo al test" è una probabilità non condizionata, mentre la probabilità dell'evento "avere il cancro al seno, dato che il test ha prodotto un risultato positivo" è una probabilità condizionata. 
 
-In termini generali, la probabilità condizionata $P(A \mid B)$ rappresenta la probabilità che si verifichi l'evento $A$ sapendo che si è verificato l'evento $B$. Ciò ci conduce alla seguente definizione.
+In termini generali, la probabilità condizionata $P(A \mid B)$ rappresenta la probabilità che si verifichi l'evento $A$ sapendo che si è verificato l'evento $B$. Arriviamo dunque alla seguente definizione.
 
 ::: {.definition}
 Dato un qualsiasi evento $A$, si chiama *probabilità condizionata* di
@@ -60,7 +67,7 @@ P(A \mid B) = \frac{P(A \cap B)}{P(B)}, \quad \text{con}\, P(B) > 0,
 dove $P(A\cap B)$ è la _probabilità congiunta_ dei due eventi, ovvero la probabilità che si verifichino entrambi.
 :::
 
-Concludiamo con un problema veramente semplice per consolidare la nostra comprensione del concetto di probabilità condizionata. 
+Concludiamo con un problema molto semplice per consolidare la nostra comprensione del concetto di probabilità condizionata. 
 
 ::: {.exercise}
 Da un mazzo di 52 carte (13 carte per ciascuno dei 4 semi) ne viene estratta una in modo casuale. Qual è la probabilità che esca una figura di cuori? Sapendo che la carta estratta ha il seme di cuori, qual è la probabilità che il valore numerico della carta sia 7, 8 o 9?
@@ -78,7 +85,7 @@ Ci sono 13 carte di cuori, dunque la risposta alla prima domanda è 1/4 (probabi
 
 ## La regola moltiplicativa
 
-Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La regola moltiplicativa (o legge delle probabilità composte, o regola della catena) afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
+Dalla definizione di probabilità condizionata è possibile esprimere la probabilità congiunta tramite le condizionate. La *regola moltiplicativa* (o *legge delle probabilità composte*, o *regola della catena*) afferma che la probabilità che si verifichino due eventi $A$ e $B$ è pari alla probabilità di uno dei due eventi moltiplicato con la probabilità dell'altro evento condizionato al verificarsi del primo:
 
 \begin{equation}
 P(A \cap B) = P(B)P(A \mid B) = P(A)P(B \mid A).
@@ -165,6 +172,25 @@ P(B \mid A) &= P(B).
 \end{split}
 \end{equation}
 
+::: {.exercise}
+Nel lancio di due dadi non truccati, si considerino gli eventi: $A$ = {esce un 1 o un 2 nel primo lancio} e $B$ = {il punteggio totale è 8}. Gli eventi $A$ e $B$ sono indipendenti?
+
+Rappresentiamo qui sotto lo spazio campione dell'esperimento casuale.
+
+```{r sampling-space-dice, echo=FALSE, out.width = '70%', fig.cap="Rappresentazione dello spazio campionario dei risultati dell'esperimento casuale corrispondente al lancio di due dadi bilanciati. Sono evidenziati gli eventi elementari che costituiscono l'evento $B$: 'il punteggio totale è 8'."}
+knitr::include_graphics("images/sampling-space-dice.png")
+```
+
+Gli eventi $A$ e $B$ non sono statisticamente indipendenti. Infatti, le loro probabilità valgono $P(A) = 12/36$ e $P(B) = 5/36$ e la probabilità della loro intersezione è
+
+$$
+P(A \cap B) = 1/36 = 3/108 \neq P(A)P(B) = 5/108.
+$$
+::: 
+
+::: {.remark}
+Il concetto di indipendenza è del tutto differente da quello di incompatibilità. Si noti infatti che due eventi _A_ e _B_ incompatibili (per i quali si ha $A \cap B = \emptyset$) sono statisticamente dipendenti, poiché il verificarsi dell'uno esclude il verificarsi dell'altro: $P(A \cap B)=0  \neq P(A)P(B)$.
+::: 
 
 ## Il teorema della probabilità totale
 
@@ -204,27 +230,6 @@ $$
 A_i\cap A_j=\varnothing, i\neq j \Rightarrow P\left(\bigcup_{i=1}^n A_i\right)=\sum_{i=1}^nP(A_i).
 $$
 
-::: {.exercise}
-Nel lancio di due dadi non truccati, si considerino gli eventi: _A_ = {esce un 1 o un 2 nel primo lancio} e _B_ = {il punteggio totale è 8}. Gli eventi _A_ e _B_ sono indipendenti?
-
-Rappresentiamo qui sotto lo spazio campionario dell'esperimento casuale.
-
-```{r sampling-space-dice, echo=FALSE, out.width = '70%', fig.cap="Rappresentazione dello spazio campionario dei risultati dell'esperimento casuale corrispondente al lancio di due dadi bilanciati. Sono evidenziati gli eventi elementari che costituiscono l'evento A: esce un 1 o un 2 nel primo lancio."}
-knitr::include_graphics("images/sampling-space-dice.png")
-```
-
-Gli eventi _A_ e _B_ non sono statisticamente indipendenti. Infatti, le loro probabilità valgono _P_(A) = 12/36 e _P_(B) = 5/36 e la probabilità della loro intersezione è
-
-$$
-P(A \cap B) = 1/36 = 3/108 \neq P(A)P(B) = 5/108.
-$$
-::: 
-
-::: {.remark}
-Il concetto di indipendenza è del tutto differente da quello di incompatibilità. Si noti infatti che due eventi _A_ e _B_ incompatibili (per i quali si ha $A \cap B = \emptyset$) sono statisticamente dipendenti, poiché il verificarsi dell'uno esclude il verificarsi dell'altro: $P(A \cap B)=0  \neq P(A)P(B)$.
-::: 
-
-
 ## Il teorema della probabilità assoluta
 
 Il teorema della probabilità assoluta consente di calcolare la probabilità di un evento $E$ di cui sono note le probabilità condizionate rispetto ad altri eventi $(H_i)_{i\geq 1}$, a condizione che essi costituiscano una partizione dell'evento certo $\Omega$, ovvero 
@@ -239,7 +244,7 @@ Nel caso di una partizione dello spazio campione in $n$ sottoinsiemi abbiamo
 {\mbox{P}}(E)=\sum _{{i=1}}^{n}{\mbox{P}}(H_{i}\cap E)=\sum _{{i=1}}^{n}{\mbox{P}}(H_{i}){\mbox{P}}(E \mid H_{i}).
 \end{equation}
 
-Consideriamo, ad esempio, una partizione dell'evento certo in tre soli sottoinsiemi.
+Consideriamo, ad esempio, una partizione dell'evento certo in tre sottoinsiemi.
 
 ```{tikz tikz-prob-tot, echo=FALSE, fig.cap = "Partizione dell'evento certo $\\Omega$ in tre sottoinsiemi sui quali viene definito l'evento $E$.", fig.ext = 'png', cache=TRUE}
 \usetikzlibrary{
@@ -341,10 +346,8 @@ $$
 $$
 
 Gli eventi $U_1$, $U_2$ e $U_3$ costituiscono una partizione dello
-spazio campionario in quanto $U_1$, $U_2$ e $U_3$ sono eventi
-mutualmente esclusivi ed esaustivi, ${\mbox{P}}(U_1 \cup U_2 \cup U_3) = 1.0$. In
-base al teorema della probabilità assoluta, la probabilità di estrarre una
-pallina rossa è dunque
+spazio campione in quanto $U_1$, $U_2$ e $U_3$ sono eventi
+mutualmente esclusivi ed esaustivi, ovvero ${\mbox{P}}(U_1 \cup U_2 \cup U_3) = 1.0$. In base al teorema della probabilità assoluta, la probabilità di estrarre una pallina rossa è dunque
 
 $$
 \begin{split}
@@ -365,7 +368,7 @@ $$
 P(A \mid B,C)=P(A \mid C).
 $$
 
-Dato che $P(A \mid B,C)$ è uguale a $P(A \mid C)$, questa uguaglianza corrisponde all'affermazione che $B$ non fornisce alcun contributo alla certezza di $A$. In questo caso si dice che $A$ e $B$ condizionalmente indipendente dato $C$, scritto simbolicamente come: $(A \perp\!\!\!\!\perp B \mid C)$.
+Dato che $P(A \mid B,C)$ è uguale a $P(A \mid C)$, questa uguaglianza corrisponde all'affermazione che $B$ non fornisce alcun contributo alla certezza di $A$. In questo caso si dice che $A$ e $B$ condizionalmente indipendenti dato $C$, scritto simbolicamente come: $(A \perp\!\!\!\!\perp B \mid C)$.
 
 In maniera equivalente, l'indipendenza condizionale $(A \perp\!\!\!\!\perp B \mid C)$ si verifica se:
 
@@ -373,9 +376,9 @@ $$
 P(A, B \mid C) = P(A \mid C) P(B \mid C).
 $$
 
-Un esempio è il seguente (da Wikipedia). Siano due eventi le probabilità che le persone A e B tornino a casa in tempo per la cena, e il terzo evento è il fatto che una tempesta di neve ha colpito la città. Mentre sia A che B hanno una probabilità più piccola di tornare a casa in tempo per cena (di quando non c'è la neve), tali probabilità sono comunque indipendenti l'una dall'altra. Cioè, sapere che A è in ritardo non ci dice nulla sul fatto che B sia in ritardo o meno. (A e B potrebbero vivere in quartieri diversi, percorrere distanze diverse e utilizzare mezzi di trasporto diversi.) Tuttavia, se sapessimo che A e B vivono nello stesso quartiere, usano lo stesso mezzo di trasporto e lavorano nello stesso luogo, allora i due eventi non sarebbero condizionatamente indipendenti.
+Un esempio è il seguente (da Wikipedia). Siano due eventi le probabilità che le persone $A$ e $B$ tornino a casa in tempo per la cena, e il terzo evento è il fatto che una tempesta di neve ha colpito la città. Mentre sia $A$ che $B$ hanno una probabilità più piccola di tornare a casa in tempo per la cena di quando non c'è la neve, tali probabilità sono indipendenti l'una dall'altra. Cioè, sapere che $A$ è in ritardo non ci dice nulla sul fatto che $B$ sia in ritardo o meno -- $A$ e $B$ potrebbero vivere in quartieri diversi, percorrere distanze diverse e utilizzare mezzi di trasporto diversi. Tuttavia, se sapessimo che $A$ e $B$ vivono nello stesso quartiere, usano lo stesso mezzo di trasporto e lavorano nello stesso luogo, allora i due eventi non sarebbero condizionatamente indipendenti.
 
 ## Commenti e considerazioni finali {-}
 
-La probabilità condizionata è importante perché ci fornisce uno strumento per precisare il concetto di indipendenza statistica. Una delle domande più importanti delle analisi statistiche è infatti quella che si chiede se due variabili sono associate tra loro oppure no. In questo Capitolo abbiamo discusso il concetto di indipendenza (come contrapposto al concetto di associazione -- si veda il Capitolo \@ref(chapter-descript)). In seguito vedremo come sia possibile fare inferenza sull'associazione tra variabili.
+La probabilità condizionata è importante perché ci fornisce uno strumento per precisare il concetto di indipendenza statistica. Una delle domande più importanti delle analisi statistiche è infatti quella che si chiede se due variabili siano associate tra loro oppure no. In questo Capitolo abbiamo discusso il concetto di indipendenza (come contrapposto al concetto di associazione). In seguito vedremo come sia possibile fare inferenza sull'associazione tra variabili.
 
