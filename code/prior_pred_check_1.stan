@@ -1,7 +1,7 @@
 
 data {
-  int<lower=0> N;
-  vector[N] x;
+  int<lower=0> N;  
+  vector[N] x; 
 }
 parameters {
   real alpha;

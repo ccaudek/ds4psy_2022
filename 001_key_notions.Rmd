@@ -21,20 +21,10 @@ Un campione è dunque un sottoinsieme della popolazione utilizzato per conoscere
 
 ## Variabili e costanti
 
-Definiamo *variabile statistica* la proprietà (o grandezza) che è
-oggetto di studio nell'analisi dei dati. Una variabile è una proprietà
-di un fenomeno che può essere espressa in più valori sia numerici sia
-categoriali. Il termine "variabile" si contrappone al termine "costante"
-che descrive una proprietà invariante di tutte le unità statistiche.
+Una *variabile* è qualsiasi proprietà o descrittore che può assumere più valori (numerici o categoriali). Una variabile può essere pensata come una domanda a cui il valore è la risposta. Ad esempio, "Quanti anni ha questo partecipante?" “38 anni”. Qui, "età" è la variabile e "38" è il suo valore. La probabilità che la variabile $X$ assuma valore $x$ si scrive $P(X = x)$. Questo è spesso abbreviato in $P(x)$. Possiamo anche esaminare la probabilità di più valori contemporaneamente; per esempio, la probabilità che $X = x$ e $Y = y$ è scritta $P(X = x, Y = y)$ o $P(x, y)$. Si noti che $P(X = 38)$ è interpretato come la probabilità che un individuo selezionato casualmente dalla popolazione abbia 38 anni. Il termine "variabile" si contrappone al termine "costante" che descrive una proprietà invariante di tutte le unità statistiche. 
 
-Si dice *modalità* ciascuna delle varianti con cui una variabile
-statistica può presentarsi. Definiamo *insieme delle modalità* di una
-variabile statistica l'insieme $M$ di tutte le possibili espressioni con
-cui la variabile può manifestarsi. Le modalità osservate e facenti parte
-del campione si chiamano *dati* (si veda la
-Tabella [1.1](#tab:term_st_desc){reference-type="ref"
+Si dice *modalità* ciascuna delle varianti con cui una variabile statistica può presentarsi. Definiamo *insieme delle modalità* di una variabile statistica l'insieme $M$ di tutte le possibili espressioni con cui la variabile può manifestarsi. Le modalità osservate e facenti parte del campione si chiamano *dati* (si veda la Tabella [1.1](#tab:term_st_desc){reference-type="ref"
 reference="tab:term_st_desc"}).
-
 
 ::: {.example}
 Supponiamo che il fenomeno studiato sia l'intelligenza. In uno studio, la popolazione potrebbe corrispondere all'insieme di tutti gli italiani adulti. La variabile considerata potrebbe essere il punteggio del test standardizzato WAIS-IV. Le modalità di tale variabile potrebbero essere $112, 92, 121, \dots$. Tale variabile è di tipo quantitativo discreto.

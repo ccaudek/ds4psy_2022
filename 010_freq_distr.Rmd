@@ -132,6 +132,8 @@ sort(bysubj$bdi)
 Una distribuzione di frequenze è un riepilogo del conteggio della frequenza con cui le modalità osservate in un insieme di dati si verificano in un intervallo di valori.
 :::
 
+In altre parole, la distribuzione di frequenze della variabile $X$ corrisponde all'insieme delle frequenze assegnate a ciascun possibile valore di $X$. 
+
 Per creare una distribuzione di frequenze possiamo procedere effettuando una partizione delle modalità della variabile di interesse in $m$ classi (denotate con $\Delta_i$) tra loro disgiunte. In tale partizione, la classe $i$-esima coincide con un intervallo di valori aperto a destra $[a_i, b_i)$ o aperto a sinistra $(a_i, b_i]$. Ad ogni classe $\Delta_i$ avente $a_i$ e $b_i$ come limite inferiore e superiore associamo l'ampiezza $b_i - a_i$ (non necessariamente uguale per ogni
 classe) e il valore centrale $\bar{x}_i$. La scelta delle classi è arbitraria, ma è buona norma non definire classi con un numero troppo piccolo (\< 5) di osservazioni. Poiché ogni elemento dell'insieme $\{x_i\}_{i=1}^n$ appartiene ad una ed una sola classe $\Delta_i$, possiamo calcolare le quantità elencate di seguito.
 
@@ -206,6 +208,8 @@ Limiti delle classi Frequenza assoluta  Frequenza relativa
 [28.5, 63]          17                  17/66
 
 :::
+
+Insiemi di variabili possono anche avere distribuzioni di frequenze, dette distribuzioni congiunte. La distribuzione congiunta di un insieme di variabili $V$ è l'insieme delle frequenze di ogni possibile combinazione di valori delle variabili in $V$. Ad esempio, se $V$ è un insieme di due variabili, $X$ e $Y$, ciascuna delle quali può assumere due valori, 1 e 2, allora una possibile distribuzione congiunta di frequenze relative per $V$ è $f(X = 1, Y = 1) = 0.2$, $f(X = 1, Y = 2) = 0.1$, $f(X = 2, Y = 1) = 0.5$, $f(X = 2, Y = 2) = 0.2$. Proprio come con le distribuzioni di frequenze relative di una singola variabile, le frequenze relative di una distribuzione congiunta devono sommare a 1.
 
 ## Istogramma
 
@@ -530,5 +534,5 @@ rappresentazione migliore dei dati di @zetschefuture2019. Il seguente [link](htt
 
 ## Commenti e considerazioni finali {-}
 
-Una distribuzione è una rappresentazione del modo in cui le diverse modalità di una variabile si distribuiscono nelle unità statistiche che compongono il campione o la popolazione oggetto di studio. Il modo più diretto per trasmettere descrivere le proprietà della distribuzione di una variabile discreta è quello di fornire una rappresentazione grafica della distribuzione di frequenza. In seguito vedremo la corrispondente rappresentazione che viene usata nel caso delle variabili continue.
+Una distribuzione è una rappresentazione del modo in cui le diverse modalità di una variabile $X$ si distribuiscono nelle unità statistiche che compongono il campione o la popolazione oggetto di studio. Il modo più diretto per trasmettere descrivere le proprietà della distribuzione di una variabile discreta è quello di fornire una rappresentazione grafica della distribuzione di frequenza. In seguito vedremo la corrispondente rappresentazione che viene usata nel caso delle variabili continue.
 

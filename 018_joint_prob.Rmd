@@ -67,13 +67,13 @@ P(x, y) = P(X = x, Y = y).
 
 Il termine "congiunta" deriva dal fatto che questa probabilità è legata al verificarsi di una coppia di valori, il primo associato alla variabile casuale $X$ ed il secondo alla variabile casuale $Y$. Nel caso di due sole variabili casuali si parla di distribuzione bivariata, mentre nel caso di più variabili casuali si parla di distribuzione multivariata.
 
-::: {.remark}
-La regola della catena, $P(A \cap B) = P(A)P(B \mid A)$, permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate. Nel caso di 4 eventi, per esempio, la regola della catena diventa
+<!-- ::: {.remark} -->
+<!-- La regola della catena, $P(A \cap B) = P(A)P(B \mid A)$, permette il calcolo di qualsiasi membro della distribuzione congiunta di un insieme di variabili casuali utilizzando solo le probabilità condizionate. Nel caso di 4 eventi, per esempio, la regola della catena diventa -->
 
-$$
-P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3).
-$$
-:::
+<!-- $$ -->
+<!-- P(A_1, A_2, A_3, A_4) = P(A_1) P(A_2 \mid A_1) P(A_3 \mid A_1, A_2) P(A_4 \mid A_1, A_2, A_3). -->
+<!-- $$ -->
+<!-- ::: -->
 
 ### Proprietà
 
@@ -111,9 +111,9 @@ Nel caso di due variabili casuali discrete $X$ e $Y$ di cui conosciamo la distri
 P(X = x) = \sum_y P(X, Y = y) = \sum_y P(X \mid Y = y) P(Y = y),
 \end{equation}
 
-dove $P(X = x,Y = y)$ è la distribuzione congiunta di $X, Y$, mentre $P(X = x \mid Y = y)$ è la distribuzione condizionata di $X$ dato $Y$. Se esaminiamo $P(X=x)$, diciamo che la variabile $Y$ è stata marginalizzata. Le probabilità bivariate marginali e congiunte per variabili casuali discrete sono spesso mostrate come tabelle di contingenza.
+dove $P(X = x,Y = y)$ è la distribuzione congiunta di $X, Y$, mentre $P(X = x \mid Y = y)$ è la distribuzione condizionata di $X$ dato $Y$. Se esaminiamo $P(X=x)$, diciamo che la variabile $Y$ è stata marginalizzata. 
 
-Si noti che $P(X = x)$ e $P(Y = y)$ sono normalizzate:
+Le probabilità bivariate marginali e congiunte per variabili casuali discrete sono spesso mostrate come tabelle di contingenza. Si noti che $P(X = x)$ e $P(Y = y)$ sono normalizzate:
 
 $$
 \sum_x P(X=x) = 1.0, \quad \sum_y P(Y=y) = 1.0.
@@ -147,44 +147,44 @@ p(y) = \int_{\theta} p(y, \theta) = \int_{\theta} p(y \mid \theta) p(\theta),
 (\#eq:ex-marg-cont)
 \end{equation}
 
-laddove $y$ e $\theta$ sono due variabili casuali continue -- nello specifico, con $y$ denoteremo i dati e con $\theta$ i parametri di un modello statistico. Per ora, possiamo pensare a $y$ e $\theta$ come a due variabili casuali qualsiasi. La \@ref(eq:ex-marg-cont) descrive la distribuzione marginale di $y$. 
+laddove $y$ e $\theta$ sono due variabili casuali continue -- nello specifico, con $y$ denoteremo i dati e con $\theta$ i parametri di un modello statistico. Per ora, possiamo pensare a $y$ e $\theta$ come a due variabili casuali qualsiasi. È possibiile pensare al caso continuo indicato nella \@ref(eq:ex-marg-cont) come all'estensione dell'esempio precedente ad un numero infinito di valori $\theta$.
 
-Per meglio comprendere la \@ref(eq:ex-marg-cont) possiamo esaminare il corrispondente caso discreto nel quale sostituiamo semplicemente l'integrale con una somma, il che ci riporta alla situazione descritta nella Sezione \@ref(sec:marg-distr-discr). Possiamo dunque scrivere:
+<!-- Per meglio comprendere la \@ref(eq:ex-marg-cont) possiamo esaminare il corrispondente caso discreto nel quale sostituiamo semplicemente l'integrale con una somma, il che ci riporta alla situazione descritta nella Sezione \@ref(sec:marg-distr-discr). Possiamo dunque scrivere: -->
 
-\begin{equation}
-p(y) = \sum_{\theta} p(y, \theta) = \sum_{\theta} p(y \mid \theta) p(\theta).
-(\#eq:ex-marginalization)
-\end{equation}
+<!-- \begin{equation} -->
+<!-- p(y) = \sum_{\theta} p(y, \theta) = \sum_{\theta} p(y \mid \theta) p(\theta). -->
+<!-- (\#eq:ex-marginalization) -->
+<!-- \end{equation} -->
 
-Esaminiamo un semplice esempio numerico. Siano $y$ e $\theta$ due variabili discrete aventi la distribuzione di massa di probabilità congiunta riportata nella tabella \@ref(tab:ex-marg).
+<!-- Esaminiamo un semplice esempio numerico. Siano $y$ e $\theta$ due variabili discrete aventi la distribuzione di massa di probabilità congiunta riportata nella tabella \@ref(tab:ex-marg). -->
 
-Table: (\#tab:ex-marg) Distribuzione di probabilità congiunta $p(y, \theta)$ per due variabili casuali discrete.
+<!-- Table: (\#tab:ex-marg) Distribuzione di probabilità congiunta $p(y, \theta)$ per due variabili casuali discrete. -->
 
-         $y / \theta$    0     1    $p(y)$
-  --------------------- ----- ----- --------
-            0            0.1  0.2    0.3
-            1            0.3  0.4    0.7
-    $p(\theta)$          0.4  0.6    1.0
-  --------------------- ----- ----- --------
+<!--          $y / \theta$    0     1    $p(y)$ -->
+<!--   --------------------- ----- ----- -------- -->
+<!--             0            0.1  0.2    0.3 -->
+<!--             1            0.3  0.4    0.7 -->
+<!--     $p(\theta)$          0.4  0.6    1.0 -->
+<!--   --------------------- ----- ----- -------- -->
 
-Applicando la \@ref(eq:ex-marginalization), la distribuzione marginale $p(y) = \{0.3, 0.7\}$ può essere trovata nel modo seguente:
+<!-- Applicando la \@ref(eq:ex-marginalization), la distribuzione marginale $p(y) = \{0.3, 0.7\}$ può essere trovata nel modo seguente: -->
 
-$$
-\begin{pmatrix}
-    0.1 / 0.4 \\
-    0.3 / 0.4
-\end{pmatrix} \cdot 0.4 +
-\begin{pmatrix}
-    0.2 / 0.6 \\
-    0.4 / 0.6
-\end{pmatrix} \cdot 0.6 =
-\begin{pmatrix}
-    0.3 \\
-   0.7
-\end{pmatrix}.
-$$
+<!-- $$ -->
+<!-- \begin{pmatrix} -->
+<!--     0.1 / 0.4 \\ -->
+<!--     0.3 / 0.4 -->
+<!-- \end{pmatrix} \cdot 0.4 + -->
+<!-- \begin{pmatrix} -->
+<!--     0.2 / 0.6 \\ -->
+<!--     0.4 / 0.6 -->
+<!-- \end{pmatrix} \cdot 0.6 = -->
+<!-- \begin{pmatrix} -->
+<!--     0.3 \\ -->
+<!--    0.7 -->
+<!-- \end{pmatrix}. -->
+<!-- $$ -->
 
-È possibiile pensare al caso continuo indicato nella \@ref(eq:ex-marg-cont) come all'estensione dell'esempio presente ad un numero infinito di valori $\theta$.
+<!-- È possibiile pensare al caso continuo indicato nella \@ref(eq:ex-marg-cont) come all'estensione dell'esempio presente ad un numero infinito di valori $\theta$. -->
 
 ## Commenti e considerazioni finali {-}
 

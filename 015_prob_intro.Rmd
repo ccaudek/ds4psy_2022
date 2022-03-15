@@ -1,5 +1,3 @@
-\mainmatter
-
 # (PART) Il calcolo delle probabilità  {-}
 
 # La logica dell'incerto  {#intro-prob-1}
@@ -94,13 +92,17 @@ Il lancio di un dado ci fornisce l'esempio di un altro esperimento casuale. Supp
 
 Sia $Y$ il risultato del lancio di moneta equilibrata, non di un generico lancio di una moneta, ma un'istanza specifica del lancio di una specifica moneta in un dato momento. Definita in questo modo, $Y$ è una _variabile casuale_, ovvero una variabile i cui valori non possono essere previsti con esattezza. Se la moneta è equilibrata, c'è una probabilità del 50% che il lancio della moneta dia come risultato "testa" e una probabilità del 50% che dia come risultato "croce". Per facilitare la trattazione, le variabili casuali assumono solo valori numerici. Per lo specifico lancio della moneta in questione, diciamo, ad esempio, che la variabile casuale $Y$ assume il valore 1 se esce testa e il valore 0 se esce croce.
 
-Una variabile casuale può essere _discreta_ o _continua_. Una variabile casuale discreta può assumere un numero finito di valori $x_1, \dots ,x_n$, in corrispondenza degli eventi $E_i, \dots, E_n$ che si verificano con le rispettive probabilità $p_1, \dots, p_n$. Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'insieme $S$ dei valori che la variabile casuale può assumere è detto _spazio dei valori_ o _spazio degli stati_. La caratteristica fondamentale di una variabile casuale è data dall'insieme delle probabilità dei suoi valori, detta _distribuzione di probabilità_. Nel seguito useremo la notazione $P(\cdot)$ per fare riferimento alle distribuzioni di probabilità delle variabili casuali discrete e $p(\cdot)$ per fare riferimento alla densità di probabilità delle variabili casuali continue. In questo contesto, l'insieme dei valori che la variabile casuale può assumere è detto _supporto_ della sua distribuzione di probabilità. Il supporto di una variabile casuale può essere finito (come nel caso di una variabile casuale uniforme di supporto $[a, b]$) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale). 
+Una variabile casuale può essere _discreta_ o _continua_. Una variabile casuale discreta può assumere un numero finito di valori $x_1, \dots ,x_n$, in corrispondenza degli eventi $E_i, \dots, E_n$ che si verificano con le rispettive probabilità $p_1, \dots, p_n$. Un esempio è il punteggio totale di un test psicometrico costituito da item su scala Likert. Invece un esempio di una variabile casuale continua è la distanza tra due punti, che può assumere infiniti valori all'interno di un certo intervallo. L'insieme $S$ dei valori che la variabile casuale può assumere è detto _spazio dei valori_ o _spazio degli stati_. 
+
+La caratteristica fondamentale di una variabile casuale è data dall'insieme delle probabilità dei suoi valori, detta _distribuzione di probabilità_. Nel seguito useremo la notazione $P(\cdot)$ per fare riferimento alle distribuzioni di probabilità delle variabili casuali discrete e $p(\cdot)$ per fare riferimento alla densità di probabilità delle variabili casuali continue. In questo contesto, l'insieme dei valori che la variabile casuale può assumere è detto _supporto_ della sua distribuzione di probabilità. Il supporto di una variabile casuale può essere finito (come nel caso di una variabile casuale uniforme di supporto $[a, b]$) o infinito (nel caso di una variabile causale gaussiana il cui supporto coincide con la retta reale). 
 
 ## Usare la simulazione per stimare le probabilità
 
 <!-- I metodi basati sulla simulazione consentono di stimare le probabilità degli eventi in un modo diretto, se siamo in grado di generare molteplici e casuali realizzazioni delle variabili casuali coinvolte nelle definizioni degli eventi. -->
 
-In questa dispensa verrà adottata l'interpretazione bayesiana delle probabilità. Tuttavia, le regole di base della teoria delle probabilità sono le stesse, indipendentemente dall'interpretazione adottata. Pertanto, negli esempi seguenti, possiamo utilizzare la simulazione per stimarere le probabilità degli eventi in un modo diretto, ovvero mediante la generazione di molteplici osservazioni delle variabili casuali derivate dagli eventi di interesse. Ad esempio, per simulare in $\R$ il lancio di una moneta equilibrata iniziamo con il definire un vettore che contiene i risultati possibili del lancio della moneta (ovvero i  valori possibili della variabile casuale $Y$):
+In questa dispensa verrà adottata l'interpretazione bayesiana delle probabilità. Tuttavia, le regole di base della teoria delle probabilità sono le stesse, indipendentemente dall'interpretazione adottata. Pertanto, negli esempi seguenti, possiamo utilizzare la simulazione per stimare le probabilità degli eventi in un modo diretto, ovvero mediante la generazione di molteplici osservazioni delle variabili casuali derivate dagli eventi di interesse. 
+
+Ad esempio, per simulare in $\R$ il lancio di una moneta equilibrata iniziamo con il definire un vettore che contiene i risultati possibili del lancio della moneta (ovvero i  valori possibili della variabile casuale $Y$):
 
 ```{r}
 coin <- c(0, 1)
@@ -128,7 +130,7 @@ for (m in 1:M) {
 }
 estimate = sum(y) / M
 
-cat("estimated Pr[Y = 1] =", estimate)
+cat("estimated P[Y = 1] =", estimate)
 ```
 
 Ripetiamo questa procedura 10 volte.
@@ -140,7 +142,7 @@ flip_coin <- function(M) {
     y[m] = rbinom(1, 1, 0.5)
   }
   estimate <- sum(y) / M
-  cat("estimated Pr[Y = 1] =", estimate, "\n")
+  cat("estimated P[Y = 1] =", estimate, "\n")
 }
 ```
 
@@ -150,7 +152,7 @@ for(i in 1:10) {
 }
 ```
 
-Dato che la moneta è equilibrata, la stima delle probabilità dell'evento $Pr[Y = 1]$ è simile a al valore che ci aspettiamo, ovvero $P(Y = 1)$ = 0.5, ma il risultato ottenuto nelle simulazioni non è sempre esatto.  Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
+Dato che la moneta è equilibrata, la stima delle probabilità dell'evento $P(Y = 1)$ è simile a al valore che ci aspettiamo, ovvero $P(Y = 1) = 0.5$, ma il risultato ottenuto nelle simulazioni non è esatto.  Proviamo ad aumentare il numero di lanci in ciascuna simulazione:
 
 ```{r}
 for(i in 1:10) {
@@ -166,7 +168,9 @@ for(i in 1:10) {
 }
 ```
 
-Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stimare (cioè 0.5, perché la moneta è equilibrata). I risultati delle simulazioni precedenti pongono dunque il problema di determinare quale sia il numero di lanci di cui abbiamo bisogno per assicurarci che le stime siano accurate (ovvero, vicine al valore corretto della probabilità)
+Ora le stime ottenute sono molto vicine alla vera probabilità che vogliamo stimare (cioè 0.5, perché la moneta è equilibrata). 
+
+I risultati delle simulazioni precedenti pongono dunque il problema di determinare quale sia il numero di lanci di cui abbiamo bisogno per assicurarci che le stime siano accurate (ovvero, vicine al valore corretto della probabilità)
 
 ## La legge dei grandi numeri
 
@@ -196,7 +200,7 @@ d %>%
 )
 ```
 
-Dato che la figura \@ref(fig:legge-grandi-n-1) espressa su una scala lineare non rivela chiaramente l'andamento della simulazione, imponiamo una scala logaritmica sull'asse delle ascisse ($x$). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osserva tra i valori 50 e 700, eccetera.
+La figura \@ref(fig:legge-grandi-n-1), quando è espressa su una scala lineare, non rivela chiaramente l'andamento della simulazione. Imponiamo dunque una scala logaritmica sull'asse delle ascisse ($x$). Su scala logaritmica, i valori tra 1 e 10 vengono tracciati all'incirca con la stessa ampiezza che si osserva tra i valori 50 e 700, eccetera.
 
 ```{r legge-grandi-n-2, fig.cap="Stima della probabilità di successo in funzione del numero dei lanci di una moneta."}
 d %>%
@@ -272,7 +276,7 @@ for(i in 1:M) {
 }
 ```
 
-e calcolare una stima della probabilità che la variabile casuale $Z$ assuma i valori 0, 1, 2, 3:
+e calcolare una stima della probabilità che la variabile casuale $Z$ assuma ciascuno dei possibili valori 0, 1, 2, 3:
 
 ```{r}
 table(z) / M
@@ -298,7 +302,7 @@ $$
 
 ## Funzione di massa di probabilità {#sec:fun-mass-prob}
 
-È conveniente avere una funzione che associa una probabilità a ciascun possibile valore di una variabile casuale. In generale, ciò è possibile se e solo se la variabile casuale è discreta, così com'è stata definita nel Paragrafo precedente. Ad esempio, se consideriamo $Z = Y_1 + \dots + Y_4$ come il numero di risultati "testa" in 4 lanci della moneta, allora possiamo definire la seguente funzione:
+È conveniente avere una funzione che associa una probabilità a ciascun possibile valore di una variabile casuale. In generale, ciò è possibile se e solo se la variabile casuale è discreta, così com'è stata definita nel Paragrafo precedente. Ad esempio, se consideriamo $Z = Y_1 + \dots + Y_4$ come, ad esempio, il numero di risultati "testa" in 4 lanci della moneta, allora possiamo definire la seguente funzione:
 
 $$
 \begin{array}{rclll}
@@ -314,12 +318,14 @@ p_Z(4) & = & 1/16 & & \mathrm{HHHH}
 \end{array}
 $$
 
-Il lancio di quattro monete può produrre sedici possibili risultati. Dato che i lanci sono indipendenti e le monete sono equilibrate, ogni possibile risultato è ugualmente probabile. Nella tabella in alto, le sequenze dei risultati possibili del lancio delle 4 monete sono riportate nella colonna più a destra. Le probabilità si ottengono dividendo il numero di sequenze che producono lo stesso numero di eventi testa per il numero dei risultati possibili.
+Il lancio di quattro monete può produrre 16 risultati possibili. Dato che i lanci sono indipendenti, se le monete sono equilibrate ogni possibile risultato è ugualmente probabile. Nella tabella in alto, le sequenze dei risultati possibili del lancio delle 4 monete sono riportate nella colonna più a destra. Le probabilità si ottengono dividendo il numero di sequenze che producono lo stesso numero di eventi testa per il numero dei risultati possibili.
+
+Le sequenze come $\mathrm{TTTT}$, $\mathrm{HTTT}$, ecc. sono chiamate "eventi elementari" (corrispondono ad un possibile esito dell'esperimento casuale). L'evento $Z = u$, con $u \in 0 \dots, 4$ è un "evento composto", il quale può essere costituito da più eventi elementari.
 
 La funzione $p_Z$ è stata costruita per associare a ciascun valore $u$ della variabile casuale $Z$ la probabilità dell'evento $Z = u$. Convenzionalmente, queste probabilità sono scritte come
 
 $$
-P_Z(z) = \mbox{P}(Z = z).
+P_Z(z) = P(Z = z).
 $$ 
 
 La parte a destra dell'uguale si può leggere come: "la probabilità che la variabile casuale $Z$ assuma il valore $z$". Una funzione definita come sopra è detta _funzione di massa di probabilità_ della variabile casuale $Z$. Ad ogni variabile casuale discreta è associata un'unica funzione di massa di probabilità.
@@ -357,11 +363,13 @@ possibile determinare la probabilità di ciascun sottoinsieme
 $A \subset Z$ come 
 
 \begin{equation}
-P_{z}(A) = \sum_{z \in A} P_{z}(Z).
+P_{z}(A) = \sum_{z \in A} P_{z}(Z = z).
 \end{equation}
 
-Una funzione di massa di probabilità soddisfa le proprietà $0 \leq P(X=x) \leq 1$ e $\sum_{x \in X} P(x) = 1$.
+Una funzione di massa di probabilità soddisfa le proprietà 
 
+- $0 \leq P(X=x) \leq 1$, 
+- $\sum_{x \in X} P(x) = 1$.
 
 ::: {.example}
 Nel caso dell'esempio discusso nel Paragrafo \@ref(sec:fun-mass-prob), la probabilità che la variabile casuale $Z$ sia un numero dispari è

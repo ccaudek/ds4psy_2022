@@ -47,7 +47,7 @@ Iniziamo con il caricare i pacchetti necessari:
 ```{r, message=FALSE, warning=FALSE, error=FALSE, eval=FALSE}
 library("cmdstanr")
 library("posterior")
-rstan_options(auto_write = TRUE) # avoid recompilation of models
+# rstan_options(auto_write = TRUE) # avoid recompilation of models
 # parallelize across all CPUs
 options(mc.cores = parallel::detectCores()) 
 # improve execution time

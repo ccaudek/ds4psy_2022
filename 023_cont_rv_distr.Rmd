@@ -540,7 +540,7 @@ La variabile casuale $t$ di Student soddisfa le seguenti proprietà:
     pertanto è sempre maggiore di 1 e tende a 1 per
     $\nu \rightarrow \infty$.
 
-## Funzione beta di Eulero
+## Funzione beta 
 
 La funzione beta di Eulero è una funzione matematica, *non* una densità di probabilità. La menzioniamo qui perché viene utilizzata nella distribuzione Beta. La funzione beta si può scrivere in molti modi diversi; per i nostri scopi la scriveremo così:
 
@@ -549,13 +549,36 @@ B(\alpha, \beta) = \frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha + \beta)}\,,
 \end{equation}
 
 dove $\Gamma(x)$ è la funzione Gamma, ovvero il fattoriale discendente, cioè
+
 \begin{equation}
-x(x-1)(x-2)\ldots (x-n+1)\notag\,.
+(x-1)(x-2)\ldots (x-n+1)\notag\,.
 \end{equation}
+
+Per esempio, posti $\alpha = 3$ e $\beta = 9$, la funzione beta assume il valore
+
+```{r}
+alpha <- 3
+beta <- 9
+beta(alpha, beta)
+```
+
+Per chiarire, lo stesso risultato si ottiene con
+
+```{r}
+((2) * (8 * 7 * 6 * 5 * 4 * 3 * 2)) / 
+  (11 * 10 * 9 * 8 * 7 * 6 * 5 * 4 * 3 * 2)
+```
+
+ovvero
+
+```{r}
+gamma(alpha) * gamma(beta) / gamma(alpha + beta)
+```
+
 
 ## Distribuzione Beta
 
-Una distribuzione che viene usata per modellare percentuali e proporzioni è la distribuzione Beta in quanto è definita sull'intervallo $(0; 1)$ -- ma non include i valori 0 o 1. La distribuzione Beta è una distribuzione estremamente flessibile e può assumere molti tipi di forme diverse (un'illustrazione è fornita dalla seguente [GIF animata](https://en.wikipedia.org/wiki/File:PDF_of_the_Beta_distribution.gif)). Una definizione formale è la seguente.
+Una distribuzione che viene usata per modellare percentuali e proporzioni è la distribuzione Beta in quanto è definita sull'intervallo $(0; 1)$ -- ma non include i valori 0 o 1. Una definizione formale è la seguente.
 
 :::{.definition}
 Sia $\pi$ una variabile casuale che può assumere qualsiasi valore compreso tra 0 e 1, cioè $\pi \in [0, 1]$. Diremo che $\pi$ segue la distribuzione Beta di parametri $\alpha$ e $\beta$, $\pi \sim \text{Beta}(\alpha, \beta)$, se la sua densità è
@@ -581,11 +604,11 @@ Il rapporto $\frac{1}{B(\alpha, \beta)} = \frac{\Gamma(\alpha+b)}{\Gamma(\alpha)
 \int_0^1 \pi^{\alpha-1} (1-\pi)^{\beta-1} = \frac{\Gamma(\alpha+b)}{\Gamma(\alpha)\Gamma(\beta)}\,.
 \end{equation}
 
-Facciamo un esempio con dei valori arbitrari $\alpha = 3$ e $\beta = 6$:
+Ad esempio, con $\alpha = 3$ e $\beta = 9$ abbiamo
 
 ```{r}
 a <- 3
-b <- 6
+b <- 9
 integrand <- function(p) {p^{a - 1}*(1 - p)^{b - 1}}
 integrate(integrand, lower = 0, upper = 1)
 ```
@@ -595,6 +618,13 @@ ovvero
 ```{r}
 1 / (gamma(a + b) / (gamma(a) * gamma(b)))
 ```
+
+ovvero
+
+```{r}
+beta(alpha, beta)
+```
+
 
 Il valore atteso, la moda e la varianza di una distribuzione Beta sono dati dalle seguenti equazioni:
 
@@ -613,93 +643,30 @@ Il valore atteso, la moda e la varianza di una distribuzione Beta sono dati dall
 (\#eq:beta-var)
 \end{equation}
 
-::: {.remark}
-Attenzione alle parole: in questo contesto, il termine "beta" viene utilizzato con tre significati diversi:
-
-- la distribuzione di densità Beta,
-
-- la funzione matematica beta,
-
-- il parametro $\beta$.
-:::
-
-Al variare di $\alpha$ e $\beta$ si ottengono molte distribuzioni di forma diversa;  per $\alpha = \beta = 1$ si ha la densità uniforme. Vari esempi di distribuzioni Beta sono mostrati nella figura \@ref(fig:some-beta-distr).
-
-```{r some-beta-distr, echo=FALSE, message=FALSE, warning=FALSE, error=FALSE, fig.cap = "Alcune distribuzioni Beta."}
-library("scales")
-library("ggokabeito")
-
-distribution_plot <- function(dset, dfun, darg, name){
-    theme_update(legend.position=c(0.8, 0.8))
-    gg <- ggplot(dset, aes(x=x))
-    for(index in 1:length(darg)){
-        iarg <- darg[[index]]
-        params <- names(iarg)
-        params <- sapply(params,
-                         switch,
-                         'size'='n',
-                         'prob'='p',
-                         'lambda'='lambda',
-                         'shape'='alpha',
-                         'rate'='beta',
-                         'mean'='mu',
-                         'sd'='sigma',
-                         'df'='df',
-                         'shape1'='shape1',
-                         'shape2'='shape2',
-                         'meanlog'='mu',
-                         'sdlog'='sigma')
-        label <- paste(paste(params, unlist(iarg), sep='=='), collapse='*\',\'~~')
-        gg <- gg+stat_function(data=dset %>% mutate(label=label),
-                               aes(colour=label),
-                               size=0.75,
-                               fun=dfun,
-                               n=nrow(dset),
-                               args=iarg,
-                               geom='path')
-        if(grepl('poisson|binomial', name))
-            gg <- gg+stat_function(data=dset %>% mutate(label=label),
-                                   aes(colour=label),
-                                   fun=dfun,
-                                   n=nrow(dset),
-                                   args=iarg,
-                                   geom='point')
-    }
-    gg <- gg+scale_fill_viridis(option = "E",
-                                name='Parameters',
-                                labels=parse_format())
-    gg <- gg + labs(
-      x = expression(pi),
-      y = expression(f(pi))
-      )
-    print(gg)
-}
-
-beta_plot <- function(){
-    dset <- tibble(x=seq(0, 1, by=0.01))
-    darg <- list(list(shape1 = 1, shape2 = 1),
-                 list(shape1 = 10, shape2 = 10),
-                 list(shape1 = 2, shape2 = 10),
-                 list(shape1 = 10, shape2 = 2))
-    distribution_plot(dset, dbeta, darg, name='beta')
-}
-beta_plot()
-```
-
-Si può ottenere una rappresentazione grafica della distribuzione $\mbox{Beta}(\pi \mid \alpha, \beta)$ con la funzione `plot_beta()` del pacchetto `bayesrules`. Per esempio:
+Al variare di $\alpha$ e $\beta$ si ottengono molte distribuzioni di forma diversa; un'illustrazione è fornita dalla seguente [GIF animata](https://en.wikipedia.org/wiki/File:PDF_of_the_Beta_distribution.gif). Si può ottenere una rappresentazione grafica della distribuzione $\mbox{Beta}(\pi \mid \alpha, \beta)$ con la funzione `plot_beta()` del pacchetto `bayesrules`. Per esempio:
 
 ```{r}
-bayesrules::plot_beta(alpha = 2, beta = 12)
+bayesrules::plot_beta(alpha = 3, beta = 9)
 ```
 
 La funzione `bayesrules::summarize_beta()` ci restituisce la media, moda e varianza della distribuzione Beta. Per esempio:
 
 ```{r}
-bayesrules::summarize_beta(alpha = 2, beta = 12)
+bayesrules::summarize_beta(alpha = 3, beta = 9)
 ```
+
+::: {.remark}
+Attenzione alle parole: in questo contesto, il termine "beta" viene utilizzato con tre significati diversi:
+
+- la distribuzione di densità Beta,
+- la funzione matematica beta,
+- il parametro $\beta$.
+:::
 
 ::: {.exercise}
 Nel disturbo depressivo la recidiva è definita come la comparsa di un nuovo episodio depressivo che si manifesta dopo un prolungato periodo di recupero (6-12 mesi) con stato di eutimia (umore relativamente normale). Supponiamo che una serie di studi mostri una comparsa di recidiva in una proporzione che va dal 20% al 60% dei casi, con una media del 40% [per una recente discussione, si veda @nuggerud2020analysis]. Sulla base di queste ipotetiche informazioni, è possibile usare la distribuzione Beta per rappresentare le nostre credenze a priori relativamente alla probabilità di recidiva. Per fare questo dobbiamo trovare i parametri della distribuzione Beta tali per cui la massa della densità sia compresa tra 0.2 e 0.6, con la media in corrispondenza di 0.4. Procedendo per tentativi ed errori, ed usando la funzione `bayesrules::plot_beta()`, un risultato possibile è $\Beta(16, 24)$.
+
+La funzione `find_pars()` prende in input la media e $\alpha + \beta$, ritorna i valori dei parametri:
 
 ```{r}
 find_pars <- function(ev, n) {
@@ -712,29 +679,73 @@ pars <- find_pars(.4, 40)
 pars
 bayesrules::plot_beta(pars[1], pars[2])
 ```
-La media della distribuzione a priori diventa:
+
+Verifichiamo il valore della media della distribuzione:
+
 ```{r}
 16 / (16 + 24)
 ```
 
-e la moda è
+La moda è
+
 ```{r}
 (16 - 1) / (16 + 24 - 2)
 ```
 
-Inoltre, la deviazione standard della distribuzione a priori diventa
+La deviazione standard della distribuzione è uguale a circa 8 punti percentuali:
 
 ```{r}
 sqrt((16 * 24) / ((16 + 24)^2 * (16 + 24 + 1)))
 ```
 
-uguale a circa 8 punti percentuali. Verifichiamo:
+Gli stessi risultati si ottengono usando la funzione `bayesrules::summarize_beta()`:
 
 ```{r}
 bayesrules::summarize_beta(alpha = 16, beta = 24)
 ```
 
-Questo significa che le nostre credenze a priori rispetto la possibilità di recidiva tendono a deviare di circa 8 punti percentuali rispetto alla media della distribuzione a priori che corrisponde circa a 0.40.
+Possiamo concludere dicendo che, se utilizziamo la distribuzione $\mbox{Beta}(16, 24)$ per rappresentare le nostre credenze (a priori) rispetto la possibilità di recidiva, ciò significa che pensiamo che la nostra incertezza sia quantificabile nei termini di una deviazione standard di circa 8 punti percentuali rispetto a tutti i valori possibili di recidiva, per i quali il valore più verosimile (ovvero, la media della distribuzione) è 0.40.
+:::
+
+::: {.exercise}
+Poniamoci ora il problema di verificare la nostra comprensione delle funzioni $\R$ che possono essere usate per la funzione Beta. Continuiamo con l'esercizio precedente e utilizziamo i seguenti parametri per la distribuzione Beta:
+
+```{r}
+alpha <- 16
+beta <- 24
+```
+
+La media di una $\mbox{Beta}(16, 24)$ è
+
+```{r}
+alpha / (alpha + beta)
+```
+
+In corrispondenza della media la densità della funzione è
+
+```{r}
+dbeta(pi, alpha, beta)
+```
+
+ovvero
+
+```{r}
+gamma(alpha + beta) / (gamma(alpha) * gamma(beta)) * 
+  pi^(alpha - 1) * (1 - pi)^(beta - 1)
+```
+
+Usando la funzione `dbeta()` possiamo costruire un grafico della funzione $\mbox{Beta}(16, 24)$ nel modo seguente:
+
+```{r}
+x <- seq(0, 1, length.out = 1e4)
+tibble(x) %>% 
+  ggplot(aes(x, dbeta(x, alpha, beta))) +
+  geom_line() +
+  labs(
+    x = "Probabilità di recidiva",
+    y = "Densità Beta(16, 24)"
+  )
+```
 :::
 
 ## Distribuzione di Cauchy
