@@ -12,4 +12,3 @@ model {
   sigma ~ normal(5, 2.5);
   y ~ normal(mu, sigma);
 }
-
